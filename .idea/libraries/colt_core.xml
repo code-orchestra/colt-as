@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="colt-core">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/../colt-core/out/production/colt-core" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
