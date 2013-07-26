@@ -1,15 +1,12 @@
 package codeOrchestra.colt.as.compiler.fcsh;
 
-import codeOrchestra.actionScript.make.ASMakeType;
-import codeOrchestra.actionScript.modulemaker.CompilationResult;
-import codeOrchestra.actionScript.modulemaker.MakeException;
-import codeOrchestra.actionScript.modulemaker.process.AbstractFlexSDKRunner;
 import codeOrchestra.colt.as.compiler.fcsh.make.CompilationResult;
 import codeOrchestra.colt.as.compiler.fcsh.make.MakeException;
-import codeOrchestra.lcs.project.LCSProject;
-import codeOrchestra.utils.FileUtils;
-import codeOrchestra.utils.StringUtils;
-
+import codeOrchestra.colt.as.compiler.fcsh.make.process.AbstractFlexSDKRunner;
+import codeOrchestra.colt.as.model.COLTAsProject;
+import codeOrchestra.util.FileUtils;
+import codeOrchestra.util.ProjectHelper;
+import codeOrchestra.util.StringUtils;
 import org.apache.tools.ant.types.Commandline;
 
 import java.io.File;
@@ -78,10 +75,6 @@ public class FCSHFlexSDKRunner extends AbstractFlexSDKRunner {
       for (String additionalArgument : additionalArgs) {
         commandArguments.add(additionalArgument);
       }
-
-      for (String moduleMakeTypeArgument : moduleMakeType.getAdditionalCompilerArgs()) {
-        commandArguments.add(moduleMakeTypeArgument);
-      }
     }
 
     return commandArguments;
@@ -107,7 +100,7 @@ public class FCSHFlexSDKRunner extends AbstractFlexSDKRunner {
 
   @Override
   public String getErrorLogFilePath() {
-    return new File(LCSProject.getCurrentProject().getBaseDir(), COMPILE_ERRORS_LOG_FILE_NAME).getPath();
+    return new File(ProjectHelper.<COLTAsProject>getCurrentProject().getBaseDir(), COMPILE_ERRORS_LOG_FILE_NAME).getPath();
   }
 
   @Override

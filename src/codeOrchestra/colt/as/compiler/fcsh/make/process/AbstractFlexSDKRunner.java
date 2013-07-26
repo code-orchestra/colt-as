@@ -3,9 +3,9 @@ package codeOrchestra.colt.as.compiler.fcsh.make.process;
 import codeOrchestra.colt.as.compiler.fcsh.MaximumCompilationsCountReachedException;
 import codeOrchestra.colt.as.compiler.fcsh.make.CompilationResult;
 import codeOrchestra.colt.as.compiler.fcsh.make.MakeException;
+import codeOrchestra.colt.as.flex.FlexSDKSettings;
 import codeOrchestra.colt.as.model.COLTAsProject;
 import codeOrchestra.colt.as.model.COLTAsProjectBuildSettings;
-import codeOrchestra.lcs.flex.FlexSDKSettings;
 import codeOrchestra.util.ProjectHelper;
 import codeOrchestra.util.StringUtils;
 import org.apache.tools.ant.types.Commandline;
@@ -64,10 +64,6 @@ public abstract class AbstractFlexSDKRunner {
       String[] additionalArgs = new Commandline("commandtoken " + compilerSettings.getCompilerOptions()).getArguments();
       for (String additionalArgument : additionalArgs) {
         commandArguments.add(additionalArgument);
-      }
-
-      for (String moduleMakeTypeArgument : moduleMakeType.getAdditionalCompilerArgs()) {
-        commandArguments.add(moduleMakeTypeArgument);
       }
     }
 

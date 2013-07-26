@@ -3,9 +3,12 @@ package codeOrchestra.colt.as.compiler.fcsh;
 import java.io.File;
 
 import codeOrchestra.actionScript.logging.transport.LoggerServerSocketThread;
+import codeOrchestra.colt.as.flex.FlexSDKSettings;
+import codeOrchestra.colt.as.model.COLTAsProject;
 import codeOrchestra.lcs.flex.FlexSDKSettings;
 import codeOrchestra.lcs.project.LCSProject;
 import codeOrchestra.lcs.project.LiveCodingSettings;
+import codeOrchestra.util.ProjectHelper;
 import codeOrchestra.utils.LocalhostUtil;
 import codeOrchestra.utils.process.JavaLauncher;
 
@@ -26,9 +29,9 @@ public class FCSHLauncher extends JavaLauncher implements IFCSHLauncher {
     StringBuilder programParameters = new StringBuilder();
 
     String applicationHome;
-    LCSProject currentProject = LCSProject.getCurrentProject();
+    COLTAsProject currentProject = ProjectHelper.<COLTAsProject>getCurrentProject();
     if (currentProject != null) {
-      applicationHome = currentProject.getCompilerSettings().getFlexSDKPath();
+      applicationHome = currentProject.getProjectBuildSettings().getFlexSDKPath();
       if (!new File(applicationHome).exists()) {
         applicationHome = FlexSDKSettings.getDefaultFlexSDKPath();
       }

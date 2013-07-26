@@ -2,7 +2,9 @@ package codeOrchestra.colt.as.model;
 
 import codeOrchestra.colt.core.model.COLTProject;
 import codeOrchestra.colt.core.model.persistence.COLTProjectPersistedAspect;
+import codeOrchestra.util.StringUtils;
 
+import java.io.File;
 import java.util.Collections;
 import java.util.List;
 
@@ -34,4 +36,25 @@ public class COLTAsProject extends COLTProject {
     protected List<COLTProjectPersistedAspect> getLanguageSpecificAspects() {
         return Collections.EMPTY_LIST;
     }
+
+    public File getOutputDir() {
+        String outputPath = getProjectBuildSettings().getOutputPath();
+        if (StringUtils.isEmpty(outputPath)) {
+            return getDefaultOutputDir();
+        }
+        return new File(outputPath);
+    }
+
+    public File getDefaultOutputDir() {
+        return new File(getBaseDir(), "colt_output");
+    }
+
+    public File getDigestsDir() {
+        return new File(getBaseDir(), "digests");
+    }
+
+    public File getBaseDir() {
+        return new File(getPath()).getParentFile();
+    }
+
 }
