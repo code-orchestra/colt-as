@@ -4,6 +4,8 @@
       <root url="file://$PROJECT_DIR$/../colt-core/out/production/colt-core" />
     </CLASSES>
     <JAVADOC />
-    <SOURCES />
+    <SOURCES>
+      <root url="file://$PROJECT_DIR$/../colt-core/src" />
+    </SOURCES>
   </library>
 </component>
