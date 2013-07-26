@@ -4,6 +4,8 @@ import codeOrchestra.actionScript.make.ASMakeType;
 import codeOrchestra.actionScript.modulemaker.CompilationResult;
 import codeOrchestra.actionScript.modulemaker.MakeException;
 import codeOrchestra.actionScript.modulemaker.process.AbstractFlexSDKRunner;
+import codeOrchestra.colt.as.compiler.fcsh.make.CompilationResult;
+import codeOrchestra.colt.as.compiler.fcsh.make.MakeException;
 import codeOrchestra.lcs.project.LCSProject;
 import codeOrchestra.utils.FileUtils;
 import codeOrchestra.utils.StringUtils;
@@ -24,8 +26,8 @@ public class FCSHFlexSDKRunner extends AbstractFlexSDKRunner {
 
   private FSCHCompilerKind compilerKind;
 
-  public FCSHFlexSDKRunner(File configFile, ASMakeType moduleMakeType, FSCHCompilerKind compilerKind) {
-    super(configFile, moduleMakeType);
+  public FCSHFlexSDKRunner(File configFile, FSCHCompilerKind compilerKind) {
+    super(configFile);
     this.compilerKind = compilerKind;
   }
 

@@ -1,15 +1,16 @@
 package codeOrchestra.colt.as.compiler.fcsh.console.command;
 
-import codeOrchestra.actionScript.compiler.fcsh.FCSHManager;
+import codeOrchestra.colt.as.compiler.fcsh.FCSHManager;
+import codeOrchestra.colt.as.compiler.fcsh.console.command.output.ProcessOutputTypes;
+import codeOrchestra.colt.as.model.COLTAsProject;
+import codeOrchestra.colt.as.model.COLTAsProjectBuildSettings;
 import codeOrchestra.colt.core.logging.Logger;
 import codeOrchestra.lcs.fcsh.FCSHProcessHandler;
-import codeOrchestra.lcs.project.CompilerSettings;
-import codeOrchestra.lcs.project.LCSProject;
+import codeOrchestra.util.ProjectHelper;
 import codeOrchestra.util.ThreadUtils;
 import com.intellij.execution.process.ProcessAdapter;
 import com.intellij.execution.process.ProcessEvent;
 import com.intellij.execution.process.ProcessListener;
-import com.intellij.execution.process.ProcessOutputTypes;
 
 /**
  * @author Alexander Eliseyev
@@ -52,7 +53,7 @@ public class FCSHCommandRunnable implements Runnable  {
           return;
         }
 
-        CompilerSettings compilerSettings = LCSProject.getCurrentProject().getCompilerSettings();        
+        COLTAsProjectBuildSettings compilerSettings = ProjectHelper.<COLTAsProject>getCurrentProject().getProjectBuildSettings();
         long timeout = compilerSettings.interruptCompilationByTimeout() ? compilerSettings.getCompilationTimeout() * 1000 : Long.MAX_VALUE;
         while (true) {
           // Sleep a bit

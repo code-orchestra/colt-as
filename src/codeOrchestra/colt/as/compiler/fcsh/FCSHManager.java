@@ -21,6 +21,7 @@ import codeOrchestra.actionScript.compiler.fcsh.console.command.impl.LivecodingI
 import codeOrchestra.actionScript.compiler.fcsh.console.command.impl.MXMLCCommand;
 import codeOrchestra.actionScript.compiler.fcsh.target.CompilerTarget;
 import codeOrchestra.actionScript.modulemaker.CompilationResult;
+import codeOrchestra.colt.as.compiler.fcsh.make.CompilationResult;
 import codeOrchestra.lcs.fcsh.FCSHProcessHandler;
 import codeOrchestra.lcs.license.COLTRunningKey;
 import codeOrchestra.lcs.license.DemoHelper;

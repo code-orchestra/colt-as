@@ -1,9 +1,6 @@
 package codeOrchestra.colt.as.model;
 
 import codeOrchestra.colt.core.model.COLTProject;
-import codeOrchestra.colt.core.model.COLTProjectBuildSettings;
-import codeOrchestra.colt.core.model.COLTProjectLiveSettings;
-import codeOrchestra.colt.core.model.COLTProjectPaths;
 import codeOrchestra.colt.core.model.persistence.COLTProjectPersistedAspect;
 
 import java.util.Collections;
@@ -19,17 +16,17 @@ public class COLTAsProject extends COLTProject {
     private COLTAsProjectPaths projectPaths;
 
     @Override
-    public COLTProjectPaths getProjectPaths() {
+    public COLTAsProjectPaths getProjectPaths() {
         return projectPaths;
     }
 
     @Override
-    public COLTProjectLiveSettings getProjectLiveSettings() {
+    public COLTAsProjectLiveSettings getProjectLiveSettings() {
         return liveSettings;
     }
 
     @Override
-    public COLTProjectBuildSettings getProjectBuildSettings() {
+    public COLTAsProjectBuildSettings getProjectBuildSettings() {
         return buildSettings;
     }
 
