@@ -26,6 +26,7 @@ import codeOrchestra.colt.core.session.sourcetracking.SourcesTrackerCallback;
 import codeOrchestra.colt.core.session.sourcetracking.SourcesTrackerThread;
 import codeOrchestra.colt.core.socket.ClientSocketHandler;
 import codeOrchestra.util.*;
+import codeOrchestra.util.templates.TemplateCopyUtil;
 
 import java.io.File;
 import java.io.IOException;
