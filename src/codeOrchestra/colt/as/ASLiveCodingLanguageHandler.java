@@ -6,6 +6,8 @@ import codeOrchestra.colt.core.LiveCodingLanguageHandler;
 import codeOrchestra.colt.core.LiveCodingManager;
 import codeOrchestra.colt.core.ServiceProvider;
 import codeOrchestra.colt.core.launch.LiveLauncher;
+import codeOrchestra.colt.core.loading.LiveCodingHandlerLoadingException;
+import codeOrchestra.colt.core.loading.impl.AbstractLiveCodingHandlerLoader;
 import codeOrchestra.colt.core.logging.Logger;
 import codeOrchestra.colt.core.model.listener.ProjectListener;
 import codeOrchestra.colt.core.model.persistence.COLTProjectPersistence;
@@ -16,7 +18,7 @@ import codeOrchestra.util.ProjectHelper;
 /**
  * @author Alexander Eliseyev
  */
-public class ASLiveCodingLanguageHandler implements LiveCodingLanguageHandler<COLTAsProject> {
+public class ASLiveCodingLanguageHandler extends AbstractLiveCodingHandlerLoader implements LiveCodingLanguageHandler<COLTAsProject> {
 
     private SourceFileFactory sourceFileFactory = new ASSourceFileFactory();
 
@@ -86,4 +88,8 @@ public class ASLiveCodingLanguageHandler implements LiveCodingLanguageHandler<CO
         return new ASLiveCodingManager();  //To change body of implemented methods use File | Settings | File Templates.
     }
 
+    @Override
+    protected HandlerWrapper getHandlerMetadata(String id) throws LiveCodingHandlerLoadingException {
+        return null;  //To change body of implemented methods use File | Settings | File Templates.
+    }
 }

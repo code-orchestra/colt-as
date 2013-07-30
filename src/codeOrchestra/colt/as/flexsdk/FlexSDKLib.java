@@ -1,4 +1,8 @@
-package codeOrchestra.actionScript.flexsdk;
+package codeOrchestra.colt.as.flexsdk;
+
+import codeOrchestra.colt.as.model.COLTAsProject;
+import codeOrchestra.util.FileUtils;
+import codeOrchestra.util.ProjectHelper;
 
 import java.io.File;
 import java.io.FilenameFilter;
@@ -6,9 +10,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-
-import codeOrchestra.lcs.project.LCSProject;
-import codeOrchestra.utils.FileUtils;
 
 /**
  * @author Alexander Eliseyev
@@ -53,7 +54,7 @@ public enum FlexSDKLib {
   }
   
   public String getPath() {
-    String flexSDKDir = LCSProject.getCurrentProject().getCompilerSettings().getFlexSDKPath();
+    String flexSDKDir = ProjectHelper.<COLTAsProject>getCurrentProject().getProjectBuildSettings().getFlexSDKPath();
     if (isPlayerGlobal()) {
       return getMostRecentPlayerglobalSWCPath(new File(flexSDKDir));
     } else {
