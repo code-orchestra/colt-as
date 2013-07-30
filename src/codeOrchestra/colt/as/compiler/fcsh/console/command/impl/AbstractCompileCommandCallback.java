@@ -1,9 +1,18 @@
 package codeOrchestra.colt.as.compiler.fcsh.console.command.impl;
 
+import codeOrchestra.colt.as.ASLiveCodingManager;
 import codeOrchestra.colt.as.compiler.fcsh.FCSHException;
 import codeOrchestra.colt.as.compiler.fcsh.console.command.AbstractCommandCallback;
 import codeOrchestra.colt.as.compiler.fcsh.console.command.CommandOutput;
+import codeOrchestra.colt.as.compiler.fcsh.make.CompilationResult;
+import codeOrchestra.colt.as.compiler.fcsh.make.messages.CompilerMessage;
+import codeOrchestra.colt.as.compiler.fcsh.make.messages.CompilerMessagesWrapper;
+import codeOrchestra.colt.core.LiveCodingManager;
+import codeOrchestra.colt.core.ServiceProvider;
+import codeOrchestra.colt.core.loading.LiveCodingHandlerManager;
 import codeOrchestra.colt.core.logging.Logger;
+import codeOrchestra.util.FileUtils;
+import codeOrchestra.util.ProjectHelper;
 
 import java.io.File;
 
@@ -39,7 +48,8 @@ public abstract class AbstractCompileCommandCallback extends AbstractCommandCall
   protected void processResponseAdditionally(String[] responseLines) {    
     for (String responseLine : responseLines) {
       if (responseLine.contains(DELIVERY_MESSAGE_MARKER)) {
-        LiveCodingManager.instance().addDeliveryMessage(responseLine.substring(responseLine.indexOf("[") + 1, responseLine.indexOf("]")));
+          ASLiveCodingManager liveCodingManager = (ASLiveCodingManager) ServiceProvider.get(LiveCodingManager.class);
+          liveCodingManager.addDeliveryMessage(responseLine.substring(responseLine.indexOf("[") + 1, responseLine.indexOf("]")));
       }
     }
   }
@@ -87,7 +97,7 @@ public abstract class AbstractCompileCommandCallback extends AbstractCommandCall
   }
 
   private String getErrorLogFilePath() {
-    return new File(LCSProject.getCurrentProject().getBaseDir(), COMPILE_ERRORS_LOG_FILE_NAME).getPath();
+    return new File(ProjectHelper.getCurrentProject().getBaseDir(), COMPILE_ERRORS_LOG_FILE_NAME).getPath();
   }
 
   @Override

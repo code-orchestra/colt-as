@@ -1,22 +1,17 @@
 package codeOrchestra.colt.as.compiler.fcsh;
 
-import java.io.IOException;
-import java.io.OutputStreamWriter;
-
-import codeOrchestra.actionScript.compiler.fcsh.console.command.AbstractCommandCallback;
+import codeOrchestra.colt.as.compiler.fcsh.console.command.AbstractCommandCallback;
 import codeOrchestra.colt.as.compiler.fcsh.console.command.output.ProcessOutputTypes;
+import codeOrchestra.colt.as.view.FCSHConsoleView;
+import codeOrchestra.colt.core.execution.OSProcessHandler;
+import codeOrchestra.colt.core.execution.ProcessAdapter;
+import codeOrchestra.colt.core.execution.ProcessEvent;
 import codeOrchestra.colt.core.logging.Logger;
-import codeOrchestra.lcs.logging.Logger;
-import codeOrchestra.lcs.views.FCSHConsoleView;
 import codeOrchestra.util.ExceptionUtils;
 import codeOrchestra.util.StringUtils;
-import codeOrchestra.utils.ExceptionUtils;
-import codeOrchestra.utils.StringUtils;
 
-import com.intellij.execution.process.OSProcessHandler;
-import com.intellij.execution.process.ProcessAdapter;
-import com.intellij.execution.process.ProcessEvent;
-import com.intellij.execution.process.ProcessOutputTypes;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 
 /**
  * @author Alexander Eliseyev
