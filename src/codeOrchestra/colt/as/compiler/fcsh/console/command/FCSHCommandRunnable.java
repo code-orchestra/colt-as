@@ -1,16 +1,16 @@
 package codeOrchestra.colt.as.compiler.fcsh.console.command;
 
 import codeOrchestra.colt.as.compiler.fcsh.FCSHManager;
+import codeOrchestra.colt.as.compiler.fcsh.FCSHProcessHandler;
 import codeOrchestra.colt.as.compiler.fcsh.console.command.output.ProcessOutputTypes;
 import codeOrchestra.colt.as.model.COLTAsProject;
 import codeOrchestra.colt.as.model.COLTAsProjectBuildSettings;
+import codeOrchestra.colt.core.execution.ProcessEvent;
+import codeOrchestra.colt.core.execution.ProcessListener;
 import codeOrchestra.colt.core.logging.Logger;
-import codeOrchestra.lcs.fcsh.FCSHProcessHandler;
 import codeOrchestra.util.ProjectHelper;
 import codeOrchestra.util.ThreadUtils;
-import com.intellij.execution.process.ProcessAdapter;
-import com.intellij.execution.process.ProcessEvent;
-import com.intellij.execution.process.ProcessListener;
+import codeOrchestra.util.process.ProcessAdapter;
 
 /**
  * @author Alexander Eliseyev

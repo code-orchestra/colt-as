@@ -1,5 +1,7 @@
 package codeOrchestra.colt.as;
 
+import codeOrchestra.colt.as.compiler.fcsh.FCSHException;
+import codeOrchestra.colt.as.compiler.fcsh.FCSHManager;
 import codeOrchestra.colt.as.compiler.fcsh.MaximumCompilationsCountReachedException;
 import codeOrchestra.colt.as.compiler.fcsh.make.COLTAsMaker;
 import codeOrchestra.colt.as.compiler.fcsh.make.CompilationResult;
@@ -7,26 +9,27 @@ import codeOrchestra.colt.as.compiler.fcsh.make.MakeException;
 import codeOrchestra.colt.as.digest.EmbedDigest;
 import codeOrchestra.colt.as.model.COLTAsProject;
 import codeOrchestra.colt.as.run.Target;
+import codeOrchestra.colt.as.session.ASLiveCodingSession;
 import codeOrchestra.colt.as.session.sourcetracking.ASSourceFile;
 import codeOrchestra.colt.as.socket.command.impl.PongTraceCommand;
-import codeOrchestra.colt.as.util.PathUtils;
+import codeOrchestra.colt.as.util.ASPathUtils;
 import codeOrchestra.colt.core.AbstractLiveCodingManager;
 import codeOrchestra.colt.core.LiveCodingManager;
 import codeOrchestra.colt.core.errorhandling.ErrorHandler;
+import codeOrchestra.colt.core.http.CodeOrchestraResourcesHttpServer;
 import codeOrchestra.colt.core.logging.Logger;
 import codeOrchestra.colt.core.session.LiveCodingSession;
 import codeOrchestra.colt.core.session.listener.LiveCodingAdapter;
 import codeOrchestra.colt.core.session.listener.LiveCodingListener;
+import codeOrchestra.colt.core.session.sourcetracking.SourceFile;
+import codeOrchestra.colt.core.session.sourcetracking.SourcesTrackerCallback;
 import codeOrchestra.colt.core.session.sourcetracking.SourcesTrackerThread;
 import codeOrchestra.colt.core.socket.ClientSocketHandler;
-import codeOrchestra.util.FileUtils;
-import codeOrchestra.util.StringUtils;
+import codeOrchestra.util.*;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.io.IOException;
+import java.util.*;
 
 /**
  * @author Alexander Eliseyev
@@ -50,6 +53,15 @@ public class ASLiveCodingManager extends AbstractLiveCodingManager<COLTAsProject
     // full path -> list of embeds
     private Map<String, List<EmbedDigest>> embedDigests = new HashMap<String, List<EmbedDigest>>();
 
+    private SourcesTrackerCallback sourcesTrackerCallback = new SourcesTrackerCallback() {
+        @Override
+        public void sourceFileChanged(SourceFile sourceFile) {
+            if (sourceFile instanceof ASSourceFile) {
+                reportChangedFile((ASSourceFile) sourceFile);
+            }
+        }
+    };
+
     private int packageId = 1;
 
     public ASLiveCodingManager() {
@@ -63,7 +75,7 @@ public class ASLiveCodingManager extends AbstractLiveCodingManager<COLTAsProject
             COLTAsProject currentProject = COLTAsProject.getCurrentProject();
 
             if (!production) {
-                FileUtils.clear(new File(PathUtils.getIncrementalOutputDir(currentProject)));
+                FileUtils.clear(new File(ASPathUtils.getIncrementalOutputDir(currentProject)));
             }
 
             // COLT-186
@@ -98,6 +110,219 @@ public class ASLiveCodingManager extends AbstractLiveCodingManager<COLTAsProject
         return compileProject(true);
     }
 
+    public synchronized void runIncrementalCompilation() {
+        COLTAsProject currentProject = COLTAsProject.getCurrentProject();
+        try {
+            compilationInProgress = true;
+
+            List<ASSourceFile> changedFilesSnapshot;
+            synchronized (runMonitor) {
+                changedFilesSnapshot = new ArrayList<ASSourceFile>(changedFiles);
+                changedFiles.clear();
+            }
+
+            try {
+                FCSHManager.instance().startCPUProfiling();
+            } catch (FCSHException e) {
+                ErrorHandler.handle(e, "Error while starting profling");
+            }
+
+            COLTAsMaker lcsMaker = new COLTAsMaker(changedFilesSnapshot);
+            try {
+                if (lcsMaker.make().isOk()) {
+                    try {
+                        FCSHManager.instance().stopCPUProfiling();
+                    } catch (FCSHException e) {
+                        ErrorHandler.handle(e, "Error while stopping profling");
+                    }
+
+                    // Copy the swc to the incremental dir
+                    try {
+                        FileUtils.copyFileChecked(new File(ASPathUtils.getSourceIncrementalSWCPath(currentProject)), new File(ASPathUtils.getTargetIncrementalSWCPath(currentProject, packageId)), false);
+                    } catch (IOException e) {
+                        ErrorHandler.handle(e, "Error while copying incremental compilation artifact");
+                    }
+
+                    // Extract and copy the artifact
+                    try {
+                        UnzipUtil.unzip(new File(ASPathUtils.getSourceIncrementalSWCPath(currentProject)), FileUtils.getTempDir());
+                    } catch (IOException e) {
+                        ErrorHandler.handle(e, "Error while unzipping incremental compilation artifact");
+                    }
+
+                    // Copy the swf from swc and copy to the incremental dir
+                    File extractedSWF = new File(FileUtils.getTempDir(), "library.swf");
+                    if (extractedSWF.exists()) {
+                        File artifact = new File(ASPathUtils.getIncrementalSWFPath(currentProject, packageId));
+                        try {
+                            FileUtils.copyFileChecked(extractedSWF, artifact, false);
+                        } catch (IOException e) {
+                            ErrorHandler.handle(e, "Error while copying incremental compilation artifact");
+                        }
+
+                        for (String deliveryMessage : deliveryMessages) {
+                            if (StringUtils.isNotEmpty(deliveryMessage)) {
+                                sendLiveCodingMessage(deliveryMessage);
+                            } else {
+                                LOG.debug("No updatable changes were made sine last compilation");
+                            }
+                        }
+                        deliveryMessages.clear();
+
+                        incrementPackageNumber();
+                    }
+
+                    tryRunIncrementalCompilation();
+                }
+            } catch (MakeException e) {
+                ErrorHandler.handle(e, "Error while compiling");
+            } catch (MaximumCompilationsCountReachedException e) {
+                ErrorHandler.handle("Maximum compilations count allowed in Demo mode is exceeded", "COLT Demo mode");
+            }
+        } finally {
+            compilationInProgress = false;
+        }
+    }
+
+    private void reportChangedFile(ASSourceFile sourceFile) {
+        if (sourceFile.isAsset()) {
+            List<EmbedDigest> embedDigestsByFullPath = embedDigests.get(sourceFile.getFile().getPath());
+
+            Map<String, List<String>> mimeTypeToSourceAttributes = new HashMap<String, List<String>>();
+            for (EmbedDigest embedDigest : embedDigestsByFullPath) {
+                List<String> sourceAttributes = mimeTypeToSourceAttributes.get(embedDigest.getMimeType());
+                if (sourceAttributes == null) {
+                    sourceAttributes = new ArrayList<String>();
+                    mimeTypeToSourceAttributes.put(embedDigest.getMimeType(), sourceAttributes);
+                }
+
+                if (!sourceAttributes.contains(embedDigest.getSource())) {
+                    sourceAttributes.add(embedDigest.getSource());
+                }
+            }
+
+            for (String mimeType : mimeTypeToSourceAttributes.keySet()) {
+                tryUpdateAsset(sourceFile, mimeType, mimeTypeToSourceAttributes.get(mimeType));
+            }
+
+            return;
+        }
+        if (!sourceFile.isCompilable()) {
+            return;
+        }
+
+        synchronized (runMonitor) {
+            changedFiles.add(sourceFile);
+        }
+
+        tryRunIncrementalCompilation();
+    }
+
+    private synchronized void tryUpdateAsset(ASSourceFile assetFile, String mimeType, List<String> sourceAttributes) {
+        long timeStamp = System.currentTimeMillis();
+
+        // 0 - clear the incremental sources dir
+        COLTAsProject currentProject = COLTAsProject.getCurrentProject();
+        FileUtils.clear(currentProject.getOrCreateIncrementalSourcesDir());
+
+        // 1 - copy the changed asset to the root of incremental dir
+        try {
+            FileUtils.copyFileChecked(assetFile.getFile(), new File(currentProject.getOrCreateIncrementalSourcesDir(), assetFile.getFile().getName()), false);
+        } catch (IOException e) {
+            throw new RuntimeException("Can't copy the asset file: " + assetFile.getFile().getPath(), e);
+        }
+
+        // 2 - copy/modify the source template file
+        String classPostfix = assetFile.getFile().getName().replace(".", "_").replace(" ", "_") + timeStamp;
+        String className = "Asset_" + classPostfix;
+        File templateFile = new File(ASPathUtils.getTemplatesDir(), StringUtils.isEmpty(mimeType) ? "Asset_update_template.as" : "Asset_update_mimetype_template.as");
+        File targetFile = new File(currentProject.getOrCreateIncrementalSourcesDir(), "codeOrchestra/liveCoding/load/" + className + ".as");
+
+        Map<String, String> replacements = new HashMap<String, String>();
+        replacements.put("{CLASS_POSTFIX}", classPostfix);
+        replacements.put("{RELATIVE_PATH}", "/" + assetFile.getFile().getName());
+        replacements.put("{MIME_TYPE}", mimeType);
+
+        try {
+            TemplateCopyUtil.copy(templateFile, targetFile, replacements);
+        } catch (IOException e) {
+            throw new RuntimeException("Can't copy the asset update source file: " + templateFile.getPath(), e);
+        }
+
+        // 3 - compile
+        COLTAsMaker lcsMaker = new COLTAsMaker(Collections.singletonList(new ASSourceFile(targetFile, currentProject.getOrCreateIncrementalSourcesDir().getPath())), true);
+        try {
+            if (lcsMaker.make().isOk()) {
+                // Extract and copy the artifact
+                try {
+                    UnzipUtil.unzip(new File(ASPathUtils.getSourceIncrementalSWCPath(currentProject)), FileUtils.getTempDir());
+                } catch (IOException e) {
+                    ErrorHandler.handle(e, "Error while unzipping incremental compilation artifact (asset)");
+                }
+
+                // 4 - copy the incremental swf
+                File extractedSWF = new File(FileUtils.getTempDir(), "library.swf");
+                if (extractedSWF.exists()) {
+                    File artifact = new File(ASPathUtils.getIncrementalSWFPath(currentProject, packageId));
+                    try {
+                        FileUtils.copyFileChecked(extractedSWF, artifact, false);
+                    } catch (IOException e) {
+                        ErrorHandler.handle(e, "Error while copying incremental compilation artifact (asset)");
+                    }
+
+                    // 5 - send the message
+                    for (String sourceAttribute : sourceAttributes) {
+                        StringBuilder sb = new StringBuilder("asset");
+                        sb.append(":").append("codeOrchestra.liveCoding.load.").append(className).append(":");
+                        sb.append(sourceAttribute).append(":");
+                        if (StringUtils.isEmpty(mimeType)) {
+                            sb.append(":");
+                        } else {
+                            sb.append(mimeType).append(":");
+                        }
+                        sb.append(timeStamp);
+
+                        sendLiveCodingMessage(sb.toString());
+
+                        try {
+                            Thread.sleep(60);
+                        } catch (InterruptedException e) {
+                        }
+                    }
+
+                    // 6 - increment package number
+                    incrementPackageNumber();
+                }
+            }
+        } catch (MakeException e) {
+            ErrorHandler.handle(e, "Error while compiling");
+        } catch (MaximumCompilationsCountReachedException e) {
+            ErrorHandler.handle("Maximum compilations count allowed in Demo mode is exceeded", "COLT Demo mode");
+        }
+    }
+
+    public void sendLiveCodingMessage(String message) {
+        for (LiveCodingSession liveCodingSession : currentSessions.values()) {
+            liveCodingSession.sendLiveCodingMessage(message, String.valueOf(packageId), true);
+        }
+    }
+
+    private void tryRunIncrementalCompilation() {
+        synchronized (runMonitor) {
+            if (changedFiles.isEmpty()) {
+                return;
+            }
+        }
+
+        if (!compilationInProgress) {
+            runIncrementalCompilation();
+        }
+    }
+
+    private void incrementPackageNumber() {
+        packageId++;
+    }
+
     public void addDeliveryMessageToHistory(String broadcastId, String deliveryMessage) {
         List<String> history = deliveryMessagesHistory.get(broadcastId);
         if (history == null) {
@@ -128,6 +353,10 @@ public class ASLiveCodingManager extends AbstractLiveCodingManager<COLTAsProject
         return embedDigests.get(fullPath);
     }
 
+    public void resetPackageId() {
+        packageId = 1;
+    }
+
     @Override
     public void dispose() {
         super.dispose();
@@ -140,7 +369,7 @@ public class ASLiveCodingManager extends AbstractLiveCodingManager<COLTAsProject
     public void startSession(String broadcastId, String clientId, Map<String, String> clientInfo, ClientSocketHandler clientSocketHandler) {
         boolean noSessionsWereActive = currentSessions.isEmpty();
 
-        LiveCodingSession newSession = new LiveCodingSessionImpl(broadcastId, clientId, clientInfo, System.currentTimeMillis(), clientSocketHandler);
+        LiveCodingSession newSession = new ASLiveCodingSession(broadcastId, clientId, clientInfo, System.currentTimeMillis(), clientSocketHandler);
         currentSessions.put(clientId, newSession);
 
         if (noSessionsWereActive) {
@@ -151,15 +380,76 @@ public class ASLiveCodingManager extends AbstractLiveCodingManager<COLTAsProject
         fireSessionStart(newSession);
     }
 
-    @Override
+    public void startListeningForSourcesChanges() {
+        List<File> watchedDirs = new ArrayList<File>();
+        COLTAsProject currentProject = COLTAsProject.getCurrentProject();
+        for (String sourceDirPath : currentProject.getProjectPaths().getSourcePaths()) {
+            File sourceDir = new File(sourceDirPath);
+            if (sourceDir.exists() && sourceDir.isDirectory()) {
+                watchedDirs.add(sourceDir);
+            }
+        }
+        for (String assetDirPath : currentProject.getProjectPaths().getAssetPaths()) {
+            File assetDir = new File(assetDirPath);
+            if (assetDir.exists() && assetDir.isDirectory()) {
+                watchedDirs.add(assetDir);
+            }
+        }
+
+        sourceTrackerThread = new SourcesTrackerThread(sourcesTrackerCallback, watchedDirs);
+        sourceTrackerThread.start();
+    }
+
+    public void stopListeningForSourcesChanges() {
+        if (sourceTrackerThread != null) {
+            sourceTrackerThread.stopRightThere();
+            sourceTrackerThread = null;
+        }
+    }
+
+    public void sendBaseUrl(LiveCodingSession session, String baseUrl) {
+        session.sendLiveCodingMessage("base-url:" + baseUrl, String.valueOf(packageId), false);
+    }
+
+    public String getWebOutputAddress() {
+        return "http://" + LocalhostUtil.getLocalhostIp() + ":" + CodeOrchestraResourcesHttpServer.PORT + "/output";
+    }
+
+    private void restoreSessionState(LiveCodingSession session) {
+        List<String> history = deliveryMessagesHistory.get(session.getBroadcastId());
+        if (history != null) {
+            for (String deliveryMessage : history) {
+                try {
+                    Thread.sleep(50);
+                } catch (InterruptedException e) {
+                    // ignore
+                }
+                session.sendMessageAsIs(deliveryMessage);
+            }
+        }
+    }
+
     public void stopSession(LiveCodingSession liveCodingSession) {
-        // TODO: implement
+        if (liveCodingSession.isDisposed()) {
+            return;
+        }
+
+        liveCodingSession.dispose();
+
+        currentSessions.remove(liveCodingSession.getClientId());
+
+        if (currentSessions.isEmpty()) {
+            resetPackageId();
+            stopListeningForSourcesChanges();
+        }
+
+        fireSessionEnd(liveCodingSession);
     }
 
     private class SessionHandleListener extends LiveCodingAdapter {
 
         // clientId -> session finisher thread
-        private Map<String, SessionFinisher> sessionFinisherThreads = new HashMap<String, LiveCodingManager.SessionFinisher>();
+        private Map<String, SessionFinisher> sessionFinisherThreads = new HashMap<String, SessionFinisher>();
 
         @Override
         public void onSessionStart(LiveCodingSession session) {

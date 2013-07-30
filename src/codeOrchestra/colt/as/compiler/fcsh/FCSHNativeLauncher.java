@@ -4,7 +4,7 @@ import codeOrchestra.colt.as.flex.FlexSDKSettings;
 import codeOrchestra.colt.as.logging.transport.LoggerServerSocketThread;
 import codeOrchestra.colt.as.model.COLTAsProject;
 import codeOrchestra.colt.as.model.COLTAsProjectLiveSettings;
-import codeOrchestra.colt.as.util.PathUtils;
+import codeOrchestra.colt.as.util.ASPathUtils;
 import codeOrchestra.util.LocalhostUtil;
 
 import java.io.File;
@@ -15,7 +15,7 @@ import java.io.File;
 public class FCSHNativeLauncher implements IFCSHLauncher {
 	
 	public ProcessBuilder createProcessBuilder() {
-		ProcessBuilder processBuilder = new ProcessBuilder(PathUtils.getFlexSDKPath() + File.separator + "bin" + File.separator + "ColtFCSH.exe");
+		ProcessBuilder processBuilder = new ProcessBuilder(ASPathUtils.getFlexSDKPath() + File.separator + "bin" + File.separator + "ColtFCSH.exe");
 		
 		StringBuilder programParameters = new StringBuilder();
 

@@ -1,6 +1,6 @@
 package codeOrchestra.colt.as.flex;
 
-import codeOrchestra.colt.as.util.PathUtils;
+import codeOrchestra.colt.as.util.ASPathUtils;
 
 /**
  * @author Alexander Eliseyev
@@ -8,7 +8,7 @@ import codeOrchestra.colt.as.util.PathUtils;
 public class FlexSDKSettings {
 
   public static String getDefaultFlexSDKPath() {
-    return PathUtils.getFlexSDKPath();
+    return ASPathUtils.getFlexSDKPath();
   }
 
 }

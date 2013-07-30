@@ -4,11 +4,11 @@ import codeOrchestra.colt.as.compiler.fcsh.console.command.AbstractCommandCallba
 import codeOrchestra.colt.as.compiler.fcsh.console.command.output.ProcessOutputTypes;
 import codeOrchestra.colt.as.view.FCSHConsoleView;
 import codeOrchestra.colt.core.execution.OSProcessHandler;
-import codeOrchestra.colt.core.execution.ProcessAdapter;
 import codeOrchestra.colt.core.execution.ProcessEvent;
 import codeOrchestra.colt.core.logging.Logger;
 import codeOrchestra.util.ExceptionUtils;
 import codeOrchestra.util.StringUtils;
+import codeOrchestra.util.process.ProcessAdapter;
 
 import java.io.IOException;
 import java.io.OutputStreamWriter;

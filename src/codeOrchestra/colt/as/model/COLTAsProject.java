@@ -1,5 +1,6 @@
 package codeOrchestra.colt.as.model;
 
+import codeOrchestra.colt.as.compiler.fcsh.FSCHCompilerKind;
 import codeOrchestra.colt.core.model.COLTProject;
 import codeOrchestra.colt.core.model.persistence.COLTProjectPersistedAspect;
 import codeOrchestra.util.ProjectHelper;
@@ -36,6 +37,22 @@ public class COLTAsProject extends COLTProject {
     @Override
     protected List<COLTProjectPersistedAspect> getLanguageSpecificAspects() {
         return Collections.EMPTY_LIST;
+    }
+
+    public String getFlexConfigPath(FSCHCompilerKind compilerKind) {
+        return new File(getBaseDir(), getName() + "_" + compilerKind.getCommandName() + "_flex_config.xml").getPath();
+    }
+
+    public File getLinkReportFile() {
+        return new File(getOutputDir(), "link-report.xml");
+    }
+
+    public File getOrCreateIncrementalSourcesDir() {
+        File incrementalSourcesDir = new File(getBaseDir(), "incremental");
+        if (!incrementalSourcesDir.exists()) {
+            incrementalSourcesDir.mkdir();
+        }
+        return incrementalSourcesDir;
     }
 
     public File getOutputDir() {
