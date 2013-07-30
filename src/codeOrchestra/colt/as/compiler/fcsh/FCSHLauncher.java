@@ -1,18 +1,15 @@
 package codeOrchestra.colt.as.compiler.fcsh;
 
-import java.io.File;
-
-import codeOrchestra.actionScript.logging.transport.LoggerServerSocketThread;
 import codeOrchestra.colt.as.flex.FlexSDKSettings;
+import codeOrchestra.colt.as.logging.transport.LoggerServerSocketThread;
 import codeOrchestra.colt.as.model.COLTAsProject;
-import codeOrchestra.lcs.flex.FlexSDKSettings;
-import codeOrchestra.lcs.project.LCSProject;
-import codeOrchestra.lcs.project.LiveCodingSettings;
+import codeOrchestra.colt.as.model.COLTAsProjectLiveSettings;
+import codeOrchestra.util.LocalhostUtil;
 import codeOrchestra.util.ProjectHelper;
-import codeOrchestra.utils.LocalhostUtil;
-import codeOrchestra.utils.process.JavaLauncher;
+import codeOrchestra.util.SystemInfo;
+import codeOrchestra.util.process.JavaLauncher;
 
-import com.intellij.openapi.util.SystemInfo;
+import java.io.File;
 
 /**
  * @author Alexander Eliseyev
@@ -50,7 +47,7 @@ public class FCSHLauncher extends JavaLauncher implements IFCSHLauncher {
     
     // Livecoding parameters
     if (currentProject != null) {
-      LiveCodingSettings liveCodingSettings = currentProject.getLiveCodingSettings();
+      COLTAsProjectLiveSettings liveCodingSettings = currentProject.getProjectLiveSettings();
       programParameters.append(" -DcodeOrchestra.live.liveMethods=" + liveCodingSettings.getLiveMethods().getPreferenceValue());
       programParameters.append(" -DcodeOrchestra.live.gettersSetters=" + liveCodingSettings.makeGettersSettersLive());
       programParameters.append(" -DcodeOrchestra.live.maxLoops=" + liveCodingSettings.getMaxIterationsCount());

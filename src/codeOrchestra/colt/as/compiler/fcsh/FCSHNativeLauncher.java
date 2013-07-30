@@ -1,13 +1,13 @@
 package codeOrchestra.colt.as.compiler.fcsh;
 
-import java.io.File;
+import codeOrchestra.colt.as.flex.FlexSDKSettings;
+import codeOrchestra.colt.as.logging.transport.LoggerServerSocketThread;
+import codeOrchestra.colt.as.model.COLTAsProject;
+import codeOrchestra.colt.as.model.COLTAsProjectLiveSettings;
+import codeOrchestra.colt.as.util.PathUtils;
+import codeOrchestra.util.LocalhostUtil;
 
-import codeOrchestra.actionScript.logging.transport.LoggerServerSocketThread;
-import codeOrchestra.lcs.flex.FlexSDKSettings;
-import codeOrchestra.lcs.project.LCSProject;
-import codeOrchestra.lcs.project.LiveCodingSettings;
-import codeOrchestra.utils.LocalhostUtil;
-import codeOrchestra.utils.PathUtils;
+import java.io.File;
 
 /**
  * @author Alexander Eliseyev
@@ -20,9 +20,9 @@ public class FCSHNativeLauncher implements IFCSHLauncher {
 		StringBuilder programParameters = new StringBuilder();
 
     String applicationHome;
-    LCSProject currentProject = LCSProject.getCurrentProject();
+    COLTAsProject currentProject = COLTAsProject.getCurrentProject();
     if (currentProject != null) {
-      applicationHome = currentProject.getCompilerSettings().getFlexSDKPath();
+      applicationHome = currentProject.getProjectBuildSettings().getFlexSDKPath();
       if (!new File(applicationHome).exists()) {
         applicationHome = FlexSDKSettings.getDefaultFlexSDKPath();
       }
@@ -38,7 +38,7 @@ public class FCSHNativeLauncher implements IFCSHLauncher {
     
     // Livecoding parameters
     if (currentProject != null) {
-      LiveCodingSettings liveCodingSettings = currentProject.getLiveCodingSettings();
+      COLTAsProjectLiveSettings liveCodingSettings = currentProject.getProjectLiveSettings();
       programParameters.append(" -DcodeOrchestra.live.liveMethods=" + liveCodingSettings.getLiveMethods().getPreferenceValue());
       programParameters.append(" -DcodeOrchestra.live.gettersSetters=" + liveCodingSettings.makeGettersSettersLive());
       programParameters.append(" -DcodeOrchestra.live.maxLoops=" + liveCodingSettings.getMaxIterationsCount());

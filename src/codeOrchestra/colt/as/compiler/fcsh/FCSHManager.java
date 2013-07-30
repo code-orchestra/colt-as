@@ -1,34 +1,22 @@
 package codeOrchestra.colt.as.compiler.fcsh;
 
+import codeOrchestra.colt.as.compiler.fcsh.console.command.CommandCallback;
+import codeOrchestra.colt.as.compiler.fcsh.console.command.FCSHCommandExecuteThread;
+import codeOrchestra.colt.as.compiler.fcsh.console.command.FCSHCommandRunnable;
+import codeOrchestra.colt.as.compiler.fcsh.console.command.impl.*;
+import codeOrchestra.colt.as.compiler.fcsh.make.CompilationResult;
+import codeOrchestra.colt.as.compiler.fcsh.target.CompilerTarget;
+import codeOrchestra.colt.core.license.COLTRunningKey;
+import codeOrchestra.colt.core.license.DemoHelper;
+import codeOrchestra.colt.core.logging.Logger;
+import codeOrchestra.util.StringUtils;
+import codeOrchestra.util.SystemInfo;
+
 import java.io.IOException;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import codeOrchestra.actionScript.compiler.fcsh.console.command.CommandCallback;
-import codeOrchestra.actionScript.compiler.fcsh.console.command.FCSHCommandExecuteThread;
-import codeOrchestra.actionScript.compiler.fcsh.console.command.FCSHCommandRunnable;
-import codeOrchestra.actionScript.compiler.fcsh.console.command.impl.COMPCCommand;
-import codeOrchestra.actionScript.compiler.fcsh.console.command.impl.CPUProfilingStartCommand;
-import codeOrchestra.actionScript.compiler.fcsh.console.command.impl.CPUProfilingStopCommand;
-import codeOrchestra.actionScript.compiler.fcsh.console.command.impl.ClearCommand;
-import codeOrchestra.actionScript.compiler.fcsh.console.command.impl.CompileTargetCommand;
-import codeOrchestra.actionScript.compiler.fcsh.console.command.impl.LivecodingBaseCOMPCCommand;
-import codeOrchestra.actionScript.compiler.fcsh.console.command.impl.LivecodingBaseMXMLCCommand;
-import codeOrchestra.actionScript.compiler.fcsh.console.command.impl.LivecodingCachesDeleteCommand;
-import codeOrchestra.actionScript.compiler.fcsh.console.command.impl.LivecodingIncrementalCOMPCCommand;
-import codeOrchestra.actionScript.compiler.fcsh.console.command.impl.MXMLCCommand;
-import codeOrchestra.actionScript.compiler.fcsh.target.CompilerTarget;
-import codeOrchestra.actionScript.modulemaker.CompilationResult;
-import codeOrchestra.colt.as.compiler.fcsh.make.CompilationResult;
-import codeOrchestra.lcs.fcsh.FCSHProcessHandler;
-import codeOrchestra.lcs.license.COLTRunningKey;
-import codeOrchestra.lcs.license.DemoHelper;
-import codeOrchestra.lcs.logging.Logger;
-import codeOrchestra.utils.StringUtils;
-
-import com.intellij.openapi.util.SystemInfo;
 
 /**
  * @author Alexander Eliseyev

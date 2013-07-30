@@ -2,6 +2,7 @@ package codeOrchestra.colt.as.model;
 
 import codeOrchestra.colt.core.model.COLTProject;
 import codeOrchestra.colt.core.model.persistence.COLTProjectPersistedAspect;
+import codeOrchestra.util.ProjectHelper;
 import codeOrchestra.util.StringUtils;
 
 import java.io.File;
@@ -57,4 +58,7 @@ public class COLTAsProject extends COLTProject {
         return new File(getPath()).getParentFile();
     }
 
+    public static COLTAsProject getCurrentProject() {
+        return ProjectHelper.<COLTAsProject>getCurrentProject();
+    }
 }

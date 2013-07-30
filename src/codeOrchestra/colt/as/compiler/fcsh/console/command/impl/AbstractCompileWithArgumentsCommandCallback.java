@@ -1,14 +1,11 @@
 package codeOrchestra.colt.as.compiler.fcsh.console.command.impl;
 
-import java.util.List;
-
-import codeOrchestra.actionScript.compiler.fcsh.FCSHManager;
-import codeOrchestra.actionScript.compiler.fcsh.console.command.CommandOutput;
-import codeOrchestra.actionScript.modulemaker.CompilationResult;
+import codeOrchestra.colt.as.compiler.fcsh.FCSHManager;
 import codeOrchestra.colt.as.compiler.fcsh.console.command.CommandOutput;
 import codeOrchestra.colt.as.compiler.fcsh.make.CompilationResult;
 import codeOrchestra.util.StringUtils;
-import codeOrchestra.utils.StringUtils;
+
+import java.util.List;
 
 /**
  * @author Alexander Eliseyev

@@ -1,7 +1,7 @@
 package codeOrchestra.colt.as.compiler.fcsh.console.command.impl;
 
-import codeOrchestra.actionScript.compiler.fcsh.console.command.AbstractCommandCallback;
-import codeOrchestra.actionScript.compiler.fcsh.console.command.CommandOutput;
+import codeOrchestra.colt.as.compiler.fcsh.console.command.AbstractCommandCallback;
+import codeOrchestra.colt.as.compiler.fcsh.console.command.CommandOutput;
 
 /**
  * @author Alexander Eliseyev

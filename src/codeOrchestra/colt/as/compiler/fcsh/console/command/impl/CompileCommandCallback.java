@@ -1,8 +1,8 @@
 package codeOrchestra.colt.as.compiler.fcsh.console.command.impl;
 
-import codeOrchestra.actionScript.compiler.fcsh.FCSHException;
-import codeOrchestra.actionScript.compiler.fcsh.console.command.CommandCallback;
-import codeOrchestra.actionScript.modulemaker.CompilationResult;
+import codeOrchestra.colt.as.compiler.fcsh.FCSHException;
+import codeOrchestra.colt.as.compiler.fcsh.console.command.CommandCallback;
+import codeOrchestra.colt.as.compiler.fcsh.make.CompilationResult;
 
 /**
  * @author Alexander Eliseyev
