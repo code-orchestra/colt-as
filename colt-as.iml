@@ -18,6 +18,7 @@
       </library>
     </orderEntry>
     <orderEntry type="library" name="colt-core" level="project" />
+    <orderEntry type="library" name="groovy-2.1.6" level="application" />
   </component>
 </module>
 

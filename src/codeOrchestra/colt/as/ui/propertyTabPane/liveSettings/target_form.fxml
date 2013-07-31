@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="codeOrchestra.colt.as.ui.propertyTabPane.liveSettings.TargetFormController">
+  <VBox spacing="10.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+    <fx:define>
+      <ToggleGroup fx:id="target" />
+    </fx:define>
+    <children>
+      <Label text="Target">
+        <VBox.margin>
+          <Insets left="10.0" />
+        </VBox.margin>
+      </Label>
+      <GridPane fx:id="targetPane" hgap="10.0" vgap="10.0">
+        <children>
+          <RadioButton fx:id="swfRBtn" maxWidth="-Infinity" mnemonicParsing="false" text="Compiled SWF" toggleGroup="$target" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+          <RadioButton fx:id="httpRBtn" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" text="HTTP-shared to local network:" toggleGroup="$target" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+          <TextField fx:id="httpTF" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+          <Button fx:id="httpGBtn" minWidth="-Infinity" mnemonicParsing="false" text="Generate index.html" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+          <RadioButton fx:id="iosRBtn" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" text="AIR (iOS):" toggleGroup="$target" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+          <RadioButton fx:id="androidRBtn" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" text="AIR (Android):" toggleGroup="$target" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+          <TextField fx:id="iosTF" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+          <TextField fx:id="androidTF" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+          <Button fx:id="iosGBtn" alignment="CENTER" minWidth="-Infinity" mnemonicParsing="false" text="Generate script" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+          <Button fx:id="androidGBtn" alignment="CENTER" minWidth="-Infinity" mnemonicParsing="false" text="Generate script" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+        </children>
+        <columnConstraints>
+          <ColumnConstraints hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity" />
+          <ColumnConstraints hgrow="ALWAYS" minWidth="-Infinity" />
+          <ColumnConstraints hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="-Infinity" vgrow="NEVER" />
+          <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" vgrow="NEVER" />
+          <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" vgrow="NEVER" />
+          <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" vgrow="NEVER" />
+        </rowConstraints>
+      </GridPane>
+    </children>
+  </VBox>
+</AnchorPane>

@@ -10,6 +10,9 @@ import codeOrchestra.colt.core.logging.Logger;
 import codeOrchestra.colt.core.model.persistence.COLTProjectPersistence;
 import codeOrchestra.colt.core.rpc.COLTRemoteService;
 import codeOrchestra.colt.core.session.sourcetracking.SourceFileFactory;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
 /**
  * @author Alexander Eliseyev
@@ -50,6 +53,15 @@ public class ASLiveCodingLanguageHandler extends AbstractLiveCodingLanguageHandl
     @Override
     public Logger getLogger(String source) {
         return null;  // TODO: implement
+    }
+
+    @Override
+    public void loadUI(Stage primaryStage, Parent root) throws Exception {
+//        root.getChildrenUnmodifiable().re
+
+        primaryStage.setTitle("COLT 1.1 ActionScript");
+        primaryStage.setScene(new Scene(root, 800, 700));
+        primaryStage.show();
     }
 
     @Override

@@ -1,0 +1,38 @@
+package codeOrchestra.groovyfx.ast
+
+
+contributor(context()) {
+
+    def validTypes = [
+            "BooleanProperty",
+            "DoubleProperty",
+            "FloatProperty",
+            "IntegerProperty",
+            "LongProperty",
+            "StringProperty",
+            "ListProperty",
+            "MapProperty",
+            "SetProperty"
+    ]
+
+    place?.eval()
+
+    Boolean classHasAnnotation = classType?.hasAnnotation("codeOrchestra.groovyfx.FXBindable")
+
+    classType?.fields?.each { f ->
+
+        if (classHasAnnotation || f.hasAnnotation("codeOrchestra.groovyfx.FXBindable")) {
+            def regexp = ~/^(.+?)([<].+[>])?$/
+
+            String propertyName = f.type.canonicalText.replaceAll(regexp, '$1')
+            propertyName = propertyName.replaceAll(/^(.+[.])/, "")
+            String propertyGenerics = f.type.canonicalText.replaceAll(regexp, '$2')
+            propertyName = propertyName?.replaceAll("int", "Integer")?.capitalize() + "Property"
+
+            if (validTypes.contains(propertyName)) {
+                method name: f.name, type: "javafx.beans.property." + propertyName + propertyGenerics
+                property name: f.name + "Property", type: "javafx.beans.property." + propertyName + propertyGenerics
+            }
+        }
+    }
+}
