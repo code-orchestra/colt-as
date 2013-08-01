@@ -2,6 +2,8 @@
 |-------------------------------------------------------------------------------
 | CHEATSHEET: JavaFX CSS
 | http://docs.oracle.com/javafx/2/api/javafx/scene/doc-files/cssref.html
+| https://blogs.oracle.com/jeromec/entry/using_the_new_css_analyzer
+| http://fxexperience.com/2010/05/how-to-embed-fonts/
 |-------------------------------------------------------------------------------
 | Styling objects and Selectors
 |---------------------------------------
@@ -157,6 +159,7 @@
 |   -fx-text-fill: #000; // color
 |   -fx-font: bold italic 13px serif; -fx-font: 2px 'sans-serif';
 |   -fx-font-family // 'sans-serif', 'serif', 'monospace', 'system'
+|   -fx-font-size
 |   -fx-font-style
 |   -fx-font-weight
 |   -fx-text-alignment: center;
@@ -330,9 +333,9 @@
 */
 
 .root {
-    -fx-background: #f7f8fa;
-    -fx-base: #515458;
-    -fx-font: 13px 'Arial'; }
+    -fx-background-color: #f7f8fa;
+    -fx-font: 13px 'Arial';
+    -fx-text-fill: #515458; }
 
 /*
 |-------------------------------------------------------------------------------
@@ -340,15 +343,22 @@
 |-------------------------------------------------------------------------------
 */
 
-.sidebar {
-       -fx-background-color: #484a4d;
-}
+.sidebar { -fx-background-color: #484a4d; }
 
 /*
 |-------------------------------------------------------------------------------
 | Main Area
 |-------------------------------------------------------------------------------
 */
+
+.title-bar {
+    -fx-background-color: #ffffff;
+    -fx-border-width: 0 0 1px 0;
+    -fx-border-color: #e1e4e8;
+    -fx-font: 17px 'Roboto';
+    -fx-font-weight: 100;
+    -fx-text-fill: #515458;
+    -fx-padding: 9px 60px 10px 0; }
 
 /*
 |-------------------------------------------------------------------------------
