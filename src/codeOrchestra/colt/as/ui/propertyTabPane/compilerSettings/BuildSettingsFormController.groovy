@@ -41,7 +41,7 @@ class BuildSettingsFormController implements Initializable {
 
     @Override
     void initialize(URL url, ResourceBundle resourceBundle) {
-        AquaFx.setGroupBox(buildVB)
+//        AquaFx.setGroupBox(buildVB)
 
         localeTF.disableProperty().bind(localeCB.selectedProperty().not())
         interruptTF.disableProperty().bind(interruptCB.selectedProperty().not())

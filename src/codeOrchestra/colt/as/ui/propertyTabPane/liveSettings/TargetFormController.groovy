@@ -38,7 +38,7 @@ public class TargetFormController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        AquaFx.setGroupBox(targetPane)
+//        AquaFx.setGroupBox(targetPane)
 
         controls = [httpTF, iosTF, androidTF, httpGBtn, iosGBtn, androidGBtn]
 

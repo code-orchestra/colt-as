@@ -34,7 +34,7 @@ class LauncherFormController implements Initializable {
 
     @Override
     void initialize(URL url, ResourceBundle resourceBundle) {
-        AquaFx.setGroupBox(launcherVB)
+//        AquaFx.setGroupBox(launcherVB)
 
         controls = [playerTF, browsBtn]
 

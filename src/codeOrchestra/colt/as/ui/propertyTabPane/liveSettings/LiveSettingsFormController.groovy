@@ -32,7 +32,7 @@ class LiveSettingsFormController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        AquaFx.setGroupBox(settingsGP)
+//        AquaFx.setGroupBox(settingsGP)
 
         pausedCB.setDisable(true)
 

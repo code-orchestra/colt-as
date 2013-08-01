@@ -23,7 +23,7 @@ class ProductionBuildForm implements Initializable {
 
     @Override
     void initialize(URL url, ResourceBundle resourceBundle) {
-        AquaFx.setGroupBox(buildVB)
+//        AquaFx.setGroupBox(buildVB)
 
         bindModel()
     }
