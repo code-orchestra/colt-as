@@ -3,9 +3,6 @@ package codeOrchestra.colt.as.model
 import codeOrchestra.colt.as.compiler.fcsh.FSCHCompilerKind
 import codeOrchestra.colt.core.COLTProjectManager
 import codeOrchestra.colt.core.model.COLTProject
-import codeOrchestra.colt.core.model.COLTProjectBuildSettings
-import codeOrchestra.colt.core.model.COLTProjectLiveSettings
-import codeOrchestra.colt.core.model.COLTProjectPaths
 import codeOrchestra.groovyfx.FXBindable
 import groovy.transform.Canonical
 
@@ -20,15 +17,6 @@ class COLTAsProject extends COLTProject {
     private final COLTAsProjectBuildSettings buildSettings = new COLTAsProjectBuildSettings()
     private final COLTAsProjectLiveSettings liveSettings = new COLTAsProjectLiveSettings()
 
-//    public final SDKModel sdkModel = new SDKModel()
-//    public final BuildModel buildModel = new BuildModel()
-//    public final ProductionBuildModel productionBuildModel = new ProductionBuildModel()
-//    public final RunTargetModel runTargetModel = new RunTargetModel()
-
-//    public final SettingsModel settingsModel = new SettingsModel()
-//    public final LauncherModel launcherModel = new LauncherModel()
-//    public final LiveSettingsModel liveSettingsModel = new LiveSettingsModel()
-
     @Override
     COLTAsProjectPaths getProjectPaths() {
         return projectPaths
@@ -42,6 +30,11 @@ class COLTAsProject extends COLTProject {
     @Override
     COLTAsProjectBuildSettings getProjectBuildSettings() {
         return buildSettings
+    }
+
+    @Override
+    String getProjectType() {
+        return "AS";
     }
 
     @Override
@@ -62,16 +55,6 @@ class COLTAsProject extends COLTProject {
         liveSettings.buildModel(node.live)
     }
 
-//    String toXmlString() {
-//        StringWriter writer = new StringWriter()
-//        new MarkupBuilder(writer).xml(buildXml())
-//        writer.toString()
-//    }
-
-//    void fromXmlString(String source) {
-//        buildModel(new XmlSlurper().parseText(source))
-//
-//    }
     static COLTAsProject getCurrentProject() {
         return (COLTAsProject) COLTProjectManager.instance.currentProject;
     }

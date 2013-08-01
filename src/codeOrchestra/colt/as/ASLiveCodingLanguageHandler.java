@@ -1,6 +1,7 @@
 package codeOrchestra.colt.as;
 
 import codeOrchestra.colt.as.model.COLTAsProject;
+import codeOrchestra.colt.as.model.ModelStorage;
 import codeOrchestra.colt.as.run.ASLiveLauncher;
 import codeOrchestra.colt.as.session.sourcetracking.ASSourceFileFactory;
 import codeOrchestra.colt.core.AbstractLiveCodingLanguageHandler;
@@ -31,15 +32,13 @@ public class ASLiveCodingLanguageHandler extends AbstractLiveCodingLanguageHandl
 
     @Override
     public COLTAsProject parseProject(GPathResult gPathResult) {
-        COLTAsProject result = new COLTAsProject();
-        result.buildModel(gPathResult);
-        return result;
+        ModelStorage.getInstance().project.buildModel(gPathResult);
+        return ModelStorage.getInstance().project;
     }
 
     @Override
     public COLTAsProject getCurrentProject() {
-        // TODO: implement
-        return null;
+        return ModelStorage.getInstance().project;
     }
 
     @Override
