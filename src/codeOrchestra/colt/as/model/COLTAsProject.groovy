@@ -4,6 +4,7 @@ import codeOrchestra.colt.as.compiler.fcsh.FSCHCompilerKind
 import codeOrchestra.colt.core.COLTProjectManager
 import codeOrchestra.colt.core.model.COLTProject
 import codeOrchestra.groovyfx.FXBindable
+import codeOrchestra.util.StringUtils
 import groovy.transform.Canonical
 
 /**
@@ -56,39 +57,39 @@ class COLTAsProject extends COLTProject {
     }
 
     static COLTAsProject getCurrentProject() {
-        return (COLTAsProject) COLTProjectManager.instance.currentProject;
+        return (COLTAsProject) COLTProjectManager.instance.currentProject
     }
 
     public File getOrCreateIncrementalSourcesDir() {
-        File incrementalSourcesDir = new File(getBaseDir(), "incremental");
+        File incrementalSourcesDir = new File(getBaseDir(), "incremental")
         if (!incrementalSourcesDir.exists()) {
-            incrementalSourcesDir.mkdir();
+            incrementalSourcesDir.mkdir()
         }
-        return incrementalSourcesDir;
+        return incrementalSourcesDir
     }
 
     public File getLinkReportFile() {
-        return new File(getOutputDir(), "link-report.xml");
+        return new File(getOutputDir(), "link-report.xml")
     }
 
     public File getOutputDir() {
-        String outputPath = compilerSettings.getOutputPath();
+        String outputPath = buildSettings.getOutputPath()
         if (StringUtils.isEmpty(outputPath)) {
-            return getDefaultOutputDir();
+            return getDefaultOutputDir()
         }
         return new File(outputPath);
     }
 
     public File getDefaultOutputDir() {
-        return new File(getBaseDir(), "colt_output");
+        return new File(getBaseDir(), "colt_output")
     }
 
     public File getDigestsDir() {
-        return new File(getBaseDir(), "digests");
+        return new File(getBaseDir(), "digests")
     }
 
     public String getFlexConfigPath(FSCHCompilerKind compilerKind) {
-        return new File(getBaseDir(), getName() + "_" + compilerKind.getCommandName() + "_flex_config.xml").getPath();
+        return new File(getBaseDir(), getName() + "_" + compilerKind.getCommandName() + "_flex_config.xml").getPath()
     }
 
 }
