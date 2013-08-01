@@ -1,7 +1,7 @@
 package codeOrchestra.colt.as.model.beans
 
-import codeOrchestra.colt.as.model.IModelElement
-import codeOrchestra.colt.as.model.LiveType
+import codeOrchestra.colt.core.model.IModelElement
+import codeOrchestra.colt.as.run.LiveMethods
 import codeOrchestra.groovyfx.FXBindable
 import groovy.transform.Canonical
 
@@ -11,7 +11,7 @@ import groovy.transform.Canonical
 @Canonical
 @FXBindable
 class LiveSettingsModel implements IModelElement{
-    String liveType = LiveType.ANNOTATED.name()
+    String liveType = LiveMethods.ANNOTATED.preferenceValue
     boolean startSessionPaused
     boolean makeGSLive
     String maxLoop = "1000"

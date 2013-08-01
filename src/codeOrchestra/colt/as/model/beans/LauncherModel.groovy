@@ -1,6 +1,6 @@
 package codeOrchestra.colt.as.model.beans
 
-import codeOrchestra.colt.as.model.IModelElement
+import codeOrchestra.colt.core.model.IModelElement
 import codeOrchestra.groovyfx.FXBindable
 import groovy.transform.Canonical
 

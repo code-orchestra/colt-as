@@ -76,7 +76,7 @@ public class COLTAsMaker {
 
         // Production-only options
         if (productionMode) {
-            flexConfig.setAllowCompression(compilerSettings.allowComression());
+            flexConfig.setAllowCompression(compilerSettings.allowCompression());
             flexConfig.setAllowOptimization(compilerSettings.allowOptimization());
         }
 

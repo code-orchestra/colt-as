@@ -1,7 +1,4 @@
 package codeOrchestra.colt.as.model
-
-import codeOrchestra.colt.as.model.beans.ProjectModel
-
 /**
  * @author Dima Kruk
  */
@@ -12,10 +9,10 @@ class ModelStorage {
         return ourInstance
     }
 
-    public ProjectModel project
+    public COLTAsProject project
 
     private ModelStorage() {
-        project = new ProjectModel()
+        project = new COLTAsProject()
     }
 
     public String save() {

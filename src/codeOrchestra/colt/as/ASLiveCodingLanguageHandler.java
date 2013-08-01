@@ -7,9 +7,9 @@ import codeOrchestra.colt.core.AbstractLiveCodingLanguageHandler;
 import codeOrchestra.colt.core.LiveCodingManager;
 import codeOrchestra.colt.core.launch.LiveLauncher;
 import codeOrchestra.colt.core.logging.Logger;
-import codeOrchestra.colt.core.model.persistence.COLTProjectPersistence;
 import codeOrchestra.colt.core.rpc.COLTRemoteService;
 import codeOrchestra.colt.core.session.sourcetracking.SourceFileFactory;
+import groovy.util.slurpersupport.GPathResult;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -30,8 +30,10 @@ public class ASLiveCodingLanguageHandler extends AbstractLiveCodingLanguageHandl
     }
 
     @Override
-    public COLTProjectPersistence[] getAvailablePersistenceHandlers() {
-        return new COLTProjectPersistence[0];
+    public COLTAsProject parseProject(GPathResult gPathResult) {
+        COLTAsProject result = new COLTAsProject();
+        result.buildModel(gPathResult);
+        return result;
     }
 
     @Override
