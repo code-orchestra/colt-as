@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.layout.BorderPane?>
+<TabPane minHeight="-Infinity" minWidth="-Infinity" tabClosingPolicy="UNAVAILABLE" xmlns:fx="http://javafx.com/fxml">
+  <tabs>
+    <fx:include source="projectPaths/projectPaths_tab.fxml" />
+    <fx:include source="liveSettings/liveSettings_tab.fxml" />
+    <fx:include source="compilerSettings/compilerSettings_tab.fxml" />
+  </tabs>
+  <BorderPane.margin>
+    <Insets bottom="5" left="5" right="5" top="10" />
+  </BorderPane.margin>
+</TabPane>

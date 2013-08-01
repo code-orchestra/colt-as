@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="codeOrchestra.colt.as.ui.propertyTabPane.liveSettings.LiveSettingsFormController">
+  <VBox spacing="10.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+    <fx:define>
+      <ToggleGroup fx:id="methods" />
+    </fx:define>
+    <children>
+      <Label text="Live Settings">
+        <VBox.margin>
+          <Insets left="10.0" />
+        </VBox.margin>
+      </Label>
+      <GridPane fx:id="settingsGP" hgap="10.0" vgap="10.0">
+        <children>
+          <Label maxWidth="-Infinity" minHeight="-Infinity" text="Live Methods:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+          <RadioButton fx:id="annotatedRBtn" mnemonicParsing="false" selected="true" text="Annotated with [Live]" toggleGroup="$methods" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+          <RadioButton fx:id="allRBtn" mnemonicParsing="false" text="All the methods" toggleGroup="$methods" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+          <Label text="Start Session Paused:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+          <Label text="Make Getters/Setters Live:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+          <Label text="Max Loop Iterations:" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+          <CheckBox fx:id="pausedCB" mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+          <CheckBox fx:id="gsLiveCB" mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+          <TextField fx:id="maxLoopTF" maxWidth="60.0" minWidth="60.0" text="10000" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+        </children>
+        <columnConstraints>
+          <ColumnConstraints hgrow="NEVER" minWidth="-Infinity" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="-Infinity" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="-Infinity" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" vgrow="NEVER" />
+          <RowConstraints minHeight="-Infinity" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="-Infinity" vgrow="SOMETIMES" />
+        </rowConstraints>
+      </GridPane>
+    </children>
+  </VBox>
+</AnchorPane>

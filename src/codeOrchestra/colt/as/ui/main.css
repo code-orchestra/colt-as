@@ -1,0 +1,357 @@
+/*
+|-------------------------------------------------------------------------------
+| CHEATSHEET: JavaFX CSS
+| http://docs.oracle.com/javafx/2/api/javafx/scene/doc-files/cssref.html
+|-------------------------------------------------------------------------------
+| Styling objects and Selectors
+|---------------------------------------
+|
+| Nodes:
+|   Containers:
+|       Group
+|       Node
+|       Parent
+|       Scene
+|       ImageView
+|       AnchorPane
+|       BorderPane
+|       FlowPane
+|       GridPane
+|       HBox
+|       VBox
+|       Pane
+|       Region // It is typically a rounded rectangle like fieldset
+|       StackPane
+|       TilePane
+|
+|   Shape:
+|       Arc
+|       Circle
+|       CubicCurve
+|       Ellipse
+|       Line
+|       Path
+|       Polygon
+|       QuadCurve
+|       Rectangle
+|       SVGPath
+|
+|   WebView
+|
+|   Controls:
+|       Accordion
+|       Button
+|       ButtonBase
+|       Cell // special property: -fx-cell-size
+|       CheckBox
+|       CheckMenuItem
+|       ChoiceBox
+|       ColorPicker
+|       ComboBox
+|       ComboBoxBase
+|       Control
+|       Hyperlink
+|       IndexedCell
+|       Label
+|       Labeled
+|       ListCell
+|       ListView
+|       Menu
+|       MenuBar
+|       MenuButton
+|       MenuItem
+|       Pagination
+|       PasswordField
+|       PopupControl
+|       ProgressBar
+|       ProgressIndicator
+|       RadioButton
+|       RadioMenuItem
+|       ScrollBar
+|       ScrollPane
+|       Separator
+|       Slider
+|       SplitMenuButton
+|       SplitPane
+|       TabPane
+|       TableView
+|       TextArea
+|       TextInputControl
+|       TextField
+|       TitledPanel // special properties: -fx-animated, -fx-collapsible
+|       ToggleButton
+|       ToolBar
+|       Tooltip
+|       TreeCell
+|       TreeView
+|
+|   Charts: // They have many special property
+|       AreaChart
+|       BarChart
+|       BubbleChart
+|       Chart
+|       LineChart
+|       ScatterChart
+|       PieChart
+|       XYChart
+|           Axis
+|           ValueAxis
+|           NumberAxis
+|           CategoryAxis
+|           Legend
+|
+| Pseudo-classes:
+|   :hover
+|   :visited // Only for hyperlinks
+|   :focused // Instead of :focus
+|   :pressed // Instead of :active
+|   :disabled
+|   :vertical // .scroll-bar:vertical
+|   :selected // Checkboxes, RadioMenuItem
+|
+| Not supported pseudo-classes and pseudo-elements:
+|   :after, :before, :active, :focus, :first-child, :first-line, :first-letter,
+|   :lang, :link
+|
+|---------------------------------------
+| Color formats, properties, functions,
+|---------------------------------------
+|
+| #000 // Preferred
+| rgb(49, 89, 23)
+| rgba(255, 0, 0, .44)
+|
+| -fx-opacity:
+| -fx-blend-mode: [ add | blue | color-burn | color-dodge | darken | difference
+|   exclusion | green | hard-light | lighten | multiply | overlay | red | screen
+|   soft-light | src-atop | src-in | src-out | src-over ]
+| -fx-text-fill: derive(#000, 20%);
+|   function to make color lighter or darker (-<number>%)
+|
+| transparent > null // -fx-background-color: null
+|
+|---------------------------------------
+| Properties
+|---------------------------------------
+|
+| Base and common
+|   -fx-background: #f7f8fa;
+|   -fx-base: #515458;
+|
+|   -fx-cursor  [ null | crosshair | default | hand | move | e-resize | h-resize
+|       ne-resize | nw-resize | n-resize | se-resize | sw-resize | s-resize
+|       w-resize | v-resize | text | wait ] | <url>
+|   visibility  [ visible | hidden | collapse | inherit ]
+|
+|   -fx-alignment   [ top-left | top-center | top-right | center-left | center
+|       center-right bottom-left | bottom-center | bottom-right | baseline-left
+|       baseline-center | baseline-right ]  top-left
+|   -fx-orientation [ horizontal | vertical ]
+|       FlowPane, TilePane, ListView, ScrollBar, Separator, Slider,
+|       SplitPane, ToolBar
+|   -fx-column-halignment   [ left | center | right ]
+|   -fx-row-valignment  [ top | center | baseline | bottom ]
+|   -fx-orientation [ horizontal | vertical ]
+|
+| Text
+|   -fx-text-fill: #000; // color
+|   -fx-font: bold italic 13px serif; -fx-font: 2px 'sans-serif';
+|   -fx-font-family // 'sans-serif', 'serif', 'monospace', 'system'
+|   -fx-font-style
+|   -fx-font-weight
+|   -fx-text-alignment: center;
+|   -fx-underline
+|
+|   -fx-font-smoothing-type [ gray | lcd ]  default is gray
+|   -fx-strikethrough   <boolean>
+|   -fx-text-origin [ baseline | top | bottom ] baseline
+|
+| Not supported text properties
+|   comma-separated series of font family names, line height, font-variant
+|
+| Box
+|   -fx-padding: 3 6 6 6;
+|   -fx-padding: 10;
+|   -fx-spacing: 8; // Looks like margins
+|
+| Background
+|   -fx-fill: yellow;
+|   -fx-background-color // <color> | <linear-gradient> | <radial-gradient>
+|   -fx-background-color: linear-gradient(from top to bottom, #0099d9, #0066cc 84%, #007ad9 100%);
+|       linear-gradient( [ [from <point> to <point>] | [ to <side-or-corner>], ]? [ [ repeat | reflect ], ]? <color-stop>[, <color-stop>]+)
+|       <side-or-corner> = [left | right] || [top | bottom]
+|       linear-gradient(from 0 0 to 100% 100%, red, black 100%)
+|       from top left to bottom right, red to black
+|       linear-gradient(from 0 0 to 0 50px, gray, darkgray 50%, dimgray 99%, white)
+|       create a 50px high bar at the top with a 3 color gradient
+|       with white underneath for the rest of the filled area.
+|   -fx-background-color: radial-gradient(radius 100%, red, darkgray, black)
+|   -fx-background-color: radial-gradient(focus-angle 45deg, focus-distance 20%, center 25% 25%, radius 50%, reflect, gray, darkgray 75%, dimgray)
+|
+|   -fx-background-insets: 0.0 5.0 0.0 5.0;
+|       A series of size values or sets of four size values, separated by commas.
+|       A single size value means all insets are the same. Otherwise, the four
+|       values for each inset are given in the order top, right, bottom, left.
+|       Each comma-separated value or set of values in the series applies to the
+|       corresponding background color.
+|
+|   -fx-background-radius: 20; // I think it's addition for border-radius
+|
+|   -fx-background-image: url('img/arrow.png')
+|   -fx-background-repeat: no-repeat;
+|   -fx-background-position:
+|   -fx-background-size: 20, 40;
+|
+| Effects
+|   -fx-effect: dropshadow( gaussian, black, 8 , 0.0, 2, 0 );
+|   -fx-effect: innershadow( gaussian, black, 8 , 0.0, 2, 0 );
+|       dropshadow( <blur-type>, <color>, <size>, <choke>, <x>, <y>)
+|       blur-type: gaussian | one-pass-box | three-pass-box | two-pass-box
+|
+| Border
+|   -fx-border-width: 2px;
+|   -fx-border-color: rgb(49, 89, 23);
+|   -fx-border-style
+|       <dash-style> [phase <number>]? [centered | inside | outside]?
+|           [line-join [miter <number> | bevel | round]]?
+|           [line-cap [square | butt | round]]?
+|           <dash-style> = [ none | solid | dotted
+|           dashed | segments( <number>, <number> [, <number>]*) ]
+|   -fx-border-radius: 5px;
+|   -fx-border-insets
+|   -fx-stroke-width: 5px;
+|   -fx-stroke: green;
+|
+|   -fx-border-image-source: url(img/border.png)
+|   -fx-border-image-width
+|   -fx-border-image-insets
+|   -fx-border-image-repeat [repeat-x | repeat-y | [repeat | space | round | no-repeat]
+|   -fx-border-image-slice
+|
+| Transformation
+|   -fx-rotate: 45;
+|   -fx-scale-x
+|   -fx-scale-y
+|   -fx-scale-z
+|   -fx-translate-x
+|   -fx-translate-y
+|   -fx-translate-z
+|
+| Misc
+|   Webview
+|       -fx-font-scale
+|       -fx-min-width
+|       -fx-min-height
+|       -fx-pref-width
+|       -fx-pref-height
+|       -fx-max-width
+|       -fx-max-height
+|
+|   Labeled object
+|       -fx-graphic
+|       -fx-wrap-text
+|       -fx-content-display
+|       -fx-graphic-text-gap
+|       -fx-label-padding
+|       -fx-ellipsis-string
+|
+|   Pagination
+|       -fx-max-page-indicator-count
+|       -fx-arrows-visible
+|       -fx-tooltip-visible
+|       -fx-page-information-visible
+|       -fx-page-information-alignment
+|
+|   ProgressBar
+|       -fx-indeterminate-bar-length
+|       -fx-indeterminate-bar-escape
+|       -fx-indeterminate-bar-flip
+|       -fx-indeterminate-bar-animation-time
+|
+|   ScrollPane
+|       -fx-fit-to-width
+|       -fx-fit-to-height
+|       -fx-pannable
+|       -fx-hbar-policy
+|       -fx-vbar-policy
+|
+| ???????
+|   -fx-spacing
+|   -fx-hgap: 10px; // Margin?
+|   -fx-vgap: 10px;
+|   -fx-image
+|   -fx-background-fills // shorthand for -fx-background-color,
+|       -fx-background-insets, -fx-background-radius.
+|   -fx-background-images // shorthand for -fx-background-image,
+|       -fx-background-position, -fx-background-repeat, -background-size.
+|   -fx-stroke-borders // shorthand for -fx-border-color, -fx-border-insets,
+|       -fx-border-radius, -fx-border-style, -fx-border-width.
+|   -fx-image-borders // shorthand for -fx-border-image-source,
+|       -fx-border-image-insets, -fx-border-image-repeat,
+|       -fx-border-image-slice, -fx-border-image-width.
+|   -fx-position-shape
+|   -fx-scale-shape
+|   -fx-shape
+|   -fx-snap-to-pixel
+|
+|---------------------------------------
+| Naming convention: prefixes in selectors
+|---------------------------------------
+| a — link
+| art - article
+| box — box
+| bnr — banner
+| btn — button
+| cbx — checkbox
+| doc — document
+| f — form
+| ftr — feature
+| gl - global
+| i — input
+| ico — icon
+| l - list
+| ln - line
+| m — menu
+| mob — mobile, i.e. smartphones
+| p — page
+| pc - desktop computer
+| plc - placeholder
+| rb — radio button
+| s — select
+| sec — page section, block
+| sl - slider
+| sm — submenu
+| ta — textarea
+| tbl — tablet
+| tbn — thumbnail
+| tsr — teaser
+| txt - text
+|
+*/
+
+.root {
+    -fx-background: #f7f8fa;
+    -fx-base: #515458;
+    -fx-font: 13px 'Arial'; }
+
+/*
+|-------------------------------------------------------------------------------
+| Sidebar
+|-------------------------------------------------------------------------------
+*/
+
+.sidebar {
+       -fx-background-color: #484a4d;
+}
+
+/*
+|-------------------------------------------------------------------------------
+| Main Area
+|-------------------------------------------------------------------------------
+*/
+
+/*
+|-------------------------------------------------------------------------------
+| Status Bar
+|-------------------------------------------------------------------------------
+*/
