@@ -3,6 +3,8 @@
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
 <AnchorPane fx:controller="codeOrchestra.colt.as.ui.propertyTabPane.compilerSettings.ProductionBuildForm" xmlns:fx="http://javafx.com/fxml">
   <VBox spacing="10.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
     <children>

@@ -8,13 +8,10 @@
 <?import javafx.scene.paint.*?>
 
 <AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="codeOrchestra.colt.as.ui.propertyTabPane.liveSettings.SettingsFormController">
-  <VBox minHeight="-Infinity" minWidth="-Infinity" spacing="10.0">
+  <VBox spacing="10.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
     <children>
       <CheckBox fx:id="clearLogCB" mnemonicParsing="false" selected="true" text="Clear messages log on session start" />
       <CheckBox fx:id="pingTimeoutCB" mnemonicParsing="false" selected="true" text="Disconnect on ping timeout" />
     </children>
-    <VBox.margin>
-      <Insets bottom="10.0" left="10.0" right="10.0" />
-    </VBox.margin>
   </VBox>
 </AnchorPane>

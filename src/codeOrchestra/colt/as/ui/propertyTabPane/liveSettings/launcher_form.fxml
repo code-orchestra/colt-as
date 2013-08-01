@@ -16,7 +16,7 @@
       </Label>
       <VBox fx:id="launcherVB" spacing="10.0">
         <children>
-          <RadioButton fx:id="defaultRBtn" mnemonicParsing="false" selected="true" text="System default application" toggleGroup="$launcher" />
+          <RadioButton fx:id="defaultRBtn" mnemonicParsing="false" text="System default application" toggleGroup="$launcher" />
           <HBox spacing="10.0">
             <children>
               <RadioButton fx:id="playerRBtn" maxWidth="1.7976931348623157E308" minWidth="-Infinity" mnemonicParsing="false" text="Flash Player" toggleGroup="$launcher" />
