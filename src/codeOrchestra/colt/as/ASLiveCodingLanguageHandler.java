@@ -4,6 +4,7 @@ import codeOrchestra.colt.as.model.COLTAsProject;
 import codeOrchestra.colt.as.model.ModelStorage;
 import codeOrchestra.colt.as.run.ASLiveLauncher;
 import codeOrchestra.colt.as.session.sourcetracking.ASSourceFileFactory;
+import codeOrchestra.colt.as.ui.TestMainApp;
 import codeOrchestra.colt.core.AbstractLiveCodingLanguageHandler;
 import codeOrchestra.colt.core.LiveCodingManager;
 import codeOrchestra.colt.core.launch.LiveLauncher;
@@ -11,6 +12,8 @@ import codeOrchestra.colt.core.logging.Logger;
 import codeOrchestra.colt.core.rpc.COLTRemoteService;
 import codeOrchestra.colt.core.session.sourcetracking.SourceFileFactory;
 import groovy.util.slurpersupport.GPathResult;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -57,12 +60,8 @@ public class ASLiveCodingLanguageHandler extends AbstractLiveCodingLanguageHandl
     }
 
     @Override
-    public void loadUI(Stage primaryStage, Parent root) throws Exception {
-//        root.getChildrenUnmodifiable().re
-
-        primaryStage.setTitle("COLT 1.1 ActionScript");
-        primaryStage.setScene(new Scene(root, 800, 700));
-        primaryStage.show();
+    public Node getPane() throws Exception {
+        return FXMLLoader.load(TestMainApp.class.getResource("main_app.fxml"));
     }
 
     @Override
