@@ -8,14 +8,18 @@
 <?import javafx.scene.paint.*?>
 <?scenebuilder-stylesheet main.css?>
 
-<BorderPane id="BorderPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml" fx:controller="codeOrchestra.colt.as.ui.MainAppController">
+<BorderPane id="BorderPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="codeOrchestra.colt.as.ui.MainAppController">
   <center>
     <BorderPane fx:id="borderPane">
       <bottom>
         <Label text="ActionScript" BorderPane.alignment="CENTER_RIGHT" />
       </bottom>
       <top>
-        <Label text="Project Name" BorderPane.alignment="CENTER" />
+        <HBox alignment="CENTER" prefHeight="-1.0" prefWidth="200.0" styleClass="title-bar">
+          <children>
+            <Label ellipsisString="…" text="Label" textAlignment="CENTER" />
+          </children>
+        </HBox>
       </top>
     </BorderPane>
   </center>
