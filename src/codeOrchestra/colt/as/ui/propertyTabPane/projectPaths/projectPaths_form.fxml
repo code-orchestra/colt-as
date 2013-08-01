@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.paint.*?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="codeOrchestra.colt.as.ui.propertyTabPane.projectPaths.ProjectPathsController">
+<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="codeOrchestra.colt.as.ui.propertyTabPane.projectPaths.ProjectPathsFormController">
   <VBox AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
     <children>
       <fx:include fx:id="sourcePaths" source="paths_form.fxml" />

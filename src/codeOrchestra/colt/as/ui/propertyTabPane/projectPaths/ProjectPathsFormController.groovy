@@ -11,7 +11,7 @@ import javafx.stage.FileChooser
 /**
  * @author Dima Kruk
  */
-class ProjectPathsController implements Initializable {
+class ProjectPathsFormController implements Initializable {
     @FXML TextField templateTF
 
     //initialise from fxml by ids (Nested Controllers)

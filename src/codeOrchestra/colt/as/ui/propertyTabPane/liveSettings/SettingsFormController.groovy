@@ -10,7 +10,7 @@ import javafx.scene.control.CheckBox
  * @author Dima Kruk
  */
 @SuppressWarnings(["GroovyAssignabilityCheck", "GroovyUnusedDeclaration"])
-class LiveSettingsTabController implements Initializable {
+class SettingsFormController implements Initializable {
 
     @FXML CheckBox clearLogCB;
     @FXML CheckBox pingTimeoutCB;

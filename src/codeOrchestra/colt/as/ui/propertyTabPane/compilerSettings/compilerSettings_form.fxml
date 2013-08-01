@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.paint.*?>
 
-<AnchorPane fx:controller="codeOrchestra.colt.as.ui.propertyTabPane.compilerSettings.CompilerSettingsTabController" xmlns:fx="http://javafx.com/fxml">
+<AnchorPane fx:controller="codeOrchestra.colt.as.ui.propertyTabPane.compilerSettings.CompilerSettingsFormController" xmlns:fx="http://javafx.com/fxml">
   <VBox spacing="10.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
     <children>
       <HBox minHeight="-Infinity" spacing="10.0">

@@ -11,7 +11,7 @@ import javafx.scene.control.TextField
  * @author Dima Kruk
  */
 @SuppressWarnings(["GroovyAssignabilityCheck", "GroovyUnusedDeclaration"])
-class CompilerSettingsTabController implements Initializable {
+class CompilerSettingsFormController implements Initializable {
     @FXML TextField optionsTF
 
     BuildModel model = ModelStorage.instance.project.projectBuildSettings.buildModel

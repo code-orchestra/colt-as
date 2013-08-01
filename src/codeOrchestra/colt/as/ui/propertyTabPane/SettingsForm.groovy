@@ -35,7 +35,7 @@ class SettingsForm {
             FXNode liveSettings = FXMLLoader.load(getClass().getResource("liveSettings/liveSettings_form.fxml"))
             vBox.children.add(liveSettings)
 
-            FXNode lSettings = FXMLLoader.load(getClass().getResource("liveSettings/lSettings_form.fxml"))
+            FXNode lSettings = FXMLLoader.load(getClass().getResource("liveSettings/settings_form.fxml"))
             vBox.children.add(lSettings)
             //liveSettings
 

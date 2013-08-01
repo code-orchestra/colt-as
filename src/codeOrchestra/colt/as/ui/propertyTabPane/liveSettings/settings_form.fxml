@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.paint.*?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="codeOrchestra.colt.as.ui.propertyTabPane.liveSettings.LiveSettingsTabController">
+<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="codeOrchestra.colt.as.ui.propertyTabPane.liveSettings.SettingsFormController">
   <VBox minHeight="-Infinity" minWidth="-Infinity" spacing="10.0">
     <children>
       <CheckBox fx:id="clearLogCB" mnemonicParsing="false" selected="true" text="Clear messages log on session start" />
