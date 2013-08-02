@@ -26,18 +26,18 @@ class ProjectPathsFormController implements Initializable {
         sourcePathsController.titleText = "Source Paths:"
         sourcePathsController.chooserType = PathsFormController.DIRECTORY
         sourcePathsController.chooserTitle = "Select Source directory"
-        sourcePathsController.model = model.sources
+        sourcePathsController.model = model.sources()
 
         libraryPathsController.titleText = "Library Paths:"
         libraryPathsController.chooserType = PathsFormController.FILE
         libraryPathsController.fileChooser.extensionFilters.add(new FileChooser.ExtensionFilter("SWC", "*.swc"))
         libraryPathsController.chooserTitle = "Select Library files"
-        libraryPathsController.model = model.libraries
+        libraryPathsController.model = model.libraries()
 
         assetsPathsController.titleText = "Assets Paths:"
         assetsPathsController.chooserType = PathsFormController.DIRECTORY
         assetsPathsController.chooserTitle = "Select Assets directory"
-        assetsPathsController.model = model.assets
+        assetsPathsController.model = model.assets()
 
         bindModel()
     }
