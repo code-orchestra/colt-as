@@ -22,7 +22,6 @@ class LogCell extends ListCell<LogMessage> {
     LogCell() {
         super()
         label.wrapText = true
-        hBox.styleClass.add("li")
         hyperlink.alignment = Pos.TOP_RIGHT
         hBox.children.addAll(label, hyperlink)
         //label.maxWidth = Double.MAX_VALUE
@@ -52,7 +51,7 @@ class LogCell extends ListCell<LogMessage> {
             }
             label.text = item.getMessageText(false)
             setGraphic(hBox)
-            hBox.styleClass.add(style)
+            styleClass.add(style)
         }
     }
 }

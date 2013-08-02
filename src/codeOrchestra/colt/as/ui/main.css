@@ -443,9 +443,9 @@
         -fx-padding: 5px 15px 7px 36px;
         -fx-text-fill: #515458; }
 
-    .list-cell:odd, li:odd { -fx-background-color: #ebeef2; }
+    .list-cell:odd, .li:odd { -fx-background-color: #ebeef2; }
 
-    .list-cell:selected, li:selected {
+    .list-cell:selected, .li:selected {
         -fx-background-color: #deeeff;
         -fx-border-width: 1px 0 1px 0;
         -fx-border-color: #bfd9f2;
@@ -461,5 +461,5 @@
     .error {
         -fx-background-image: url('images/messages/error.png');
     }
-    .info { -fx-background-image: url('images/messages/error.png'); }
-    .warning { -fx-background-image: url('images/messages/error.png'); }
+    .info { -fx-background-image: url('images/messages/info.png'); }
+    .warning { -fx-background-image: url('images/messages/warning.png'); }
