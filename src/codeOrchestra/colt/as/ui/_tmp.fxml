@@ -17,7 +17,7 @@
         <FXCollections fx:factory="observableArrayList">
             <HBox styleClass="error">
                 <children>
-                    <TextArea wrapText="true" />
+                    <Label wrapText="true" />
                     <Hyperlink text="Hyperlink" />
                 </children>
             </HBox>

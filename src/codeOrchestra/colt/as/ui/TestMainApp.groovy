@@ -17,9 +17,12 @@ class TestMainApp extends Application {
         primaryStage.setTitle("COLT 1.1");
         primaryStage.setScene(new Scene(root, 800, 700));
         primaryStage.show();
+
+
     }
 
     public static void main(String[] args) {
         Application.launch(TestMainApp, args);
+//        new groovy.ui.Console().run()
     }
 }
