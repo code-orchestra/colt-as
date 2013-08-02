@@ -1,5 +1,6 @@
 package codeOrchestra.colt.as.ui.log
 
+import javafx.geometry.Pos
 import javafx.scene.control.Hyperlink
 import javafx.scene.control.Label
 import javafx.scene.control.ListCell
@@ -22,7 +23,10 @@ class LogCell extends ListCell<LogMessage> {
         super()
         label.wrapText = true
         hBox.styleClass.add("li")
+        hyperlink.alignment = Pos.TOP_RIGHT
         hBox.children.addAll(label, hyperlink)
+        //label.maxWidth = Double.MAX_VALUE
+        hyperlink.alignment = Pos.TOP_LEFT
         HBox.setHgrow(label, Priority.ALWAYS)
     }
 

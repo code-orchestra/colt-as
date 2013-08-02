@@ -454,8 +454,12 @@
     .error, .info, .warning {
         -fx-background-position: 10px 6px;
         -fx-background-repeat: no-repeat;
-        -fx-background-size: 16px, 16px; }
+        -fx-background-size: 16px, 16px;
+        -fx-wrap-text: true;
+    }
 
-    .error { -fx-background-image: url('images/messages/error.png'); }
+    .error {
+        -fx-background-image: url('images/messages/error.png');
+    }
     .info { -fx-background-image: url('images/messages/error.png'); }
     .warning { -fx-background-image: url('images/messages/error.png'); }
