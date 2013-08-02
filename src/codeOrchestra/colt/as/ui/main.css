@@ -443,6 +443,11 @@
         -fx-padding: 5px 15px 7px 36px;
         -fx-text-fill: #515458; }
 
+
+    #log-text {
+        -fx-fill: #515458;
+    }
+
     .list-cell:odd { -fx-background-color: #ebeef2; }
 
     .list-cell:selected {
