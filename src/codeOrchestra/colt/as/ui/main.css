@@ -438,14 +438,14 @@
     -fx-background-insets: 0;
     -fx-padding: 0; }
 
-    .list-cell, .li {
+    .list-cell {
         -fx-background-color: null;
         -fx-padding: 5px 15px 7px 36px;
         -fx-text-fill: #515458; }
 
-    .list-cell:odd, .li:odd { -fx-background-color: #ebeef2; }
+    .list-cell:odd { -fx-background-color: #ebeef2; }
 
-    .list-cell:selected, .li:selected {
+    .list-cell:selected {
         -fx-background-color: #deeeff;
         -fx-border-width: 1px 0 1px 0;
         -fx-border-color: #bfd9f2;
@@ -455,8 +455,7 @@
         -fx-background-position: 10px 6px;
         -fx-background-repeat: no-repeat;
         -fx-background-size: 16px, 16px;
-        -fx-wrap-text: true;
-    }
+        -fx-wrap-text: true; }
 
     .error {
         -fx-background-image: url('images/messages/error.png');
