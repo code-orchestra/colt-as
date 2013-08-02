@@ -1,21 +1,12 @@
 package codeOrchestra.colt.as.ui.log
 
-import javafx.event.EventHandler
-import javafx.geometry.Insets
-import javafx.scene.control.Button
 import javafx.scene.control.Hyperlink
 import javafx.scene.control.Label
 import javafx.scene.control.ListCell
-import javafx.scene.control.TextArea
-import javafx.scene.control.TextField
-import javafx.scene.image.ImageView
-import javafx.scene.layout.Border
 import javafx.scene.layout.HBox
-import javafx.scene.layout.Pane
 import javafx.scene.layout.Priority
-import javafx.scene.text.Text
-import javafx.scene.text.TextFlow
-import javafx.scene.web.WebView
+
+import static codeOrchestra.colt.as.ui.log.Level.*
 
 /**
  * @author Dima Kruk
@@ -47,21 +38,13 @@ class LogCell extends ListCell<LogMessage> {
             lastItem = t
             String style = ""
             switch (item.level){
-                case codeOrchestra.colt.as.ui.log.Level.FATAL:
-                case codeOrchestra.colt.as.ui.log.Level.ERROR:
-                    style = "error"
-                    break
-                case codeOrchestra.colt.as.ui.log.Level.WARN:
-                    style = "warning"
-                    break
-                case codeOrchestra.colt.as.ui.log.Level.INFO:
-                    style = "info"
-                    break
-                case codeOrchestra.colt.as.ui.log.Level.OFF:
-                case codeOrchestra.colt.as.ui.log.Level.DEBUG:
-                case codeOrchestra.colt.as.ui.log.Level.TRACE:
-                case codeOrchestra.colt.as.ui.log.Level.ALL:
-                    break
+                case FATAL:
+                case ERROR:
+                    style = "error"; break
+                case WARN:
+                    style = "warning"; break
+                case INFO:
+                    style = "info"; break
             }
             label.text = item.getMessageText(false)
             setGraphic(hBox)
