@@ -2,6 +2,8 @@
 |-------------------------------------------------------------------------------
 | CHEATSHEET: JavaFX CSS
 | http://docs.oracle.com/javafx/2/api/javafx/scene/doc-files/cssref.html
+| http://docs.oracle.com/javafx/2/css_tutorial/jfxpub-css_tutorial.htm
+| http://fxexperience.com/2010/05/how-to-embed-fonts/
 |-------------------------------------------------------------------------------
 | Styling objects and Selectors
 |---------------------------------------
@@ -107,7 +109,7 @@
 |   :pressed // Instead of :active
 |   :disabled
 |   :vertical // .scroll-bar:vertical
-|   :selected // Checkboxes, RadioMenuItem
+|   :selected // ToggleButton, Checkboxes, RadioMenuItem
 |
 | Not supported pseudo-classes and pseudo-elements:
 |   :after, :before, :active, :focus, :first-child, :first-line, :first-letter,
@@ -143,20 +145,11 @@
 |       w-resize | v-resize | text | wait ] | <url>
 |   visibility  [ visible | hidden | collapse | inherit ]
 |
-|   -fx-alignment   [ top-left | top-center | top-right | center-left | center
-|       center-right bottom-left | bottom-center | bottom-right | baseline-left
-|       baseline-center | baseline-right ]  top-left
-|   -fx-orientation [ horizontal | vertical ]
-|       FlowPane, TilePane, ListView, ScrollBar, Separator, Slider,
-|       SplitPane, ToolBar
-|   -fx-column-halignment   [ left | center | right ]
-|   -fx-row-valignment  [ top | center | baseline | bottom ]
-|   -fx-orientation [ horizontal | vertical ]
-|
 | Text
 |   -fx-text-fill: #000; // color
 |   -fx-font: bold italic 13px serif; -fx-font: 2px 'sans-serif';
 |   -fx-font-family // 'sans-serif', 'serif', 'monospace', 'system'
+|   -fx-font-size
 |   -fx-font-style
 |   -fx-font-weight
 |   -fx-text-alignment: center;
@@ -200,7 +193,7 @@
 |   -fx-background-image: url('img/arrow.png')
 |   -fx-background-repeat: no-repeat;
 |   -fx-background-position:
-|   -fx-background-size: 20, 40;
+|   -fx-background-size: 20px, 40px; // NB: values are separated by commas
 |
 | Effects
 |   -fx-effect: dropshadow( gaussian, black, 8 , 0.0, 2, 0 );
@@ -228,6 +221,21 @@
 |   -fx-border-image-repeat [repeat-x | repeat-y | [repeat | space | round | no-repeat]
 |   -fx-border-image-slice
 |
+| Distribution and Alignment
+|   -fx-spacing // HBox and VBox — gaps (margins) between the childs
+|   -fx-hgap // FlowPane, GridPane, TilePane  — gaps (margins) between the childs
+|   -fx-vgap // ——||——
+|
+|   -fx-alignment   [ top-left | top-center | top-right | center-left | center
+|       center-right bottom-left | bottom-center | bottom-right | baseline-left
+|       baseline-center | baseline-right ]  top-left
+|   -fx-orientation [ horizontal | vertical ]
+|       FlowPane, TilePane, ListView, ScrollBar, Separator, Slider,
+|       SplitPane, ToolBar
+|   -fx-column-halignment   [ left | center | right ]
+|   -fx-row-valignment  [ top | center | baseline | bottom ]
+|   -fx-orientation [ horizontal | vertical ]
+Ё
 | Transformation
 |   -fx-rotate: 45;
 |   -fx-scale-x
@@ -276,9 +284,7 @@
 |       -fx-vbar-policy
 |
 | ???????
-|   -fx-spacing
-|   -fx-hgap: 10px; // Margin?
-|   -fx-vgap: 10px;
+|
 |   -fx-image
 |   -fx-background-fills // shorthand for -fx-background-color,
 |       -fx-background-insets, -fx-background-radius.
@@ -330,9 +336,9 @@
 */
 
 .root {
-    -fx-background: #f7f8fa;
-    -fx-base: #515458;
-    -fx-font: 13px 'Arial'; }
+    -fx-background-color: #f7f8fa;
+    -fx-font: 13px 'Arial';
+    -fx-mid-text-color: #515458; }
 
 /*
 |-------------------------------------------------------------------------------
@@ -340,9 +346,45 @@
 |-------------------------------------------------------------------------------
 */
 
-.sidebar {
-       -fx-background-color: #484a4d;
-}
+.sidebar { -fx-background-color: #484a4d; }
+
+.sidebar .toggle-button, .sidebar .button {
+    -fx-background-color: null;
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: 60px, 400px;
+    -fx-border-insets: 0;
+    -fx-border-color: null;
+    -fx-border-radius: 0;
+    -fx-border-width: 1px 0;
+    -fx-padding: 0; }
+
+    .sidebar .toggle-button:disabled, .sidebar .button:disabled { -fx-opacity: .44; }
+    .sidebar .toggle-button:pressed, .sidebar .toggle-button:selected,
+    .sidebar .button:pressed {
+        -fx-background-color: #37393b;
+        -fx-border-color: #2d2f31 #2d2f31 #535657 #535657; }
+
+    .btn-run { -fx-background-image: url('images/btns/run.png'); }
+        .btn-run:focused, .btn-run:hover { -fx-background-image: url('images/btns/run-hover.png'); }
+        .btn-run:pressed, .btn-run:selected { -fx-background-image: url('images/btns/run-down.png'); }
+
+    .btn-pause { -fx-background-image: url('images/btns/pause.png'); }
+        .btn-pause:focused, .btn-pause:hover { -fx-background-image: url('images/btns/pause-hover.png'); }
+        .btn-pause:pressed, .btn-pause:selected { -fx-background-image: url('images/btns/pause-down.png'); }
+
+    .btn-build { -fx-background-image: url('images/btns/build.png'); }
+        .btn-build:focused, .btn-build:hover { -fx-background-image: url('images/btns/build-hover.png'); }
+        .btn-build:pressed, .btn-build:selected { -fx-background-image: url('images/btns/build-down.png'); }
+
+    .btn-settings { -fx-background-image: url('images/btns/settings.png'); }
+        .btn-settings:focused, .btn-settings:hover { -fx-background-image: url('images/btns/settings-hover.png'); }
+        .btn-settings:pressed, .btn-settings:selected { -fx-background-image: url('images/btns/settings-down.png'); }
+
+    .btn-more { -fx-background-image: url('images/btns/more.png'); }
+        .btn-more:focused, .btn-more:hover { -fx-background-image: url('images/btns/more-hover.png'); }
+        .btn-more:pressed { -fx-background-image: url('images/btns/more-down.png'); }
 
 /*
 |-------------------------------------------------------------------------------
@@ -350,8 +392,70 @@
 |-------------------------------------------------------------------------------
 */
 
+.title-bar {
+    -fx-background-color: #ffffff;
+    -fx-border-width: 0 0 1px 0;
+    -fx-border-color: #e1e4e8;
+    -fx-font: 17px 'Roboto';
+    -fx-padding: 9px 60px 10px 0;
+    -fx-effect: dropshadow(gaussian, #f1f4f8, 0, 0, 0, 1px); }
+
 /*
 |-------------------------------------------------------------------------------
 | Status Bar
 |-------------------------------------------------------------------------------
 */
+
+.status-bar {
+    -fx-border-width: 1px 0 0 0;
+    -fx-border-color: #dde0e4;
+    -fx-padding: 12px 10px 11px 8px; }
+
+    .filters { -fx-spacing: 2px; }
+
+        .filters .toggle-button  {
+            -fx-background-color: null;
+            -fx-background-insets: 0;
+            -fx-background-radius: 12px;
+            -fx-text-fill: #83868a;
+            -fx-padding: 1px 6px 0 6px; }
+
+    .filters .toggle-button:hover, .filters .toggle-button:selected {
+            -fx-background-color: #dbdee2; }
+
+    .status-bar .label {
+        -fx-text-fill: #83868a;
+        -fx-padding: 0; }
+
+/*
+|-------------------------------------------------------------------------------
+| List View
+|-------------------------------------------------------------------------------
+*/
+
+.list-view {
+    -fx-background-color: null;
+    -fx-background-insets: 0;
+    -fx-padding: 0; }
+
+    .list-cell {
+        -fx-background-color: null;
+        -fx-padding: 5px 15px 7px 36px;
+        -fx-text-fill: #515458; }
+
+    .list-cell:odd { -fx-background-color: #ebeef2; }
+
+    .list-cell:selected {
+        -fx-background-color: #deeeff;
+        -fx-border-width: 1px 0 1px 0;
+        -fx-border-color: #bfd9f2;
+        -fx-padding: 4px 15px 6px 36px; }
+
+    .error, .info, .warning {
+        -fx-background-position: 10px 6px;
+        -fx-background-repeat: no-repeat;
+        -fx-background-size: 16px, 16px; }
+
+    .error { -fx-background-image: url('images/messages/error.png'); }
+    .info { -fx-background-image: url('images/messages/error.png'); }
+    .warning { -fx-background-image: url('images/messages/error.png'); }

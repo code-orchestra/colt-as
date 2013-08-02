@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.collections.*?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.collections.ObservableList?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
+  <children>
+    <ListView layoutX="14.0" layoutY="14.0" prefHeight="299.0" prefWidth="509.0">
+      <items>
+        <FXCollections fx:factory="observableArrayList">
+            <HBox styleClass="error">
+                <children>
+                    <TextArea wrapText="true" />
+                    <Hyperlink text="Hyperlink" />
+                </children>
+            </HBox>
+
+            <HBox styleClass="warning">
+                <children>
+                    <TextArea wrapText="true" />
+                    <Hyperlink text="Hyperlink" />
+                </children>
+            </HBox>
+
+            <HBox styleClass="info">
+                <children>
+                    <TextArea wrapText="true" />
+                    <Hyperlink text="Hyperlink" />
+                </children>
+            </HBox>
+
+
+
+          <!--<String fx:value="mojito-client: Mojito Client State: paused." />-->
+          <!--<String fx:value="mojito-client: Created binder &quot;TodoMojitBinderIndex&quot; for DOM n" />-->
+          <!--<String fx:value="mojito-client: Mojito Client State: active." />-->
+          <!--<String fx:value="Uncaught ReferenceError: Ajax is not defined [VM] dashboard (56):1" />-->
+        </FXCollections>
+      </items>
+    </ListView>
+
+  </children>
+  <stylesheets>
+    <URL value="@main.css" />
+  </stylesheets>
+</AnchorPane>
