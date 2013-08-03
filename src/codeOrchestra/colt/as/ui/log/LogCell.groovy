@@ -2,13 +2,19 @@ package codeOrchestra.colt.as.ui.log
 
 import javafx.beans.value.ChangeListener
 import javafx.beans.value.ObservableValue
+import javafx.event.Event
+import javafx.event.EventHandler
+import javafx.event.EventType
 import javafx.geometry.Pos
 import javafx.scene.control.Hyperlink
 import javafx.scene.control.ListCell
 import javafx.scene.layout.HBox
 import javafx.scene.layout.Pane
 import javafx.scene.layout.Priority
+import javafx.scene.shape.Rectangle
 import javafx.scene.text.Text
+import javafx.scene.text.TextFlow
+import javafx.stage.WindowEvent
 
 import static codeOrchestra.colt.as.ui.log.Level.*
 
@@ -18,7 +24,8 @@ import static codeOrchestra.colt.as.ui.log.Level.*
 class LogCell extends ListCell<LogMessage> {
     HBox root = new HBox()
     Text logText = new Text()
-    Pane logTextPane = new Pane()
+    TextFlow logTextPane = new TextFlow()
+    Rectangle spacer = new Rectangle()
     Hyperlink hyperlink = new Hyperlink()
     LogMessage lastItem
 
@@ -28,14 +35,19 @@ class LogCell extends ListCell<LogMessage> {
         hyperlink.maxWidth = 150
         hyperlink.minWidth = 150
         logTextPane.children.add(logText)
-        root.children.addAll(logTextPane, hyperlink)
-        hyperlink.alignment = Pos.TOP_LEFT
-        HBox.setHgrow(logTextPane, Priority.ALWAYS)
-        logTextPane.widthProperty().addListener(new ChangeListener<Number>() {
+        root.children.addAll(logTextPane, spacer, hyperlink)
+        HBox.setHgrow(spacer, Priority.ALWAYS)
+        hyperlink.alignment = Pos.TOP_RIGHT
+        root.widthProperty().addListener(new ChangeListener<Number>() {
             @Override
             void changed(ObservableValue<? extends Number> observableValue, Number oldValue, Number newValue) {
-                println "newValue = $newValue"
-                logText.wrappingWidth = newValue - 20
+                logTextPane.maxWidth = newValue - 150
+            }
+        })
+        root.addEventHandler(EventType.ROOT, new EventHandler<Event>() {
+            @Override
+            void handle(Event event) {
+                println "event = $event"
             }
         })
         logText.setId("log-text")
@@ -63,8 +75,8 @@ class LogCell extends ListCell<LogMessage> {
             }
             logText.text = item.getMessage()
             hyperlink.text = item.source
-            logText.wrappingWidth = Math.max(400, logTextPane.width - 20)
             styleClass.add(style)
+            logTextPane.maxWidth = Math.max(400, root.width - 170)
             setGraphic(root)
         }
     }

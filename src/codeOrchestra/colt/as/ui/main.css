@@ -446,6 +446,8 @@
 
     #log-text {
         -fx-fill: #515458;
+        -fx-font-size: 15px;
+        -fx-font-smoothing-type: lcd;
     }
 
     .list-cell:odd { -fx-background-color: #ebeef2; }
