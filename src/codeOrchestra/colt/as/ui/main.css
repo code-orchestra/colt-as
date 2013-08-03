@@ -448,8 +448,10 @@
         -fx-fill: #515458;
         -fx-font-size: 15px;
         -fx-font-smoothing-type: lcd;
+        -fx-hbar-policy: never;
+        -fx-vbar-policy: never;
     }
-
+    
     .list-cell:odd { -fx-background-color: #ebeef2; }
 
     .list-cell:selected {

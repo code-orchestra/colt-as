@@ -44,13 +44,13 @@ class LogCell extends ListCell<LogMessage> {
                 logTextPane.maxWidth = newValue - 150
             }
         })
-        root.addEventHandler(EventType.ROOT, new EventHandler<Event>() {
-            @Override
-            void handle(Event event) {
-                println "event = $event"
-            }
-        })
         logText.setId("log-text")
+    }
+
+    @Override
+    protected void layoutChildren() {
+        println "width = $width"
+        super.layoutChildren()    //To change body of overridden methods use File | Settings | File Templates.
     }
 
     @Override
