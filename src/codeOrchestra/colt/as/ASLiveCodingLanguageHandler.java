@@ -1,5 +1,6 @@
 package codeOrchestra.colt.as;
 
+import codeOrchestra.colt.as.logging.transport.LoggerServerSocketThread;
 import codeOrchestra.colt.as.model.COLTAsProject;
 import codeOrchestra.colt.as.model.ModelStorage;
 import codeOrchestra.colt.as.run.ASLiveLauncher;
@@ -22,6 +23,8 @@ import javafx.stage.Stage;
  * @author Alexander Eliseyev
  */
 public class ASLiveCodingLanguageHandler extends AbstractLiveCodingLanguageHandler<COLTAsProject> {
+
+    private LoggerServerSocketThread loggerServerSocketThread = new LoggerServerSocketThread();
 
     @Override
     public String getId() {
@@ -46,12 +49,12 @@ public class ASLiveCodingLanguageHandler extends AbstractLiveCodingLanguageHandl
 
     @Override
     public void initHandler() {
-        // TODO: implement
+        loggerServerSocketThread.openSocket();
     }
 
     @Override
     public void disposeHandler() {
-        // TODO: implement
+        loggerServerSocketThread.closeSocket();
     }
 
     @Override

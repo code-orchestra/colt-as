@@ -19,6 +19,8 @@
     </orderEntry>
     <orderEntry type="library" name="colt-core" level="project" />
     <orderEntry type="library" name="groovy" level="application" />
+    <orderEntry type="library" name="apparat-1.0.RC9" level="project" />
+    <orderEntry type="library" name="scala-library" level="project" />
   </component>
 </module>
 
