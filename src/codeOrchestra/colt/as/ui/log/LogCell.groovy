@@ -76,7 +76,7 @@ class LogCell extends ListCell<LogMessage> {
             logText.text = item.getMessage()
             hyperlink.text = item.source
             styleClass.add(style)
-            logTextPane.maxWidth = Math.max(400, root.width - 170)
+            logTextPane.maxWidth = Math.max(400, root.width - 150)
             setGraphic(root)
         }
     }
