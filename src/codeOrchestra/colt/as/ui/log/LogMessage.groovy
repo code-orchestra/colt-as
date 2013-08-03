@@ -1,8 +1,11 @@
 package codeOrchestra.colt.as.ui.log
 
+import groovy.transform.Canonical
+
 /**
  * @author Dima Kruk
  */
+@Canonical
 class LogMessage {
 
     long timestamp
