@@ -492,8 +492,6 @@
     -fx-background-color: null;
     -fx-background-insets: 0;
     -fx-padding: 0;
-    -fx-hbar-policy: never;
-    -fx-vbar-policy: always;
 }
 
 .list-view .scroll-bar:horizontal .increment-arrow,
