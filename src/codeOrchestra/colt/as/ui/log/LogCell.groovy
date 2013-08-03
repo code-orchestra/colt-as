@@ -1,20 +1,15 @@
 package codeOrchestra.colt.as.ui.log
 
-import javafx.beans.value.ChangeListener
-import javafx.beans.value.ObservableValue
-import javafx.event.Event
-import javafx.event.EventHandler
-import javafx.event.EventType
+import com.sun.javafx.scene.control.skin.VirtualFlow
 import javafx.geometry.Pos
+import javafx.scene.Parent
 import javafx.scene.control.Hyperlink
 import javafx.scene.control.ListCell
 import javafx.scene.layout.HBox
-import javafx.scene.layout.Pane
 import javafx.scene.layout.Priority
 import javafx.scene.shape.Rectangle
 import javafx.scene.text.Text
 import javafx.scene.text.TextFlow
-import javafx.stage.WindowEvent
 
 import static codeOrchestra.colt.as.ui.log.Level.*
 
@@ -23,34 +18,16 @@ import static codeOrchestra.colt.as.ui.log.Level.*
  */
 class LogCell extends ListCell<LogMessage> {
     HBox root = new HBox()
-    Text logText = new Text()
-    TextFlow logTextPane = new TextFlow()
+    Text logText = new Text(id: "log-text", )
+    TextFlow logTextPane = new TextFlow(logText)
     Rectangle spacer = new Rectangle()
-    Hyperlink hyperlink = new Hyperlink()
+    Hyperlink hyperlink = new Hyperlink(alignment: Pos.TOP_RIGHT, minWidth: 150, maxWidth: 150)
     LogMessage lastItem
 
     LogCell() {
         super()
-        hyperlink.alignment = Pos.TOP_RIGHT
-        hyperlink.maxWidth = 150
-        hyperlink.minWidth = 150
-        logTextPane.children.add(logText)
         root.children.addAll(logTextPane, spacer, hyperlink)
         HBox.setHgrow(spacer, Priority.ALWAYS)
-        hyperlink.alignment = Pos.TOP_RIGHT
-        root.widthProperty().addListener(new ChangeListener<Number>() {
-            @Override
-            void changed(ObservableValue<? extends Number> observableValue, Number oldValue, Number newValue) {
-                logTextPane.maxWidth = newValue - 150
-            }
-        })
-        logText.setId("log-text")
-    }
-
-    @Override
-    protected void layoutChildren() {
-        println "width = $width"
-        super.layoutChildren()    //To change body of overridden methods use File | Settings | File Templates.
     }
 
     @Override
@@ -76,8 +53,10 @@ class LogCell extends ListCell<LogMessage> {
             logText.text = item.getMessage()
             hyperlink.text = item.source
             styleClass.add(style)
-            logTextPane.maxWidth = Math.max(400, root.width - 150)
             setGraphic(root)
+            if (parent?.parent?.parent instanceof VirtualFlow) {
+                logTextPane.maxWidthProperty().bind((parent?.parent?.parent as VirtualFlow).widthProperty().add(-220))
+            }
         }
     }
 }

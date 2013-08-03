@@ -1,12 +1,10 @@
 package codeOrchestra.colt.as.ui.log
 
 import javafx.collections.FXCollections
-import javafx.scene.control.ListCell
-import javafx.scene.control.ListView
-import javafx.scene.Node as FXNode
 import javafx.collections.ObservableList as FXObservableList
+import javafx.scene.Node as FXNode
+import javafx.scene.control.ListView
 import javafx.scene.control.SelectionMode
-import javafx.scene.layout.StackPane
 import javafx.util.Callback
 
 /**
