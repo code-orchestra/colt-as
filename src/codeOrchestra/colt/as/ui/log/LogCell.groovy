@@ -22,7 +22,6 @@ class LogCell extends ListCell<LogMessage> {
     TextFlow logTextPane = new TextFlow(logText)
     Rectangle spacer = new Rectangle()
     Hyperlink hyperlink = new Hyperlink(alignment: Pos.TOP_RIGHT, minWidth: 150, maxWidth: 150)
-    LogMessage lastItem
 
     LogCell() {
         super()
@@ -33,13 +32,10 @@ class LogCell extends ListCell<LogMessage> {
     @Override
     protected void updateItem(LogMessage logMessage, boolean b) {
         super.updateItem(logMessage, b)
-
         text = null
         if (empty) {
-            lastItem = null
             graphic = null
         } else {
-            lastItem = logMessage
             String style = ""
             switch (item.level) {
                 case FATAL:
