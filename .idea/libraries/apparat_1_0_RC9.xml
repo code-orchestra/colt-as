@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="apparat-1.0.RC9">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/apparat-core-1.0.RC9.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/apparat-log-1.0.RC9.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
