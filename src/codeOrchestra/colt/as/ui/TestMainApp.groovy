@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader
 import javafx.scene.Parent
 import javafx.scene.Scene
 import javafx.stage.Stage
+import org.scenicview.ScenicView
 
 /**
  * @author Dima Kruk
@@ -15,9 +16,10 @@ class TestMainApp extends Application {
     void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("main_app.fxml"));
         primaryStage.setTitle("COLT 1.1");
-        primaryStage.setScene(new Scene(root, 800, 700));
+        Scene scene = new Scene(root, 800, 700)
+        primaryStage.setScene(scene);
+        //ScenicView.show(scene);
         primaryStage.show();
-
 
     }
 

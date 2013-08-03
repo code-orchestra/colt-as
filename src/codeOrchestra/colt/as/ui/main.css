@@ -505,16 +505,12 @@
     -fx-background-color: null;
     -fx-padding: 5px 15px 7px 36px;
     -fx-text-fill: #515458;
-    -fx-hbar-policy: never;
-
 }
 
 #log-text {
     -fx-fill: #515458;
     -fx-font-size: 15px;
     -fx-font-smoothing-type: lcd;
-    -fx-hbar-policy: never;
-    -fx-vbar-policy: never;
 }
 
 .list-cell:odd {
