@@ -36,7 +36,8 @@ class LogCell extends ListCell<LogMessage> {
         super.updateItem(logMessage, b)
         text = null
         if (empty) {
-            graphic = null
+            setGraphic(null)
+            this.logMessage = null
         } else{
             if (this.logMessage != logMessage) {
                 this.logMessage = logMessage

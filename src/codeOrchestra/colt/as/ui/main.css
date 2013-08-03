@@ -495,14 +495,13 @@
     -fx-hbar-policy: never;
     -fx-vbar-policy: always;
 }
-/*
+
 .list-view .scroll-bar:horizontal .increment-arrow,
 .list-view .scroll-bar:horizontal .decrement-arrow,
 .list-view .scroll-bar:horizontal .increment-button,
 .list-view .scroll-bar:horizontal .decrement-button {
     -fx-padding:0;
 }
-*/
 
 .list-cell {
     -fx-background-color: null;
