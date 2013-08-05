@@ -1,6 +1,7 @@
 package codeOrchestra.colt.as.ui.log
 
 import com.sun.javafx.scene.control.skin.VirtualFlow
+import javafx.application.Platform
 import javafx.geometry.Pos
 import javafx.scene.control.Hyperlink
 import javafx.scene.control.ListCell
@@ -32,6 +33,11 @@ class LogCell extends ListCell<LogMessage> {
     }
 
     @Override
+    protected void layoutChildren() {
+        super.layoutChildren()
+    }
+
+    @Override
     protected void updateItem(LogMessage logMessage, boolean b) {
         super.updateItem(logMessage, b)
         text = null
@@ -56,6 +62,7 @@ class LogCell extends ListCell<LogMessage> {
                 hyperlink.tooltip.text = item.source
                 styleClass.add(style)
             }
+
             setGraphic(root)
             if (parent?.parent?.parent instanceof VirtualFlow) {
                 logTextPane.maxWidthProperty().bind((parent?.parent?.parent as VirtualFlow).widthProperty().add(-220))

@@ -1,9 +1,12 @@
 package codeOrchestra.colt.as.ui.log
 
+import com.aquafx_project.AquaFx
+import javafx.application.Platform
 import javafx.collections.FXCollections
 import javafx.collections.ObservableList as FXObservableList
 import javafx.scene.Node as FXNode
 import javafx.scene.control.ListView
+import javafx.scene.control.ScrollBar
 import javafx.scene.control.SelectionMode
 import javafx.util.Callback
 
@@ -11,18 +14,22 @@ import javafx.util.Callback
  * @author Dima Kruk
  */
 class Log {
-    ListView<LogMessage> lv
+    ListView<LogMessage> listView
 
     public FXNode getPane() {
-        if (!lv) {
+        if (!listView) {
             FXObservableList<LogMessage> list = createTestLogList()
-            lv = new ListView<>(list)
-            lv.cellFactory = { ListView<LogMessage> p ->
+            listView = new ListView<>(list)
+            listView.cellFactory = { ListView<LogMessage> p ->
                 return new LogCell()
             } as Callback
-            lv.selectionModel.selectionMode = SelectionMode.MULTIPLE
+            listView.selectionModel.selectionMode = SelectionMode.MULTIPLE
+//            Platform.runLater{
+//                AquaFx.createScrollBarStyler().style(listView.lookup(".scroll-bar") as ScrollBar)
+//            }
+
         }
-        return lv
+        return listView
     }
 
     private javafx.collections.ObservableList<LogMessage> createTestLogList() {
