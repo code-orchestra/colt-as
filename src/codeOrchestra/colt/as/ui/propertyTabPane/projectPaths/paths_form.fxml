@@ -9,10 +9,10 @@
 <VBox fx:controller="codeOrchestra.colt.as.ui.propertyTabPane.projectPaths.PathsFormController" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
   <children>
     <Label fx:id="titleLabel" minWidth="-Infinity" text="Label" VBox.vgrow="NEVER" />
-    <HBox VBox.vgrow="ALWAYS">
+    <HBox spacing="5" VBox.vgrow="ALWAYS">
       <children>
         <TextField fx:id="textField" HBox.hgrow="ALWAYS" />
-        <Button fx:id="add" HBox.hgrow="NEVER" />
+        <Button fx:id="add" text="+" HBox.hgrow="NEVER" />
       </children>
     </HBox>
   </children>
