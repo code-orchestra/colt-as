@@ -28,6 +28,6 @@ class TestMainApp extends Application {
     }
 
     public static void main(String[] args) {
-        Application.launch(TestMainApp, args);
+        launch(TestMainApp, args);
     }
 }

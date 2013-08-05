@@ -24,10 +24,6 @@ class Log {
                 return new LogCell()
             } as Callback
             listView.selectionModel.selectionMode = SelectionMode.MULTIPLE
-//            Platform.runLater{
-//                AquaFx.createScrollBarStyler().style(listView.lookup(".scroll-bar") as ScrollBar)
-//            }
-
         }
         return listView
     }
