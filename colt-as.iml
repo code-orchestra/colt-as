@@ -19,8 +19,16 @@
     </orderEntry>
     <orderEntry type="library" name="colt-core" level="project" />
     <orderEntry type="library" name="groovy" level="application" />
-    <orderEntry type="library" name="apparat-1.0.RC9" level="project" />
-    <orderEntry type="library" name="scala-library" level="project" />
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="file://$MODULE_DIR$/lib" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+        <jarDirectory url="file://$MODULE_DIR$/lib" recursive="false" />
+      </library>
+    </orderEntry>
   </component>
 </module>
 
