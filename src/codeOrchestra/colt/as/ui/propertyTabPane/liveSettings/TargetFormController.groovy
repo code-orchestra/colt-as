@@ -3,13 +3,21 @@ package codeOrchestra.colt.as.ui.propertyTabPane.liveSettings
 import codeOrchestra.colt.as.model.ModelStorage
 import codeOrchestra.colt.as.run.Target
 import codeOrchestra.colt.as.model.beans.RunTargetModel
-import com.aquafx_project.AquaFx
+import codeOrchestra.colt.as.ui.air.android.AndroidAirFormController
+import codeOrchestra.colt.as.ui.air.ios.IOSAirFormCntroller
 import javafx.beans.property.StringProperty
 import javafx.beans.value.ChangeListener
+import javafx.event.EventHandler
 import javafx.fxml.FXML
+import javafx.fxml.FXMLLoader
 import javafx.fxml.Initializable
+import javafx.scene.Scene
 import javafx.scene.control.*
 import javafx.scene.layout.GridPane
+import codeOrchestra.colt.as.ui.air.AirFormController
+import javafx.scene.layout.VBox
+import javafx.stage.Modality
+import javafx.stage.Stage
 
 /**
  * @author Dima Kruk
@@ -65,6 +73,44 @@ public class TargetFormController implements Initializable {
         if (!model.target) {
             model.target = "SWF"
         }
+
+        iosGBtn.onAction = {
+            FXMLLoader loader = new FXMLLoader(AirFormController.class.getResource("air_form.fxml"))
+            loader.setController(new IOSAirFormCntroller())
+            VBox page = loader.load()
+            Stage dialogStage = new Stage()
+            dialogStage.title = "Apple iOS: customize launch"
+            dialogStage.initModality(Modality.WINDOW_MODAL)
+            dialogStage.initOwner(androidGBtn.scene.window)
+            dialogStage.scene = new Scene(page)
+
+            AirFormController controller = loader.controller
+            controller.setDialogStage(dialogStage)
+            controller.initViewWithModel(model.iosAirModel)
+
+            dialogStage.showAndWait()
+
+            println "controller.isGenerated = $controller.isGenerated"
+        } as EventHandler
+
+        androidGBtn.onAction = {
+            FXMLLoader loader = new FXMLLoader(AirFormController.class.getResource("air_form.fxml"))
+            loader.setController(new AndroidAirFormController())
+            VBox page = loader.load()
+            Stage dialogStage = new Stage()
+            dialogStage.title = "Android: customize launch"
+            dialogStage.initModality(Modality.WINDOW_MODAL)
+            dialogStage.initOwner(androidGBtn.scene.window)
+            dialogStage.scene = new Scene(page)
+
+            AirFormController controller = loader.controller
+            controller.setDialogStage(dialogStage)
+            controller.initViewWithModel(model.iosAirModel)
+
+            dialogStage.showAndWait()
+
+            println "controller.isGenerated = $controller.isGenerated"
+        } as EventHandler
 
         bindModel()
     }
