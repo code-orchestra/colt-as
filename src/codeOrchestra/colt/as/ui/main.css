@@ -4,6 +4,7 @@
 | http://docs.oracle.com/javafx/2/api/javafx/scene/doc-files/cssref.html
 | http://docs.oracle.com/javafx/2/css_tutorial/jfxpub-css_tutorial.htm
 | http://fxexperience.com/2010/05/how-to-embed-fonts/
+| http://www.youtube.com/watch?v=AV1_xh_-Uzw — Fluid Layout
 |-------------------------------------------------------------------------------
 | Styling objects and Selectors
 |---------------------------------------
@@ -340,6 +341,17 @@
     -fx-font: 13px 'Arial';
     -fx-mid-text-color: #515458; }
 
+.hyperlink {
+    -fx-border-width: 0;
+    -fx-padding: 0;
+    -fx-text-fill: #06c; }
+
+.hyperlink:visited { -fx-text-fill: #606; }
+
+.hyperlink:focused {
+    -fx-text-fill: #060;
+    -fx-border-width: 0; }
+
 /*
 |-------------------------------------------------------------------------------
 | Sidebar
@@ -449,7 +461,6 @@
         -fx-background-color: #deeeff;
         -fx-border-width: 1px 0 1px 0;
         -fx-border-color: #bfd9f2;
-        -fx-text-fill: #515458;
         -fx-padding: 4px 15px 6px 36px; }
 
     .error, .info, .warning {
@@ -458,7 +469,6 @@
         -fx-background-size: 16px, 16px; }
 
     .error { -fx-background-image: url('images/messages/error.png'); }
-    .info { -fx-background-image: url('images/messages/warning.png'); }
-    .warning { -fx-background-image: url('images/messages/info.png'); }
+    .info { -fx-background-image: url('images/messages/info.png'); }
+    .warning { -fx-background-image: url('images/messages/warning.png'); }
 
-    .log-item { -fx-background-color: #ff0000; }

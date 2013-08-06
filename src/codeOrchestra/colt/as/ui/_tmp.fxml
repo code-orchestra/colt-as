@@ -9,35 +9,67 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
 
 <AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
   <children>
-    <ListView layoutX="14.0" layoutY="14.0" prefHeight="299.0" prefWidth="509.0">
+    <HBox alignment="CENTER_RIGHT" styleClass="null">
+      <children>
+        <HBox styleClass="null" HBox.hgrow="ALWAYS">
+          <children>
+            <Text text="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptate, a voluptas quam quos fugiat itaque explicabo laudantium magnam sit nihil enim temporibus odio odit modi nam vero suscipit fugit porro!" />
+          </children>
+        </HBox>
+        <Hyperlink text="Hyperlink" />
+      </children>
+    </HBox>
+    <ListView disable="false" layoutX="14.0" layoutY="14.0" prefHeight="299.0" prefWidth="509.0">
       <items>
         <FXCollections fx:factory="observableArrayList">
-            <HBox styleClass="error">
+          <HBox alignment="CENTER_RIGHT" styleClass="null">
+            <children>
+              <HBox styleClass="null" HBox.hgrow="ALWAYS">
                 <children>
-                    <Label wrapText="true" />
-                    <Hyperlink text="Hyperlink" />
+                  <Text text="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptate, a voluptas quam quos fugiat itaque explicabo laudantium magnam sit nihil enim temporibus odio odit modi nam vero suscipit fugit porro!" />
                 </children>
-            </HBox>
-
-            <HBox styleClass="warning">
+              </HBox>
+              <Hyperlink text="Hyperlink" />
+            </children>
+          </HBox>
+          <HBox>
+            <children>
+              <HBox>
                 <children>
-                    <TextArea wrapText="true" />
-                    <Hyperlink text="Hyperlink" />
+                  <Text text="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptate, a voluptas quam quos fugiat itaque explicabo laudantium magnam sit nihil enim temporibus odio odit modi nam vero suscipit fugit porro!" />
                 </children>
-            </HBox>
-
-            <HBox styleClass="info">
-                <children>
-                    <TextArea wrapText="true" />
-                    <Hyperlink text="Hyperlink" />
-                </children>
-            </HBox>
-
-
-
+              </HBox>
+              <Hyperlink text="Hyperlink" />
+            </children>
+          </HBox>
+          <HBox>
+            <children>
+              <Text text="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptate, a voluptas quam quos fugiat itaque explicabo laudantium magnam sit nihil enim temporibus odio odit modi nam vero suscipit fugit porro!" />
+              <Hyperlink text="Hyperlink" />
+            </children>
+          </HBox>
+          <HBox>
+            <children>
+              <Text text="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Labore, dolor, et, ex, vero porro vel voluptatum non cumque accusamus nam nemo eius veritatis reprehenderit fuga repudiandae maiores aut ut mollitia!" />
+              <Hyperlink text="Hyperlink" />
+            </children>
+          </HBox>
+          <HBox>
+            <children>
+              <Text text="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nostrum, blanditiis, culpa, reprehenderit, alias totam impedit distinctio optio dolor voluptatum voluptatibus autem esse ducimus porro. Porro, fugiat enim suscipit ipsum expedita." />
+              <Hyperlink text="Hyperlink" />
+            </children>
+          </HBox>
+          <HBox>
+            <children>
+              <Text text="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sed, culpa, velit, dolore repellat voluptatibus asperiores temporibus necessitatibus tenetur enim alias dolorem perspiciatis nulla quibusdam aliquam laborum quisquam id fugit quae." />
+              <Hyperlink text="Hyperlink" />
+            </children>
+          </HBox>
           <!--<String fx:value="mojito-client: Mojito Client State: paused." />-->
           <!--<String fx:value="mojito-client: Created binder &quot;TodoMojitBinderIndex&quot; for DOM n" />-->
           <!--<String fx:value="mojito-client: Mojito Client State: active." />-->
@@ -45,7 +77,19 @@
         </FXCollections>
       </items>
     </ListView>
-
+    <GridPane layoutX="100.0" layoutY="322.0">
+      <children>
+        <Hyperlink text="Hyperlink" textAlignment="JUSTIFY" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+        <TextArea prefWidth="200.0" text="dscdcsdc" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+      </children>
+      <columnConstraints>
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+      </columnConstraints>
+      <rowConstraints>
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      </rowConstraints>
+    </GridPane>
   </children>
   <stylesheets>
     <URL value="@main.css" />
