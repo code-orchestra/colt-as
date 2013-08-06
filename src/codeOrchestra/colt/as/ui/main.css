@@ -4,7 +4,6 @@
 | http://docs.oracle.com/javafx/2/api/javafx/scene/doc-files/cssref.html
 | http://docs.oracle.com/javafx/2/css_tutorial/jfxpub-css_tutorial.htm
 | http://fxexperience.com/2010/05/how-to-embed-fonts/
-| http://www.youtube.com/watch?v=AV1_xh_-Uzw — Fluid Layout
 |-------------------------------------------------------------------------------
 | Styling objects and Selectors
 |---------------------------------------
@@ -339,18 +338,8 @@
 .root {
     -fx-background-color: #f7f8fa;
     -fx-font: 13px 'Arial';
-    -fx-mid-text-color: #515458; }
-
-.hyperlink {
-    -fx-border-width: 0;
-    -fx-padding: 0;
-    -fx-text-fill: #06c; }
-
-.hyperlink:visited { -fx-text-fill: #606; }
-
-.hyperlink:focused {
-    -fx-text-fill: #060;
-    -fx-border-width: 0; }
+    -fx-mid-text-color: #515458;
+}
 
 /*
 |-------------------------------------------------------------------------------
@@ -358,7 +347,9 @@
 |-------------------------------------------------------------------------------
 */
 
-.sidebar { -fx-background-color: #484a4d; }
+.sidebar {
+    -fx-background-color: #484a4d;
+}
 
 .sidebar .toggle-button, .sidebar .button {
     -fx-background-color: null;
@@ -370,33 +361,78 @@
     -fx-border-color: null;
     -fx-border-radius: 0;
     -fx-border-width: 1px 0;
-    -fx-padding: 0; }
+    -fx-padding: 0;
+}
 
-    .sidebar .toggle-button:disabled, .sidebar .button:disabled { -fx-opacity: .44; }
-    .sidebar .toggle-button:pressed, .sidebar .toggle-button:selected,
-    .sidebar .button:pressed {
-        -fx-background-color: #37393b;
-        -fx-border-color: #2d2f31 #2d2f31 #535657 #535657; }
+.sidebar .toggle-button:disabled, .sidebar .button:disabled {
+    -fx-opacity: .44;
+}
 
-    .btn-run { -fx-background-image: url('images/btns/run.png'); }
-        .btn-run:focused, .btn-run:hover { -fx-background-image: url('images/btns/run-hover.png'); }
-        .btn-run:pressed, .btn-run:selected { -fx-background-image: url('images/btns/run-down.png'); }
+.sidebar .toggle-button:pressed, .sidebar .toggle-button:selected,
+.sidebar .button:pressed {
+    -fx-background-color: #37393b;
+    -fx-border-color: #2d2f31 #2d2f31 #535657 #535657;
+}
 
-    .btn-pause { -fx-background-image: url('images/btns/pause.png'); }
-        .btn-pause:focused, .btn-pause:hover { -fx-background-image: url('images/btns/pause-hover.png'); }
-        .btn-pause:pressed, .btn-pause:selected { -fx-background-image: url('images/btns/pause-down.png'); }
+.btn-run {
+    -fx-background-image: url('images/btns/run.png');
+}
 
-    .btn-build { -fx-background-image: url('images/btns/build.png'); }
-        .btn-build:focused, .btn-build:hover { -fx-background-image: url('images/btns/build-hover.png'); }
-        .btn-build:pressed, .btn-build:selected { -fx-background-image: url('images/btns/build-down.png'); }
+.btn-run:focused, .btn-run:hover {
+    -fx-background-image: url('images/btns/run-hover.png');
+}
 
-    .btn-settings { -fx-background-image: url('images/btns/settings.png'); }
-        .btn-settings:focused, .btn-settings:hover { -fx-background-image: url('images/btns/settings-hover.png'); }
-        .btn-settings:pressed, .btn-settings:selected { -fx-background-image: url('images/btns/settings-down.png'); }
+.btn-run:pressed, .btn-run:selected {
+    -fx-background-image: url('images/btns/run-down.png');
+}
 
-    .btn-more { -fx-background-image: url('images/btns/more.png'); }
-        .btn-more:focused, .btn-more:hover { -fx-background-image: url('images/btns/more-hover.png'); }
-        .btn-more:pressed { -fx-background-image: url('images/btns/more-down.png'); }
+.btn-pause {
+    -fx-background-image: url('images/btns/pause.png');
+}
+
+.btn-pause:focused, .btn-pause:hover {
+    -fx-background-image: url('images/btns/pause-hover.png');
+}
+
+.btn-pause:pressed, .btn-pause:selected {
+    -fx-background-image: url('images/btns/pause-down.png');
+}
+
+.btn-build {
+    -fx-background-image: url('images/btns/build.png');
+}
+
+.btn-build:focused, .btn-build:hover {
+    -fx-background-image: url('images/btns/build-hover.png');
+}
+
+.btn-build:pressed, .btn-build:selected {
+    -fx-background-image: url('images/btns/build-down.png');
+}
+
+.btn-settings {
+    -fx-background-image: url('images/btns/settings.png');
+}
+
+.btn-settings:focused, .btn-settings:hover {
+    -fx-background-image: url('images/btns/settings-hover.png');
+}
+
+.btn-settings:pressed, .btn-settings:selected {
+    -fx-background-image: url('images/btns/settings-down.png');
+}
+
+.btn-more {
+    -fx-background-image: url('images/btns/more.png');
+}
+
+.btn-more:focused, .btn-more:hover {
+    -fx-background-image: url('images/btns/more-hover.png');
+}
+
+.btn-more:pressed {
+    -fx-background-image: url('images/btns/more-down.png');
+}
 
 /*
 |-------------------------------------------------------------------------------
@@ -410,7 +446,8 @@
     -fx-border-color: #e1e4e8;
     -fx-font: 17px 'Roboto';
     -fx-padding: 9px 60px 10px 0;
-    -fx-effect: dropshadow(gaussian, #f1f4f8, 0, 0, 0, 1px); }
+    -fx-effect: dropshadow(gaussian, #f1f4f8, 0, 0, 0, 1px);
+}
 
 /*
 |-------------------------------------------------------------------------------
@@ -421,23 +458,29 @@
 .status-bar {
     -fx-border-width: 1px 0 0 0;
     -fx-border-color: #dde0e4;
-    -fx-padding: 12px 10px 11px 8px; }
+    -fx-padding: 12px 10px 11px 8px;
+}
 
-    .filters { -fx-spacing: 2px; }
+.filters {
+    -fx-spacing: 2px;
+}
 
-        .filters .toggle-button  {
-            -fx-background-color: null;
-            -fx-background-insets: 0;
-            -fx-background-radius: 12px;
-            -fx-text-fill: #83868a;
-            -fx-padding: 1px 6px 0 6px; }
+.filters .toggle-button {
+    -fx-background-color: null;
+    -fx-background-insets: 0;
+    -fx-background-radius: 12px;
+    -fx-text-fill: #83868a;
+    -fx-padding: 1px 6px 0 6px;
+}
 
-    .filters .toggle-button:hover, .filters .toggle-button:selected {
-            -fx-background-color: #dbdee2; }
+.filters .toggle-button:hover, .filters .toggle-button:selected {
+    -fx-background-color: #dbdee2;
+}
 
-    .status-bar .label {
-        -fx-text-fill: #83868a;
-        -fx-padding: 0; }
+.status-bar .label {
+    -fx-text-fill: #83868a;
+    -fx-padding: 0;
+}
 
 /*
 |-------------------------------------------------------------------------------
@@ -448,27 +491,174 @@
 .list-view {
     -fx-background-color: null;
     -fx-background-insets: 0;
-    -fx-padding: 0; }
+    -fx-padding: 0;
+}
 
-    .list-cell {
-        -fx-background-color: null;
-        -fx-padding: 5px 15px 7px 36px;
-        -fx-text-fill: #515458; }
+.list-view .scroll-bar:horizontal .increment-arrow,
+.list-view .scroll-bar:horizontal .decrement-arrow,
+.list-view .scroll-bar:horizontal .increment-button,
+.list-view .scroll-bar:horizontal .decrement-button {
+    -fx-padding:0;
+}
 
-    .list-cell:odd { -fx-background-color: #ebeef2; }
+.list-cell {
+    -fx-background-color: null;
+    -fx-padding: 5px 15px 7px 36px;
+    -fx-text-fill: #515458;
+}
 
-    .list-cell:selected {
-        -fx-background-color: #deeeff;
-        -fx-border-width: 1px 0 1px 0;
-        -fx-border-color: #bfd9f2;
-        -fx-padding: 4px 15px 6px 36px; }
+#log-text {
+    -fx-fill: #515458;
+    -fx-font-size: 15px;
+    -fx-font-smoothing-type: lcd;
+}
 
-    .error, .info, .warning {
-        -fx-background-position: 10px 6px;
-        -fx-background-repeat: no-repeat;
-        -fx-background-size: 16px, 16px; }
+.list-cell:odd {
+    -fx-background-color: #ebeef2;
+}
 
-    .error { -fx-background-image: url('images/messages/error.png'); }
-    .info { -fx-background-image: url('images/messages/info.png'); }
-    .warning { -fx-background-image: url('images/messages/warning.png'); }
+.list-cell:selected {
+    -fx-background-color: #deeeff;
+    -fx-border-width: 1px 0 1px 0;
+    -fx-border-color: #bfd9f2;
+    -fx-padding: 4px 15px 6px 36px;
+}
 
+.error, .info, .warning {
+    -fx-background-position: 10px 6px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: 16px, 16px;
+    -fx-wrap-text: true;
+}
+
+.error {
+    -fx-background-image: url('images/messages/error.png');
+}
+
+.info {
+    -fx-background-image: url('images/messages/info.png');
+}
+
+.warning {
+    -fx-background-image: url('images/messages/warning.png');
+}
+
+/*------------------------------------------------------------------------------*/
+/*******************************************************************************
+ *                                                                             *
+ * ScrollBar                                                                   *
+ *                                                                             *
+ ******************************************************************************/
+.scroll-bar {
+    -fx-skin: "codeOrchestra.colt.core.ui.skin.AquaScrollBarSkin";
+}
+
+.scroll-bar:horizontal, .scroll-bar:horizontal:focused,
+.scroll-bar:horizontal > .track-background {
+    -fx-background-color:transparent;
+    -fx-background-insets: 0.0;
+    -fx-padding: 0.0 0.0 2.0 0.0;
+}
+
+.scroll-bar:horizontal:hover, .scroll-bar:horizontal:focused:hover,
+.scroll-bar:horizontal:hover > .track-background {
+    -fx-background-color:transparent;
+    -fx-background-insets: 0.0;
+    -fx-padding: 0.0 0.0 0.0 0.0;
+}
+
+.scroll-bar:vertical{
+    -fx-background-color:transparent;
+    -fx-background-insets: 0.0;
+    -fx-padding: -1.0 2.0 -1.0 0.0;
+}
+
+.scroll-bar:vertical > .track-background,
+.scroll-bar:vertical:hover > .track-background,
+.scroll-bar:vertical:hover, .scroll-bar:vertical:focused:hover {
+    -fx-background-color:transparent;
+    -fx-background-insets: 0.0;
+    -fx-padding: -1.0 0.0 -1.0 0.0;
+}
+
+.scroll-bar:horizontal > .thumb, .scroll-bar:vertical > .thumb {
+    -fx-background-color: rgb(0.0, 0.0, 0.0, 0.5);
+    -fx-background-insets: 0.0;
+    -fx-background-radius: 4.0;
+}
+
+.scroll-bar:horizontal:hover > .thumb, .scroll-bar:vertical:hover > .thumb {
+    -fx-background-color: rgb(0.0, 0.0, 0.0, 0.5);
+    -fx-background-radius: 6.0;
+}
+
+.scroll-bar:vertical:hover > .thumb {
+    -fx-background-insets: 0.0 2.0 0.0 2.0;
+}
+
+.scroll-bar:horizontal:hover > .thumb {
+    -fx-background-insets: 2.0 0.0 2.0 0.0;
+}
+
+.scroll-bar:horizontal > .track,
+.scroll-bar:vertical > .track {
+    -fx-background-color: transparent;
+    -fx-background-radius: 0.0;
+    -fx-background-insets: 0.0;
+}
+
+.scroll-bar:horizontal:hover > .track,
+.scroll-bar:vertical:hover > .track {
+    -fx-border-color: rgb(198.0, 198.0, 198.0);
+}
+
+.scroll-bar:vertical:hover > .track {
+    -fx-background-color: linear-gradient(rgb(238.0, 238.0, 238.0, 0.7) 0.0%, rgb(255.0, 255.0, 255.0, 0.7) 100.0%);
+    -fx-border-width: 0.0 0.0 0.0 1.0;
+    -fx-border-insets: 0.0 0.0 0.0 -1.0;
+}
+
+.scroll-bar:horizontal:hover > .track {
+    -fx-background-color: linear-gradient(rgb(238.0, 238.0, 238.0, 0.8) 0.0%, rgb(255.0, 255.0, 255.0, 0.8) 100.0%);
+    -fx-border-width: 1.0 0.0 0.0 0.0;
+    -fx-border-insets: -1.0 0.0 0.0 0.0;
+}
+
+.scroll-bar > .increment-button,
+.scroll-bar > .decrement-button {
+    -fx-background-color: transparent;
+    -fx-background-insets:  0.0;
+    -fx-padding: 0.0em;
+}
+
+.scroll-bar:vertical:hover > .increment-button,
+.scroll-bar:vertical:hover > .decrement-button {
+    -fx-background-color: transparent;
+    -fx-background-insets:  0.0;
+    -fx-padding: 0.0em 6.0pt 0.0em 0.0em;
+}
+
+.scroll-bar:horizontal:hover > .increment-button,
+.scroll-bar:horizontal:hover > .decrement-button {
+    -fx-background-color: transparent;
+    -fx-background-insets:  0.0;
+    -fx-padding: 6.0pt 0.0em 0.0em 0.0em;
+}
+
+.scroll-bar:horizontal > .increment-button > .increment-arrow,
+.scroll-bar:horizontal > .decrement-button > .decrement-arrow {
+    -fx-background-color: transparent;
+    -fx-background-insets:  0.0;
+    -fx-padding: 4.0pt 0.0em 0.0em 0.0em;
+}
+
+.scroll-bar:vertical > .increment-button > .increment-arrow,
+.scroll-bar:vertical > .decrement-button > .decrement-arrow {
+    -fx-background-color: transparent;
+    -fx-background-insets:  0.0;
+    -fx-padding: 0.0em 4.0pt 0.0em 0.0em;
+}
+
+.scroll-bar:disabled {
+    -fx-opacity: -fx-disabled-opacity;
+}

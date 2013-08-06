@@ -1,25 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
+<?import java.lang.*?>
+<?import java.util.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<GridPane hgap="10.0" vgap="10.0" xmlns:fx="http://javafx.com/fxml" fx:controller="codeOrchestra.colt.as.ui.propertyTabPane.projectPaths.PathsFormController">
+<?import javafx.scene.paint.*?>
+
+<VBox fx:controller="codeOrchestra.colt.as.ui.propertyTabPane.projectPaths.PathsFormController" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
   <children>
-    <Label fx:id="titleLabel" minHeight="-Infinity" minWidth="-Infinity" text="Source Paths:" GridPane.columnIndex="0" GridPane.columnSpan="2147483647" GridPane.rowIndex="0" GridPane.valignment="TOP" />
-    <ListView fx:id="list" focusTraversable="false" prefHeight="144.0" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-    <VBox alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" spacing="20.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+    <Label fx:id="titleLabel" minWidth="-Infinity" text="Label" VBox.vgrow="NEVER" />
+    <HBox spacing="5" VBox.vgrow="ALWAYS">
       <children>
-        <Button fx:id="add" focusTraversable="false" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#addHandler" text="Add" />
-        <Button fx:id="remove" focusTraversable="false" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#removeHandler" text="Remove" />
-        <Button fx:id="up" focusTraversable="false" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#upHandler" text="Up" />
-        <Button fx:id="down" focusTraversable="false" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#downHandler" text="Down" />
+        <TextField fx:id="textField" HBox.hgrow="ALWAYS" />
+        <Button fx:id="add" text="+" HBox.hgrow="NEVER" />
       </children>
-    </VBox>
+    </HBox>
   </children>
-  <columnConstraints>
-    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
-  </columnConstraints>
-  <rowConstraints>
-    <RowConstraints vgrow="NEVER" />
-  </rowConstraints>
-</GridPane>
+</VBox>

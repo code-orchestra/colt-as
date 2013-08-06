@@ -1,71 +1,72 @@
 package codeOrchestra.colt.as.ui.log
 
-import javafx.event.EventHandler
-import javafx.geometry.Insets
-import javafx.scene.control.Button
+import com.sun.javafx.scene.control.skin.VirtualFlow
+import javafx.application.Platform
+import javafx.geometry.Pos
 import javafx.scene.control.Hyperlink
-import javafx.scene.control.Label
 import javafx.scene.control.ListCell
-import javafx.scene.control.TextArea
-import javafx.scene.control.TextField
-import javafx.scene.image.ImageView
-import javafx.scene.layout.Border
+import javafx.scene.control.Tooltip
 import javafx.scene.layout.HBox
-import javafx.scene.layout.Pane
 import javafx.scene.layout.Priority
+import javafx.scene.shape.Rectangle
 import javafx.scene.text.Text
 import javafx.scene.text.TextFlow
-import javafx.scene.web.WebView
+
+import static codeOrchestra.colt.as.ui.log.Level.*
 
 /**
  * @author Dima Kruk
+ * @author Eugene Potapenko
  */
 class LogCell extends ListCell<LogMessage> {
-    HBox hBox = new HBox()
-    Label label = new Label()
-    Hyperlink hyperlink = new Hyperlink()
-
-    LogMessage lastItem
+    HBox root = new HBox()
+    Text logText = new Text(id: "log-text")
+    TextFlow logTextPane = new TextFlow(logText)
+    Rectangle spacer = new Rectangle()
+    Hyperlink hyperlink = new Hyperlink(alignment: Pos.TOP_RIGHT, minWidth: 150, maxWidth: 150, tooltip: new Tooltip())
+    private LogMessage logMessage
 
     LogCell() {
         super()
-        label.wrapText = true
-        hBox.styleClass.add("li")
-        hBox.children.addAll(label, hyperlink)
-        HBox.setHgrow(label, Priority.ALWAYS)
+        root.children.addAll(logTextPane, spacer, hyperlink)
+        HBox.setHgrow(spacer, Priority.ALWAYS)
     }
 
     @Override
-    protected void updateItem(LogMessage t, boolean b) {
-        super.updateItem(t, b)
+    protected void layoutChildren() {
+        super.layoutChildren()
+    }
 
+    @Override
+    protected void updateItem(LogMessage logMessage, boolean b) {
+        super.updateItem(logMessage, b)
         text = null
         if (empty) {
-            lastItem = null
-            graphic = null
-        } else {
-            lastItem = t
-            String style = ""
-            switch (item.level){
-                case codeOrchestra.colt.as.ui.log.Level.FATAL:
-                case codeOrchestra.colt.as.ui.log.Level.ERROR:
-                    style = "error"
-                    break
-                case codeOrchestra.colt.as.ui.log.Level.WARN:
-                    style = "warning"
-                    break
-                case codeOrchestra.colt.as.ui.log.Level.INFO:
-                    style = "info"
-                    break
-                case codeOrchestra.colt.as.ui.log.Level.OFF:
-                case codeOrchestra.colt.as.ui.log.Level.DEBUG:
-                case codeOrchestra.colt.as.ui.log.Level.TRACE:
-                case codeOrchestra.colt.as.ui.log.Level.ALL:
-                    break
+            setGraphic(null)
+            this.logMessage = null
+        } else{
+            if (this.logMessage != logMessage) {
+                this.logMessage = logMessage
+                String style = ""
+                switch (item.level) {
+                    case FATAL:
+                    case ERROR:
+                        style = "error"; break
+                    case WARN:
+                        style = "warning"; break
+                    case INFO:
+                        style = "info"; break
+                }
+                logText.text = item.getMessage()
+                hyperlink.text = item.source
+                hyperlink.tooltip.text = item.source
+                styleClass.add(style)
             }
-            label.text = item.getMessageText(false)
-            setGraphic(hBox)
-            hBox.styleClass.add(style)
+
+            setGraphic(root)
+            if (parent?.parent?.parent instanceof VirtualFlow) {
+                logTextPane.maxWidthProperty().bind((parent?.parent?.parent as VirtualFlow).widthProperty().add(-220))
+            }
         }
     }
 }

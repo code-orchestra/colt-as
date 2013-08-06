@@ -1,15 +1,18 @@
 package codeOrchestra.colt.as.ui.log
 
+import groovy.transform.Canonical
+
 /**
  * @author Dima Kruk
  */
+@Canonical
 class LogMessage {
 
-    private long timestamp
-    private String source
-    private Level level
-    private String message
-    private String stackTrace
+    long timestamp
+    String source
+    Level level
+    String message
+    String stackTrace
 
     public LogMessage(String source, Level level, String message, long timestamp, String stackTrace) {
         this.timestamp = timestamp
@@ -17,17 +20,5 @@ class LogMessage {
         this.level = level
         this.message = message
         this.stackTrace = stackTrace
-    }
-
-    public String getMessageText(boolean showSource) {
-        return message
-    }
-
-    Level getLevel() {
-        return level
-    }
-
-    String getStackTrace() {
-        return stackTrace
     }
 }
