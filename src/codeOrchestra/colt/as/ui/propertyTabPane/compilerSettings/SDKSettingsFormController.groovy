@@ -1,7 +1,11 @@
 package codeOrchestra.colt.as.ui.propertyTabPane.compilerSettings
 
+import codeOrchestra.colt.as.flexsdk.FlexSDKManager
+import codeOrchestra.colt.as.flexsdk.FlexSDKNotPresentException
 import codeOrchestra.colt.as.model.ModelStorage
 import codeOrchestra.colt.as.model.beans.SDKModel
+import javafx.beans.value.ChangeListener
+import javafx.beans.value.ObservableValue
 import javafx.event.ActionEvent
 import javafx.fxml.FXML
 import javafx.fxml.Initializable
@@ -31,6 +35,16 @@ class SDKSettingsFormController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         customConfTF.disableProperty().bind(customConfCB.selectedProperty().not())
         customConfBtn.disableProperty().bind(customConfCB.selectedProperty().not())
+
+        model.flexSDKPath().addListener({ ObservableValue<? extends String> observable, String oldValue, String newValue ->
+            FlexSDKManager manager = FlexSDKManager.instance
+            try {
+                manager.checkIsValidFlexSDKPath(newValue)
+                model.isValidFlexSDK = true
+            } catch (FlexSDKNotPresentException exception) {
+                model.isValidFlexSDK = false
+            }
+        } as ChangeListener<String>)
 
         bindModel()
     }

@@ -1,8 +1,12 @@
 package codeOrchestra.colt.as.model.beans
 
+import codeOrchestra.colt.as.flexsdk.FlexSDKManager
+import codeOrchestra.colt.as.flexsdk.FlexSDKNotPresentException
 import codeOrchestra.colt.core.model.IModelElement
 import codeOrchestra.groovyfx.FXBindable
 import groovy.transform.Canonical
+import javafx.collections.FXCollections
+import javafx.collections.ObservableList as FXObservableList
 
 /**
  * @author Dima Kruk
@@ -10,10 +14,15 @@ import groovy.transform.Canonical
 @Canonical
 @FXBindable
 class SDKModel implements IModelElement{
+
     String flexSDKPath
     boolean useFlexConfig
     boolean useCustomConfig
     String customConfigPath
+
+    boolean isValidFlexSDK
+
+    FXObservableList<String> availablePlayerVersions = FXCollections.observableArrayList()
 
     @Override
     Closure buildXml() {
