@@ -1,9 +1,9 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="COLTApplication" type="Application" factoryName="Application">
     <option name="MAIN_CLASS_NAME" value="codeOrchestra.colt.core.ui.COLTApplication" />
-    <option name="VM_PARAMETERS" value="-Dcolt.handlers=AS:codeOrchestra.colt.as.ASLiveCodingLanguageHandler" />
+    <option name="VM_PARAMETERS" value="-Dcolt.handlers=AS:codeOrchestra.colt.as.ASLiveCodingLanguageHandler -Dcolt.base.dir=$MODULE_DIR$" />
     <option name="PROGRAM_PARAMETERS" value="" />
-    <option name="WORKING_DIRECTORY" value="file://$MODULE_DIR$" />
+    <option name="WORKING_DIRECTORY" value="" />
     <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
     <option name="ALTERNATIVE_JRE_PATH" value="" />
     <option name="ENABLE_SWING_INSPECTOR" value="false" />

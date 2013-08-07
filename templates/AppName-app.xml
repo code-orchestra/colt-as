@@ -1,0 +1,33 @@
+<application xmlns="http://ns.adobe.com/air/application/3.7">
+<id>{APPNAME}</id>
+<filename>{APPNAME}</filename>
+<name>{APPNAME}</name>
+<versionNumber>0.0</versionNumber>
+<initialWindow>
+<content>{OUTPUT_FILE}</content>
+<title>{APPNAME}</title>
+<visible>true</visible>
+<aspectRatio>any</aspectRatio>
+<autoOrients>true</autoOrients>
+<fullScreen>false</fullScreen>
+<requestedDisplayResolution>high</requestedDisplayResolution>
+<renderMode>direct</renderMode>
+<depthAndStencil>true</depthAndStencil>
+</initialWindow>
+  <iPhone>
+
+    <InfoAdditions><![CDATA[<key>UIDeviceFamily</key>
+			                <array>
+			                    <string>1</string>
+			                    <string>2</string>
+			                </array>
+			                <key>UIStatusBarStyle</key>
+			                <string>UIStatusBarStyleBlackOpaque</string>
+			                <key>UIRequiresPersistentWiFi</key>
+			                <string>YES</string>]]></InfoAdditions>
+
+    <requestedDisplayResolution>high</requestedDisplayResolution>
+
+  </iPhone>
+
+</application>
