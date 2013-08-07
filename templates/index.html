@@ -1,0 +1,30 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0014)about:internet -->
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+    <head>
+        <title>{SWF_NAME}</title>
+        <script type="text/javascript" src="swfobject.js"></script>
+        <script type="text/javascript">
+            var swfVersionStr = "0";
+            var xiSwfUrlStr = "";
+            var flashvars = {};
+            var params = {};
+            params.quality = "high";
+            params.bgcolor = "#ffffff";
+            params.allowscriptaccess = "sameDomain";
+            var attributes = {};
+            attributes.id = "TestProject";
+            attributes.name = "TestProject";
+            attributes.align = "middle";
+            attributes.wmode = "direct";
+            swfobject.embedSWF(
+                "{SWF_NAME}", "flashContent",
+                "600", "400",
+                swfVersionStr, xiSwfUrlStr,
+                flashvars, params, attributes);
+        </script>
+    </head>
+    <body style="margin:0px 0px 0px 0px;">
+        <div id="flashContent"/>
+   </body>
+</html>
