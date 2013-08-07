@@ -22,8 +22,8 @@ public class IndexHTMLGenerator {
   }
 
   public void generate() throws IOException {
-    File targetSWFObjectFile = new File(project.getOutputDir(), "swfobject.web");
-    FileUtils.copyFileChecked(new File(ASPathUtils.getTemplatesDir(), "swfobject.web"), targetSWFObjectFile, false);
+    File targetSWFObjectFile = new File(project.getOutputDir(), "swfobject.html");
+    FileUtils.copyFileChecked(new File(ASPathUtils.getTemplatesDir(), "swfobject.html"), targetSWFObjectFile, false);
     
     File targetIndexFile = new File(project.getOutputDir(), "index.html");
     FileUtils.copyFileChecked(new File(ASPathUtils.getTemplatesDir(), "index.html"), targetIndexFile, false);

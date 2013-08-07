@@ -1,7 +1,7 @@
 package codeOrchestra.colt.as.ui.log
 
+import codeOrchestra.colt.core.ui.components.log.LogMessage
 import com.sun.javafx.scene.control.skin.VirtualFlow
-import javafx.application.Platform
 import javafx.geometry.Pos
 import javafx.scene.control.Hyperlink
 import javafx.scene.control.ListCell
@@ -11,8 +11,6 @@ import javafx.scene.layout.Priority
 import javafx.scene.shape.Rectangle
 import javafx.scene.text.Text
 import javafx.scene.text.TextFlow
-
-import static codeOrchestra.colt.as.ui.log.Level.*
 
 /**
  * @author Dima Kruk

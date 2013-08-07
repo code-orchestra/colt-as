@@ -1,6 +1,6 @@
 package codeOrchestra.colt.as.ui.log
 
-import groovy.transform.TypeChecked
+import codeOrchestra.colt.core.ui.components.log.LogMessage
 import javafx.application.Application
 import javafx.collections.FXCollections
 import javafx.scene.Scene
