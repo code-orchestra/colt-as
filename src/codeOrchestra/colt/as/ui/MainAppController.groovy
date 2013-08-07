@@ -31,26 +31,27 @@ class MainAppController implements Initializable {
 
     @Override
     void initialize(URL url, ResourceBundle resourceBundle) {
+        GATracker tracker = GATracker.instance
         //GATracker.instance.tracker.trackPageViewFromReferrer("asProject.html", "asProject", "codeorchestra.com", "codeorchestra.com", "/index.html")
-        GATracker.instance.tracker.trackPageView("/as/asProject.html", "asProject", "codeorchestra.com")
+        tracker.trackPageView("/as/asProject.html", "asProject")
 
         toggleGroup.toggles.addAll(runBnt, buildBtn, settingsBtn)
         runBnt.onAction = {
-            GATracker.instance.tracker.trackEvent("Menu", "Run pressed")
-            GATracker.instance.tracker.trackPageView("/as/asLog.html", "asLog", "codeorchestra.com")
+            tracker.trackEvent("Menu", "Run pressed")
+            tracker.trackPageView("/as/asLog.html", "asLog")
             borderPane.center = log.getPane()
 
         } as EventHandler
 
         settingsBtn.onAction = {
-            GATracker.instance.tracker.trackEvent("Menu", "Settings pressed")
-            GATracker.instance.tracker.trackPageView("/as/asSettings.html", "asSettings", "codeorchestra.com")
+            tracker.trackEvent("Menu", "Settings pressed")
+            tracker.trackPageView("/as/asSettings.html", "asSettings")
             borderPane.center = sForm.getPane()
         } as EventHandler
 
         buildBtn.onAction = {
-            GATracker.instance.tracker.trackEvent("Menu", "Build pressed")
-            GATracker.instance.tracker.trackPageView("/as/asBuild.html", "asBuild", "codeorchestra.com")
+            tracker.trackEvent("Menu", "Build pressed")
+            tracker.trackPageView("/as/asBuild.html", "asBuild")
         } as EventHandler
     }
 }
