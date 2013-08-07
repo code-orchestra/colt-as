@@ -465,29 +465,23 @@
 .status-bar {
     -fx-border-width: 1px 0 0 0;
     -fx-border-color: #dde0e4;
-    -fx-padding: 12px 10px 11px 8px;
-}
+    -fx-padding: 12px 10px 11px 8px; }
 
-.filters {
-    -fx-spacing: 2px;
-}
+.filters { -fx-spacing: 2px; }
 
 .filters .toggle-button {
     -fx-background-color: null;
     -fx-background-insets: 0;
-    -fx-background-radius: 12px;
+    -fx-background-radius: 8px;
     -fx-text-fill: #83868a;
-    -fx-padding: 1px 6px 0 6px;
-}
+    -fx-padding: 1px 6px 0 6px; }
 
 .filters .toggle-button:hover, .filters .toggle-button:selected {
-    -fx-background-color: #dbdee2;
-}
+    -fx-background-color: #dbdee2; }
 
 .status-bar .label {
     -fx-text-fill: #83868a;
-    -fx-padding: 0;
-}
+    -fx-padding: 0; }
 
 /*
 |-------------------------------------------------------------------------------
@@ -527,7 +521,10 @@
     -fx-background-radius: 0;
     -fx-padding: 0; }
 
-
+/* Thumb (slider) */
+.scroll-bar > .thumb, .scroll-bar:focused .thumb {
+    -fx-background-color: #bfc2c4;
+    -fx-background-radius: 4px; }
 
 .scroll-bar .thumb:hover, .scroll-bar:focused .thumb {
     -fx-background-color: derive(#bfc2c4, -20%); }
