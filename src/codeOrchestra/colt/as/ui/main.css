@@ -4,7 +4,13 @@
 | http://docs.oracle.com/javafx/2/api/javafx/scene/doc-files/cssref.html
 | http://docs.oracle.com/javafx/2/css_tutorial/jfxpub-css_tutorial.htm
 | http://fxexperience.com/2010/05/how-to-embed-fonts/
+| http://www.youtube.com/watch?v=AV1_xh_-Uzw — Fluid Layout
 |-------------------------------------------------------------------------------
+|
+| JavaFX CSS currently does not effect layout. So it does not support CSS layout
+| properties such as display, float, position, overflow, height, and width.
+|
+|---------------------------------------
 | Styling objects and Selectors
 |---------------------------------------
 |
@@ -15,7 +21,7 @@
 |       Parent
 |       Scene
 |       ImageView
-|       AnchorPane
+|       AnchorPane // Grid for Child
 |       BorderPane
 |       FlowPane
 |       GridPane
@@ -171,13 +177,14 @@
 |   -fx-fill: yellow;
 |   -fx-background-color // <color> | <linear-gradient> | <radial-gradient>
 |   -fx-background-color: linear-gradient(from top to bottom, #0099d9, #0066cc 84%, #007ad9 100%);
-|       linear-gradient( [ [from <point> to <point>] | [ to <side-or-corner>], ]? [ [ repeat | reflect ], ]? <color-stop>[, <color-stop>]+)
-|       <side-or-corner> = [left | right] || [top | bottom]
-|       linear-gradient(from 0 0 to 100% 100%, red, black 100%)
-|       from top left to bottom right, red to black
-|       linear-gradient(from 0 0 to 0 50px, gray, darkgray 50%, dimgray 99%, white)
-|       create a 50px high bar at the top with a 3 color gradient
-|       with white underneath for the rest of the filled area.
+|       linear-gradient( [ [from <point> to <point>], ]? [ [ repeat | reflect ], ]? <color-stop>[, <color-stop>]+)
+|       linear-gradient(from 0% 0% to 100% 100%, red, black 100%)
+|       // % or px after 0s are required
+|       // it is theoretically possible to use the values ​​"top", "bottom",
+|       // "left", and "right" but the Scene Builder reports errors
+|       linear-gradient(from 0px 0px to 0px 50px, gray, darkgray 50%, dimgray 99%, white)
+|       // create a 50px high bar at the top with a 3 color gradient
+|       // with white underneath for the rest of the filled area.
 |   -fx-background-color: radial-gradient(radius 100%, red, darkgray, black)
 |   -fx-background-color: radial-gradient(focus-angle 45deg, focus-distance 20%, center 25% 25%, radius 50%, reflect, gray, darkgray 75%, dimgray)
 |
@@ -212,7 +219,7 @@
 |           dashed | segments( <number>, <number> [, <number>]*) ]
 |   -fx-border-radius: 5px;
 |   -fx-border-insets
-|   -fx-stroke-width: 5px;
+|   -fx-stroke-width: 5px; // Stroke properties use for shapes, like arc, circle
 |   -fx-stroke: green;
 |
 |   -fx-border-image-source: url(img/border.png)
@@ -235,7 +242,7 @@
 |   -fx-column-halignment   [ left | center | right ]
 |   -fx-row-valignment  [ top | center | baseline | bottom ]
 |   -fx-orientation [ horizontal | vertical ]
-Ё
+|
 | Transformation
 |   -fx-rotate: 45;
 |   -fx-scale-x
@@ -484,181 +491,98 @@
 
 /*
 |-------------------------------------------------------------------------------
-| List View
+| Scroll Bar
 |-------------------------------------------------------------------------------
 */
 
-.list-view {
-    -fx-background-color: null;
-    -fx-background-insets: 0;
-    -fx-padding: 0;
-}
-
-.list-view .scroll-bar:horizontal .increment-arrow,
-.list-view .scroll-bar:horizontal .decrement-arrow,
-.list-view .scroll-bar:horizontal .increment-button,
-.list-view .scroll-bar:horizontal .decrement-button {
-    -fx-padding:0;
-}
-
-.list-cell {
-    -fx-background-color: null;
-    -fx-padding: 5px 15px 7px 36px;
-    -fx-text-fill: #515458;
-}
-
-#log-text {
-    -fx-fill: #515458;
-    -fx-font-size: 15px;
-    -fx-font-smoothing-type: lcd;
-}
-
-.list-cell:odd {
-    -fx-background-color: #ebeef2;
-}
-
-.list-cell:selected {
-    -fx-background-color: #deeeff;
-    -fx-border-width: 1px 0 1px 0;
-    -fx-border-color: #bfd9f2;
-    -fx-padding: 4px 15px 6px 36px;
-}
-
-.error, .info, .warning {
-    -fx-background-position: 10px 6px;
-    -fx-background-repeat: no-repeat;
-    -fx-background-size: 16px, 16px;
-    -fx-wrap-text: true;
-}
-
-.error {
-    -fx-background-image: url('images/messages/error.png');
-}
-
-.info {
-    -fx-background-image: url('images/messages/info.png');
-}
-
-.warning {
-    -fx-background-image: url('images/messages/warning.png');
-}
-
-/*------------------------------------------------------------------------------*/
-/*******************************************************************************
- *                                                                             *
- * ScrollBar                                                                   *
- *                                                                             *
- ******************************************************************************/
-.scroll-bar {
-    -fx-skin: "codeOrchestra.colt.core.ui.skin.AquaScrollBarSkin";
-}
-
-.scroll-bar:horizontal, .scroll-bar:horizontal:focused,
-.scroll-bar:horizontal > .track-background {
-    -fx-background-color:transparent;
-    -fx-background-insets: 0.0;
-    -fx-padding: 0.0 0.0 2.0 0.0;
-}
-
-.scroll-bar:horizontal:hover, .scroll-bar:horizontal:focused:hover,
-.scroll-bar:horizontal:hover > .track-background {
-    -fx-background-color:transparent;
-    -fx-background-insets: 0.0;
-    -fx-padding: 0.0 0.0 0.0 0.0;
-}
-
-.scroll-bar:vertical{
-    -fx-background-color:transparent;
-    -fx-background-insets: 0.0;
-    -fx-padding: -1.0 2.0 -1.0 0.0;
-}
-
+/* Resets */
+.scroll-bar,
 .scroll-bar:vertical > .track-background,
 .scroll-bar:vertical:hover > .track-background,
-.scroll-bar:vertical:hover, .scroll-bar:vertical:focused:hover {
-    -fx-background-color:transparent;
-    -fx-background-insets: 0.0;
-    -fx-padding: -1.0 0.0 -1.0 0.0;
-}
-
-.scroll-bar:horizontal > .thumb, .scroll-bar:vertical > .thumb {
-    -fx-background-color: rgb(0.0, 0.0, 0.0, 0.5);
-    -fx-background-insets: 0.0;
-    -fx-background-radius: 4.0;
-}
-
-.scroll-bar:horizontal:hover > .thumb, .scroll-bar:vertical:hover > .thumb {
-    -fx-background-color: rgb(0.0, 0.0, 0.0, 0.5);
-    -fx-background-radius: 6.0;
-}
-
-.scroll-bar:vertical:hover > .thumb {
-    -fx-background-insets: 0.0 2.0 0.0 2.0;
-}
-
-.scroll-bar:horizontal:hover > .thumb {
-    -fx-background-insets: 2.0 0.0 2.0 0.0;
-}
-
-.scroll-bar:horizontal > .track,
-.scroll-bar:vertical > .track {
-    -fx-background-color: transparent;
-    -fx-background-radius: 0.0;
-    -fx-background-insets: 0.0;
-}
-
-.scroll-bar:horizontal:hover > .track,
-.scroll-bar:vertical:hover > .track {
-    -fx-border-color: rgb(198.0, 198.0, 198.0);
-}
-
-.scroll-bar:vertical:hover > .track {
-    -fx-background-color: linear-gradient(rgb(238.0, 238.0, 238.0, 0.7) 0.0%, rgb(255.0, 255.0, 255.0, 0.7) 100.0%);
-    -fx-border-width: 0.0 0.0 0.0 1.0;
-    -fx-border-insets: 0.0 0.0 0.0 -1.0;
-}
-
-.scroll-bar:horizontal:hover > .track {
-    -fx-background-color: linear-gradient(rgb(238.0, 238.0, 238.0, 0.8) 0.0%, rgb(255.0, 255.0, 255.0, 0.8) 100.0%);
-    -fx-border-width: 1.0 0.0 0.0 0.0;
-    -fx-border-insets: -1.0 0.0 0.0 0.0;
-}
-
-.scroll-bar > .increment-button,
-.scroll-bar > .decrement-button {
-    -fx-background-color: transparent;
-    -fx-background-insets:  0.0;
-    -fx-padding: 0.0em;
-}
-
-.scroll-bar:vertical:hover > .increment-button,
-.scroll-bar:vertical:hover > .decrement-button {
-    -fx-background-color: transparent;
-    -fx-background-insets:  0.0;
-    -fx-padding: 0.0em 6.0pt 0.0em 0.0em;
-}
-
-.scroll-bar:horizontal:hover > .increment-button,
-.scroll-bar:horizontal:hover > .decrement-button {
-    -fx-background-color: transparent;
-    -fx-background-insets:  0.0;
-    -fx-padding: 6.0pt 0.0em 0.0em 0.0em;
-}
-
-.scroll-bar:horizontal > .increment-button > .increment-arrow,
-.scroll-bar:horizontal > .decrement-button > .decrement-arrow {
-    -fx-background-color: transparent;
-    -fx-background-insets:  0.0;
-    -fx-padding: 4.0pt 0.0em 0.0em 0.0em;
-}
-
+.scroll-bar:vertical:hover, .scroll-bar:vertical:focused:hover,
 .scroll-bar:vertical > .increment-button > .increment-arrow,
 .scroll-bar:vertical > .decrement-button > .decrement-arrow {
     -fx-background-color: transparent;
-    -fx-background-insets:  0.0;
-    -fx-padding: 0.0em 4.0pt 0.0em 0.0em;
-}
+    -fx-background-insets: 0; }
 
-.scroll-bar:disabled {
-    -fx-opacity: -fx-disabled-opacity;
-}
+.scroll-bar,
+.scroll-bar:vertical > .track-background,
+.scroll-bar:vertical:hover > .track-background,
+.scroll-bar:vertical:hover, .scroll-bar:vertical:focused:hover {
+    -fx-padding: 0; }
+
+/* Buttons — hide them without using the display property */
+.scroll-bar > .increment-button,
+.scroll-bar > .decrement-button {
+    -fx-background-color: transparent;
+    -fx-background-insets:  0;
+    -fx-padding: 0; }
+
+.scroll-bar:disabled { -fx-opacity: .44; }
+
+/* Track (bar) */
+.scroll-bar .track {
+    -fx-border-color: #e3e4e6;
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+    -fx-padding: 0; }
+
+/* Thumb (slider) */
+.scroll-bar > .thumb, .scroll-bar:focused .thumb {
+    -fx-background-color: #bfc2c4;
+    -fx-background-radius: 20px; }
+
+.scroll-bar .thumb:hover, .scroll-bar:focused .thumb {
+    -fx-background-color: derive(#bfc2c4, -20%); }
+
+/*
+|---------------------------------------
+| Vertical
+|---------------------------------------
+*/
+
+/* Buttons arrows — use it to set bar width */
+.scroll-bar:vertical > .increment-button > .increment-arrow,
+.scroll-bar:vertical > .decrement-button > .decrement-arrow {
+    -fx-padding: 0 15px 0 0; }
+
+/* Track (bar) */
+.scroll-bar:vertical .track {
+    -fx-border-width: 0 1px 0 1px;
+    -fx-background-color: linear-gradient(from 0% 50% to 100% 50%, #edeef0, #fbfcfe 50%, #f0f7f9 100%); }
+
+/* Thumb (slider) */
+.scroll-bar:vertical > .thumb {
+    -fx-background-insets: 1px 3px 1px 4px; }
+
+/*
+|---------------------------------------
+| Horizontal
+|---------------------------------------
+*/
+
+/* Buttons arrows — use it to set bar width */
+.scroll-bar:horizontal > .increment-button > .increment-arrow,
+.scroll-bar:horizontal > .decrement-button > .decrement-arrow {
+    -fx-padding: 0 0 15px 0; }
+
+/* Track (bar) */
+.scroll-bar:horizontal .track {
+    -fx-border-width: 1px 0 1px 0;
+    -fx-background-color: linear-gradient(from 0% 0% to 0% 100%, #edeef0, #fbfcfe 50%, #f0f7f9 100%); }
+
+/* Thumb (slider) */
+.scroll-bar:horizontal > .thumb {
+    -fx-background-insets: 4px 1px 3px 1px; }
+
+/*
+|---------------------------------------
+| Affected
+|---------------------------------------
+*/
+.list-view .corner {
+    -fx-background-color: #f7f8fa;
+    -fx-background-insets: 0;
+    -fx-border-color: #e3e4e6; }
+
+
