@@ -527,10 +527,7 @@
     -fx-background-radius: 0;
     -fx-padding: 0; }
 
-/* Thumb (slider) */
-.scroll-bar > .thumb, .scroll-bar:focused .thumb {
-    -fx-background-color: #bfc2c4;
-    -fx-background-radius: 20px; }
+
 
 .scroll-bar .thumb:hover, .scroll-bar:focused .thumb {
     -fx-background-color: derive(#bfc2c4, -20%); }
@@ -553,7 +550,7 @@
 
 /* Thumb (slider) */
 .scroll-bar:vertical > .thumb {
-    -fx-background-insets: 1px 3px 1px 4px; }
+    -fx-background-insets: 2px 3px 2px 4px; }
 
 /*
 |---------------------------------------
@@ -573,7 +570,7 @@
 
 /* Thumb (slider) */
 .scroll-bar:horizontal > .thumb {
-    -fx-background-insets: 4px 1px 3px 1px; }
+    -fx-background-insets: 4px 2px 3px 2px; }
 
 /*
 |---------------------------------------
@@ -584,5 +581,3 @@
     -fx-background-color: #f7f8fa;
     -fx-background-insets: 0;
     -fx-border-color: #e3e4e6; }
-
-
