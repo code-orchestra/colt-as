@@ -1,9 +1,8 @@
 package codeOrchestra.colt.as.air.ui
 
-import codeOrchestra.colt.as.air.ui.ios.IOSAirFormCntroller
+import codeOrchestra.colt.as.air.ui.android.AndroidAirFormController
 import codeOrchestra.colt.as.model.COLTAsProject
 import javafx.application.Application
-import javafx.application.Platform
 import javafx.event.EventHandler
 import javafx.fxml.FXMLLoader
 import javafx.scene.Parent
@@ -43,7 +42,7 @@ class AirFormTest extends Application {
 
 
         FXMLLoader loader = new FXMLLoader(AirFormController.class.getResource("air_form.fxml"))
-        IOSAirFormCntroller controller = new IOSAirFormCntroller()
+        AirFormController controller = new AndroidAirFormController()
         loader.setController(controller)
 
         VBox page = loader.load()
@@ -102,10 +101,10 @@ class AirFormTest extends Application {
                 "        <pass>12345</pass>\n" +
                 "      </ios-script>\n" +
                 "      <android-script path=''>\n" +
-                "        <sdk-path></sdk-path>\n" +
+                "        <sdk-path>/Users/dimakruk/Dev/FDT/sdks/flex_sdk_4.6</sdk-path>\n" +
                 "        <provision-path></provision-path>\n" +
-                "        <keystore-path></keystore-path>\n" +
-                "        <pass></pass>\n" +
+                "        <keystore-path>/Users/dimakruk/Documents/xCode/dimakruk.p12</keystore-path>\n" +
+                "        <pass>12345</pass>\n" +
                 "      </android-script>\n" +
                 "    </run-target>\n" +
                 "  </build>\n" +

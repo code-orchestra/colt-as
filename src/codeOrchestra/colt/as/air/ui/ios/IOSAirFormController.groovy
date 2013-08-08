@@ -10,7 +10,7 @@ import javafx.stage.FileChooser
 /**
  * @author Dima Kruk
  */
-class IOSAirFormCntroller extends AirFormController {
+class IOSAirFormController extends AirFormController {
     @Override
     protected void initOptions() {
         model = runTargetModel.iosAirModel

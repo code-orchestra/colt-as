@@ -2,11 +2,10 @@ package codeOrchestra.colt.as.ui.propertyTabPane.liveSettings
 
 import codeOrchestra.colt.as.model.COLTAsProjectBuildSettings
 import codeOrchestra.colt.as.model.ModelStorage
-import codeOrchestra.colt.as.model.beans.air.AIRModel
 import codeOrchestra.colt.as.run.Target
 import codeOrchestra.colt.as.model.beans.RunTargetModel
 import codeOrchestra.colt.as.air.ui.android.AndroidAirFormController
-import codeOrchestra.colt.as.air.ui.ios.IOSAirFormCntroller
+import codeOrchestra.colt.as.air.ui.ios.IOSAirFormController
 import javafx.application.Platform
 import javafx.beans.property.StringProperty
 import javafx.beans.value.ChangeListener
@@ -82,7 +81,7 @@ public class TargetFormController implements Initializable {
 
         iosGBtn.onAction = {
             if(canShowDialog()) {
-                showDialog(new IOSAirFormCntroller(), "Apple iOS: customize launch", model)
+                showDialog(new IOSAirFormController(), "Apple iOS: customize launch", model)
             } else {
                 //TODO: show message
             }
