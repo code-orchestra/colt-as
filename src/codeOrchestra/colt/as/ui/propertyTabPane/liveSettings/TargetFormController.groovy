@@ -2,11 +2,10 @@ package codeOrchestra.colt.as.ui.propertyTabPane.liveSettings
 
 import codeOrchestra.colt.as.model.COLTAsProjectBuildSettings
 import codeOrchestra.colt.as.model.ModelStorage
-import codeOrchestra.colt.as.model.beans.air.AIRModel
 import codeOrchestra.colt.as.run.Target
 import codeOrchestra.colt.as.model.beans.RunTargetModel
-import codeOrchestra.colt.as.ui.air.android.AndroidAirFormController
-import codeOrchestra.colt.as.ui.air.ios.IOSAirFormCntroller
+import codeOrchestra.colt.as.air.ui.android.AndroidAirFormController
+import codeOrchestra.colt.as.air.ui.ios.IOSAirFormController
 import javafx.application.Platform
 import javafx.beans.property.StringProperty
 import javafx.beans.value.ChangeListener
@@ -17,7 +16,7 @@ import javafx.fxml.Initializable
 import javafx.scene.Scene
 import javafx.scene.control.*
 import javafx.scene.layout.GridPane
-import codeOrchestra.colt.as.ui.air.AirFormController
+import codeOrchestra.colt.as.air.ui.AirFormController
 import javafx.scene.layout.VBox
 import javafx.stage.Modality
 import javafx.stage.Stage
@@ -82,7 +81,7 @@ public class TargetFormController implements Initializable {
 
         iosGBtn.onAction = {
             if(canShowDialog()) {
-                showDialog(new IOSAirFormCntroller(), "Apple iOS: customize launch", model.iosAirModel)
+                showDialog(new IOSAirFormController(), "Apple iOS: customize launch", model)
             } else {
                 //TODO: show message
             }
@@ -90,7 +89,7 @@ public class TargetFormController implements Initializable {
 
         androidGBtn.onAction = {
             if(canShowDialog()) {
-                showDialog(new AndroidAirFormController(), "Android: customize launch", model.iosAirModel)
+                showDialog(new AndroidAirFormController(), "Android: customize launch", model)
             } else {
                 //TODO: show message
             }
@@ -108,7 +107,7 @@ public class TargetFormController implements Initializable {
         return buildSettings.outputPath && buildSettings.outputFilename
     }
 
-    void showDialog(AirFormController controller, String title, AIRModel model) {
+    void showDialog(AirFormController controller, String title, RunTargetModel model) {
         FXMLLoader loader = new FXMLLoader(AirFormController.class.getResource("air_form.fxml"))
         loader.setController(controller)
         VBox page = loader.load()

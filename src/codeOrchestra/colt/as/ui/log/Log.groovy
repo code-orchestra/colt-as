@@ -1,6 +1,8 @@
 package codeOrchestra.colt.as.ui.log
 
 import codeOrchestra.colt.core.logging.Level
+import codeOrchestra.colt.core.logging.Logger
+import codeOrchestra.colt.core.logging.LoggerService
 import codeOrchestra.colt.core.ui.components.log.LogMessage
 import codeOrchestra.colt.core.ui.components.log.LogWebView
 import javafx.collections.FXCollections
@@ -13,7 +15,7 @@ import javafx.util.Callback
 /**
  * @author Dima Kruk
  */
-class Log {
+class Log implements LoggerService {
     ListView<LogMessage> listView
     LogWebView logWebView
 
@@ -47,5 +49,12 @@ class Log {
                 new LogMessage("com.codeOrchestra.*:33", Level.TRACE, """The issue with the approach shown above is that the content list is being copied into the items list - meaning that subsequent changes to the content list are not observed, and will not be reflected visually within the ListView. """, 10, ""),
                 new LogMessage("", Level.WARN, """ The issue with the approach shown above is that the content list is being copied into the items list - meaning that subsequent changes to the content list are not observed, and will not be reflected visually within the ListView. """, 10, ""),
         )
+    }
+
+    @Override
+    void log(String source, String message, List<String> scopeIds, long timestamp, Level level, String stackTrace) {
+        if (logWebView) {
+            logWebView.logList.add(new LogMessage(source, level, message, timestamp, stackTrace))
+        }
     }
 }

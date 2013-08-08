@@ -1,6 +1,6 @@
 @echo off
 
-set ADT={air-sdk}/bin/adt
+set ADT={AIR_SDK}/bin/adt
 
 set PROV={provisioning-profile}
 set CER={keystore}

@@ -1,7 +1,9 @@
 package codeOrchestra.colt.as.ui
 
+import codeOrchestra.colt.as.ASLiveCodingLanguageHandler
 import codeOrchestra.colt.as.ui.log.Log
 import codeOrchestra.colt.as.ui.propertyTabPane.SettingsForm
+import codeOrchestra.colt.core.loading.LiveCodingHandlerManager
 import com.dmurph.tracking.JGoogleAnalyticsTracker
 import javafx.event.EventHandler
 import javafx.fxml.FXML
@@ -31,6 +33,8 @@ class MainAppController implements Initializable {
 
     @Override
     void initialize(URL url, ResourceBundle resourceBundle) {
+        ((ASLiveCodingLanguageHandler) LiveCodingHandlerManager.instance.currentHandler).setLoggerService(log);
+
         GATracker tracker = GATracker.instance
         //GATracker.instance.tracker.trackPageViewFromReferrer("asProject.html", "asProject", "codeorchestra.com", "codeorchestra.com", "/index.html")
         tracker.trackPageView("/as/asProject.html", "asProject")
