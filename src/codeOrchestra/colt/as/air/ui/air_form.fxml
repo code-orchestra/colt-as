@@ -48,7 +48,7 @@
     <HBox id="HBox" alignment="CENTER" spacing="10.0">
       <children>
         <Button fx:id="generateBtn" mnemonicParsing="false" text="Generate" />
-        <Button fx:id="cencelBtn" mnemonicParsing="false" text="Cencel" />
+        <Button fx:id="cancelBtn" mnemonicParsing="false" text="Cancel" />
       </children>
     </HBox>
   </children>
