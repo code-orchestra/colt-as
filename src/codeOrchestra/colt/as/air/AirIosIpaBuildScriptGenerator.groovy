@@ -24,14 +24,20 @@ class AirIosIpaBuildScriptGenerator extends AirBuildScriptGenerator {
     String generate(AIRModel aioParent, List<File> packagedFiles) throws IOException {
         File targetScriptFile = getScriptPath(project)
         File templateFile = new File(PathUtils.getTemplatesDir(), getScriptFileName())
+        //for test
+        //File templateFile = new File("/Users/dimakruk/IdeaProjects/colt-as/templates", getScriptFileName())
 
         File targetDescScriptFile = getDescScriptPath(project)
         File templateDescFile = new File(PathUtils.getTemplatesDir(), "AppName-app.xml")
+        //for test
+        //File templateDescFile = new File("/Users/dimakruk/IdeaProjects/colt-as/templates", "AppName-app.xml")
 
         Map<String, String> replacements = new HashMap<>()
         replacements.put("{AIR_SDK}", aioParent.airSDKPath)
         replacements.put("{APPNAME}", appName)
         replacements.put("{PROJECT_DIR}", project.getBaseDir().getAbsolutePath())
+        //for test
+        //replacements.put("{PROJECT_DIR}", project.getOutputDir().parentFile.getAbsolutePath())
         String outputDirPath = project.getOutputDir().getAbsolutePath()
         if (SystemInfo.isWindows && !outputDirPath.endsWith(File.separator)) {
             outputDirPath += File.separator
