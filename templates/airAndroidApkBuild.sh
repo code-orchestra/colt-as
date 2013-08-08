@@ -1,6 +1,6 @@
 #!/bin/bash
 
-ADT="{air-sdk}/bin/adt"
+ADT="{AIR_SDK}/bin/adt"
 
 CER="{keystore}"
 PASS="{storepass}"
