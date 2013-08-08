@@ -16,7 +16,7 @@ class IOSAirFormCntroller extends AirFormController {
         model = runTargetModel.iosAirModel
 
         optionsList.add(new AirOption("AIR SDK", model.airSDKPath(), codeOrchestra.colt.as.air.ui.AirOptionType.DIRECTORY, optionsGP, 0))
-        optionsList.add(new AirOption("-provisioning-profile", model.keystorePath(), codeOrchestra.colt.as.air.ui.AirOptionType.FILE, optionsGP, 1))
+        optionsList.add(new AirOption("-provisioning-profile", model.provisionPath(), codeOrchestra.colt.as.air.ui.AirOptionType.FILE, optionsGP, 1))
         optionsList.last().eFilter = new FileChooser.ExtensionFilter(".mobileprovision", "*.mobileprovision")
         optionsList.add(new AirOption("-keystore", model.keystorePath(), codeOrchestra.colt.as.air.ui.AirOptionType.FILE, optionsGP, 2))
         optionsList.last().eFilter = new FileChooser.ExtensionFilter(".p12", "*.p12")

@@ -29,7 +29,7 @@ class AirIosIpaBuildScriptGenerator extends AirBuildScriptGenerator {
         File templateDescFile = new File(PathUtils.getTemplatesDir(), "AppName-app.xml")
 
         Map<String, String> replacements = new HashMap<>()
-        replacements.put("{FLEX_SDK}", project.getProjectBuildSettings().flexSDKPath)
+        replacements.put("{AIR_SDK}", aioParent.airSDKPath)
         replacements.put("{APPNAME}", appName)
         replacements.put("{PROJECT_DIR}", project.getBaseDir().getAbsolutePath())
         String outputDirPath = project.getOutputDir().getAbsolutePath()
@@ -42,9 +42,9 @@ class AirIosIpaBuildScriptGenerator extends AirBuildScriptGenerator {
         replacements.put("{IPA_FILE}", appName + ".ipa")
         replacements.put("{DESCRIPTOR_FILE}", appName + "-app.xml")
 
-        replacements.put("{-provisioning-profile}", aioParent.provisionPath)
-        replacements.put("{-keystore}", aioParent.keystorePath)
-        replacements.put("{-storepass}", aioParent.storePass)
+        replacements.put("{provisioning-profile}", aioParent.provisionPath)
+        replacements.put("{keystore}", aioParent.keystorePath)
+        replacements.put("{storepass}", aioParent.storePass)
 
         String packaged = ""
 

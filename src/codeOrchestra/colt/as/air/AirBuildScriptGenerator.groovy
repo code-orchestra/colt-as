@@ -12,6 +12,7 @@ abstract class AirBuildScriptGenerator {
 
     AirBuildScriptGenerator(COLTAsProject project) {
         this.project = project
+        appName = project.name
     }
 
     File getScriptPath(COLTAsProject project) {

@@ -82,7 +82,7 @@ public class TargetFormController implements Initializable {
 
         iosGBtn.onAction = {
             if(canShowDialog()) {
-                showDialog(new IOSAirFormCntroller(), "Apple iOS: customize launch", model.iosAirModel)
+                showDialog(new IOSAirFormCntroller(), "Apple iOS: customize launch", model)
             } else {
                 //TODO: show message
             }
@@ -90,7 +90,7 @@ public class TargetFormController implements Initializable {
 
         androidGBtn.onAction = {
             if(canShowDialog()) {
-                showDialog(new AndroidAirFormController(), "Android: customize launch", model.iosAirModel)
+                showDialog(new AndroidAirFormController(), "Android: customize launch", model)
             } else {
                 //TODO: show message
             }
@@ -108,7 +108,7 @@ public class TargetFormController implements Initializable {
         return buildSettings.outputPath && buildSettings.outputFilename
     }
 
-    void showDialog(AirFormController controller, String title, AIRModel model) {
+    void showDialog(AirFormController controller, String title, RunTargetModel model) {
         FXMLLoader loader = new FXMLLoader(AirFormController.class.getResource("air_form.fxml"))
         loader.setController(controller)
         VBox page = loader.load()

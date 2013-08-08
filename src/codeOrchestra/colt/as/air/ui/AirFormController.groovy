@@ -75,7 +75,7 @@ abstract class AirFormController implements Initializable{
 
     protected abstract void updateScriptPathValue(String scriptPath)
 
-    private boolean runGeneration() {
+    protected boolean runGeneration() {
         // 1 - save
         //TODO: save model
         COLTAsProject project = codeOrchestra.colt.as.model.ModelStorage.instance.project
