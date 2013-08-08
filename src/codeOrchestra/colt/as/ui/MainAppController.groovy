@@ -33,7 +33,9 @@ class MainAppController implements Initializable {
 
     @Override
     void initialize(URL url, ResourceBundle resourceBundle) {
-        ((ASLiveCodingLanguageHandler) LiveCodingHandlerManager.instance.currentHandler).setLoggerService(log);
+        if (LiveCodingHandlerManager.instance.currentHandler != null) {
+            ((ASLiveCodingLanguageHandler) LiveCodingHandlerManager.instance.currentHandler).setLoggerService(log);
+        }
 
         GATracker tracker = GATracker.instance
         //GATracker.instance.tracker.trackPageViewFromReferrer("asProject.html", "asProject", "codeorchestra.com", "codeorchestra.com", "/index.html")
