@@ -5,8 +5,8 @@ import codeOrchestra.colt.as.model.ModelStorage
 import codeOrchestra.colt.as.model.beans.air.AIRModel
 import codeOrchestra.colt.as.run.Target
 import codeOrchestra.colt.as.model.beans.RunTargetModel
-import codeOrchestra.colt.as.ui.air.android.AndroidAirFormController
-import codeOrchestra.colt.as.ui.air.ios.IOSAirFormCntroller
+import codeOrchestra.colt.as.air.ui.android.AndroidAirFormController
+import codeOrchestra.colt.as.air.ui.ios.IOSAirFormCntroller
 import javafx.application.Platform
 import javafx.beans.property.StringProperty
 import javafx.beans.value.ChangeListener
@@ -17,7 +17,7 @@ import javafx.fxml.Initializable
 import javafx.scene.Scene
 import javafx.scene.control.*
 import javafx.scene.layout.GridPane
-import codeOrchestra.colt.as.ui.air.AirFormController
+import codeOrchestra.colt.as.air.ui.AirFormController
 import javafx.scene.layout.VBox
 import javafx.stage.Modality
 import javafx.stage.Stage

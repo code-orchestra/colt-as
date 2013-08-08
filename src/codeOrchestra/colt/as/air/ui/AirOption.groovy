@@ -1,4 +1,4 @@
-package codeOrchestra.colt.as.ui.air
+package codeOrchestra.colt.as.air.ui
 
 import javafx.beans.property.StringProperty
 import javafx.event.EventHandler

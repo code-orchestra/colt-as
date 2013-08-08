@@ -1,4 +1,4 @@
-package codeOrchestra.colt.as.ui.air
+package codeOrchestra.colt.as.air.ui
 
 import codeOrchestra.colt.as.model.beans.air.AIRModel
 import groovy.io.FileType
