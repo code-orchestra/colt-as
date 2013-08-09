@@ -1,0 +1,11 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="colt-as">
+    <output-path>$PROJECT_DIR$/out/artifacts/colt_as</output-path>
+    <root id="archive" name="colt-as.jar">
+      <element id="module-output" name="colt-as" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/lib/scala-library.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/lib/apparat-log-1.0.RC9.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/lib/apparat-core-1.0.RC9.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
