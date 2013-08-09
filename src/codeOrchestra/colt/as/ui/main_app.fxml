@@ -14,7 +14,7 @@
       <top>
         <HBox alignment="CENTER" prefHeight="-1.0" prefWidth="200.0" styleClass="title-bar">
           <children>
-            <Label ellipsisString="…" text="Label" textAlignment="CENTER" />
+            <Label fx:id="projectTitle" ellipsisString="…" text="Label" textAlignment="CENTER" />
           </children>
         </HBox>
       </top>

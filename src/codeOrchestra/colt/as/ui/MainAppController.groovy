@@ -8,6 +8,7 @@ import com.dmurph.tracking.JGoogleAnalyticsTracker
 import javafx.event.EventHandler
 import javafx.fxml.FXML
 import javafx.fxml.Initializable
+import javafx.scene.control.Label
 import javafx.scene.control.ToggleButton
 import javafx.scene.control.ToggleGroup
 import javafx.scene.layout.BorderPane
@@ -17,6 +18,8 @@ import codeOrchestra.colt.core.tracker.GATracker
  * @author Dima Kruk
  */
 class MainAppController implements Initializable {
+    @FXML Label projectTitle
+
     ToggleGroup toggleGroup
     @FXML ToggleButton runBnt
     @FXML ToggleButton buildBtn
@@ -59,5 +62,7 @@ class MainAppController implements Initializable {
             tracker.trackEvent("Menu", "Build pressed")
             tracker.trackPageView("/as/asBuild.html", "asBuild")
         } as EventHandler
+
+        projectTitle.textProperty().bind(codeOrchestra.colt.as.model.ModelStorage.instance.project.name())
     }
 }
