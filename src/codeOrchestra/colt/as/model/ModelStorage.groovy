@@ -9,7 +9,7 @@ class ModelStorage {
         return ourInstance
     }
 
-    public COLTAsProject project
+    COLTAsProject project
 
     private ModelStorage() {
         project = new COLTAsProject()
