@@ -4,7 +4,6 @@ import codeOrchestra.colt.core.logging.Level
 import codeOrchestra.colt.core.logging.LoggerService
 import codeOrchestra.colt.core.ui.components.log.LogMessage
 import codeOrchestra.colt.core.ui.components.log.LogWebView
-import javafx.scene.Node as FXNode
 
 /**
  * @author Dima Kruk
@@ -14,10 +13,6 @@ class Log implements LoggerService {
 
     Log() {
         logWebView.logMessages.addAll(TestLog.createTestLogList())//todo: remove this
-    }
-
-    public FXNode getPane() {
-        return logWebView
     }
 
     @Override

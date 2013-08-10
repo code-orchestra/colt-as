@@ -16,6 +16,7 @@ import javafx.scene.text.TextFlow
  * @author Dima Kruk
  * @author Eugene Potapenko
  */
+@Deprecated
 class LogCell extends ListCell<LogMessage> {
     HBox root = new HBox()
     Text logText = new Text(id: "log-text")

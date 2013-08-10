@@ -24,11 +24,11 @@
             <children>
                 <HBox prefHeight="-1.0" prefWidth="-1.0" styleClass="filters" HBox.hgrow="ALWAYS">
                     <children>
-                        <ToggleButton mnemonicParsing="false" selected="true" text="All" />
-                        <ToggleButton mnemonicParsing="false" text="Errors" />
-                        <ToggleButton mnemonicParsing="false" text="Warnings" />
-                        <ToggleButton mnemonicParsing="false" text="Info" />
-                        <ToggleButton mnemonicParsing="false" text="Log" />
+                        <ToggleButton fx:id="logFilterAll" mnemonicParsing="false" selected="true" text="All" />
+                        <ToggleButton fx:id="logFilterErrors"  mnemonicParsing="false" text="Errors" />
+                        <ToggleButton fx:id="logFilterWarnings"  mnemonicParsing="false" text="Warnings" />
+                        <ToggleButton fx:id="logFilterInfo"  mnemonicParsing="false" text="Info" />
+                        <ToggleButton fx:id="logFilterLog"  mnemonicParsing="false" text="Log" />
                     </children>
                 </HBox>
                 <Label text="ActionScript" />
