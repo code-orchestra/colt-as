@@ -2,7 +2,7 @@
 <project name="colt-as" default="all">
   
   
-  <property file="../colt-core/build.properties"/>
+  <property file="${basedir}/../colt-core/build.properties"/>
   <!-- Uncomment the following property if no tests compilation is needed -->
   <!-- 
   <property name="skip.tests" value="true"/>
@@ -105,7 +105,7 @@
   
   <!-- Global Libraries -->
   
-  <path id="library.groovy.classpath">
+<path id="library.groovy.classpath">
     <pathelement location="${groovy.home}/lib/ant-1.8.4.jar"/>
     <pathelement location="${groovy.home}/lib/ant-antlr-1.8.4.jar"/>
     <pathelement location="${groovy.home}/lib/ant-junit-1.8.4.jar"/>
@@ -156,6 +156,7 @@
     <property name="grooovyc.task.sdk" value="library.groovy.classpath"/>
     <taskdef name="groovyc" classname="org.codehaus.groovy.ant.Groovyc" classpathref="${grooovyc.task.sdk}"/>
   </target>
+  
   
   <!-- Modules -->
   
@@ -282,8 +283,9 @@
   
   <target name="init.artifacts">
     <property name="artifacts.temp.dir" value="${basedir}/__artifacts_temp"/>
-    <property name="artifact.output.colt-as" value="${basedir}/out/artifacts/colt_as"/>
+    <property name="artifact.output.colt-as" value="${colt.output.dir}/generic"/>
     <mkdir dir="${artifacts.temp.dir}"/>
+    <mkdir dir="${artifact.output.colt-as}"/>        
     <property name="temp.jar.path.colt-as.jar" value="${artifacts.temp.dir}/colt-as.jar"/>
   </target>
   
