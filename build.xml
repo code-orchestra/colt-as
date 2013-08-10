@@ -311,5 +311,23 @@
     <delete dir="${artifacts.temp.dir}"/>
   </target>
   
-  <target name="all" depends="build.modules, build.all.artifacts" description="build all"/>
+  <target name="all" depends="build.modules, build.all.artifacts, copy.colt.resources" description="build all"/>
+  
+  <target name="copy.colt.resources">
+    <mkdir dir="${artifact.output.colt-as}/flex_sdk"/>
+    <copy todir="${artifact.output.colt-as}/flex_sdk">
+      <fileset dir="${basedir}/flex_sdk"/>
+    </copy>
+    <mkdir dir="${artifact.output.colt-as}/templates"/>
+    <copy todir="${artifact.output.colt-as}/templates">
+      <fileset dir="${basedir}/templates"/>
+    </copy>
+    <mkdir dir="${artifact.output.colt-as}/lib"/>    
+    <copy todir="${artifact.output.colt-as}/lib">
+	  <fileset dir="${basedir}/lib">
+        <exclude name="**/*.jar"/>
+      </fileset>      
+    </copy>    
+  </target>
+  
 </project>
