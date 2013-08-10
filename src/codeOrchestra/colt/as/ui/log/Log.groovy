@@ -4,6 +4,7 @@ import codeOrchestra.colt.core.logging.Level
 import codeOrchestra.colt.core.logging.LoggerService
 import codeOrchestra.colt.core.ui.components.log.LogMessage
 import codeOrchestra.colt.core.ui.components.log.LogWebView
+import javafx.application.Platform
 import javafx.collections.FXCollections
 import javafx.collections.ObservableList as FXObservableList
 import javafx.scene.Node as FXNode
@@ -192,7 +193,11 @@ class Log implements LoggerService {
     @Override
     void log(String source, String message, List<String> scopeIds, long timestamp, Level level, String stackTrace) {
         if (logWebView) {
-            logWebView.logList.add(new LogMessage(source, level, message, timestamp, stackTrace))
+            Platform.runLater(new Runnable() {
+                @Override public void run() {
+                    logWebView.logList.add(new LogMessage(source, level, message, timestamp, stackTrace))
+                }
+            });
         }
     }
 }
