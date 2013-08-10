@@ -4,12 +4,7 @@ import codeOrchestra.colt.core.logging.Level
 import codeOrchestra.colt.core.logging.LoggerService
 import codeOrchestra.colt.core.ui.components.log.LogMessage
 import codeOrchestra.colt.core.ui.components.log.LogWebView
-import javafx.collections.FXCollections
-import javafx.collections.ObservableList as FXObservableList
 import javafx.scene.Node as FXNode
-import javafx.scene.control.ListView
-import javafx.scene.control.SelectionMode
-import javafx.util.Callback
 
 /**
  * @author Dima Kruk
