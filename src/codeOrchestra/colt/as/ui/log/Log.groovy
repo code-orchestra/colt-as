@@ -10,20 +10,18 @@ import javafx.scene.Node as FXNode
  * @author Dima Kruk
  */
 class Log implements LoggerService {
-    LogWebView logWebView
+    LogWebView logWebView = new LogWebView()
+
+    Log() {
+        logWebView.logMessages.addAll(TestLog.createTestLogList())//todo: remove this
+    }
 
     public FXNode getPane() {
-        if (!logWebView) {
-            logWebView = new LogWebView()
-            logWebView.logMessages.addAll(TestLog.createTestLogList())//todo: remove this
-        }
         return logWebView
     }
 
     @Override
     void log(String source, String message, List<String> scopeIds, long timestamp, Level level, String stackTrace) {
-        if (logWebView) {
-            logWebView.logMessages.add(new LogMessage(source, level, message, timestamp, stackTrace))
-        }
+        logWebView.logMessages.add(new LogMessage(source, level, message, timestamp, stackTrace))
     }
 }
