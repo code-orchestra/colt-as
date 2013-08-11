@@ -86,6 +86,10 @@ class MainAppController implements Initializable {
     }
 
     private void updateLogFilter() {
+        if(!logFilterToggleGroup.selectedToggle){
+            logFilterAll.selected = true
+            return
+        }
         int filterIndex = [logFilterAll, logFilterErrors, logFilterWarnings, logFilterInfo, getLogFilterLog()].indexOf(logFilterToggleGroup.selectedToggle)
         log.logWebView.filter(LogFilter.values()[filterIndex])
         logFilterErrors.text = "Errors (" + log.logWebView.logMessages.grep { LogMessage m -> m.level == Level.ERROR }.size() + ")"
