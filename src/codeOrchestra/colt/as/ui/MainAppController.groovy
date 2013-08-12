@@ -7,7 +7,11 @@ import codeOrchestra.colt.core.loading.LiveCodingHandlerManager
 import codeOrchestra.colt.core.logging.Level
 import codeOrchestra.colt.core.ui.components.log.LogFilter
 import codeOrchestra.colt.core.ui.components.log.LogMessage
+import codeOrchestra.groovyfx.FXBindable
 import javafx.beans.InvalidationListener
+import javafx.beans.property.BooleanProperty
+import javafx.beans.property.SimpleBooleanProperty
+import javafx.beans.value.ChangeListener
 import javafx.event.EventHandler
 import javafx.fxml.FXML
 import javafx.fxml.Initializable
@@ -24,9 +28,10 @@ class MainAppController implements Initializable {
     @FXML Label projectTitle
 
     ToggleGroup navigationToggleGroup = new ToggleGroup()
-    @FXML ToggleButton runBnt
-    @FXML ToggleButton buildBtn
-    @FXML ToggleButton settingsBtn
+    @FXML ToggleButton runButton
+    @FXML ToggleButton pauseButton
+    @FXML ToggleButton buildButton
+    @FXML ToggleButton settingsButton
 
     @FXML BorderPane borderPane
 
@@ -40,6 +45,8 @@ class MainAppController implements Initializable {
     @FXML ToggleButton logFilterInfo
     @FXML ToggleButton logFilterLog
 
+    @FXBindable  Boolean liveSessionInProgress = false
+
     @Override
     void initialize(URL url, ResourceBundle resourceBundle) {
         if (LiveCodingHandlerManager.instance.currentHandler != null) {
@@ -50,7 +57,8 @@ class MainAppController implements Initializable {
         //GATracker.instance.tracker.trackPageViewFromReferrer("asProject.html", "asProject", "codeorchestra.com", "codeorchestra.com", "/index.html")
         tracker.trackPageView("/as/asProject.html", "asProject")
 
-        navigationToggleGroup.toggles.addAll(runBnt, buildBtn, settingsBtn)
+        println([runButton, pauseButton, buildButton, settingsButton])
+        navigationToggleGroup.toggles.addAll(runButton, pauseButton, buildButton, settingsButton)
         logFilterToggleGroup.toggles.addAll(logFilterAll, logFilterErrors, logFilterWarnings, logFilterInfo, logFilterLog)
 
         log.logWebView.logMessages.addListener({ javafx.beans.Observable observable ->
@@ -60,29 +68,43 @@ class MainAppController implements Initializable {
             updateLogFilter()
         } as InvalidationListener)
 
-        runBnt.onAction = {
+        runButton.onAction = {
             tracker.trackEvent("Menu", "Run pressed")
             tracker.trackPageView("/as/asLog.html", "asLog")
             borderPane.center = log.logWebView
+            liveSessionInProgress = true
+        } as EventHandler
+
+        pauseButton.onAction = {
+            tracker.trackEvent("Menu", "Pause pressed")
+            liveSessionInProgress = false
 
         } as EventHandler
 
-        settingsBtn.onAction = {
+        settingsButton.onAction = {
             tracker.trackEvent("Menu", "Settings pressed")
             tracker.trackPageView("/as/asSettings.html", "asSettings")
             borderPane.center = sForm.getPane()
         } as EventHandler
 
-        buildBtn.onAction = {
+        buildButton.onAction = {
             tracker.trackEvent("Menu", "Build pressed")
             tracker.trackPageView("/as/asBuild.html", "asBuild")
         } as EventHandler
 
         projectTitle.textProperty().bind(codeOrchestra.colt.as.model.ModelStorage.instance.project.name())
 
+        liveSessionInProgress().addListener({ o, Boolean oldValue, Boolean newValue ->
+            runButton.visible = !newValue
+            runButton.managed = !newValue
+            runButton.selected = !newValue
+            pauseButton.visible = newValue
+            pauseButton.managed = newValue
+            pauseButton.selected = newValue
+        } as ChangeListener)
 
         borderPane.center = log.logWebView // todo
-        runBnt.selected = true // todo
+        runButton.selected = true // todo
     }
 
     private void updateLogFilter() {
