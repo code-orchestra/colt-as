@@ -2,6 +2,7 @@ package codeOrchestra.colt.as.model.beans
 
 import codeOrchestra.colt.core.model.IModelElement
 import codeOrchestra.groovyfx.FXBindable
+import codeOrchestra.util.PathUtils
 import groovy.transform.Canonical
 
 /**
@@ -33,9 +34,9 @@ class BuildModel implements IModelElement {
     @Override
     Closure buildXml() {
         return {
-            'main-class'(mainClass)
+            'main-class'(PathUtils.makeRelative(mainClass))
             'output-name'(outputFileName)
-            'output-path'(outputPath)
+            'output-path'(PathUtils.makeRelative(outputPath))
             'player-version'(targetPlayerVersion)
             'is-rsl'(rsl)
 
@@ -53,9 +54,9 @@ class BuildModel implements IModelElement {
 
     @Override
     void buildModel(Object node) {
-        mainClass = node.'main-class'
+        mainClass = PathUtils.makeAbsolute((node.'main-class'?.toString()))
         outputFileName = node.'output-name'
-        outputPath = node.'output-path'
+        outputPath = PathUtils.makeAbsolute((node.'output-path'?.toString()))
         targetPlayerVersion = node.'player-version'
         rsl = node.'is-rsl' == "true"
 

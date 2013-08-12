@@ -40,9 +40,11 @@ public class ASLiveCodingLanguageHandler extends AbstractLiveCodingLanguageHandl
     }
 
     @Override
-    public COLTAsProject parseProject(GPathResult gPathResult) {
-        ModelStorage.getInstance().getProject().buildModel(gPathResult);
-        return ModelStorage.getInstance().getProject();
+    public COLTAsProject parseProject(GPathResult gPathResult, String projectPath) {
+        COLTAsProject project = ModelStorage.getInstance().getProject();
+        project.setPath(projectPath);
+        project.buildModel(gPathResult);
+        return project;
     }
 
     @Override

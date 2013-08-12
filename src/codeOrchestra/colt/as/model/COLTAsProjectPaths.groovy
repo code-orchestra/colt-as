@@ -2,6 +2,7 @@ package codeOrchestra.colt.as.model
 
 import codeOrchestra.colt.core.model.COLTProjectPaths
 import codeOrchestra.groovyfx.FXBindable
+import codeOrchestra.util.PathUtils
 import groovy.transform.Canonical
 import javafx.beans.property.ListProperty
 import javafx.beans.property.ListPropertyBase
@@ -42,20 +43,20 @@ class COLTAsProjectPaths extends COLTProjectPaths<COLTAsProject> {
         return {
             'sources-list' {
                 for (s in sources) {
-                    item(s)
+                    item(PathUtils.makeRelative((s)))
                 }
             }
             'libraries-list' {
                 for (s in libraries) {
-                    item(s)
+                    item(PathUtils.makeRelative((s)))
                 }
             }
             'assets-list' {
                 for (s in assets) {
-                    item(s)
+                    item(PathUtils.makeRelative((s)))
                 }
             }
-            'html-template'(htmlTemplatePath)
+            'html-template'(item(PathUtils.makeRelative((htmlTemplatePath))))
         }
     }
 
@@ -65,14 +66,14 @@ class COLTAsProjectPaths extends COLTProjectPaths<COLTAsProject> {
         libraries.clear()
         assets.clear()
         node.'sources-list'.item.each{it ->
-            sources << it.toString()
+            sources << PathUtils.makeAbsolute(it.toString())
         }
         node.'libraries-list'.item.each{it ->
-            libraries << it.toString()
+            libraries << PathUtils.makeAbsolute(it.toString())
         }
         node.'assets-list'.item.each{it ->
-            assets << it.toString()
+            assets << PathUtils.makeAbsolute(it.toString())
         }
-        htmlTemplatePath = node.'html-template'
+        htmlTemplatePath = PathUtils.makeAbsolute((node.'html-template')?.toString())
     }
 }
