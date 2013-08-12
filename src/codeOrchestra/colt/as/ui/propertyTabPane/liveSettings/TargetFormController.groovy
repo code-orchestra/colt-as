@@ -68,15 +68,14 @@ public class TargetFormController implements Initializable {
 
         (model.target() as StringProperty).addListener({ prop, oldVal, newVal ->
             if (newVal) {
-                controls*.disable = true
-                Target targetType = Target.valueOf("" + newVal)
-                Toggle selected = target.toggles[targetType.ordinal()]
-                selected.selected = true
+                activateTarget(newVal)
             }
         } as ChangeListener)
 
         if (!model.target) {
             model.target = "SWF"
+        } else {
+            activateTarget(model.target)
         }
 
         iosGBtn.onAction = {
@@ -100,6 +99,13 @@ public class TargetFormController implements Initializable {
         Platform.runLater{
             window = androidGBtn.scene.window
         }
+    }
+
+    void activateTarget(String newVal) {
+        controls*.disable = true
+        Target targetType = Target.valueOf("" + newVal)
+        Toggle selected = target.toggles[targetType.ordinal()]
+        selected.selected = true
     }
 
     boolean canShowDialog() {

@@ -3,6 +3,7 @@ package codeOrchestra.colt.as;
 import codeOrchestra.colt.as.logging.transport.LoggerServerSocketThread;
 import codeOrchestra.colt.as.model.COLTAsProject;
 import codeOrchestra.colt.as.model.ModelStorage;
+import codeOrchestra.colt.as.model.util.ProjectImporter;
 import codeOrchestra.colt.as.run.ASLiveLauncher;
 import codeOrchestra.colt.as.session.sourcetracking.ASSourceFileFactory;
 import codeOrchestra.colt.as.ui.TestMainApp;
@@ -18,9 +19,8 @@ import codeOrchestra.util.StringUtils;
 import groovy.util.slurpersupport.GPathResult;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
+
+import java.io.File;
 
 /**
  * @author Alexander Eliseyev
@@ -65,6 +65,11 @@ public class ASLiveCodingLanguageHandler extends AbstractLiveCodingLanguageHandl
         COLTAsProject project = ModelStorage.getInstance().getProject();
         project.setName(pName);
         return project;
+    }
+
+    @Override
+    public COLTAsProject importProject(File file) {
+        return ProjectImporter.importProject(file);
     }
 
     @Override
