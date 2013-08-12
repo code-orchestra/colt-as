@@ -6,6 +6,7 @@ import codeOrchestra.colt.as.model.ModelStorage;
 import codeOrchestra.colt.as.run.ASLiveLauncher;
 import codeOrchestra.colt.as.session.sourcetracking.ASSourceFileFactory;
 import codeOrchestra.colt.as.ui.TestMainApp;
+import codeOrchestra.colt.as.util.ASPathUtils;
 import codeOrchestra.colt.core.AbstractLiveCodingLanguageHandler;
 import codeOrchestra.colt.core.LiveCodingManager;
 import codeOrchestra.colt.core.launch.LiveLauncher;
@@ -13,6 +14,7 @@ import codeOrchestra.colt.core.logging.Logger;
 import codeOrchestra.colt.core.logging.LoggerService;
 import codeOrchestra.colt.core.rpc.COLTRemoteService;
 import codeOrchestra.colt.core.session.sourcetracking.SourceFileFactory;
+import codeOrchestra.util.StringUtils;
 import groovy.util.slurpersupport.GPathResult;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -42,8 +44,16 @@ public class ASLiveCodingLanguageHandler extends AbstractLiveCodingLanguageHandl
     @Override
     public COLTAsProject parseProject(GPathResult gPathResult, String projectPath) {
         COLTAsProject project = ModelStorage.getInstance().getProject();
+
         project.setPath(projectPath);
+
         project.buildModel(gPathResult);
+
+        // Default settings
+        if (StringUtils.isEmpty(project.getProjectBuildSettings().sdkModel.getFlexSDKPath())) {
+            project.getProjectBuildSettings().sdkModel.setFlexSDKPath(ASPathUtils.getFlexSDKPath());
+        }
+
         return project;
     }
 
