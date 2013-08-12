@@ -24,8 +24,8 @@ class RunTargetModel implements IModelElement{
         return {
             'run-target'(target)
             'http-index'(httpIndex)
-            'ios-script'(PathUtils.makeRelative(path:iosScript), iosAirModel.buildXml())
-            'android-script'(PathUtils.makeRelative(path:androidScript), androidAirModel.buildXml())
+            'ios-script'(path:PathUtils.makeRelative(iosScript), iosAirModel.buildXml())
+            'android-script'(path:PathUtils.makeRelative(androidScript), androidAirModel.buildXml())
         }
     }
 

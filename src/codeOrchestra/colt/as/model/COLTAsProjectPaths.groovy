@@ -43,20 +43,20 @@ class COLTAsProjectPaths extends COLTProjectPaths<COLTAsProject> {
         return {
             'sources-list' {
                 for (s in sources) {
-                    item(PathUtils.makeRelative((s)))
+                    item(PathUtils.makeRelative(s))
                 }
             }
             'libraries-list' {
                 for (s in libraries) {
-                    item(PathUtils.makeRelative((s)))
+                    item(PathUtils.makeRelative(s))
                 }
             }
             'assets-list' {
                 for (s in assets) {
-                    item(PathUtils.makeRelative((s)))
+                    item(PathUtils.makeRelative(s))
                 }
             }
-            'html-template'(item(PathUtils.makeRelative((htmlTemplatePath))))
+            'html-template'(item(PathUtils.makeRelative(htmlTemplatePath)))
         }
     }
 
