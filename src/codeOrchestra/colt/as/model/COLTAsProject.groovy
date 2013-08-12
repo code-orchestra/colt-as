@@ -88,8 +88,30 @@ class COLTAsProject extends COLTProject {
         return new File(getBaseDir(), "digests")
     }
 
+    public File getIncrementalOutputDir() {
+        new File(getOutputDir(), "livecoding")
+    }
+
+    public void initPaths() {
+        File outputDir = getOutputDir();
+        if (!outputDir.exists()) {
+            outputDir.mkdirs();
+        }
+
+        File outputIncrementalDir = getIncrementalOutputDir();
+        if (!outputIncrementalDir.exists()) {
+            outputIncrementalDir.mkdirs();
+        }
+
+        File digestsDir = getDigestsDir();
+        if (!digestsDir.exists()) {
+            digestsDir.mkdirs();
+        }
+    }
+
     public String getFlexConfigPath(FSCHCompilerKind compilerKind) {
         return new File(getBaseDir(), getName() + "_" + compilerKind.getCommandName() + "_flex_config.xml").getPath()
     }
+
 
 }

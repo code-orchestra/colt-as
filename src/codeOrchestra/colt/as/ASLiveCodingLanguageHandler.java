@@ -54,6 +54,9 @@ public class ASLiveCodingLanguageHandler extends AbstractLiveCodingLanguageHandl
             project.getProjectBuildSettings().sdkModel.setFlexSDKPath(ASPathUtils.getFlexSDKPath());
         }
 
+        // Prepare dirs
+        project.initPaths();
+
         return project;
     }
 
