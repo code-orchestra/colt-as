@@ -4,6 +4,7 @@ import codeOrchestra.colt.as.flexsdk.FlexSDKManager
 import codeOrchestra.colt.as.flexsdk.FlexSDKNotPresentException
 import codeOrchestra.colt.core.model.IModelElement
 import codeOrchestra.groovyfx.FXBindable
+import codeOrchestra.util.PathUtils
 import groovy.transform.Canonical
 import javafx.collections.FXCollections
 import javafx.collections.ObservableList as FXObservableList
@@ -27,18 +28,18 @@ class SDKModel implements IModelElement{
     @Override
     Closure buildXml() {
         return {
-            'sdk-path'(flexSDKPath)
+            'sdk-path'(PathUtils.makeRelative(flexSDKPath))
             'use-flex'(useFlexConfig)
             'use-custom'(useCustomConfig)
-            'custom-config'(customConfigPath)
+            'custom-config'(PathUtils.makeRelative(customConfigPath))
         }
     }
 
     @Override
     void buildModel(Object node) {
-        flexSDKPath = node.'sdk-path'
+        flexSDKPath = PathUtils.makeAbsolute((node.'sdk-path')?.toString())
         useFlexConfig = node.'use-flex' == "true"
         useCustomConfig = node.'use-custom' == "true"
-        customConfigPath = node.'custom-config'
+        customConfigPath = PathUtils.makeAbsolute((node.'custom-config'?.toString()))
     }
 }

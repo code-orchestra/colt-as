@@ -3,6 +3,7 @@ package codeOrchestra.colt.as.model.beans
 import codeOrchestra.colt.as.model.beans.air.AIRModel
 import codeOrchestra.colt.core.model.IModelElement
 import codeOrchestra.groovyfx.FXBindable
+import codeOrchestra.util.PathUtils
 import groovy.transform.Canonical
 
 /**
@@ -23,8 +24,8 @@ class RunTargetModel implements IModelElement{
         return {
             'run-target'(target)
             'http-index'(httpIndex)
-            'ios-script'(path:iosScript, iosAirModel.buildXml())
-            'android-script'(path:androidScript, androidAirModel.buildXml())
+            'ios-script'(path:PathUtils.makeRelative(iosScript), iosAirModel.buildXml())
+            'android-script'(path:PathUtils.makeRelative(androidScript), androidAirModel.buildXml())
         }
     }
 
@@ -32,9 +33,9 @@ class RunTargetModel implements IModelElement{
     void buildModel(Object node) {
         target = node.'run-target'
         httpIndex = node.'http-index'
-        iosScript = node.'ios-script'.@path
+        iosScript = PathUtils.makeAbsolute(node.'ios-script'.@path?.toString())
         iosAirModel.buildModel(node.'ios-script')
-        androidScript = node.'android-script'.@path
+        androidScript = PathUtils.makeAbsolute(node.'android-script'.@path?.toString())
         androidAirModel.buildModel(node.'android-script')
     }
 }

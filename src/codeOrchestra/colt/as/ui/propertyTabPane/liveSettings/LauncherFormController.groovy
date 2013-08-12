@@ -49,18 +49,24 @@ class LauncherFormController implements Initializable {
 
         (model.launcherType() as StringProperty).addListener({prop, oldVal, newVal ->
             if (newVal) {
-                controls*.disable = true
-                LauncherType launcherType = LauncherType.valueOf("" + newVal)
-                Toggle selected = launcher.toggles[launcherType.ordinal()]
-                selected.selected = true
+                activateLauncher(newVal)
             }
         } as ChangeListener)
 
         if (!model.launcherType) {
             model.launcherType = "DEFAULT"
+        } else {
+            activateLauncher(model.launcherType)
         }
 
         bindModel()
+    }
+
+    void activateLauncher(String newVal) {
+        controls*.disable = true
+        LauncherType launcherType = LauncherType.valueOf("" + newVal)
+        Toggle selected = launcher.toggles[launcherType.ordinal()]
+        selected.selected = true
     }
 
     void bindModel() {
