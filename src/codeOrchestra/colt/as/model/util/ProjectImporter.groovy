@@ -2,6 +2,7 @@ package codeOrchestra.colt.as.model.util
 
 import codeOrchestra.colt.as.model.COLTAsProject
 import codeOrchestra.util.PathUtils
+import codeOrchestra.colt.as.model.ModelStorage
 
 /**
  * @author Dima Kruk
@@ -9,7 +10,9 @@ import codeOrchestra.util.PathUtils
 class ProjectImporter {
 
     static COLTAsProject importProject(File file) {
-        COLTAsProject project = codeOrchestra.colt.as.model.ModelStorage.instance.project
+        COLTAsProject project = ModelStorage.instance.project
+        project.clear()
+
         project.path = file.path
         Map<String, Closure> map = [
                 name: { s ->

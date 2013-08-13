@@ -22,6 +22,13 @@ class COLTAsProjectPaths extends COLTProjectPaths<COLTAsProject> {
 
     String htmlTemplatePath
 
+    void clear() {
+        sources.clear()
+        libraries.clear()
+        assets.clear()
+        htmlTemplatePath = ""
+    }
+
     public String getHTMLTemplatePath() {
         return htmlTemplatePath
     }

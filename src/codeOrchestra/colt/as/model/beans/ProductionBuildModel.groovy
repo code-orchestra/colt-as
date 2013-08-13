@@ -13,6 +13,11 @@ class ProductionBuildModel implements IModelElement {
     boolean compression
     boolean optimization
 
+    void clear() {
+        compression = false
+        optimization = false
+    }
+
     @Override
     Closure buildXml() {
         return {

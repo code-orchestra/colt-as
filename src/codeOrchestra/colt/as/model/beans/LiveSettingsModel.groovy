@@ -16,6 +16,13 @@ class LiveSettingsModel implements IModelElement{
     boolean makeGSLive
     String maxLoop = "1000"
 
+    void clear() {
+        liveType = LiveMethods.ANNOTATED.preferenceValue
+        startSessionPaused = false
+        makeGSLive = false
+        maxLoop = "1000"
+    }
+
     @Override
     Closure buildXml() {
         return {

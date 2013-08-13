@@ -31,6 +31,25 @@ class BuildModel implements IModelElement {
 
     String compilerOptions
 
+    void clear() {
+        mainClass = ""
+        outputFileName = ""
+        outputPath = ""
+        targetPlayerVersion = ""
+
+        rsl = false
+
+        nonDefaultLocale = false
+        localeSettings = ""
+
+        excludeDeadCode = false
+
+        interrupt = false
+        interruptValue = "30"
+
+        interruptValue = ""
+    }
+
     @Override
     Closure buildXml() {
         return {

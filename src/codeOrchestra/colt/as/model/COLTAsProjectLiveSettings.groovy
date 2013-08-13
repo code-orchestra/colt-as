@@ -17,6 +17,12 @@ class COLTAsProjectLiveSettings extends COLTProjectLiveSettings<COLTAsProject>{
     public final LauncherModel launcherModel = new LauncherModel()
     public final LiveSettingsModel liveSettingsModel = new LiveSettingsModel()
 
+    void clear() {
+        settingsModel.clear()
+        launcherModel.clear()
+        liveSettingsModel.clear()
+    }
+
     public LauncherType getLauncherType() {
         return LauncherType.parse(launcherModel.launcherType);
     }

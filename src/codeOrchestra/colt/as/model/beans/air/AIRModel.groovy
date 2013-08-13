@@ -15,6 +15,13 @@ class AIRModel implements IModelElement {
     String keystorePath
     String storePass
 
+    void clear() {
+        airSDKPath = ""
+        provisionPath = ""
+        keystorePath = ""
+        storePass = ""
+    }
+
     @Override
     Closure buildXml() {
         return {

@@ -25,6 +25,17 @@ class SDKModel implements IModelElement{
 
     FXObservableList<String> availablePlayerVersions = FXCollections.observableArrayList()
 
+    void clear() {
+        flexSDKPath = ""
+        useFlexConfig = false
+        useCustomConfig = false
+        customConfigPath = ""
+
+        isValidFlexSDK = false
+
+        availablePlayerVersions.clear()
+    }
+
     @Override
     Closure buildXml() {
         return {
