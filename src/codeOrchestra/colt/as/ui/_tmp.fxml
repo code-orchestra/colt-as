@@ -13,79 +13,25 @@
 
 <AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
   <children>
-    <ListView disable="false" layoutX="14.0" layoutY="14.0" maxHeight="200.0" minHeight="-1.0" prefHeight="299.0" prefWidth="509.0">
-      <items>
-        <FXCollections fx:factory="observableArrayList">
-          <HBox alignment="CENTER_RIGHT" styleClass="null">
-            <children>
-              <HBox styleClass="null" HBox.hgrow="ALWAYS">
-                <children>
-                  <Text text="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptate, a voluptas quam quos fugiat itaque explicabo laudantium magnam sit nihil enim temporibus odio odit modi nam vero suscipit fugit porro!" />
-                </children>
-              </HBox>
-              <Hyperlink text="Hyperlink" />
-            </children>
-          </HBox>
-          <HBox>
-            <children>
-              <HBox>
-                <children>
-                  <Text text="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptate, a voluptas quam quos fugiat itaque explicabo laudantium magnam sit nihil enim temporibus odio odit modi nam vero suscipit fugit porro!" />
-                </children>
-              </HBox>
-              <Hyperlink text="Hyperlink" />
-            </children>
-          </HBox>
-          <HBox>
-            <children>
-              <Text text="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptate, a voluptas quam quos fugiat itaque explicabo laudantium magnam sit nihil enim temporibus odio odit modi nam vero suscipit fugit porro!" />
-              <Hyperlink text="Hyperlink" />
-            </children>
-          </HBox>
-          <HBox>
-            <children>
-              <Text text="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Labore, dolor, et, ex, vero porro vel voluptatum non cumque accusamus nam nemo eius veritatis reprehenderit fuga repudiandae maiores aut ut mollitia!" />
-              <Hyperlink text="Hyperlink" />
-            </children>
-          </HBox>
-          <HBox>
-            <children>
-              <Text text="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nostrum, blanditiis, culpa, reprehenderit, alias totam impedit distinctio optio dolor voluptatum voluptatibus autem esse ducimus porro. Porro, fugiat enim suscipit ipsum expedita." />
-              <Hyperlink text="Hyperlink" />
-            </children>
-          </HBox>
-          <HBox>
-            <children>
-              <Text text="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sed, culpa, velit, dolore repellat voluptatibus asperiores temporibus necessitatibus tenetur enim alias dolorem perspiciatis nulla quibusdam aliquam laborum quisquam id fugit quae." />
-              <Hyperlink text="Hyperlink" />
-            </children>
-          </HBox>
-          <HBox>
-            <children>
-              <Text text="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sed, culpa, velit, dolore repellat voluptatibus asperiores temporibus necessitatibus tenetur enim alias dolorem perspiciatis nulla quibusdam aliquam laborum quisquam id fugit quae." />
-              <Hyperlink text="Hyperlink" />
-            </children>
-          </HBox>
-          <HBox>
-            <children>
-              <Text text="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sed, culpa, velit, dolore repellat voluptatibus asperiores temporibus necessitatibus tenetur enim alias dolorem perspiciatis nulla quibusdam aliquam laborum quisquam id fugit quae." />
-              <Hyperlink text="Hyperlink" />
-            </children>
-          </HBox>
-          <HBox>
-            <children>
-              <Text text="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sed, culpa, velit, dolore repellat voluptatibus asperiores temporibus necessitatibus tenetur enim alias dolorem perspiciatis nulla quibusdam aliquam laborum quisquam id fugit quae." />
-              <Hyperlink text="Hyperlink" />
-            </children>
-          </HBox>
-          <!--<String fx:value="mojito-client: Mojito Client State: paused." />-->
-          <!--<String fx:value="mojito-client: Created binder &quot;TodoMojitBinderIndex&quot; for DOM n" />-->
-          <!--<String fx:value="mojito-client: Mojito Client State: active." />-->
-          <!--<String fx:value="Uncaught ReferenceError: Ajax is not defined [VM] dashboard (56):1" />-->
+
+
+    <!--<ListView disable="false" layoutX="14.0" layoutY="14.0" maxHeight="200.0" minHeight="-1.0" prefHeight="299.0" prefWidth="509.0">-->
+      <!--<items>-->
+        <!--<FXCollections fx:factory="observableArrayList">-->
+          <!--<HBox alignment="CENTER_RIGHT" styleClass="null">-->
+            <!--<children>-->
+              <!--<HBox styleClass="null" HBox.hgrow="ALWAYS">-->
+                <!--<children>-->
+                  <!--<Text text="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptate, a voluptas quam quos fugiat itaque explicabo laudantium magnam sit nihil enim temporibus odio odit modi nam vero suscipit fugit porro!" />-->
+                <!--</children>-->
+              <!--</HBox>-->
+              <!--<Hyperlink text="Hyperlink" />-->
+            <!--</children>-->
+          <!--</HBox>-->
         </FXCollections>
       </items>
     </ListView>
-    <Separator layoutX="23.0" layoutY="260.0" prefWidth="200.0" />
+    <!--<Separator layoutX="23.0" layoutY="260.0" prefWidth="200.0" />-->
   </children>
   <stylesheets>
     <URL value="@main.css" />

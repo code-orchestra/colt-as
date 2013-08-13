@@ -6,4 +6,8 @@
 .DS_Store
 out/*
 .idea/workspace.xml
+
+# Auxiliary Files
+*.min.css
+*.sublime-*
 flex_sdk
