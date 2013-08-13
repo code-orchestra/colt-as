@@ -12,7 +12,6 @@ import codeOrchestra.colt.as.util.ASPathUtils;
 import codeOrchestra.colt.core.AbstractLiveCodingLanguageHandler;
 import codeOrchestra.colt.core.LiveCodingManager;
 import codeOrchestra.colt.core.launch.LiveLauncher;
-import codeOrchestra.colt.core.logging.Logger;
 import codeOrchestra.colt.core.logging.LoggerService;
 import codeOrchestra.colt.core.rpc.COLTRemoteService;
 import codeOrchestra.colt.core.session.sourcetracking.SourceFileFactory;
@@ -91,18 +90,6 @@ public class ASLiveCodingLanguageHandler extends AbstractLiveCodingLanguageHandl
     @Override
     public void initHandler() {
         loggerServerSocketThread.openSocket();
-
-        new Thread() {
-            @Override
-            public void run() {
-                try {
-                    Thread.sleep(3000);
-                } catch (InterruptedException e) {
-                }
-
-                Logger.getLogger("my source").info("my message");
-            }
-        }.start();
     }
 
     @Override
