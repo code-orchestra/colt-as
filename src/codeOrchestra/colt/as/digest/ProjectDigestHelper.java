@@ -53,7 +53,7 @@ public class ProjectDigestHelper {
     return result;
   }
   
-  public void build() {
+  public void build() throws DigestException {
     long timeStarted = System.currentTimeMillis();
     
     List<String> swcPaths = new ArrayList<String>();
