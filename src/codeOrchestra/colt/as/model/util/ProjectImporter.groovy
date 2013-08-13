@@ -1,6 +1,8 @@
 package codeOrchestra.colt.as.model.util
 
 import codeOrchestra.colt.as.model.COLTAsProject
+import codeOrchestra.util.PathUtils
+import codeOrchestra.colt.as.model.ModelStorage
 
 /**
  * @author Dima Kruk
@@ -8,135 +10,140 @@ import codeOrchestra.colt.as.model.COLTAsProject
 class ProjectImporter {
 
     static COLTAsProject importProject(File file) {
-        COLTAsProject project = codeOrchestra.colt.as.model.ModelStorage.instance.project
+        COLTAsProject project = ModelStorage.instance.project
+        project.clear()
 
+        project.path = file.path
         Map<String, Closure> map = [
                 name: { s ->
                     project.name = s
                 },
-                outputPath: { s ->
-                    project.projectBuildSettings.buildModel.outputPath = s
+                outputPath: {String s ->
+                    project.projectBuildSettings.buildModel.outputPath = PathUtils.makeAbsolute(s)
                 },
-                outputFileName: {s ->
+                outputFileName: {String s ->
                     project.projectBuildSettings.buildModel.outputFileName = s
                 },
-                targetPlayerVersion: {s ->
+                targetPlayerVersion: {String s ->
                     project.projectBuildSettings.buildModel.targetPlayerVersion = s
                 },
-                mainClass: {s ->
-                    project.projectBuildSettings.buildModel.mainClass = s
+                mainClass: {String s ->
+                    project.projectBuildSettings.buildModel.mainClass = PathUtils.makeAbsolute(s)
                 },
-                compilationTimeoutValue: {s ->
+                compilationTimeoutValue: {String s ->
                     project.projectBuildSettings.buildModel.interruptValue = s
                 },
-                compilationTimeout: {s ->
+                compilationTimeout: {String s ->
                     project.projectBuildSettings.buildModel.interrupt = s
                 },
-                excludeUnusedCode: {s ->
+                excludeUnusedCode: {String s ->
                     project.projectBuildSettings.buildModel.excludeDeadCode = s
                 },
-                compilerOptions: {s ->
+                compilerOptions: {String s ->
                     project.projectBuildSettings.buildModel.compilerOptions = s
                 },
-                nonDefaultLocale: {s ->
+                nonDefaultLocale: {String s ->
                     project.projectBuildSettings.buildModel.nonDefaultLocale = s
                 },
-                localeOptions: {s ->
+                localeOptions: {String s ->
                     project.projectBuildSettings.buildModel.localeSettings = s
                 },
-                useFrameworkAsRSL: {s ->
+                useFrameworkAsRSL: {String s ->
                     project.projectBuildSettings.buildModel.rsl = s
                 },
 
-                maxLoopIterations: {s ->
+                maxLoopIterations: {String s ->
                     project.projectLiveSettings.liveSettingsModel.maxLoop = s
                 },
-                liveMethods: {s ->
+                liveMethods: {String s ->
                     project.projectLiveSettings.liveSettingsModel.liveType = s
                 },
-                makeGettersSettersLive: {s ->
+                makeGettersSettersLive: {String s ->
                     project.projectLiveSettings.liveSettingsModel.makeGSLive = s
                 },
 
-                flexSDKPath: {s ->
-                    project.projectBuildSettings.sdkModel.flexSDKPath = s
+                flexSDKPath: {String s ->
+                    project.projectBuildSettings.sdkModel.flexSDKPath = PathUtils.makeAbsolute(s)
                 },
-                useDefaultSDKConfiguration: {s ->
+                useDefaultSDKConfiguration: {String s ->
                     project.projectBuildSettings.sdkModel.useFlexConfig = s
                 },
-                useCustomSDKConfiguration: {s ->
+                useCustomSDKConfiguration: {String s ->
                     project.projectBuildSettings.sdkModel.useCustomConfig = s
                 },
-                customConfigPath: {s ->
-                    project.projectBuildSettings.sdkModel.customConfigPath = s
+                customConfigPath: {String s ->
+                    project.projectBuildSettings.sdkModel.customConfigPath = PathUtils.makeAbsolute(s)
                 },
 
-                target: {s ->
+                target: {String s ->
                     project.projectBuildSettings.runTargetModel.target = s
                 },
-                webAddress: {s ->
+                webAddress: {String s ->
                     project.projectBuildSettings.runTargetModel.httpIndex = s
                 },
-                'air-sdk': {s ->
-                    project.projectBuildSettings.runTargetModel.androidAirModel.airSDKPath = s
-                    project.projectBuildSettings.runTargetModel.iosAirModel.airSDKPath = s
+                'air-sdk': {String s ->
+                    project.projectBuildSettings.runTargetModel.androidAirModel.airSDKPath = PathUtils.makeAbsolute(s)
+                    project.projectBuildSettings.runTargetModel.iosAirModel.airSDKPath = PathUtils.makeAbsolute(s)
                 },
-                airAndroidScript: {s ->
-                    project.projectBuildSettings.runTargetModel.androidScript = s
+                airAndroidScript: {String s ->
+                    project.projectBuildSettings.runTargetModel.androidScript = PathUtils.makeAbsolute(s)
                 },
-                airScript: {s ->
-                    project.projectBuildSettings.runTargetModel.iosScript = s
+                airScript: {String s ->
+                    project.projectBuildSettings.runTargetModel.iosScript = PathUtils.makeAbsolute(s)
                 },
-                keystore: {s ->
-                    project.projectBuildSettings.runTargetModel.androidAirModel.keystorePath = s
-                    project.projectBuildSettings.runTargetModel.iosAirModel.keystorePath = s
+                keystore: {String s ->
+                    project.projectBuildSettings.runTargetModel.androidAirModel.keystorePath = PathUtils.makeAbsolute(s)
+                    project.projectBuildSettings.runTargetModel.iosAirModel.keystorePath = PathUtils.makeAbsolute(s)
                 },
-                storepass: {s ->
+                storepass: {String s ->
                     project.projectBuildSettings.runTargetModel.androidAirModel.storePass = s
                     project.projectBuildSettings.runTargetModel.iosAirModel.storePass = s
                 },
-                __SAVED_PACKAGED_FILES: {s ->
+                __SAVED_PACKAGED_FILES: {String s ->
 
                 },
-                'provisioning-profile': {s ->
-                    project.projectBuildSettings.runTargetModel.iosAirModel.provisionPath = s
+                'provisioning-profile': {String s ->
+                    project.projectBuildSettings.runTargetModel.iosAirModel.provisionPath = PathUtils.makeAbsolute(s)
                 },
 
                 sourcePaths: {String s ->
                     String[] paths = s.split(/\\:/)
+                    paths = paths.collect { PathUtils.makeAbsolute(it) }
                     project.projectPaths.sources.clear()
                     project.projectPaths.sources.addAll(paths)
                 },
                 libraryPaths: {String s ->
                     String[] paths = s.split(/\\:/)
+                    paths = paths.collect { PathUtils.makeAbsolute(it) }
                     project.projectPaths.libraries.clear()
                     project.projectPaths.libraries.addAll(paths)
                 },
                 asssetPaths: {String s ->
                     String[] paths = s.split(/\\:/)
+                    paths = paths.collect { PathUtils.makeAbsolute(it) }
                     project.projectPaths.assets.clear()
                     project.projectPaths.assets.addAll(paths)
                 },
-                htmlTemplatePath: {s ->
-                    project.projectPaths.htmlTemplatePath = s
+                htmlTemplatePath: {String s ->
+                    project.projectPaths.htmlTemplatePath = PathUtils.makeAbsolute(s)
                 },
 
-                compression: {s ->
+                compression: {String s ->
                     project.projectBuildSettings.productionBuildModel.compression = s
                 },
-                optimization: {s ->
+                optimization: {String s ->
                     project.projectBuildSettings.productionBuildModel.optimization = s
                 },
 
-                clearMessages: {s ->
+                clearMessages: {String s ->
                     project.projectLiveSettings.settingsModel.clearLog = s
                 },
-                disconnectOnTimeout: {s ->
+                disconnectOnTimeout: {String s ->
                     project.projectLiveSettings.settingsModel.disconnectOnTimeout = s
                 },
 
-                flashPlayerPath: {s ->
-                    project.projectLiveSettings.launcherModel.flashPlayerPath = s
+                flashPlayerPath: {String s ->
+                    project.projectLiveSettings.launcherModel.flashPlayerPath = PathUtils.makeAbsolute(s)
                 },
         ]
 

@@ -5,6 +5,7 @@ import codeOrchestra.colt.core.model.IModelElement
 import codeOrchestra.groovyfx.FXBindable
 import codeOrchestra.util.PathUtils
 import groovy.transform.Canonical
+import codeOrchestra.colt.as.run.Target
 
 /**
  * @author Dima Kruk
@@ -18,6 +19,15 @@ class RunTargetModel implements IModelElement{
     AIRModel iosAirModel = new AIRModel()
     String androidScript
     AIRModel androidAirModel = new AIRModel()
+
+    void clear() {
+        target = Target.SWF
+        httpIndex = ""
+        iosScript = ""
+        iosAirModel.clear()
+        androidScript = ""
+        androidAirModel.clear()
+    }
 
     @Override
     Closure buildXml() {

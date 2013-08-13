@@ -13,6 +13,11 @@ class SettingsModel implements IModelElement{
     boolean clearLog
     boolean disconnectOnTimeout
 
+    void clear() {
+        clearLog = false
+        disconnectOnTimeout = false
+    }
+
     @Override
     Closure buildXml() {
         return {

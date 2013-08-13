@@ -2,7 +2,9 @@
 |-------------------------------------------------------------------------------
 | CHEATSHEET: JavaFX CSS
 | http://docs.oracle.com/javafx/2/api/javafx/scene/doc-files/cssref.html
+| http://fxexperience.com/2011/12/styling-fx-buttons-with-css/
 | http://docs.oracle.com/javafx/2/css_tutorial/jfxpub-css_tutorial.htm
+| http://docs.oracle.com/javafx/2/layout/builtin_layouts.htm
 | http://fxexperience.com/2010/05/how-to-embed-fonts/
 | http://www.youtube.com/watch?v=AV1_xh_-Uzw — Fluid Layout
 |-------------------------------------------------------------------------------
@@ -16,19 +18,23 @@
 |
 | Nodes:
 |   Containers:
+|       BorderPane  // It's like table#wrapper with top (header), left (sidebar),
+|                   // center (main), right (sidebar), bottom (footer) regions
+|           GridPane // It's like a stack of cleared rows
+|               AnchorPane  // It's like a relative positioned div for
+|                           // BorderPane or GridPanes cells.
+|                           // Not sensitive to the padding property
+|               HBox // Its' like cleared rows for floating items
+|               VBox
+|               Region // It is typically a rounded rectangle like fieldset
+|
+|       Pane
 |       Group
 |       Node
 |       Parent
 |       Scene
 |       ImageView
-|       AnchorPane // Grid for Child
-|       BorderPane
 |       FlowPane
-|       GridPane
-|       HBox
-|       VBox
-|       Pane
-|       Region // It is typically a rounded rectangle like fieldset
 |       StackPane
 |       TilePane
 |
@@ -176,6 +182,8 @@
 | Background
 |   -fx-fill: yellow;
 |   -fx-background-color // <color> | <linear-gradient> | <radial-gradient>
+|   -fx-background-color: linear-gradient(#f2f2f2, #d6d6d6),
+|   -fx-background-color: linear-gradient(#f8f9fb, #e4e5e7 90%, #edeef0 100%),
 |   -fx-background-color: linear-gradient(from top to bottom, #0099d9, #0066cc 84%, #007ad9 100%);
 |       linear-gradient( [ [from <point> to <point>], ]? [ [ repeat | reflect ], ]? <color-stop>[, <color-stop>]+)
 |       linear-gradient(from 0% 0% to 100% 100%, red, black 100%)
@@ -342,11 +350,21 @@
 |
 */
 
-.root {
+.root { /* It's like body styles and LESS variables*/
     -fx-background-color: #f7f8fa;
     -fx-font: 13px 'Arial';
     -fx-mid-text-color: #515458;
-}
+
+    /* Buttons Colors Variables — I get an error with they */
+    /*-fx-body-color: linear-gradient(#f8f9fb, #e4e5e7 90%, #edeef0 100%);*/
+    /*-fx-outer-border: #c9ccd0;*/
+    /*-fx-inner-border: transparent;*/
+    /*-fx-focus-color: #0099ff;*/
+    /*-fx-highlight-color: #ffffff;*/
+
+    /* FX caspian variables */
+    /* -fx-color: -fx-base;
+    -fx-base: #d0d0d0;  */ }
 
 /*
 |-------------------------------------------------------------------------------
@@ -355,91 +373,78 @@
 */
 
 .sidebar {
-    -fx-background-color: #484a4d;
-}
+    -fx-background-color: #484a4d; }
 
 .sidebar .toggle-button, .sidebar .button {
     -fx-background-color: null;
     -fx-background-insets: 0;
     -fx-background-radius: 0;
     -fx-background-repeat: no-repeat;
-    -fx-background-size: 60px, 400px;
+    -fx-background-size: 60px, 40px;
     -fx-border-insets: 0;
     -fx-border-color: null;
     -fx-border-radius: 0;
     -fx-border-width: 1px 0;
-    -fx-padding: 0;
-}
-
-.sidebar .toggle-button:disabled, .sidebar .button:disabled {
-    -fx-opacity: .44;
-}
+    -fx-effect: null;
+    -fx-padding: 0; }
 
 .sidebar .toggle-button:pressed, .sidebar .toggle-button:selected,
 .sidebar .button:pressed {
     -fx-background-color: #37393b;
-    -fx-border-color: #2d2f31 #2d2f31 #535657 #535657;
-}
+    -fx-border-color: #2d2f31 #2d2f31 #535657 #535657; }
 
 .btn-run {
-    -fx-background-image: url('images/btns/run.png');
-}
+    -fx-background-image: url('images/btns/run.png'); }
 
 .btn-run:focused, .btn-run:hover {
-    -fx-background-image: url('images/btns/run-hover.png');
-}
+    -fx-background-image: url('images/btns/run-hover.png'); }
 
 .btn-run:pressed, .btn-run:selected {
-    -fx-background-image: url('images/btns/run-down.png');
-}
+    -fx-background-image: url('images/btns/run-down.png'); }
+
+.btn-stop {
+    -fx-background-image: url('images/btns/stop.png'); }
+
+.btn-stop:focused, .btn-pause:hover {
+    -fx-background-image: url('images/btns/stop-hover.png'); }
+
+.btn-stop:pressed, .btn-pause:selected {
+    -fx-background-image: url('images/btns/stop-down.png'); }
 
 .btn-pause {
-    -fx-background-image: url('images/btns/pause.png');
-}
+    -fx-background-image: url('images/btns/pause.png'); }
 
 .btn-pause:focused, .btn-pause:hover {
-    -fx-background-image: url('images/btns/pause-hover.png');
-}
+    -fx-background-image: url('images/btns/pause-hover.png'); }
 
 .btn-pause:pressed, .btn-pause:selected {
-    -fx-background-image: url('images/btns/pause-down.png');
-}
+    -fx-background-image: url('images/btns/pause-down.png'); }
 
 .btn-build {
-    -fx-background-image: url('images/btns/build.png');
-}
+    -fx-background-image: url('images/btns/build.png'); }
 
 .btn-build:focused, .btn-build:hover {
-    -fx-background-image: url('images/btns/build-hover.png');
-}
+    -fx-background-image: url('images/btns/build-hover.png'); }
 
 .btn-build:pressed, .btn-build:selected {
-    -fx-background-image: url('images/btns/build-down.png');
-}
+    -fx-background-image: url('images/btns/build-down.png'); }
 
 .btn-settings {
-    -fx-background-image: url('images/btns/settings.png');
-}
+    -fx-background-image: url('images/btns/settings.png'); }
 
 .btn-settings:focused, .btn-settings:hover {
-    -fx-background-image: url('images/btns/settings-hover.png');
-}
+    -fx-background-image: url('images/btns/settings-hover.png'); }
 
 .btn-settings:pressed, .btn-settings:selected {
-    -fx-background-image: url('images/btns/settings-down.png');
-}
+    -fx-background-image: url('images/btns/settings-down.png'); }
 
 .btn-more {
-    -fx-background-image: url('images/btns/more.png');
-}
+    -fx-background-image: url('images/btns/more.png'); }
 
 .btn-more:focused, .btn-more:hover {
-    -fx-background-image: url('images/btns/more-hover.png');
-}
+    -fx-background-image: url('images/btns/more-hover.png'); }
 
-.btn-more:pressed {
-    -fx-background-image: url('images/btns/more-down.png');
-}
+.btn-more:pressed { -fx-background-image: url('images/btns/more-down.png'); }
 
 /*
 |-------------------------------------------------------------------------------
@@ -453,8 +458,115 @@
     -fx-border-color: #e1e4e8;
     -fx-font: 17px 'Roboto';
     -fx-padding: 9px 60px 10px 0;
-    -fx-effect: dropshadow(gaussian, #f1f4f8, 0, 0, 0, 1px);
-}
+    -fx-effect: dropshadow(gaussian, #f1f4f8, 0, 0, 0, 1px); }
+
+
+/* Inputs */
+
+.text-input {
+    -fx-highlight-fill: #06c; /* ::selection */
+    -fx-highlight-text-fill: white; /* ::selection */
+    -fx-text-fill: #515458; }
+
+.text-area, .text-field {
+    -fx-background-color: #c9ccd0, #f0f0f0, #fff;
+    -fx-background-insets: 0, 1, 2 1 1 1;
+    -fx-background-radius: 1, 0, 0;
+    -fx-padding: 0; }
+
+.text-field {
+    -fx-alignment: top-left;
+    -fx-padding: 8px 7px 0 7px; }
+
+.text-area .content { -fx-padding: 7px 7px 0 7px; }
+
+.text-area:focused, .text-field:focused {
+    -fx-background-color: #0099ff, #008cf2, #f0f0f0, #fff;
+    -fx-background-insets: -1.4, 0, 1, 2 1 1 1;
+    -fx-background-radius: 2.4, 1, 0, 0; }
+
+/* Buttons */
+.button {
+    -fx-alignment: top-center;
+    -fx-background-color: #c9ccd0, #fff, linear-gradient(#f8f9fb, #e4e5e7 90%, #edeef0 100%);  /* Border, highlight, main */
+    -fx-background-insets: 0, 1, 2 1 1 1; /* --||-- */
+    -fx-background-radius: 4, 3, 2;
+    -fx-effect: dropshadow(gaussian, #f1f4f8,  0, 0, 0, 1px);
+    -fx-text-fill: #515458;
+    -fx-padding: 8px 6px 0 6px; }
+
+/*.button:focused {
+    -fx-background-color: #0099ff, #008cf2, #fff, linear-gradient(#f8f9fb, #e4e5e7 90%, #edeef0 100%);
+    -fx-background-insets: -1.4px, 0, 1, 2 1 1 1;
+    -fx-background-radius: 5.4, 4, 3, 2; }*/
+
+.button:hover {
+    -fx-background-color: #c9ccd0, #fff, linear-gradient(#fff, #f1f2f3 90%, #fafbfd 100%);
+    -fx-background-insets: 0, 1, 2 1 1 1;
+    -fx-background-radius: 4, 3, 2; }
+
+/*.button:focused:hover {
+    -fx-background-color: #0099ff, #008cf2, #fff, linear-gradient(#fff, #f1f2f3 90%, #fafbfd 100%);
+    -fx-background-insets: -1.4px, 0, 1, 2 1 1 1;
+    -fx-background-radius: 5.4, 4, 3, 2; }*/
+
+.button:pressed {
+    -fx-background-color: #c9ccd0, #e4e5e7;
+    -fx-background-insets: 0, 1;
+    -fx-effect: innershadow(gaussian, rgba(0, 0, 0, .4), 8, 0, 0, 2);
+    -fx-padding: 9px 6px 0 6px; }
+
+/*.button:focused:pressed {
+    -fx-background-color: #c9ccd0, #e4e5e7;
+    -fx-background-insets: 0, 1;
+    -fx-effect: innershadow(gaussian, rgba(0, 0, 0, .4), 8, 0, 0, 2);
+    -fx-padding: 10px 6px 0 6px; }*/
+
+    .button .text { -fx-effect: dropshadow( gaussian, #fff,  0, 0, 0, 1px); }
+
+.btn-add {
+    -fx-background-image: url('images/btns/add.png');
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: 30px, 30px;
+    -fx-padding: 0; }
+
+.btn-add:pressed {
+    -fx-background-position: 0 1px; }
+
+.toggle-button:disabled, .button:disabled { -fx-opacity: .44; }
+
+.btn-show, .btn-show:hover, .btn-hide {
+    -fx-background-color: null;
+    -fx-background-insets: 0;
+    -fx-background-position: 2px 10px;
+    -fx-background-radius: 0;
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: 9px, 9px;
+    -fx-effect: null;
+    -fx-padding: 8px 0 0 20px; }
+
+.btn-show { -fx-background-image: url('images/btns/arrow-r.png'); }
+
+.btn-show:hover { -fx-text-fill: #000; }
+
+.btn-show:pressed {
+    -fx-background-position: 2px 11px;
+    -fx-padding: 9px 0 0 20px;
+    -fx-opacity: 1; }
+
+.btn-done {
+    -fx-background-color: #0073bf, #19b2f2, linear-gradient(#0da6e5, #0066cc 90%, #006ed4 100%);  /* Border, highlight, main */
+    -fx-text-fill: #fff; }
+
+    .btn-done .text { -fx-effect: dropshadow( gaussian, #0059a6,  0, 0, 0, -1px); }
+
+.btn-done:hover {
+    -fx-background-color: #0073bf, #26bfff, linear-gradient(#19b2f2, #0073d9 90%, #007be1 100%); }
+
+.btn-done:pressed {
+    -fx-background-color: #0073bf, #0066cc;
+    -fx-effect: innershadow(gaussian, rgba(0, 0, 51, .4), 8, 0, 0, 2); }
+
 
 /*
 |-------------------------------------------------------------------------------
@@ -527,7 +639,7 @@
     -fx-background-radius: 4px; }
 
 .scroll-bar .thumb:hover, .scroll-bar:focused .thumb {
-    -fx-background-color: derive(#bfc2c4, -20%); }
+    -fx-background-color: derive(#bfc2c4, -12%); }
 
 /*
 |---------------------------------------

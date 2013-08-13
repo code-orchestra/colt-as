@@ -22,6 +22,13 @@ class COLTAsProjectPaths extends COLTProjectPaths<COLTAsProject> {
 
     String htmlTemplatePath
 
+    void clear() {
+        sources.clear()
+        libraries.clear()
+        assets.clear()
+        htmlTemplatePath = ""
+    }
+
     public String getHTMLTemplatePath() {
         return htmlTemplatePath
     }
@@ -56,7 +63,7 @@ class COLTAsProjectPaths extends COLTProjectPaths<COLTAsProject> {
                     item(PathUtils.makeRelative(s))
                 }
             }
-            'html-template'(item(PathUtils.makeRelative(htmlTemplatePath)))
+            'html-template'(PathUtils.makeRelative(htmlTemplatePath))
         }
     }
 

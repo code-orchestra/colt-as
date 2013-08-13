@@ -14,4 +14,7 @@ public class ASSourceFileFactory implements SourceFileFactory<ASSourceFile> {
         return new ASSourceFile(file, baseDir.getPath());
     }
 
+    @Override
+    public void dispose() {
+    }
 }
