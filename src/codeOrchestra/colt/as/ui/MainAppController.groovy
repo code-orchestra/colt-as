@@ -18,6 +18,7 @@ import javafx.fxml.Initializable
 import javafx.scene.control.Label
 import javafx.scene.control.ToggleButton
 import javafx.scene.control.ToggleGroup
+import javafx.scene.control.Tooltip
 import javafx.scene.layout.BorderPane
 import codeOrchestra.colt.core.tracker.GATracker
 
@@ -71,15 +72,24 @@ class MainAppController implements Initializable {
         runButton.onAction = {
             tracker.trackEvent("Menu", "Run pressed")
             tracker.trackPageView("/as/asLog.html", "asLog")
-            borderPane.center = log.logWebView
             liveSessionInProgress = true
+            borderPane.center = log.logWebView
         } as EventHandler
+
+        runButton.tooltip = new Tooltip("Run Livecoding Session")
 
         pauseButton.onAction = {
             tracker.trackEvent("Menu", "Pause pressed")
-            liveSessionInProgress = false
+            tracker.trackPageView("/as/asLog.html", "asLog")
+            if(borderPane.center == log.logWebView){
+                liveSessionInProgress = false
+            }else{
+                borderPane.center = log.logWebView
+            }
 
         } as EventHandler
+
+        pauseButton.tooltip = new Tooltip("Stop Livecoding Session")
 
         settingsButton.onAction = {
             tracker.trackEvent("Menu", "Settings pressed")
@@ -87,10 +97,14 @@ class MainAppController implements Initializable {
             borderPane.center = sForm.getPane()
         } as EventHandler
 
+        settingsButton.tooltip = new Tooltip("Livecoding Settings")
+
         buildButton.onAction = {
             tracker.trackEvent("Menu", "Build pressed")
             tracker.trackPageView("/as/asBuild.html", "asBuild")
         } as EventHandler
+
+        buildButton.tooltip = new Tooltip("Production Build")
 
         projectTitle.textProperty().bind(codeOrchestra.colt.as.model.ModelStorage.instance.project.name())
 
