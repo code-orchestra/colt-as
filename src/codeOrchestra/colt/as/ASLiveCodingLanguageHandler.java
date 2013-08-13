@@ -5,7 +5,7 @@ import codeOrchestra.colt.as.logging.transport.LoggerServerSocketThread;
 import codeOrchestra.colt.as.model.COLTAsProject;
 import codeOrchestra.colt.as.model.ModelStorage;
 import codeOrchestra.colt.as.model.util.ProjectImporter;
-import codeOrchestra.colt.as.rpc.COLTAsRemoteServiceImpl;
+import codeOrchestra.colt.as.rpc.impl.COLTAsRemoteServiceImpl;
 import codeOrchestra.colt.as.run.ASLiveLauncher;
 import codeOrchestra.colt.as.session.sourcetracking.ASSourceFileFactory;
 import codeOrchestra.colt.as.ui.TestMainApp;
