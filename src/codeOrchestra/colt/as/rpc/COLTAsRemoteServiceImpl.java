@@ -10,9 +10,5 @@ public class COLTAsRemoteServiceImpl extends AbstractCOLTRemoteService<COLTAsPro
 
     @Override
     public void dispose() {
-        // TODO: implement
     }
-
-    // TODO: migrate othermethods
-
 }

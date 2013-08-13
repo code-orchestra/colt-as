@@ -1,5 +1,6 @@
 package codeOrchestra.colt.as;
 
+import codeOrchestra.colt.as.controller.COLTAsController;
 import codeOrchestra.colt.as.logging.transport.LoggerServerSocketThread;
 import codeOrchestra.colt.as.model.COLTAsProject;
 import codeOrchestra.colt.as.model.ModelStorage;
@@ -11,6 +12,7 @@ import codeOrchestra.colt.as.ui.TestMainApp;
 import codeOrchestra.colt.as.util.ASPathUtils;
 import codeOrchestra.colt.core.AbstractLiveCodingLanguageHandler;
 import codeOrchestra.colt.core.LiveCodingManager;
+import codeOrchestra.colt.core.controller.COLTController;
 import codeOrchestra.colt.core.launch.LiveLauncher;
 import codeOrchestra.colt.core.logging.LoggerService;
 import codeOrchestra.colt.core.rpc.COLTRemoteService;
@@ -112,7 +114,12 @@ public class ASLiveCodingLanguageHandler extends AbstractLiveCodingLanguageHandl
     }
 
     @Override
-    public COLTRemoteService createRPCService() {
+    public COLTController<COLTAsProject> createCOLTController() {
+        return new COLTAsController();
+    }
+
+    @Override
+    public COLTRemoteService<COLTAsProject> createRPCService() {
         return new COLTAsRemoteServiceImpl();
     }
 
