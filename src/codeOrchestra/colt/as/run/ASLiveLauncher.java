@@ -103,4 +103,7 @@ public class ASLiveLauncher implements LiveLauncher<COLTAsProject> {
         return result;
     }
 
+    @Override
+    public void dispose() {
+    }
 }
