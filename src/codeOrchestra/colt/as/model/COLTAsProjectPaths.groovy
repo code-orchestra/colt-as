@@ -63,7 +63,7 @@ class COLTAsProjectPaths extends COLTProjectPaths<COLTAsProject> {
                     item(PathUtils.makeRelative(s))
                 }
             }
-            'html-template'(item(PathUtils.makeRelative(htmlTemplatePath)))
+            'html-template'(PathUtils.makeRelative(htmlTemplatePath))
         }
     }
 
