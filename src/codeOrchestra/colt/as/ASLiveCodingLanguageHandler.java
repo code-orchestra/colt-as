@@ -61,15 +61,25 @@ public class ASLiveCodingLanguageHandler extends AbstractLiveCodingLanguageHandl
     }
 
     @Override
-    public COLTAsProject createProject(String pName) {
+    public COLTAsProject createProject(String pName, File pFile) {
         COLTAsProject project = ModelStorage.getInstance().getProject();
         project.setName(pName);
+        project.setPath(pFile.getPath());
+
+        // Prepare dirs
+        project.initPaths();
+
         return project;
     }
 
     @Override
     public COLTAsProject importProject(File file) {
-        return ProjectImporter.importProject(file);
+        COLTAsProject project = ProjectImporter.importProject(file);
+
+        // Prepare dirs
+        project.initPaths();
+
+        return project;
     }
 
     @Override
