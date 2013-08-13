@@ -9,9 +9,12 @@ public class FCSHConsoleView {
 
     private static Logger logger = Logger.getLogger("FCSH");
 
-    private static FCSHConsoleView sharedInstance; // TODO: init this
+    private static FCSHConsoleView sharedInstance;
 
-    public static FCSHConsoleView get() {
+    public synchronized static FCSHConsoleView get() {
+        if (sharedInstance == null) {
+            sharedInstance = new FCSHConsoleView();
+        }
         return sharedInstance;
     }
 
