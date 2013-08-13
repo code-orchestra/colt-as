@@ -6,6 +6,7 @@ import javafx.event.ActionEvent
 import javafx.fxml.FXML
 import javafx.fxml.Initializable
 import javafx.scene.control.TextField
+import javafx.stage.DirectoryChooser
 import javafx.stage.FileChooser
 
 /**
@@ -47,9 +48,8 @@ class ProjectPathsFormController implements Initializable {
     }
 
     public void browseHandler(ActionEvent actionEvent) {
-        FileChooser fileChooser = new FileChooser()
-        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("HTML", "*.html"))
-        File file = fileChooser.showOpenDialog(templateTF.scene.window)
+        DirectoryChooser fileChooser = new DirectoryChooser()
+        File file = fileChooser.showDialog(templateTF.scene.window)
         if (file) {
             templateTF.text = file.path
         }
