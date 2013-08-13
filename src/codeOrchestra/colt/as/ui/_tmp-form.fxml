@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+
+<BorderPane prefHeight="760" prefWidth="500" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
+
+    <left>
+        <VBox maxWidth="-Infinity" styleClass="sidebar">
+            <children>
+                <ToggleButton fx:id="runBnt" contentDisplay="graphic_only" focusTraversable="false" prefHeight="40" prefWidth="60" styleClass="btn-run" text="Run" />
+                <ToggleButton fx:id="buildBtn" contentDisplay="graphic_only" focusTraversable="false" prefHeight="40" prefWidth="60" styleClass="btn-build" text="Build" />
+                <ToggleButton fx:id="settingsBtn" contentDisplay="graphic_only" focusTraversable="false" prefHeight="40" prefWidth="60" styleClass="btn-settings" text="Settings" />
+                <Pane VBox.vgrow="always" />
+                <Button contentDisplay="graphic_only" focusTraversable="false" prefHeight="40" prefWidth="60" styleClass="btn-more" text="Menu" />
+            </children>
+        </VBox>
+    </left>
+
+    <center>
+    <BorderPane>
+    <top>
+        <HBox alignment="center" styleClass="title-bar">
+            <children>
+                <Label text="SuperDruper" ellipsisString="…" textAlignment="center" />
+            </children>
+        </HBox>
+    </top>
+
+    <center>
+        <GridPane alignment="top_center"  maxWidth="640">
+            <children>
+
+                <AnchorPane GridPane.columnIndex="0" GridPane.rowIndex="0">
+                    <children>
+                        <Label layoutY="27" text="Source Paths:" AnchorPane.leftAnchor="19" AnchorPane.rightAnchor="48" />
+                        <TextArea layoutY="46" prefHeight="30" wrapText="true" AnchorPane.leftAnchor="10" AnchorPane.rightAnchor="48" />
+                        <Button contentDisplay="graphic_only" focusTraversable="false" layoutY="46" prefHeight="30" prefWidth="30" styleClass="btn-add" text="Add" AnchorPane.rightAnchor="10" />
+                    </children>
+                </AnchorPane>
+
+                <AnchorPane maxWidth="640" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                    <children>
+                        <Label layoutY="23" text="Library Paths:" AnchorPane.leftAnchor="19" AnchorPane.rightAnchor="48" />
+                        <TextArea layoutY="46" prefHeight="30" wrapText="true" AnchorPane.leftAnchor="10" AnchorPane.rightAnchor="48" />
+                        <Button contentDisplay="graphic_only" focusTraversable="false" layoutY="46" prefHeight="30" prefWidth="30" styleClass="btn-add" text="Add" AnchorPane.rightAnchor="10" />
+                    </children>
+                </AnchorPane>
+
+                <AnchorPane maxWidth="640" GridPane.columnIndex="0" GridPane.rowIndex="2">
+                    <children>
+                        <Label layoutY="23" text="Assets Paths:" AnchorPane.leftAnchor="19" AnchorPane.rightAnchor="48" />
+                        <TextArea layoutY="46" prefHeight="30" wrapText="true" AnchorPane.leftAnchor="10" AnchorPane.rightAnchor="48" />
+                        <Button contentDisplay="graphic_only" focusTraversable="false" layoutY="46" prefHeight="30" prefWidth="30" styleClass="btn-add" text="Add" AnchorPane.rightAnchor="10" />
+                    </children>
+                </AnchorPane>
+
+                <AnchorPane maxWidth="640" GridPane.columnIndex="0" GridPane.rowIndex="3">
+                    <children>
+                        <Label layoutY="23" text="Main Class:" AnchorPane.leftAnchor="19" AnchorPane.rightAnchor="86" />
+                        <TextField layoutY="46" prefHeight="30" AnchorPane.leftAnchor="10" AnchorPane.rightAnchor="86" />
+                        <Button focusTraversable="false" layoutY="46" prefHeight="30" prefWidth="67" text="Browse" AnchorPane.rightAnchor="10" />
+                    </children>
+                </AnchorPane>
+
+                <AnchorPane maxWidth="640" GridPane.columnIndex="0" GridPane.rowIndex="4">
+                    <children>
+                        <Button focusTraversable="false" layoutY="23" prefHeight="30" styleClass="btn-show" text="Advanced" AnchorPane.leftAnchor="19" />
+                        <Button focusTraversable="false" layoutY="23" prefHeight="30" prefWidth="67" styleClass="btn-done" text="Save" AnchorPane.rightAnchor="10" />
+                    </children>
+                </AnchorPane>
+
+            </children>
+
+            <columnConstraints>
+                <ColumnConstraints />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints />
+                <RowConstraints />
+                <RowConstraints />
+                <RowConstraints />
+                <RowConstraints />
+            </rowConstraints>
+
+        </GridPane>
+    </center>
+
+    <bottom>
+        <HBox alignment="center_right" styleClass="status-bar">
+            <children>
+
+                <HBox styleClass="filters" HBox.hgrow="always">
+                    <children>
+                        <ToggleButton mnemonicParsing="false" text="All" selected="true" />
+                        <ToggleButton mnemonicParsing="false" text="Errors" />
+                        <ToggleButton mnemonicParsing="false" text="Warnings" />
+                        <ToggleButton mnemonicParsing="false" text="Info" />
+                        <ToggleButton mnemonicParsing="false" text="Log" />
+                    </children>
+                </HBox>
+
+                <Label text="ActionScript" />
+
+            </children>
+        </HBox>
+    </bottom>
+    </BorderPane>
+    </center>
+
+    <stylesheets>
+        <URL value="@main.css" />
+    </stylesheets>
+
+</BorderPane>
