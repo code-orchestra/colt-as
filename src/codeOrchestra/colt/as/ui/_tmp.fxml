@@ -9,9 +9,13 @@
 
 <AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
   <children>
-    <Pane layoutY="40" layoutX="40" prefHeight="240.0" prefWidth="240.0" styleClass="popup-br" />
+    <StackPane layoutX="300.0" layoutY="200.0" prefHeight="150.0" prefWidth="200.0" styleClass="popup-bl">
+      <children>
+        <VBox prefHeight="200.0" prefWidth="100.0"  />
+      </children>
+    </StackPane>
   </children>
-      <stylesheets>
-        <URL value="@main.css" />
-    </stylesheets>
+  <stylesheets>
+    <URL value="@main.css" />
+  </stylesheets>
 </AnchorPane>
