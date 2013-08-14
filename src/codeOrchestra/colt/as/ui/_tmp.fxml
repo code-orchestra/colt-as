@@ -3,37 +3,15 @@
 <?import java.lang.*?>
 <?import java.net.*?>
 <?import java.util.*?>
-<?import javafx.collections.*?>
-<?import javafx.collections.FXCollections?>
-<?import javafx.collections.ObservableList?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.paint.*?>
-<?import javafx.scene.text.*?>
 
 <AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
   <children>
-
-
-    <!--<ListView disable="false" layoutX="14.0" layoutY="14.0" maxHeight="200.0" minHeight="-1.0" prefHeight="299.0" prefWidth="509.0">-->
-      <!--<items>-->
-        <!--<FXCollections fx:factory="observableArrayList">-->
-          <!--<HBox alignment="CENTER_RIGHT" styleClass="null">-->
-            <!--<children>-->
-              <!--<HBox styleClass="null" HBox.hgrow="ALWAYS">-->
-                <!--<children>-->
-                  <!--<Text text="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptate, a voluptas quam quos fugiat itaque explicabo laudantium magnam sit nihil enim temporibus odio odit modi nam vero suscipit fugit porro!" />-->
-                <!--</children>-->
-              <!--</HBox>-->
-              <!--<Hyperlink text="Hyperlink" />-->
-            <!--</children>-->
-          <!--</HBox>-->
-        </FXCollections>
-      </items>
-    </ListView>
-    <!--<Separator layoutX="23.0" layoutY="260.0" prefWidth="200.0" />-->
+    <Pane layoutY="40" layoutX="40" prefHeight="240.0" prefWidth="240.0" styleClass="popup-br" />
   </children>
-  <stylesheets>
-    <URL value="@main.css" />
-  </stylesheets>
+      <stylesheets>
+        <URL value="@main.css" />
+    </stylesheets>
 </AnchorPane>
