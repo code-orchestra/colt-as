@@ -1,5 +1,6 @@
 package codeOrchestra.colt.as.model.beans
 
+import codeOrchestra.colt.core.model.monitor.ChangingMonitor
 import codeOrchestra.colt.core.model.IModelElement
 import codeOrchestra.colt.as.run.LiveMethods
 import codeOrchestra.groovyfx.FXBindable
@@ -11,10 +12,21 @@ import groovy.transform.Canonical
 @Canonical
 @FXBindable
 class LiveSettingsModel implements IModelElement{
-    String liveType = LiveMethods.ANNOTATED.preferenceValue
+    String liveType
     boolean startSessionPaused
     boolean makeGSLive
-    String maxLoop = "1000"
+    String maxLoop
+
+    LiveSettingsModel() {
+        clear()
+        ChangingMonitor monitor = ChangingMonitor.instance
+        monitor.addAll(
+                liveType(),
+                startSessionPaused(),
+                makeGSLive(),
+                maxLoop()
+        )
+    }
 
     void clear() {
         liveType = LiveMethods.ANNOTATED.preferenceValue

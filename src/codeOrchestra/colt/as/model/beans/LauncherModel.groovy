@@ -1,5 +1,6 @@
 package codeOrchestra.colt.as.model.beans
 
+import codeOrchestra.colt.core.model.monitor.ChangingMonitor
 import codeOrchestra.colt.core.model.IModelElement
 import codeOrchestra.groovyfx.FXBindable
 import groovy.transform.Canonical
@@ -11,8 +12,14 @@ import codeOrchestra.colt.as.run.LauncherType
 @Canonical
 @FXBindable
 class LauncherModel  implements IModelElement{
-    String launcherType = LauncherType.DEFAULT.toString()
+    String launcherType
     String flashPlayerPath
+
+    LauncherModel() {
+        clear()
+        ChangingMonitor monitor = ChangingMonitor.instance
+        monitor.addAll(launcherType(), flashPlayerPath())
+    }
 
     void clear() {
         launcherType = LauncherType.DEFAULT.toString()

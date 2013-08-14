@@ -1,12 +1,10 @@
 package codeOrchestra.colt.as.model
 
 import codeOrchestra.colt.core.model.COLTProjectPaths
+import codeOrchestra.colt.core.model.monitor.ChangingMonitor
 import codeOrchestra.groovyfx.FXBindable
 import codeOrchestra.util.PathUtils
 import groovy.transform.Canonical
-import javafx.beans.property.ListProperty
-import javafx.beans.property.ListPropertyBase
-import javafx.beans.property.SimpleListProperty
 import javafx.collections.FXCollections
 import javafx.collections.ObservableList as FXObservableList
 
@@ -21,6 +19,12 @@ class COLTAsProjectPaths extends COLTProjectPaths<COLTAsProject> {
     FXObservableList<String> assets = FXCollections.observableArrayList()
 
     String htmlTemplatePath
+
+    COLTAsProjectPaths() {
+        clear()
+        ChangingMonitor monitor = ChangingMonitor.instance
+        monitor.add(htmlTemplatePath())
+    }
 
     void clear() {
         sources.clear()

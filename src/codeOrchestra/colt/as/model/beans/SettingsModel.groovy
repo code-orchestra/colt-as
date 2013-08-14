@@ -1,5 +1,6 @@
 package codeOrchestra.colt.as.model.beans
 
+import codeOrchestra.colt.core.model.monitor.ChangingMonitor
 import codeOrchestra.colt.core.model.IModelElement
 import codeOrchestra.groovyfx.FXBindable
 import groovy.transform.Canonical
@@ -12,6 +13,15 @@ import groovy.transform.Canonical
 class SettingsModel implements IModelElement{
     boolean clearLog
     boolean disconnectOnTimeout
+
+    SettingsModel() {
+        clear()
+        ChangingMonitor monitor = ChangingMonitor.instance
+        monitor.addAll(
+                clearLog(),
+                disconnectOnTimeout()
+        )
+    }
 
     void clear() {
         clearLog = false

@@ -3,15 +3,11 @@ package codeOrchestra.colt.as.model
 import codeOrchestra.colt.as.compiler.fcsh.FSCHCompilerKind
 import codeOrchestra.colt.core.COLTProjectManager
 import codeOrchestra.colt.core.model.COLTProject
-import codeOrchestra.groovyfx.FXBindable
 import codeOrchestra.util.StringUtils
-import groovy.transform.Canonical
 
 /**
  * @author Dima Kruk
  */
-@Canonical
-@FXBindable
 class COLTAsProject extends COLTProject {
 
     private final COLTAsProjectPaths projectPaths = new COLTAsProjectPaths()

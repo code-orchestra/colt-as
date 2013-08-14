@@ -1,13 +1,11 @@
 package codeOrchestra.colt.as.model.beans
 
-import codeOrchestra.colt.as.flexsdk.FlexSDKManager
-import codeOrchestra.colt.as.flexsdk.FlexSDKNotPresentException
+import codeOrchestra.colt.core.model.monitor.ChangingMonitor
 import codeOrchestra.colt.core.model.IModelElement
 import codeOrchestra.groovyfx.FXBindable
 import codeOrchestra.util.PathUtils
 import groovy.transform.Canonical
-import javafx.collections.FXCollections
-import javafx.collections.ObservableList as FXObservableList
+import javafx.beans.property.StringProperty
 
 /**
  * @author Dima Kruk
@@ -23,7 +21,16 @@ class SDKModel implements IModelElement{
 
     boolean isValidFlexSDK
 
-    FXObservableList<String> availablePlayerVersions = FXCollections.observableArrayList()
+    SDKModel() {
+        clear()
+        ChangingMonitor monitor = ChangingMonitor.instance
+        monitor.addAll(
+                flexSDKPath(),
+                useFlexConfig(),
+                useCustomConfig(),
+                customConfigPath()
+        )
+    }
 
     void clear() {
         flexSDKPath = ""
@@ -32,8 +39,6 @@ class SDKModel implements IModelElement{
         customConfigPath = ""
 
         isValidFlexSDK = false
-
-        availablePlayerVersions.clear()
     }
 
     @Override
