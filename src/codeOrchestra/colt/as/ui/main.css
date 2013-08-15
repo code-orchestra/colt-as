@@ -473,12 +473,12 @@
 
 /* Inputs */
 
-.text-input {
+.text-input, #file-chooser {
     -fx-highlight-fill: #06c; /* ::selection */
     -fx-highlight-text-fill: white; /* ::selection */
     -fx-text-fill: #515458; }
 
-.text-area, .text-field {
+.text-area, .text-field, #file-chooser {
     -fx-background-color: #c9ccd0, #f0f0f0, #fff;
     -fx-background-insets: 0, 1, 2 1 1 1;
     -fx-background-radius: 1, 0, 0;

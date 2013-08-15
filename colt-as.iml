@@ -29,6 +29,8 @@
         <jarDirectory url="file://$MODULE_DIR$/lib" recursive="false" />
       </library>
     </orderEntry>
+    <orderEntry type="module" module-name="colt-core" />
+    <orderEntry type="module" module-name="groovy-fx-goodies" />
   </component>
 </module>
 

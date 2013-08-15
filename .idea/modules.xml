@@ -3,6 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/colt-as.iml" filepath="$PROJECT_DIR$/colt-as.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../colt-core/colt-core.iml" filepath="$PROJECT_DIR$/../colt-core/colt-core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../groovy-fx-goodies/groovy-fx-goodies.iml" filepath="$PROJECT_DIR$/../groovy-fx-goodies/groovy-fx-goodies.iml" />
     </modules>
   </component>
 </project>

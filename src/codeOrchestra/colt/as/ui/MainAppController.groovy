@@ -20,8 +20,10 @@ import javafx.beans.property.SimpleBooleanProperty
 import javafx.beans.value.ChangeListener
 import javafx.event.EventHandler
 import javafx.fxml.FXML
+import javafx.fxml.FXMLLoader
 import javafx.fxml.Initializable
 import javafx.geometry.Point2D
+import javafx.scene.Parent
 import javafx.scene.control.Button
 import javafx.scene.control.ContextMenu
 import javafx.scene.control.Label
@@ -51,7 +53,8 @@ class MainAppController implements Initializable {
     @FXML Button menuBtn
 
     Log log = new Log()
-    SettingsForm sForm = new SettingsForm()
+    Parent sForm
+
 
     ToggleGroup logFilterToggleGroup = new ToggleGroup()
     @FXML ToggleButton logFilterAll
@@ -64,6 +67,9 @@ class MainAppController implements Initializable {
 
     @Override
     void initialize(URL url, ResourceBundle resourceBundle) {
+
+        sForm = FXMLLoader.load(getClass().getResource("_tmp-form2.fxml"))
+
         if (LiveCodingHandlerManager.instance.currentHandler != null) {
             ((ASLiveCodingLanguageHandler) LiveCodingHandlerManager.instance.currentHandler).setLoggerService(log);
         }
@@ -88,7 +94,7 @@ class MainAppController implements Initializable {
             tracker.trackPageView("/as/asLog.html", "asLog")
 
             COLTAsController coltController = (COLTAsController) ServiceProvider.get(COLTController.class)
-            coltController.startBaseCompilation(new COLTControllerCallbackEx<CompilationResult>() {
+            coltController?.startBaseCompilation(new COLTControllerCallbackEx<CompilationResult>() {
                 @Override
                 void onComplete(CompilationResult successResult) {
                     liveSessionInProgress = false;
@@ -113,7 +119,7 @@ class MainAppController implements Initializable {
         settingsButton.onAction = {
             tracker.trackEvent("Menu", "Settings pressed")
             tracker.trackPageView("/as/asSettings.html", "asSettings")
-            borderPane.center = sForm.getPane()
+            borderPane.center = sForm
         } as EventHandler
 
         buildButton.onAction = {
@@ -147,8 +153,8 @@ class MainAppController implements Initializable {
             pauseButton.selected = newValue
         } as ChangeListener)
 
-        borderPane.center = log.logWebView // todo
-        runButton.selected = true // todo
+        borderPane.center = sForm // todo
+        settingsButton.selected = true // todo
     }
 
     private void updateLogFilter() {
