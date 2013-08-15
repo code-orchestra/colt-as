@@ -15,7 +15,7 @@ class LiveSettingsModel implements IModelElement{
     String liveType
     boolean startSessionPaused
     boolean makeGSLive
-    String maxLoop
+    int maxLoop
 
     LiveSettingsModel() {
         clear()
@@ -32,7 +32,7 @@ class LiveSettingsModel implements IModelElement{
         liveType = LiveMethods.ANNOTATED.preferenceValue
         startSessionPaused = false
         makeGSLive = false
-        maxLoop = "1000"
+        maxLoop = 1000
     }
 
     @Override

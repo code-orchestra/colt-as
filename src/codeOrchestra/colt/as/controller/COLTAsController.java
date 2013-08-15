@@ -25,6 +25,10 @@ import codeOrchestra.util.ProjectHelper;
 public class COLTAsController extends AbstractCOLTController<COLTAsProject> {
 
     public void startProductionCompilation(final COLTControllerCallback<CompilationResult, CompilationResult> callback, final boolean run, boolean sync) {
+        // TODO: implement
+    }
+
+    public void startBaseCompilation(final COLTControllerCallback<CompilationResult, CompilationResult> callback, final boolean run, boolean sync) {
         // TODO: implement!
 
         // TODO: save project
@@ -38,10 +42,6 @@ public class COLTAsController extends AbstractCOLTController<COLTAsProject> {
 
             @Override
             protected CompilationResult call(COLTProgressIndicator progressIndicator) {
-                // TODO: delete when it's done
-                if (true) {
-                    return null;
-                }
 
                 // Building digests
                 progressIndicator.setText("Building digests");
@@ -67,7 +67,13 @@ public class COLTAsController extends AbstractCOLTController<COLTAsProject> {
                     ErrorHandler.handle("Maximum compilations count allowed in Demo mode is exceeded", "COLT Demo mode");
                     callback.onError(e, null);
                     return null;
+                } catch (Throwable t) {
+                    ErrorHandler.handle(t, "Error while starting fcsh");
+                    callback.onError(t, null);
+                    t.printStackTrace();
+                    return null;
                 }
+
                 try {
                     Thread.sleep(1000);
                 } catch (InterruptedException e1) {
@@ -78,10 +84,6 @@ public class COLTAsController extends AbstractCOLTController<COLTAsProject> {
                 return null;  //To change body of implemented methods use File | Settings | File Templates.
             }
         });
-    }
-
-    public void startBaseCompilation(final COLTControllerCallback<CompilationResult, CompilationResult> callback, final boolean run, boolean sync) {
-        // TODO: implement!
     }
 
     @Override
