@@ -1,8 +1,13 @@
 package codeOrchestra.colt.as.ui
 
 import codeOrchestra.colt.as.ASLiveCodingLanguageHandler
+import codeOrchestra.colt.as.compiler.fcsh.make.CompilationResult
+import codeOrchestra.colt.as.controller.COLTAsController
 import codeOrchestra.colt.as.ui.log.Log
 import codeOrchestra.colt.as.ui.propertyTabPane.SettingsForm
+import codeOrchestra.colt.core.ServiceProvider
+import codeOrchestra.colt.core.controller.COLTController
+import codeOrchestra.colt.core.controller.COLTControllerCallbackEx
 import codeOrchestra.colt.core.loading.LiveCodingHandlerManager
 import codeOrchestra.colt.core.logging.Level
 import codeOrchestra.colt.core.ui.components.log.LogFilter
@@ -71,6 +76,20 @@ class MainAppController implements Initializable {
         runButton.onAction = {
             tracker.trackEvent("Menu", "Run pressed")
             tracker.trackPageView("/as/asLog.html", "asLog")
+
+            COLTAsController coltController = (COLTAsController) ServiceProvider.get(COLTController.class)
+            coltController.startBaseCompilation(new COLTControllerCallbackEx<CompilationResult>() {
+                @Override
+                void onComplete(CompilationResult successResult) {
+                    liveSessionInProgress = false;
+                }
+
+                @Override
+                void onError(Throwable t, CompilationResult errorResult) {
+                    liveSessionInProgress = false;
+                }
+            }, true, true)
+
             borderPane.center = log.logWebView
             liveSessionInProgress = true
         } as EventHandler
