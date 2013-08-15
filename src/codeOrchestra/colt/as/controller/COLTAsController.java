@@ -10,11 +10,11 @@ import codeOrchestra.colt.core.controller.COLTControllerCallback;
  */
 public class COLTAsController extends AbstractCOLTController<COLTAsProject> {
 
-    public static void startProductionCompilation(final COLTControllerCallback<CompilationResult, CompilationResult> callback, final boolean run, boolean sync) {
+    public void startProductionCompilation(final COLTControllerCallback<CompilationResult, CompilationResult> callback, final boolean run, boolean sync) {
         // TODO: implement!
     }
 
-    public static void startBaseCompilation(final COLTControllerCallback<CompilationResult, CompilationResult> callback, final boolean run, boolean sync) {
+    public void startBaseCompilation(final COLTControllerCallback<CompilationResult, CompilationResult> callback, final boolean run, boolean sync) {
         // TODO: implement!
     }
 
