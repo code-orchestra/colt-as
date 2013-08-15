@@ -67,7 +67,11 @@ class COLTAsProjectLiveSettings extends COLTProjectLiveSettings<COLTAsProject>{
     }
 
     public int getMaxIterationsCount() {
-        return liveSettingsModel.maxLoop
+        try {
+            return Integer.valueOf(liveSettingsModel.maxLoop)
+        } catch (Throwable t) {
+            return 1000;
+        }
     }
 
     @Override
