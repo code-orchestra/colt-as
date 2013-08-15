@@ -121,6 +121,14 @@ public class ASLiveCodingLanguageHandler extends AbstractLiveCodingLanguageHandl
         // TODO: replace with a production progress indicator
         return new COLTProgressIndicator() {
             @Override
+            public void start() {
+            }
+
+            @Override
+            public void stop() {
+            }
+
+            @Override
             public void setProgress(int percents) {
                 System.out.println(percents + "%");
             }
