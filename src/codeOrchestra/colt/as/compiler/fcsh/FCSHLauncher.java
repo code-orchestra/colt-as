@@ -66,9 +66,6 @@ public class FCSHLauncher extends JavaLauncher implements IFCSHLauncher {
     if (PROFILING_ON) {
        jvmParameters.append("-agentpath:libyjpagent.jnilib ");
     }
-    if (!SystemInfo.isWindows) {
-      jvmParameters.append("-d32 ");
-    }
     setWorkingDirectory(new File(FlexSDKSettings.getDefaultFlexSDKPath(), "bin"));
     setVirtualMachineParameter(jvmParameters.toString());
   }

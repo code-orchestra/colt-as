@@ -1,5 +1,6 @@
 package codeOrchestra.colt.as.model.beans
 
+import codeOrchestra.colt.core.model.monitor.ChangingMonitor
 import codeOrchestra.colt.core.model.IModelElement
 import codeOrchestra.groovyfx.FXBindable
 import groovy.transform.Canonical
@@ -12,6 +13,15 @@ import groovy.transform.Canonical
 class ProductionBuildModel implements IModelElement {
     boolean compression
     boolean optimization
+
+    ProductionBuildModel() {
+        clear()
+        ChangingMonitor monitor = ChangingMonitor.instance
+        monitor.addAll(
+                compression(),
+                optimization()
+        )
+    }
 
     void clear() {
         compression = false

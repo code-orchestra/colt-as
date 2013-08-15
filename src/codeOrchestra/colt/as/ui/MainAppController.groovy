@@ -1,8 +1,14 @@
 package codeOrchestra.colt.as.ui
 
 import codeOrchestra.colt.as.ASLiveCodingLanguageHandler
+import codeOrchestra.colt.as.compiler.fcsh.make.CompilationResult
+import codeOrchestra.colt.as.controller.COLTAsController
 import codeOrchestra.colt.as.ui.log.Log
+import codeOrchestra.colt.as.ui.popupmenu.MyContextMenu
 import codeOrchestra.colt.as.ui.propertyTabPane.SettingsForm
+import codeOrchestra.colt.core.ServiceProvider
+import codeOrchestra.colt.core.controller.COLTController
+import codeOrchestra.colt.core.controller.COLTControllerCallbackEx
 import codeOrchestra.colt.core.loading.LiveCodingHandlerManager
 import codeOrchestra.colt.core.logging.Level
 import codeOrchestra.colt.core.ui.components.log.LogFilter
@@ -15,10 +21,16 @@ import javafx.beans.value.ChangeListener
 import javafx.event.EventHandler
 import javafx.fxml.FXML
 import javafx.fxml.Initializable
+import javafx.geometry.Point2D
+import javafx.scene.control.Button
+import javafx.scene.control.ContextMenu
 import javafx.scene.control.Label
+import javafx.scene.control.MenuItem
 import javafx.scene.control.ToggleButton
 import javafx.scene.control.ToggleGroup
-import javafx.scene.control.Tooltip
+import javafx.scene.input.KeyCode
+import javafx.scene.input.KeyCodeCombination
+import javafx.scene.input.KeyCombination
 import javafx.scene.layout.BorderPane
 import codeOrchestra.colt.core.tracker.GATracker
 
@@ -35,6 +47,8 @@ class MainAppController implements Initializable {
     @FXML ToggleButton settingsButton
 
     @FXML BorderPane borderPane
+
+    @FXML Button menuBtn
 
     Log log = new Log()
     SettingsForm sForm = new SettingsForm()
@@ -72,24 +86,29 @@ class MainAppController implements Initializable {
         runButton.onAction = {
             tracker.trackEvent("Menu", "Run pressed")
             tracker.trackPageView("/as/asLog.html", "asLog")
-            liveSessionInProgress = true
-            borderPane.center = log.logWebView
-        } as EventHandler
 
-        runButton.tooltip = new Tooltip("Run Livecoding Session")
+            COLTAsController coltController = (COLTAsController) ServiceProvider.get(COLTController.class)
+            coltController.startBaseCompilation(new COLTControllerCallbackEx<CompilationResult>() {
+                @Override
+                void onComplete(CompilationResult successResult) {
+                    liveSessionInProgress = false;
+                }
+
+                @Override
+                void onError(Throwable t, CompilationResult errorResult) {
+                    liveSessionInProgress = false;
+                }
+            }, true, true)
+
+            borderPane.center = log.logWebView
+            liveSessionInProgress = true
+        } as EventHandler
 
         pauseButton.onAction = {
             tracker.trackEvent("Menu", "Pause pressed")
-            tracker.trackPageView("/as/asLog.html", "asLog")
-            if(borderPane.center == log.logWebView){
-                liveSessionInProgress = false
-            }else{
-                borderPane.center = log.logWebView
-            }
+            liveSessionInProgress = false
 
         } as EventHandler
-
-        pauseButton.tooltip = new Tooltip("Stop Livecoding Session")
 
         settingsButton.onAction = {
             tracker.trackEvent("Menu", "Settings pressed")
@@ -97,14 +116,25 @@ class MainAppController implements Initializable {
             borderPane.center = sForm.getPane()
         } as EventHandler
 
-        settingsButton.tooltip = new Tooltip("Livecoding Settings")
-
         buildButton.onAction = {
             tracker.trackEvent("Menu", "Build pressed")
             tracker.trackPageView("/as/asBuild.html", "asBuild")
         } as EventHandler
 
-        buildButton.tooltip = new Tooltip("Production Build")
+        MyContextMenu contextMenu = new MyContextMenu()
+        contextMenu.setStyle("-fx-background-color: transparent;");
+        MenuItem menuItem1 = new MenuItem("Save")
+        menuItem1.accelerator = new KeyCodeCombination(KeyCode.S, KeyCombination.SHORTCUT_DOWN)
+        menuItem1.onAction = {
+            println("Save")
+        } as EventHandler
+        MenuItem menuItem2 = new MenuItem("Open")
+        contextMenu.items.addAll(menuItem1, menuItem2)
+
+        menuBtn.onAction = {
+            Point2D point = menuBtn.parent.localToScreen(menuBtn.layoutX, menuBtn.layoutY)
+            contextMenu.show(menuBtn, point.x + 5, point.y - 75)
+        } as EventHandler
 
         projectTitle.textProperty().bind(codeOrchestra.colt.as.model.ModelStorage.instance.project.name())
 

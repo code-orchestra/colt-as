@@ -446,6 +446,16 @@
 
 .btn-more:pressed { -fx-background-image: url('images/btns/more-down.png'); }
 
+.popup-bl {
+    -fx-border-image-source: url('images/popup-menu-bl.png');
+    -fx-border-image-slice: 40px 40px 40px 60px fill;
+    -fx-border-image-width: 40px 40px 40px 60px; }
+
+.popup-br {
+    -fx-border-image-source: url('images/popup-menu-br.png');
+    -fx-border-image-slice: 40px 60px 40px 40px fill;
+    -fx-border-image-width: 40px 60px 40px 40px; }
+
 /*
 |-------------------------------------------------------------------------------
 | Main Area

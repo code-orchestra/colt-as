@@ -6,9 +6,9 @@ import codeOrchestra.colt.as.compiler.fcsh.console.command.FCSHCommandRunnable;
 import codeOrchestra.colt.as.compiler.fcsh.console.command.impl.*;
 import codeOrchestra.colt.as.compiler.fcsh.make.CompilationResult;
 import codeOrchestra.colt.as.compiler.fcsh.target.CompilerTarget;
-import codeOrchestra.colt.core.license.COLTRunningKey;
 import codeOrchestra.colt.core.license.DemoHelper;
 import codeOrchestra.colt.core.logging.Logger;
+import codeOrchestra.lcs.license.COLTRunningKey;
 import codeOrchestra.util.StringUtils;
 import codeOrchestra.util.SystemInfo;
 

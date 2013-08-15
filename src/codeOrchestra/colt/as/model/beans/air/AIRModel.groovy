@@ -1,5 +1,6 @@
 package codeOrchestra.colt.as.model.beans.air
 
+import codeOrchestra.colt.core.model.monitor.ChangingMonitor
 import codeOrchestra.colt.core.model.IModelElement
 import codeOrchestra.groovyfx.FXBindable
 import groovy.transform.Canonical
@@ -14,6 +15,17 @@ class AIRModel implements IModelElement {
     String provisionPath
     String keystorePath
     String storePass
+
+    AIRModel() {
+        clear()
+        ChangingMonitor monitor = ChangingMonitor.instance
+        monitor.addAll(
+                airSDKPath(),
+                provisionPath(),
+                keystorePath(),
+                storePass()
+        )
+    }
 
     void clear() {
         airSDKPath = ""

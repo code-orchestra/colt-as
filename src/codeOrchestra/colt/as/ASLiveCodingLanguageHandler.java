@@ -17,6 +17,7 @@ import codeOrchestra.colt.core.launch.LiveLauncher;
 import codeOrchestra.colt.core.logging.LoggerService;
 import codeOrchestra.colt.core.rpc.COLTRemoteService;
 import codeOrchestra.colt.core.session.sourcetracking.SourceFileFactory;
+import codeOrchestra.colt.core.ui.components.COLTProgressIndicator;
 import codeOrchestra.util.StringUtils;
 import groovy.util.slurpersupport.GPathResult;
 import javafx.fxml.FXMLLoader;
@@ -113,6 +114,30 @@ public class ASLiveCodingLanguageHandler extends AbstractLiveCodingLanguageHandl
     @Override
     public Node getPane() throws Exception {
         return FXMLLoader.load(TestMainApp.class.getResource("main_app.fxml"));
+    }
+
+    @Override
+    public COLTProgressIndicator getProgressIndicator() {
+        // TODO: replace with a production progress indicator
+        return new COLTProgressIndicator() {
+            @Override
+            public void start() {
+            }
+
+            @Override
+            public void stop() {
+            }
+
+            @Override
+            public void setProgress(int percents) {
+                System.out.println(percents + "%");
+            }
+
+            @Override
+            public void setText(String text) {
+                System.out.println(text);
+            }
+        };
     }
 
     @Override

@@ -4,6 +4,7 @@ import codeOrchestra.colt.core.model.IModelElement
 import codeOrchestra.groovyfx.FXBindable
 import codeOrchestra.util.PathUtils
 import groovy.transform.Canonical
+import codeOrchestra.colt.core.model.monitor.ChangingMonitor
 
 /**
  * Created with IntelliJ IDEA.
@@ -27,9 +28,27 @@ class BuildModel implements IModelElement {
     boolean excludeDeadCode
 
     boolean interrupt
-    String interruptValue = "30"
+    String interruptValue
 
     String compilerOptions
+
+    BuildModel() {
+        clear()
+        ChangingMonitor monitor = ChangingMonitor.instance
+        monitor.addAll(
+                mainClass(),
+                outputFileName(),
+                outputPath(),
+                targetPlayerVersion(),
+                rsl(),
+                nonDefaultLocale(),
+                localeSettings(),
+                excludeDeadCode(),
+                interrupt(),
+                interruptValue(),
+                compilerOptions()
+        )
+    }
 
     void clear() {
         mainClass = ""
@@ -47,7 +66,7 @@ class BuildModel implements IModelElement {
         interrupt = false
         interruptValue = "30"
 
-        interruptValue = ""
+        compilerOptions = ""
     }
 
     @Override

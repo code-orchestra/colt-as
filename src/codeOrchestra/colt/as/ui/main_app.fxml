@@ -45,7 +45,7 @@
         <ToggleButton fx:id="buildButton" contentDisplay="GRAPHIC_ONLY" focusTraversable="false" graphicTextGap="0.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="40.0" prefWidth="60.0" selected="false" styleClass="btn-build" text="Build" textOverrun="ELLIPSIS" underline="false" visible="true" wrapText="false" />
         <ToggleButton fx:id="settingsButton" contentDisplay="GRAPHIC_ONLY" focusTraversable="false" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="40.0" prefWidth="60.0" styleClass="btn-settings" text="Settings" />
         <Pane maxHeight="1.7976931348623157E308" VBox.vgrow="ALWAYS" />
-        <Button contentDisplay="GRAPHIC_ONLY" focusTraversable="false" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="40.0" prefWidth="60.0" styleClass="btn-more" text="Menu" />
+        <Button fx:id="menuBtn" contentDisplay="GRAPHIC_ONLY" focusTraversable="false" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="40.0" prefWidth="60.0" styleClass="btn-more" text="Menu" />
       </children>
     </VBox>
   </left>
