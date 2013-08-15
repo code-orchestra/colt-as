@@ -4,6 +4,7 @@ import codeOrchestra.colt.as.ASLiveCodingLanguageHandler
 import codeOrchestra.colt.as.compiler.fcsh.make.CompilationResult
 import codeOrchestra.colt.as.controller.COLTAsController
 import codeOrchestra.colt.as.ui.log.Log
+import codeOrchestra.colt.as.ui.popupmenu.MyContextMenu
 import codeOrchestra.colt.as.ui.propertyTabPane.SettingsForm
 import codeOrchestra.colt.core.ServiceProvider
 import codeOrchestra.colt.core.controller.COLTController
@@ -20,9 +21,16 @@ import javafx.beans.value.ChangeListener
 import javafx.event.EventHandler
 import javafx.fxml.FXML
 import javafx.fxml.Initializable
+import javafx.geometry.Point2D
+import javafx.scene.control.Button
+import javafx.scene.control.ContextMenu
 import javafx.scene.control.Label
+import javafx.scene.control.MenuItem
 import javafx.scene.control.ToggleButton
 import javafx.scene.control.ToggleGroup
+import javafx.scene.input.KeyCode
+import javafx.scene.input.KeyCodeCombination
+import javafx.scene.input.KeyCombination
 import javafx.scene.layout.BorderPane
 import codeOrchestra.colt.core.tracker.GATracker
 
@@ -39,6 +47,8 @@ class MainAppController implements Initializable {
     @FXML ToggleButton settingsButton
 
     @FXML BorderPane borderPane
+
+    @FXML Button menuBtn
 
     Log log = new Log()
     SettingsForm sForm = new SettingsForm()
@@ -109,6 +119,21 @@ class MainAppController implements Initializable {
         buildButton.onAction = {
             tracker.trackEvent("Menu", "Build pressed")
             tracker.trackPageView("/as/asBuild.html", "asBuild")
+        } as EventHandler
+
+        MyContextMenu contextMenu = new MyContextMenu()
+        contextMenu.setStyle("-fx-background-color: transparent;");
+        MenuItem menuItem1 = new MenuItem("Save")
+        menuItem1.accelerator = new KeyCodeCombination(KeyCode.S, KeyCombination.SHORTCUT_DOWN)
+        menuItem1.onAction = {
+            println("Save")
+        } as EventHandler
+        MenuItem menuItem2 = new MenuItem("Open")
+        contextMenu.items.addAll(menuItem1, menuItem2)
+
+        menuBtn.onAction = {
+            Point2D point = menuBtn.parent.localToScreen(menuBtn.layoutX, menuBtn.layoutY)
+            contextMenu.show(menuBtn, point.x + 5, point.y - 75)
         } as EventHandler
 
         projectTitle.textProperty().bind(codeOrchestra.colt.as.model.ModelStorage.instance.project.name())
