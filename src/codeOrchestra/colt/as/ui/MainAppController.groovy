@@ -90,7 +90,7 @@ class MainAppController implements Initializable {
         } as InvalidationListener)
 
         runButton.onAction = {
-            tracker.trackEvent("Menu", "Run pressed")
+            tracker.trackEventWithPage("Menu", "Run pressed")
             tracker.trackPageView("/as/asLog.html", "asLog")
 
             COLTAsController coltController = (COLTAsController) ServiceProvider.get(COLTController.class)
@@ -111,13 +111,13 @@ class MainAppController implements Initializable {
         } as EventHandler
 
         pauseButton.onAction = {
-            tracker.trackEvent("Menu", "Pause pressed")
+            tracker.trackEventWithPage("Menu", "Pause pressed")
             liveSessionInProgress = false
 
         } as EventHandler
 
         settingsButton.onAction = {
-            tracker.trackEvent("Menu", "Settings pressed")
+            tracker.trackEventWithPage("Menu", "Settings pressed")
             tracker.trackPageView("/as/asSettings.html", "asSettings")
             borderPane.center = sForm.getPane()
         } as EventHandler
@@ -125,7 +125,7 @@ class MainAppController implements Initializable {
         borderPane.top = ShortCodeNotification.initNotification(borderPane.top)
 
         buildButton.onAction = {
-            tracker.trackEvent("Menu", "Build pressed")
+            tracker.trackEventWithPage("Menu", "Build pressed")
             tracker.trackPageView("/as/asBuild.html", "asBuild")
         } as EventHandler
 
