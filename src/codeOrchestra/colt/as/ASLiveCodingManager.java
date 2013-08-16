@@ -361,9 +361,15 @@ public class ASLiveCodingManager extends AbstractLiveCodingManager<COLTAsProject
     @Override
     public void dispose() {
         super.dispose();
-        sourceTrackerThread.stopRightThere();
 
-        // TODO: implement
+        if (sourceTrackerThread != null) {
+            sourceTrackerThread.stopRightThere();
+        }
+
+        changedFiles.clear();
+        deliveryMessages.clear();
+        deliveryMessagesHistory.clear();
+        embedDigests.clear();
     }
 
     @Override
