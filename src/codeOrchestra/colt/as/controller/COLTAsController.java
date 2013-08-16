@@ -88,7 +88,14 @@ public class COLTAsController extends AbstractCOLTController<COLTAsProject> {
                 // Base compilation
                 progressIndicator.setText("Compiling");
                 ASLiveCodingManager liveCodingManager = (ASLiveCodingManager) ServiceProvider.get(LiveCodingManager.class);
-                CompilationResult compilationResult = liveCodingManager.runBaseCompilation();
+                CompilationResult compilationResult;
+                try {
+                    compilationResult = liveCodingManager.runBaseCompilation();
+                } catch (Exception e) {
+                    ErrorHandler.handle(e, "Error while compiling");
+                    callback.onError(e, null);
+                    return null;
+                }
                 progressIndicator.setProgress(80);
 
                 if (compilationResult.isOk()) {

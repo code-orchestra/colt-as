@@ -37,7 +37,7 @@ class COLTAsProjectBuildSettings extends COLTProjectBuildSettings<COLTAsProject>
 
     public List<String> getExcludedClasses() {
         // TODO: implement
-        return null
+        return Collections.emptyList();
     }
 
     public boolean interruptCompilationByTimeout() {
