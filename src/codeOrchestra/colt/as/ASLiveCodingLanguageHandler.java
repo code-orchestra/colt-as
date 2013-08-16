@@ -17,6 +17,7 @@ import codeOrchestra.colt.core.launch.LiveLauncher;
 import codeOrchestra.colt.core.logging.LoggerService;
 import codeOrchestra.colt.core.rpc.COLTRemoteService;
 import codeOrchestra.colt.core.session.sourcetracking.SourceFileFactory;
+import codeOrchestra.colt.core.ui.components.COLTProgressIndicatorController;
 import codeOrchestra.colt.core.ui.components.ICOLTProgressIndicator;
 import codeOrchestra.util.StringUtils;
 import groovy.util.slurpersupport.GPathResult;
@@ -118,26 +119,7 @@ public class ASLiveCodingLanguageHandler extends AbstractLiveCodingLanguageHandl
 
     @Override
     public ICOLTProgressIndicator getProgressIndicator() {
-        // TODO: replace with a production progress indicator
-        return new ICOLTProgressIndicator() {
-            @Override
-            public void start() {
-            }
-
-            @Override
-            public void stop() {
-            }
-
-            @Override
-            public void setProgress(int percents) {
-                System.out.println(percents + "%");
-            }
-
-            @Override
-            public void setText(String text) {
-                System.out.println(text);
-            }
-        };
+        return COLTProgressIndicatorController.getInstance();
     }
 
     @Override
