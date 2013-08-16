@@ -11,7 +11,9 @@ import codeOrchestra.colt.core.controller.COLTController
 import codeOrchestra.colt.core.controller.COLTControllerCallbackEx
 import codeOrchestra.colt.core.loading.LiveCodingHandlerManager
 import codeOrchestra.colt.core.logging.Level
+import codeOrchestra.colt.core.rpc.COLTRemoteService
 import codeOrchestra.colt.core.rpc.security.ui.ShortCodeNotification
+import codeOrchestra.colt.core.ui.components.COLTProgressIndicatorController
 import codeOrchestra.colt.core.ui.components.log.LogFilter
 import codeOrchestra.colt.core.ui.components.log.LogMessage
 import codeOrchestra.groovyfx.FXBindable
@@ -24,13 +26,17 @@ import javafx.geometry.Point2D
 import javafx.scene.control.Button
 import javafx.scene.control.Label
 import javafx.scene.control.MenuItem
+import javafx.scene.control.ProgressBar
+import javafx.scene.control.ProgressIndicator
 import javafx.scene.control.ToggleButton
 import javafx.scene.control.ToggleGroup
+import javafx.scene.control.Tooltip
 import javafx.scene.input.KeyCode
 import javafx.scene.input.KeyCodeCombination
 import javafx.scene.input.KeyCombination
 import javafx.scene.layout.BorderPane
 import codeOrchestra.colt.core.tracker.GATracker
+import javafx.scene.layout.VBox
 
 /**
  * @author Dima Kruk
@@ -57,6 +63,8 @@ class MainAppController implements Initializable {
     @FXML ToggleButton logFilterWarnings
     @FXML ToggleButton logFilterInfo
     @FXML ToggleButton logFilterLog
+
+    @FXML ProgressIndicator progressIndicator
 
     @FXBindable  Boolean liveSessionInProgress = false
 
@@ -125,9 +133,6 @@ class MainAppController implements Initializable {
         contextMenu.setStyle("-fx-background-color: transparent;");
         MenuItem menuItem1 = new MenuItem("Save")
         menuItem1.accelerator = new KeyCodeCombination(KeyCode.S, KeyCombination.SHORTCUT_DOWN)
-        menuItem1.onAction = {
-            println("Save")
-        } as EventHandler
         MenuItem menuItem2 = new MenuItem("Open")
         contextMenu.items.addAll(menuItem1, menuItem2)
 
@@ -149,6 +154,8 @@ class MainAppController implements Initializable {
 
         borderPane.center = log.logWebView // todo
         runButton.selected = true // todo
+
+        COLTProgressIndicatorController.instance.progressIndicator = progressIndicator
     }
 
     private void updateLogFilter() {
