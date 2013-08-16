@@ -78,7 +78,6 @@ class MainAppController implements Initializable {
         //GATracker.instance.tracker.trackPageViewFromReferrer("asProject.html", "asProject", "codeorchestra.com", "codeorchestra.com", "/index.html")
         tracker.trackPageView("/as/asProject.html", "asProject")
 
-        println([runButton, pauseButton, buildButton, settingsButton])
         navigationToggleGroup.toggles.addAll(runButton, pauseButton, buildButton, settingsButton)
         logFilterToggleGroup.toggles.addAll(logFilterAll, logFilterErrors, logFilterWarnings, logFilterInfo, logFilterLog)
 
@@ -145,12 +144,8 @@ class MainAppController implements Initializable {
         projectTitle.textProperty().bind(codeOrchestra.colt.as.model.ModelStorage.instance.project.name())
 
         liveSessionInProgress().addListener({ o, Boolean oldValue, Boolean newValue ->
-            runButton.visible = !newValue
-            runButton.managed = !newValue
-            runButton.selected = !newValue
-            pauseButton.visible = newValue
-            pauseButton.managed = newValue
-            pauseButton.selected = newValue
+            runButton.visible = runButton.managed = runButton.selected = !newValue
+            pauseButton.visible = pauseButton.managed = pauseButton.selected = newValue
         } as ChangeListener)
 
         borderPane.center = sForm // todo
