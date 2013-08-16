@@ -11,19 +11,17 @@ import codeOrchestra.colt.core.controller.COLTController
 import codeOrchestra.colt.core.controller.COLTControllerCallbackEx
 import codeOrchestra.colt.core.loading.LiveCodingHandlerManager
 import codeOrchestra.colt.core.logging.Level
+import codeOrchestra.colt.core.rpc.security.ui.ShortCodeNotification
 import codeOrchestra.colt.core.ui.components.log.LogFilter
 import codeOrchestra.colt.core.ui.components.log.LogMessage
 import codeOrchestra.groovyfx.FXBindable
 import javafx.beans.InvalidationListener
-import javafx.beans.property.BooleanProperty
-import javafx.beans.property.SimpleBooleanProperty
 import javafx.beans.value.ChangeListener
 import javafx.event.EventHandler
 import javafx.fxml.FXML
 import javafx.fxml.Initializable
 import javafx.geometry.Point2D
 import javafx.scene.control.Button
-import javafx.scene.control.ContextMenu
 import javafx.scene.control.Label
 import javafx.scene.control.MenuItem
 import javafx.scene.control.ToggleButton
@@ -115,6 +113,8 @@ class MainAppController implements Initializable {
             tracker.trackPageView("/as/asSettings.html", "asSettings")
             borderPane.center = sForm.getPane()
         } as EventHandler
+
+        borderPane.top = ShortCodeNotification.initNotification(borderPane.top)
 
         buildButton.onAction = {
             tracker.trackEvent("Menu", "Build pressed")
