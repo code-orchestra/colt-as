@@ -1,6 +1,5 @@
 package codeOrchestra.colt.as.controller;
 
-import codeOrchestra.colt.as.ASLiveCodingManager;
 import codeOrchestra.colt.as.compiler.fcsh.FCSHException;
 import codeOrchestra.colt.as.compiler.fcsh.FCSHManager;
 import codeOrchestra.colt.as.compiler.fcsh.MaximumCompilationsCountReachedException;
@@ -8,15 +7,12 @@ import codeOrchestra.colt.as.compiler.fcsh.make.CompilationResult;
 import codeOrchestra.colt.as.digest.DigestException;
 import codeOrchestra.colt.as.digest.ProjectDigestHelper;
 import codeOrchestra.colt.as.model.COLTAsProject;
-import codeOrchestra.colt.core.LiveCodingManager;
-import codeOrchestra.colt.core.ServiceProvider;
 import codeOrchestra.colt.core.controller.AbstractCOLTController;
 import codeOrchestra.colt.core.controller.COLTControllerCallback;
 import codeOrchestra.colt.core.errorhandling.ErrorHandler;
-import codeOrchestra.colt.core.tasks.COLTTask;
 import codeOrchestra.colt.core.tasks.COLTTaskWithProgress;
 import codeOrchestra.colt.core.tasks.TasksManager;
-import codeOrchestra.colt.core.ui.components.COLTProgressIndicator;
+import codeOrchestra.colt.core.ui.components.ICOLTProgressIndicator;
 import codeOrchestra.util.ProjectHelper;
 
 /**
@@ -41,7 +37,7 @@ public class COLTAsController extends AbstractCOLTController<COLTAsProject> {
             }
 
             @Override
-            protected CompilationResult call(COLTProgressIndicator progressIndicator) {
+            protected CompilationResult call(ICOLTProgressIndicator progressIndicator) {
 
                 // Building digests
                 progressIndicator.setText("Building digests");
