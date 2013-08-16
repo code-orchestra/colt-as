@@ -24,7 +24,7 @@ class COLTAsProjectLiveSettings extends COLTProjectLiveSettings<COLTAsProject>{
     }
 
     public LauncherType getLauncherType() {
-        return LauncherType.parse(launcherModel.launcherType);
+        return LauncherType.valueOf(launcherModel.launcherType);
     }
 
     public String getFlashPlayerPath() {
