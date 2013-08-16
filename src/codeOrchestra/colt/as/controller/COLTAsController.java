@@ -47,8 +47,6 @@ public class COLTAsController extends AbstractCOLTController<COLTAsProject> {
 
             @Override
             protected Void call(ICOLTProgressIndicator progressIndicator) {
-                progressIndicator.start();
-
                 COLTAsProject currentProject = ProjectHelper.getCurrentProject();
 
                 // Building digests
