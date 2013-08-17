@@ -471,7 +471,7 @@ public class ASLiveCodingManager extends AbstractLiveCodingManager<COLTAsProject
             }
             sessionFinisherThread.start();
 
-            if (COLTAsProject.getCurrentProject().getProjectLiveSettings().getLaunchTarget() != Target.SWF) {
+            if (COLTAsProject.getCurrentProject().getProjectBuildSettings().getLaunchTarget() != Target.SWF) {
                 sendBaseUrl(session, getWebOutputAddress());
             }
 

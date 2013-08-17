@@ -48,12 +48,6 @@ class COLTAsProjectLiveSettings extends COLTProjectLiveSettings<COLTAsProject>{
         return LiveMethods.parseValue(liveSettingsModel.liveType);
     }
 
-    public Target getLaunchTarget() {
-        // TODO: implement
-//        return Target.parse(getPreferenceStore().getString("target"));
-        return null;
-    }
-
     public boolean clearMessagesOnSessionStart() {
         return settingsModel.clearLog;
     }

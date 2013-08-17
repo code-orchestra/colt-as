@@ -33,7 +33,7 @@ class RunTargetModel implements IModelElement{
     }
 
     void clear() {
-        target = Target.SWF
+        target = Target.SWF.name()
         httpIndex = ""
         iosScript = ""
         iosAirModel.clear()

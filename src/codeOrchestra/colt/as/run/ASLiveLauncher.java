@@ -22,7 +22,7 @@ public class ASLiveLauncher implements LiveLauncher<COLTAsProject> {
     public ProcessHandlerWrapper launch(COLTAsProject project) throws ExecutionException {
         COLTAsProjectLiveSettings liveCodingSettings = project.getProjectLiveSettings();
         COLTAsProjectBuildSettings compilerSettings = project.getProjectBuildSettings();
-        Target launchTarget = liveCodingSettings.getLaunchTarget();
+        Target launchTarget = compilerSettings.getLaunchTarget();
 
         if (launchTarget == Target.AIR_IOS) {
             String scriptPath = compilerSettings.getAirIosScript();
