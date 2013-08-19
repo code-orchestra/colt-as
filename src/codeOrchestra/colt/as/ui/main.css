@@ -475,6 +475,8 @@
     -fx-border-color: #c9ccd0;
     -fx-border-style: solid; }
 
+.legend { -fx-font-weight: bold; }
+
 /* Inputs */
 
 .text-input {
