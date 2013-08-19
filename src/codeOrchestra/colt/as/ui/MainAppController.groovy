@@ -13,27 +13,21 @@ import codeOrchestra.colt.core.loading.LiveCodingHandlerManager
 import codeOrchestra.colt.core.logging.Level
 import codeOrchestra.colt.core.rpc.security.ui.ShortCodeNotification
 import codeOrchestra.colt.core.tracker.GAController
+import codeOrchestra.colt.core.tracker.GATracker
 import codeOrchestra.colt.core.ui.components.COLTProgressIndicatorController
 import codeOrchestra.colt.core.ui.components.log.LogFilter
 import codeOrchestra.colt.core.ui.components.log.LogMessage
-import codeOrchestra.groovyfx.FXBindable
 import javafx.beans.InvalidationListener
 import javafx.beans.value.ChangeListener
 import javafx.event.EventHandler
 import javafx.fxml.FXML
 import javafx.fxml.Initializable
 import javafx.geometry.Point2D
-import javafx.scene.control.Button
-import javafx.scene.control.Label
-import javafx.scene.control.MenuItem
-import javafx.scene.control.ProgressIndicator
-import javafx.scene.control.ToggleButton
-import javafx.scene.control.ToggleGroup
+import javafx.scene.control.*
 import javafx.scene.input.KeyCode
 import javafx.scene.input.KeyCodeCombination
 import javafx.scene.input.KeyCombination
 import javafx.scene.layout.BorderPane
-import codeOrchestra.colt.core.tracker.GATracker
 
 /**
  * @author Dima Kruk
@@ -63,8 +57,6 @@ class MainAppController implements Initializable {
 
     @FXML ProgressIndicator progressIndicator
 
-    @FXBindable  Boolean liveSessionInProgress = false
-
     @Override
     void initialize(URL url, ResourceBundle resourceBundle) {
         if (LiveCodingHandlerManager.instance.currentHandler != null) {
@@ -73,8 +65,7 @@ class MainAppController implements Initializable {
 
         initGA()
 
-        println([runButton, pauseButton, buildButton, settingsButton])
-        navigationToggleGroup.toggles.addAll(runButton, pauseButton, buildButton, settingsButton)
+        navigationToggleGroup.toggles.addAll(runButton, buildButton, settingsButton)
         logFilterToggleGroup.toggles.addAll(logFilterAll, logFilterErrors, logFilterWarnings, logFilterInfo, logFilterLog)
 
         log.logWebView.logMessages.addListener({ javafx.beans.Observable observable ->
@@ -98,12 +89,6 @@ class MainAppController implements Initializable {
             }, true, true)
 
             borderPane.center = log.logWebView
-            liveSessionInProgress = true
-        } as EventHandler
-
-        pauseButton.onAction = {
-            liveSessionInProgress = false
-
         } as EventHandler
 
         settingsButton.onAction = {
@@ -138,15 +123,6 @@ class MainAppController implements Initializable {
         } as EventHandler
 
         projectTitle.textProperty().bind(codeOrchestra.colt.as.model.ModelStorage.instance.project.name())
-
-        liveSessionInProgress().addListener({ o, Boolean oldValue, Boolean newValue ->
-            runButton.visible = !newValue
-            runButton.managed = !newValue
-            runButton.selected = !newValue
-            pauseButton.visible = newValue
-            pauseButton.managed = newValue
-            pauseButton.selected = newValue
-        } as ChangeListener)
 
         borderPane.center = log.logWebView // todo
         runButton.selected = true // todo

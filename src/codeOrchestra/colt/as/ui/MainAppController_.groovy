@@ -36,7 +36,6 @@ class MainAppController_ implements Initializable {
 
     ToggleGroup navigationToggleGroup = new ToggleGroup()
     @FXML ToggleButton runButton
-    @FXML ToggleButton pauseButton
     @FXML ToggleButton buildButton
     @FXML ToggleButton settingsButton
 
@@ -49,13 +48,12 @@ class MainAppController_ implements Initializable {
 
 
     ToggleGroup logFilterToggleGroup = new ToggleGroup()
+
     @FXML ToggleButton logFilterAll
     @FXML ToggleButton logFilterErrors
     @FXML ToggleButton logFilterWarnings
     @FXML ToggleButton logFilterInfo
     @FXML ToggleButton logFilterLog
-
-    @FXBindable  Boolean liveSessionInProgress = false
 
     @Override
     void initialize(URL url, ResourceBundle resourceBundle) {
@@ -67,10 +65,9 @@ class MainAppController_ implements Initializable {
         }
 
         GATracker tracker = GATracker.instance
-        //GATracker.instance.tracker.trackPageViewFromReferrer("asProject.html", "asProject", "codeorchestra.com", "codeorchestra.com", "/index.html")
         tracker.trackPageView("/as/asProject.html", "asProject")
 
-        navigationToggleGroup.toggles.addAll(runButton, pauseButton, buildButton, settingsButton)
+        navigationToggleGroup.toggles.addAll(runButton, buildButton, settingsButton)
         logFilterToggleGroup.toggles.addAll(logFilterAll, logFilterErrors, logFilterWarnings, logFilterInfo, logFilterLog)
 
         log.logWebView.logMessages.addListener({ javafx.beans.Observable observable ->
@@ -88,23 +85,14 @@ class MainAppController_ implements Initializable {
             coltController?.startBaseCompilation(new COLTControllerCallbackEx<CompilationResult>() {
                 @Override
                 void onComplete(CompilationResult successResult) {
-                    liveSessionInProgress = false;
                 }
 
                 @Override
                 void onError(Throwable t, CompilationResult errorResult) {
-                    liveSessionInProgress = false;
                 }
             }, true, true)
 
             borderPane.center = log.logWebView
-            liveSessionInProgress = true
-        } as EventHandler
-
-        pauseButton.onAction = {
-            tracker.trackEvent("Menu", "Pause pressed")
-            liveSessionInProgress = false
-
         } as EventHandler
 
         settingsButton.onAction = {
@@ -134,11 +122,6 @@ class MainAppController_ implements Initializable {
         } as EventHandler
 
         projectTitle.textProperty().bind(codeOrchestra.colt.as.model.ModelStorage.instance.project.name())
-
-        liveSessionInProgress().addListener({ o, Boolean oldValue, Boolean newValue ->
-            runButton.visible = runButton.managed = runButton.selected = !newValue
-            pauseButton.visible = pauseButton.managed = pauseButton.selected = newValue
-        } as ChangeListener)
 
         borderPane.center = sForm // todo
         settingsButton.selected = true // todo

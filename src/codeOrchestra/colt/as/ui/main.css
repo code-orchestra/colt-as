@@ -473,12 +473,12 @@
 
 /* Inputs */
 
-.text-input, #file-chooser {
+.text-input {
     -fx-highlight-fill: #06c; /* ::selection */
     -fx-highlight-text-fill: white; /* ::selection */
     -fx-text-fill: #515458; }
 
-.text-area, .text-field, #file-chooser {
+.text-area, .text-field {
     -fx-background-color: #c9ccd0, #f0f0f0, #fff;
     -fx-background-insets: 0, 1, 2 1 1 1;
     -fx-background-radius: 1, 0, 0;
@@ -495,15 +495,28 @@
     -fx-background-insets: -1.4, 0, 1, 2 1 1 1;
     -fx-background-radius: 2.4, 1, 0, 0; }
 
-/* Buttons */
-.button {
+/* Messages */
+.error { -fx-text-fill: #c00;}
+
+
+/* Buttons andd choics-box */
+.button, .choice-box {
     -fx-alignment: top-center;
     -fx-background-color: #c9ccd0, #fff, linear-gradient(#f8f9fb, #e4e5e7 90%, #edeef0 100%);  /* Border, highlight, main */
     -fx-background-insets: 0, 1, 2 1 1 1; /* --||-- */
     -fx-background-radius: 4, 3, 2;
     -fx-effect: dropshadow(gaussian, #f1f4f8,  0, 0, 0, 1px);
-    -fx-text-fill: #515458;
-    -fx-padding: 8px 6px 0 6px; }
+    -fx-text-fill: #515458; }
+
+.button { -fx-padding: 8px 6px 0 6px; }
+.choice-box { -fx-padding: 0 6px 0 6px; }
+
+.choice-box .label { -fx-padding: 8px 0 7px 0; }
+
+.choice-box:focused {
+    -fx-background-color: #0099ff, #008cf2, #fff, linear-gradient(#f8f9fb, #e4e5e7 90%, #edeef0 100%);
+    -fx-background-insets: -1.4px, 0, 1, 2 1 1 1;
+    -fx-background-radius: 5.4, 4, 3, 2; }
 
 /*.button:focused {
     -fx-background-color: #0099ff, #008cf2, #fff, linear-gradient(#f8f9fb, #e4e5e7 90%, #edeef0 100%);
@@ -532,7 +545,7 @@
     -fx-effect: innershadow(gaussian, rgba(0, 0, 0, .4), 8, 0, 0, 2);
     -fx-padding: 10px 6px 0 6px; }*/
 
-    .button .text { -fx-effect: dropshadow( gaussian, #fff,  0, 0, 0, 1px); }
+.button .text { -fx-effect: dropshadow( gaussian, #fff,  0, 0, 0, 1px); }
 
 .btn-add {
     -fx-background-image: url('images/btns/add.png');
@@ -568,7 +581,7 @@
     -fx-background-color: #0073bf, #19b2f2, linear-gradient(#0da6e5, #0066cc 90%, #006ed4 100%);  /* Border, highlight, main */
     -fx-text-fill: #fff; }
 
-    .btn-done .text { -fx-effect: dropshadow( gaussian, #0059a6,  0, 0, 0, -1px); }
+.btn-done .text { -fx-effect: dropshadow( gaussian, #0059a6,  0, 0, 0, -1px); }
 
 .btn-done:hover {
     -fx-background-color: #0073bf, #26bfff, linear-gradient(#19b2f2, #0073d9 90%, #007be1 100%); }
@@ -702,91 +715,58 @@
     -fx-background-insets: 0;
     -fx-border-color: #e3e4e6; }
 
-/*******************************************************************************
- *                                                                             *
- * ProgressIndicator copy from Aquafx                                          *
- *                                                                             *
- ******************************************************************************/
+/*
+|-------------------------------------------------------------------------------
+| ProgressIndicator | Aquafx
+|-------------------------------------------------------------------------------
+*/
 
-.progress-indicator {
-    -fx-indeterminate-segment-count: 12.0;
-}
+.progress-indicator { -fx-indeterminate-segment-count: 12; }
 
 .progress-indicator > .determinate-indicator > .indicator {
     -fx-background-color:
-        rgb(208.0, 208.0, 208.0),
-        linear-gradient(rgb(176.0, 176.0, 176.0), rgb(207.0, 207.0, 207.0)),
-        linear-gradient(rgb(190.0, 190.0, 190.0) 0.0%, rgb(213.0, 213.0, 213.0) 15.0%, rgb(230.0, 230.0, 230.0) 50.0%, rgb(235.0, 235.0, 235.0) 100.0%),
-        linear-gradient(to left, rgb(196.0, 196.0, 196.0, 0.5) 0.0%, rgb(220.0, 220.0, 220.0, 0.2) 2.0% , transparent);
-    -fx-background-insets: 0.5 0.0 -0.5 0.0, 0.0, 0.5, 1.0;
-    -fx-padding: 0.083333em;
-}
+        rgb(208, 208, 208),
+        linear-gradient(rgb(176, 176, 176), rgb(207, 207, 207)),
+        linear-gradient(rgb(190, 190, 190) 0%, rgb(213, 213, 213) 15%, rgb(230, 230, 230) 50%, rgb(235, 235, 235) 100%),
+        linear-gradient(to left, rgb(196, 196, 196, 0.5) 0%, rgb(220, 220, 220, 0.2) 2% , transparent);
+    -fx-background-insets: 0.5 0 -0.5 0, 0, 0.5, 1;
+    -fx-padding: 0.83333em; }
 
 .progress-indicator > .determinate-indicator > .progress {
     -fx-background-color:
-       rgb(208.0, 208.0, 208.0),
-       radial-gradient(center 50.0% 50.0%, radius 50.0%, rgb(84.0, 170.0, 240.0), rgb(90.0, 192.0, 246.0));
-    -fx-background-insets: 0.0, 0.5;
-    -fx-padding: 0.166667em;
-}
+        rgb(208, 208, 208),
+        radial-gradient(center 50% 50%, radius 50%, rgb(84, 170, 240), rgb(90, 192, 246));
+    -fx-background-insets: 0, 0.5;
+    -fx-padding: 0.166667em; }
 
 .progress-indicator > .determinate-indicator > .tick {
-    -fx-background-color: rgb(208.0, 208.0, 208.0), white;
-    -fx-background-insets: 1.0 0.0 -1.0 0.0, 0.0;
+    -fx-background-color: rgb(208, 208, 208), white;
+    -fx-background-insets: 1 0 -1 0, 0;
     -fx-padding: 0.416667em;
     -fx-shape: "m 18.174523,1027.137 c -0.18077,-0.4575 -0.184364,-0.8913 0.115901,-1.1721 0.300265,-0.2809 0.836622,-0.3601 1.288422,-0.041 0.4518,0.3191 2.020453,2.9316 2.020453,2.9316 l 5.41194,-8.0232 c -4e-6,0 0.516257,-0.6671 1.248682,-0.3099 0.648831,0.3165 0.559153,1.0373 0.559153,1.0373 0,0 -5.940433,9.3556 -6.15501,9.6287 -0.214577,0.273 -1.595078,0.2481 -1.817995,-0.027 -0.222917,-0.2751 -2.490777,-3.567 -2.671546,-4.0244 z";
-    -fx-scale-shape: false;
-}
+    -fx-scale-shape: false; }
 
-.progress-indicator > .percentage {
-    -fx-font-size: 0.916667em;
-}
+.progress-indicator > .percentage { -fx-font-size: 0.916667em; }
 
-.progress-indicator:disabled {
-    -fx-opacity: -fx-disabled-opacity;
-}
+.progress-indicator:disabled { -fx-opacity: -fx-disabled-opacity; }
 
-.progress-indicator:indeterminate > .spinner {
-    -fx-padding: 0.083333em;
-}
+.progress-indicator:indeterminate > .spinner { -fx-padding: 0.083333em; }
 
 .progress-indicator:indeterminate .segment {
     -fx-background-color: rgb(95.0, 95.0, 98.0), rgb(122.0, 122.0, 125.0);
-    -fx-background-insets:0.0, 0.5;
-}
-.progress-indicator:indeterminate .segment0 {
-    -fx-shape:"m 14.321262,6.5816808 c -0.824944,0.3797564 -0.10368,1.8484772 0.718513,1.3544717 L 18.786514,5.9486042 C 19.644992,5.4932031 18.92648,4.1387308 18.068001,4.5941315 z";
-}
-.progress-indicator:indeterminate .segment1 {
-    -fx-shape:"m 15.372451,9.2445322 c -0.906719,-0.051108 -0.957826,1.5843588 0,1.5332498 l 4.241273,0 c 0.97179,0 0.97179,-1.5332498 0,-1.5332498 z";
-}
-.progress-indicator:indeterminate .segment2 {
-    -fx-shape:"m 14.423504,13.443113 c -0.824945,-0.379757 -0.10368,-1.848478 0.718512,-1.354472 l 3.746739,1.987548 c 0.858478,0.455401 0.139967,1.809873 -0.718512,1.354473 z";
-}
-.progress-indicator:indeterminate .segment3 {
-    -fx-shape:"m 12.10997,15.070611 c -0.49762,-0.759687 0.893182,-1.621681 1.327834,-0.766626 l 2.120636,3.673051 c 0.485895,0.841595 -0.841938,1.60822 -1.327833,0.766625 z";
-}
-.progress-indicator:indeterminate .segment4 {
-    -fx-shape:"m 9.2224559,19.539943 c -0.051108,0.906718 1.5843581,0.957826 1.5332501,0 l 0,-4.241273 c 0,-0.97179 -1.5332501,-0.97179 -1.5332501,0 z";
-}
-.progress-indicator:indeterminate .segment5 {
-    -fx-shape:"M 8.0465401,15.070611 C 8.5441601,14.310924 7.1533584,13.44893 6.7187068,14.303985 l -2.1206366,3.673051 c -0.485895,0.841595 0.8419383,1.60822 1.3278333,0.766625 z";
-}
-.progress-indicator:indeterminate .segment6 {
-    -fx-shape:"M 5.7330066,13.443113 C 6.5579512,13.063356 5.8366865,11.594635 5.0144939,12.088641 L 1.2677551,14.076189 C 0.409277,14.53159 1.1277888,15.886062 1.9862674,15.430662 z";
-}
-.progress-indicator:indeterminate .segment7 {
-    -fx-shape:"m 0.42171041,9.2083842 c -0.90671825,-0.051108 -0.95782608,1.5843588 0,1.5332498 l 4.24127319,0 c 0.9717899,0 0.9717899,-1.5332498 0,-1.5332498 z";
-}
-.progress-indicator:indeterminate .segment8 {
-    -fx-shape:"M 5.7330066,6.5305598 C 6.5579512,6.9103162 5.8366865,8.3790371 5.0144939,7.8850315 L 1.2677551,5.8974832 C 0.409277,5.4420823 1.1277888,4.0876101 1.9862674,4.5430105 z";
-}
-.progress-indicator:indeterminate .segment9 {
-    -fx-shape:"M 8.0465401,4.9030617 C 8.5441601,5.6627485 7.1533584,6.5247425 6.7187068,5.6696872 L 4.5980702,1.9966363 C 4.1121752,1.1550418 5.4400085,0.38841683 5.9259035,1.2300114 z";
-}
-.progress-indicator:indeterminate .segment10 {
-    -fx-shape:"m 9.2224559,4.62535 c -0.051108,0.9067177 1.5843581,0.957826 1.5332501,0 l 0,-4.24127319 c 0,-0.9717899 -1.5332501,-0.9717899 -1.5332501,0 z";
-}
-.progress-indicator:indeterminate .segment11 {
-    -fx-shape:"m 12.007729,4.9541827 c -0.49762,0.7596865 0.893181,1.6216808 1.327833,0.7666252 L 15.456199,2.0477574 C 15.942094,1.2061627 14.61426,0.43953765 14.128365,1.2811324 z";
-}
+    -fx-background-insets:0.0, 0.5; }
+
+.progress-indicator:indeterminate .segment0 { -fx-shape:"m 14.321262,6.5816808 c -0.824944,0.3797564 -0.10368,1.8484772 0.718513,1.3544717 L 18.786514,5.9486042 C 19.644992,5.4932031 18.92648,4.1387308 18.068001,4.5941315 z"; }
+.progress-indicator:indeterminate .segment1 { -fx-shape:"m 15.372451,9.2445322 c -0.906719,-0.051108 -0.957826,1.5843588 0,1.5332498 l 4.241273,0 c 0.97179,0 0.97179,-1.5332498 0,-1.5332498 z"; }
+.progress-indicator:indeterminate .segment2 { -fx-shape:"m 14.423504,13.443113 c -0.824945,-0.379757 -0.10368,-1.848478 0.718512,-1.354472 l 3.746739,1.987548 c 0.858478,0.455401 0.139967,1.809873 -0.718512,1.354473 z"; }
+.progress-indicator:indeterminate .segment3 { -fx-shape:"m 12.10997,15.070611 c -0.49762,-0.759687 0.893182,-1.621681 1.327834,-0.766626 l 2.120636,3.673051 c 0.485895,0.841595 -0.841938,1.60822 -1.327833,0.766625 z"; }
+.progress-indicator:indeterminate .segment4 { -fx-shape:"m 9.2224559,19.539943 c -0.051108,0.906718 1.5843581,0.957826 1.5332501,0 l 0,-4.241273 c 0,-0.97179 -1.5332501,-0.97179 -1.5332501,0 z"; }
+.progress-indicator:indeterminate .segment5 { -fx-shape:"M 8.0465401,15.070611 C 8.5441601,14.310924 7.1533584,13.44893 6.7187068,14.303985 l -2.1206366,3.673051 c -0.485895,0.841595 0.8419383,1.60822 1.3278333,0.766625 z"; }
+.progress-indicator:indeterminate .segment6 { -fx-shape:"M 5.7330066,13.443113 C 6.5579512,13.063356 5.8366865,11.594635 5.0144939,12.088641 L 1.2677551,14.076189 C 0.409277,14.53159 1.1277888,15.886062 1.9862674,15.430662 z"; }
+.progress-indicator:indeterminate .segment7 { -fx-shape:"m 0.42171041,9.2083842 c -0.90671825,-0.051108 -0.95782608,1.5843588 0,1.5332498 l 4.24127319,0 c 0.9717899,0 0.9717899,-1.5332498 0,-1.5332498 z"; }
+.progress-indicator:indeterminate .segment8 { -fx-shape:"M 5.7330066,6.5305598 C 6.5579512,6.9103162 5.8366865,8.3790371 5.0144939,7.8850315 L 1.2677551,5.8974832 C 0.409277,5.4420823 1.1277888,4.0876101 1.9862674,4.5430105 z"; }
+.progress-indicator:indeterminate .segment9 { -fx-shape:"M 8.0465401,4.9030617 C 8.5441601,5.6627485 7.1533584,6.5247425 6.7187068,5.6696872 L 4.5980702,1.9966363 C 4.1121752,1.1550418 5.4400085,0.38841683 5.9259035,1.2300114 z"; }
+.progress-indicator:indeterminate .segment10 { -fx-shape:"m 9.2224559,4.62535 c -0.051108,0.9067177 1.5843581,0.957826 1.5332501,0 l 0,-4.24127319 c 0,-0.9717899 -1.5332501,-0.9717899 -1.5332501,0 z"; }
+.progress-indicator:indeterminate .segment11 { -fx-shape:"m 12.007729,4.9541827 c -0.49762,0.7596865 0.893181,1.6216808 1.327833,0.7666252 L 15.456199,2.0477574 C 15.942094,1.2061627 14.61426,0.43953765 14.128365,1.2811324 z"; }
+
+
