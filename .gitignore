@@ -11,3 +11,6 @@ out/*
 *.min.css
 *.sublime-*
 flex_sdk
+
+/colt-as.iml
+.idea
