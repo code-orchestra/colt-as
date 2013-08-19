@@ -70,7 +70,7 @@
 
 <!-- Second Fieldset -->
     <VBox styleClass="fieldset" maxWidth="640">
-<!--     <children>
+    <children>
         <AnchorPane>
         <children>
             <Label layoutY="23" text="Output file name:" AnchorPane.leftAnchor="19" AnchorPane.rightAnchor="48" />
@@ -90,7 +90,7 @@
 
         <padding>
         <Insets top="3" bottom="23" />
-        </padding> -->
+        </padding>
 
     </VBox><!-- / Second Fieldset -->
 
