@@ -495,11 +495,30 @@
     -fx-background-insets: -1.4, 0, 1, 2 1 1 1;
     -fx-background-radius: 2.4, 1, 0, 0; }
 
-/* Messages */
-.error { -fx-text-fill: #c00;}
+/* Check Boxes */
+.check-box .box {
+    -fx-background-color: #cbcfd3, #f0f0f0, #fff;
+    -fx-background-insets: 0, 1px, 2px 1px 1px 1px;
+    -fx-background-radius: 0; }
 
 
-/* Buttons andd choics-box */
+
+.check-box .mark {
+    -fx-background-color: transparent;
+    -fx-background-insets: 1px 0px -1px 0px, 0px;
+    -fx-padding: 0.333333em;
+    -fx-shape: "M0,4H2L3,6L6,0H8L4,8H2Z"; }
+
+.check-box:selected .mark { /* FX caspian stylesheet */
+-fx-background-color: -fx-mark-highlight-color, -fx-mark-color;
+}
+
+.check-box:indeterminate .mark { /* FX caspian stylesheet */
+-fx-background-color: -fx-mark-highlight-color, -fx-mark-color;
+-fx-shape: "M0,0H8V2H0Z";
+}
+
+/* Buttons andd choise-box */
 .button, .choice-box {
     -fx-alignment: top-center;
     -fx-background-color: #c9ccd0, #fff, linear-gradient(#f8f9fb, #e4e5e7 90%, #edeef0 100%);  /* Border, highlight, main */
@@ -590,6 +609,8 @@
     -fx-background-color: #0073bf, #0066cc;
     -fx-effect: innershadow(gaussian, rgba(0, 0, 51, .4), 8, 0, 0, 2); }
 
+/* Messages */
+.error { -fx-text-fill: #c00;}
 
 /*
 |-------------------------------------------------------------------------------
@@ -768,5 +789,3 @@
 .progress-indicator:indeterminate .segment9 { -fx-shape:"M 8.0465401,4.9030617 C 8.5441601,5.6627485 7.1533584,6.5247425 6.7187068,5.6696872 L 4.5980702,1.9966363 C 4.1121752,1.1550418 5.4400085,0.38841683 5.9259035,1.2300114 z"; }
 .progress-indicator:indeterminate .segment10 { -fx-shape:"m 9.2224559,4.62535 c -0.051108,0.9067177 1.5843581,0.957826 1.5332501,0 l 0,-4.24127319 c 0,-0.9717899 -1.5332501,-0.9717899 -1.5332501,0 z"; }
 .progress-indicator:indeterminate .segment11 { -fx-shape:"m 12.007729,4.9541827 c -0.49762,0.7596865 0.893181,1.6216808 1.327833,0.7666252 L 15.456199,2.0477574 C 15.942094,1.2061627 14.61426,0.43953765 14.128365,1.2811324 z"; }
-
-
