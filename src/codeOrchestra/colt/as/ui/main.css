@@ -470,6 +470,10 @@
     -fx-padding: 9px 60px 10px 0;
     -fx-effect: dropshadow(gaussian, #f1f4f8, 0, 0, 0, 1px); }
 
+.fieldset {
+    -fx-border-width: 1px 0 0 0;
+    -fx-border-color: #c9ccd0;
+    -fx-border-style: solid; }
 
 /* Inputs */
 

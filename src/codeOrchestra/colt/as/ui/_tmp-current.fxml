@@ -8,8 +8,9 @@
 <?import java.util.*?>
 <?import javafx.scene.paint.*?>
 
-<VBox fx:id="buildVB" maxWidth="640.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="codeOrchestra.colt.as.ui.propertyTabPane.compilerSettings.BuildSettingsFormController">
+<VBox fx:id="buildVB" styleClass="fieldset" maxWidth="640.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="codeOrchestra.colt.as.ui.propertyTabPane.compilerSettings.BuildSettingsFormController">
 <children>
+    <Label layoutY="23" text="Compile Settings" />
     <AnchorPane>
     <children>
         <Label layoutY="27" text="Output file name:" AnchorPane.leftAnchor="19" AnchorPane.rightAnchor="48" />
@@ -45,12 +46,15 @@
 
     <AnchorPane>
     <children>
-        <CheckBox fx:id="localeCB" text="Non-default locale settings:" layoutY="31" AnchorPane.leftAnchor="10" AnchorPane.rightAnchor="10" />
-        <TextField fx:id="localeTF" layoutY="31" AnchorPane.leftAnchor="210" AnchorPane.rightAnchor="10" />
+        <CheckBox fx:id="localeCB" text="Non-default locale settings:" layoutY="38" AnchorPane.leftAnchor="10" AnchorPane.rightAnchor="10" />
+        <TextField fx:id="localeTF" layoutY="31" prefHeight="30" AnchorPane.leftAnchor="210" AnchorPane.rightAnchor="86" />
     </children>
     </AnchorPane>
 
 </children>
+<padding>
+<Insets top="10" bottom="23" />
+</padding>
 
     <stylesheets>
         <URL value="@main.css" />
