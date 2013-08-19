@@ -127,6 +127,17 @@ class MainAppController implements Initializable {
         buildButton.onAction = {
             tracker.trackEventWithPage("Menu", "Build pressed")
             tracker.trackPageView("/as/asBuild.html", "asBuild")
+
+            COLTAsController coltController = (COLTAsController) ServiceProvider.get(COLTController.class)
+            coltController.startProductionCompilation(new COLTControllerCallbackEx<CompilationResult>() {
+                @Override
+                void onComplete(CompilationResult successResult) {
+                }
+
+                @Override
+                void onError(Throwable t, CompilationResult errorResult) {
+                }
+            }, true, true)
         } as EventHandler
 
         MyContextMenu contextMenu = new MyContextMenu()
