@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox id="" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="codeOrchestra.colt.as.ui.propertyTabPane.compilerSettings.BuildSettingsFormController">
+<children>
+    <AnchorPane>
+    <children>
+        <Label layoutY="27" text="Output file name:" AnchorPane.leftAnchor="19" AnchorPane.rightAnchor="48" />
+        <TextField fx:id="fileNameTF" layoutY="46" prefHeight="30" AnchorPane.leftAnchor="10" AnchorPane.rightAnchor="86" />
+    </children>
+    </AnchorPane>
+
+    <AnchorPane>
+    <children>
+        <Label layoutY="27" text="Output path:" AnchorPane.leftAnchor="19" AnchorPane.rightAnchor="48" />
+        <TextField fx:id="outPathTF" layoutY="46" prefHeight="30" AnchorPane.leftAnchor="10" AnchorPane.rightAnchor="86" />
+        <Button focusTraversable="false" onAction="#outputPathBrowseHandler" layoutY="46.0" prefHeight="30" prefWidth="67" styleClass="button" text="Button" AnchorPane.rightAnchor="10" />
+    </children>
+    </AnchorPane>
+
+</children>
+</VBox>

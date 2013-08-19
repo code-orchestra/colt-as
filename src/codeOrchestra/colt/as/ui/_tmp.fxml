@@ -15,6 +15,7 @@
     <children>
     <VBox>
     <children>
+        <fx:include source="_tmp-current.fxml" />
         <fx:include source="propertyTabPane/compilerSettings/buildSettings_form.fxml" />
         <fx:include source="propertyTabPane/compilerSettings/compilerSettings_form.fxml" />
         <fx:include source="propertyTabPane/compilerSettings/productionBuild_form.fxml" />

@@ -32,62 +32,50 @@
     </top>
 
     <center>
-        <GridPane alignment="top_center"  maxWidth="640">
-            <children>
+    <VBox maxWidth="640.0">
+    <children>
 
-                <AnchorPane GridPane.columnIndex="0" GridPane.rowIndex="0">
-                    <children>
-                        <Label layoutY="27" text="Source Paths:" AnchorPane.leftAnchor="19" AnchorPane.rightAnchor="48" />
-                        <TextArea layoutY="46" prefHeight="30" wrapText="true" AnchorPane.leftAnchor="10" AnchorPane.rightAnchor="48" />
-                        <Button contentDisplay="graphic_only" focusTraversable="false" layoutY="46" prefHeight="30" prefWidth="30" styleClass="btn-add" text="Add" AnchorPane.rightAnchor="10" />
-                    </children>
-                </AnchorPane>
+        <AnchorPane>
+        <children>
+            <Label layoutY="27.0" text="Source Paths:" AnchorPane.leftAnchor="19.0" AnchorPane.rightAnchor="48.0" />
+            <TextArea layoutY="46.0" prefHeight="30.0" wrapText="true" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="48.0" />
+            <Button contentDisplay="GRAPHIC_ONLY" focusTraversable="false" layoutY="46.0" prefHeight="30.0" prefWidth="30.0" styleClass="btn-add" text="Add" AnchorPane.rightAnchor="10.0" />
+        </children>
+        </AnchorPane>
 
-                <AnchorPane maxWidth="640" GridPane.columnIndex="0" GridPane.rowIndex="1">
-                    <children>
-                        <Label layoutY="23" text="Library Paths:" AnchorPane.leftAnchor="19" AnchorPane.rightAnchor="48" />
-                        <TextArea layoutY="46" prefHeight="30" wrapText="true" AnchorPane.leftAnchor="10" AnchorPane.rightAnchor="48" />
-                        <Button contentDisplay="graphic_only" focusTraversable="false" layoutY="46" prefHeight="30" prefWidth="30" styleClass="btn-add" text="Add" AnchorPane.rightAnchor="10" />
-                    </children>
-                </AnchorPane>
+        <AnchorPane>
+        <children>
+            <Label layoutY="23.0" text="Library Paths:" AnchorPane.leftAnchor="19.0" AnchorPane.rightAnchor="48.0" />
+            <TextArea layoutY="46.0" prefHeight="30.0" wrapText="true" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="48.0" />
+            <Button contentDisplay="GRAPHIC_ONLY" focusTraversable="false" layoutY="46.0" prefHeight="30.0" prefWidth="30.0" styleClass="btn-add" text="Add" AnchorPane.rightAnchor="10.0" />
+        </children>
+        </AnchorPane>
 
-                <AnchorPane maxWidth="640" GridPane.columnIndex="0" GridPane.rowIndex="2">
-                    <children>
-                        <Label layoutY="23" text="Assets Paths:" AnchorPane.leftAnchor="19" AnchorPane.rightAnchor="48" />
-                        <TextArea layoutY="46" prefHeight="30" wrapText="true" AnchorPane.leftAnchor="10" AnchorPane.rightAnchor="48" />
-                        <Button contentDisplay="graphic_only" focusTraversable="false" layoutY="46" prefHeight="30" prefWidth="30" styleClass="btn-add" text="Add" AnchorPane.rightAnchor="10" />
-                    </children>
-                </AnchorPane>
+        <AnchorPane>
+        <children>
+            <Label layoutY="23.0" text="Assets Paths:" AnchorPane.leftAnchor="19.0" AnchorPane.rightAnchor="48.0" />
+            <TextArea layoutY="46.0" prefHeight="30.0" wrapText="true" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="48.0" />
+            <Button contentDisplay="GRAPHIC_ONLY" focusTraversable="false" layoutY="46.0" prefHeight="30.0" prefWidth="30.0" styleClass="btn-add" text="Add" AnchorPane.rightAnchor="10.0" />
+        </children>
+        </AnchorPane>
 
-                <AnchorPane maxWidth="640" GridPane.columnIndex="0" GridPane.rowIndex="3">
-                    <children>
-                        <Label layoutY="23" text="Main Class:" AnchorPane.leftAnchor="19" AnchorPane.rightAnchor="86" />
-                        <TextField layoutY="46" prefHeight="30" AnchorPane.leftAnchor="10" AnchorPane.rightAnchor="86" />
-                        <Button focusTraversable="false" layoutY="46" prefHeight="30" prefWidth="67" text="Browse" AnchorPane.rightAnchor="10" />
-                    </children>
-                </AnchorPane>
+        <AnchorPane>
+        <children>
+            <Label layoutY="23.0" text="Main Class:" AnchorPane.leftAnchor="19.0" AnchorPane.rightAnchor="86.0" />
+            <TextField layoutY="46.0" prefHeight="30.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="86.0" />
+            <Button focusTraversable="false" layoutY="46.0" prefHeight="30.0" prefWidth="67.0" text="Browse" AnchorPane.rightAnchor="10.0" />
+        </children>
+        </AnchorPane>
 
-                <AnchorPane maxWidth="640" GridPane.columnIndex="0" GridPane.rowIndex="4">
-                    <children>
-                        <Button focusTraversable="false" layoutY="23" prefHeight="30" styleClass="btn-show" text="Advanced" AnchorPane.leftAnchor="19" />
-                        <Button focusTraversable="false" layoutY="23" prefHeight="30" prefWidth="67" styleClass="btn-done" text="Save" AnchorPane.rightAnchor="10" />
-                    </children>
-                </AnchorPane>
+        <AnchorPane>
+        <children>
+            <Button focusTraversable="false" layoutY="23.0" prefHeight="30.0" styleClass="btn-show" text="Advanced" AnchorPane.leftAnchor="19.0" />
+            <Button focusTraversable="false" layoutY="23.0" prefHeight="30.0" prefWidth="67.0" styleClass="btn-done" text="Save" AnchorPane.rightAnchor="10.0" />
+        </children>
+        </AnchorPane>
 
-            </children>
-
-            <columnConstraints>
-                <ColumnConstraints />
-            </columnConstraints>
-            <rowConstraints>
-                <RowConstraints />
-                <RowConstraints />
-                <RowConstraints />
-                <RowConstraints />
-                <RowConstraints />
-            </rowConstraints>
-
-        </GridPane>
+    </children>
+    </VBox>
     </center>
 
     <bottom>
