@@ -11,23 +11,22 @@ import codeOrchestra.colt.core.controller.COLTController
 import codeOrchestra.colt.core.controller.COLTControllerCallbackEx
 import codeOrchestra.colt.core.loading.LiveCodingHandlerManager
 import codeOrchestra.colt.core.logging.Level
+import codeOrchestra.colt.core.rpc.security.ui.ShortCodeNotification
+import codeOrchestra.colt.core.tracker.GAController
+import codeOrchestra.colt.core.ui.components.COLTProgressIndicatorController
 import codeOrchestra.colt.core.ui.components.log.LogFilter
 import codeOrchestra.colt.core.ui.components.log.LogMessage
 import codeOrchestra.groovyfx.FXBindable
 import javafx.beans.InvalidationListener
-import javafx.beans.property.BooleanProperty
-import javafx.beans.property.SimpleBooleanProperty
 import javafx.beans.value.ChangeListener
 import javafx.event.EventHandler
 import javafx.fxml.FXML
-import javafx.fxml.FXMLLoader
 import javafx.fxml.Initializable
 import javafx.geometry.Point2D
-import javafx.scene.Parent
 import javafx.scene.control.Button
-import javafx.scene.control.ContextMenu
 import javafx.scene.control.Label
 import javafx.scene.control.MenuItem
+import javafx.scene.control.ProgressIndicator
 import javafx.scene.control.ToggleButton
 import javafx.scene.control.ToggleGroup
 import javafx.scene.input.KeyCode
@@ -53,8 +52,7 @@ class MainAppController implements Initializable {
     @FXML Button menuBtn
 
     Log log = new Log()
-    Parent sForm
-
+    SettingsForm sForm = new SettingsForm()
 
     ToggleGroup logFilterToggleGroup = new ToggleGroup()
     @FXML ToggleButton logFilterAll
@@ -63,21 +61,19 @@ class MainAppController implements Initializable {
     @FXML ToggleButton logFilterInfo
     @FXML ToggleButton logFilterLog
 
+    @FXML ProgressIndicator progressIndicator
+
     @FXBindable  Boolean liveSessionInProgress = false
 
     @Override
     void initialize(URL url, ResourceBundle resourceBundle) {
-
-        sForm = FXMLLoader.load(getClass().getResource("_tmp-form2.fxml"))
-
         if (LiveCodingHandlerManager.instance.currentHandler != null) {
             ((ASLiveCodingLanguageHandler) LiveCodingHandlerManager.instance.currentHandler).setLoggerService(log);
         }
 
-        GATracker tracker = GATracker.instance
-        //GATracker.instance.tracker.trackPageViewFromReferrer("asProject.html", "asProject", "codeorchestra.com", "codeorchestra.com", "/index.html")
-        tracker.trackPageView("/as/asProject.html", "asProject")
+        initGA()
 
+        println([runButton, pauseButton, buildButton, settingsButton])
         navigationToggleGroup.toggles.addAll(runButton, pauseButton, buildButton, settingsButton)
         logFilterToggleGroup.toggles.addAll(logFilterAll, logFilterErrors, logFilterWarnings, logFilterInfo, logFilterLog)
 
@@ -89,19 +85,15 @@ class MainAppController implements Initializable {
         } as InvalidationListener)
 
         runButton.onAction = {
-            tracker.trackEvent("Menu", "Run pressed")
-            tracker.trackPageView("/as/asLog.html", "asLog")
 
             COLTAsController coltController = (COLTAsController) ServiceProvider.get(COLTController.class)
-            coltController?.startBaseCompilation(new COLTControllerCallbackEx<CompilationResult>() {
+            coltController.startBaseCompilation(new COLTControllerCallbackEx<CompilationResult>() {
                 @Override
                 void onComplete(CompilationResult successResult) {
-                    liveSessionInProgress = false;
                 }
 
                 @Override
                 void onError(Throwable t, CompilationResult errorResult) {
-                    liveSessionInProgress = false;
                 }
             }, true, true)
 
@@ -110,29 +102,33 @@ class MainAppController implements Initializable {
         } as EventHandler
 
         pauseButton.onAction = {
-            tracker.trackEvent("Menu", "Pause pressed")
             liveSessionInProgress = false
 
         } as EventHandler
 
         settingsButton.onAction = {
-            tracker.trackEvent("Menu", "Settings pressed")
-            tracker.trackPageView("/as/asSettings.html", "asSettings")
-            borderPane.center = sForm
+            borderPane.center = sForm.getPane()
         } as EventHandler
 
+        borderPane.top = ShortCodeNotification.initNotification(borderPane.top)
+
         buildButton.onAction = {
-            tracker.trackEvent("Menu", "Build pressed")
-            tracker.trackPageView("/as/asBuild.html", "asBuild")
+            COLTAsController coltController = (COLTAsController) ServiceProvider.get(COLTController.class)
+            coltController.startProductionCompilation(new COLTControllerCallbackEx<CompilationResult>() {
+                @Override
+                void onComplete(CompilationResult successResult) {
+                }
+
+                @Override
+                void onError(Throwable t, CompilationResult errorResult) {
+                }
+            }, true, true)
         } as EventHandler
 
         MyContextMenu contextMenu = new MyContextMenu()
         contextMenu.setStyle("-fx-background-color: transparent;");
         MenuItem menuItem1 = new MenuItem("Save")
         menuItem1.accelerator = new KeyCodeCombination(KeyCode.S, KeyCombination.SHORTCUT_DOWN)
-        menuItem1.onAction = {
-            println("Save")
-        } as EventHandler
         MenuItem menuItem2 = new MenuItem("Open")
         contextMenu.items.addAll(menuItem1, menuItem2)
 
@@ -144,12 +140,18 @@ class MainAppController implements Initializable {
         projectTitle.textProperty().bind(codeOrchestra.colt.as.model.ModelStorage.instance.project.name())
 
         liveSessionInProgress().addListener({ o, Boolean oldValue, Boolean newValue ->
-            runButton.visible = runButton.managed = runButton.selected = !newValue
-            pauseButton.visible = pauseButton.managed = pauseButton.selected = newValue
+            runButton.visible = !newValue
+            runButton.managed = !newValue
+            runButton.selected = !newValue
+            pauseButton.visible = newValue
+            pauseButton.managed = newValue
+            pauseButton.selected = newValue
         } as ChangeListener)
 
-        borderPane.center = sForm // todo
-        settingsButton.selected = true // todo
+        borderPane.center = log.logWebView // todo
+        runButton.selected = true // todo
+
+        COLTProgressIndicatorController.instance.progressIndicator = progressIndicator
     }
 
     private void updateLogFilter() {
@@ -162,5 +164,19 @@ class MainAppController implements Initializable {
         logFilterErrors.text = "Errors (" + log.logWebView.logMessages.grep { LogMessage m -> m.level == Level.ERROR }.size() + ")"
         logFilterWarnings.text = "Warnings (" + log.logWebView.logMessages.grep { LogMessage m -> m.level == Level.WARN }.size() + ")"
         logFilterInfo.text = "Info (" + log.logWebView.logMessages.grep { LogMessage m -> m.level == Level.INFO }.size() + ")"
+    }
+
+    void initGA() {
+        GATracker tracker = GATracker.instance
+        tracker.trackPageView("/as/asProject.html", "asProject")
+        GAController gaController = GAController.instance
+        gaController.pageContainer = borderPane.centerProperty()
+
+        gaController.registerPage(log.logWebView, "/as/asLog.html", "asLog")
+        gaController.registerPage(sForm.getPane(), "/as/asSettings.html", "asSettings")
+
+        gaController.registerEvent(runButton, "ActionMenu", "Run pressed")
+        gaController.registerEvent(pauseButton, "ActionMenu", "Pause pressed")
+        gaController.registerEvent(settingsButton, "ActionMenu", "Settings pressed")
     }
 }

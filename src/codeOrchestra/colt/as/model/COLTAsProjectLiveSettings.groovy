@@ -24,7 +24,11 @@ class COLTAsProjectLiveSettings extends COLTProjectLiveSettings<COLTAsProject>{
     }
 
     public LauncherType getLauncherType() {
-        return LauncherType.parse(launcherModel.launcherType);
+        try {
+            return LauncherType.valueOf(launcherModel.launcherType);
+        } catch (IllegalArgumentException e) {
+            return LauncherType.DEFAULT;
+        }
     }
 
     public String getFlashPlayerPath() {
@@ -42,12 +46,6 @@ class COLTAsProjectLiveSettings extends COLTProjectLiveSettings<COLTAsProject>{
 
     public LiveMethods getLiveMethods() {
         return LiveMethods.parseValue(liveSettingsModel.liveType);
-    }
-
-    public Target getLaunchTarget() {
-        // TODO: implement
-//        return Target.parse(getPreferenceStore().getString("target"));
-        return null;
     }
 
     public boolean clearMessagesOnSessionStart() {

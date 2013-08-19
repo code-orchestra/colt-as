@@ -11,6 +11,23 @@
 <BorderPane id="BorderPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="codeOrchestra.colt.as.ui.MainAppController">
   <center>
     <BorderPane fx:id="borderPane">
+      <bottom>
+        <HBox fx:id="" spacing="5" alignment="CENTER_RIGHT" prefHeight="-1.0" prefWidth="-1.0" styleClass="status-bar">
+          <children>
+            <HBox prefHeight="-1.0" prefWidth="-1.0" styleClass="filters" HBox.hgrow="ALWAYS">
+              <children>
+                <ToggleButton fx:id="logFilterAll" mnemonicParsing="false" selected="true" text="All" />
+                <ToggleButton fx:id="logFilterErrors" mnemonicParsing="false" text="Errors" />
+                <ToggleButton fx:id="logFilterWarnings" mnemonicParsing="false" text="Warnings" />
+                <ToggleButton fx:id="logFilterInfo" mnemonicParsing="false" text="Info" />
+                <ToggleButton fx:id="logFilterLog" mnemonicParsing="false" text="Log" />
+              </children>
+            </HBox>
+            <ProgressIndicator fx:id="progressIndicator" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="20.0" prefWidth="20.0" />
+            <Label text="ActionScript" />
+          </children>
+        </HBox>
+      </bottom>
       <top>
         <HBox alignment="CENTER" prefHeight="-1.0" prefWidth="200.0" styleClass="title-bar">
           <children>
@@ -18,30 +35,13 @@
           </children>
         </HBox>
       </top>
-
-    <bottom>
-        <HBox fx:id="" alignment="CENTER_RIGHT" prefHeight="-1.0" prefWidth="-1.0" styleClass="status-bar">
-            <children>
-                <HBox prefHeight="-1.0" prefWidth="-1.0" styleClass="filters" HBox.hgrow="ALWAYS">
-                    <children>
-                        <ToggleButton fx:id="logFilterAll" mnemonicParsing="false" selected="true" text="All" />
-                        <ToggleButton fx:id="logFilterErrors"  mnemonicParsing="false" text="Errors" />
-                        <ToggleButton fx:id="logFilterWarnings"  mnemonicParsing="false" text="Warnings" />
-                        <ToggleButton fx:id="logFilterInfo"  mnemonicParsing="false" text="Info" />
-                        <ToggleButton fx:id="logFilterLog"  mnemonicParsing="false" text="Log" />
-                    </children>
-                </HBox>
-                <Label text="ActionScript" />
-            </children>
-        </HBox>
-    </bottom>
     </BorderPane>
   </center>
   <left>
     <VBox maxWidth="-Infinity" styleClass="sidebar">
       <children>
-        <ToggleButton fx:id="runButton" contentDisplay="GRAPHIC_ONLY" focusTraversable="false" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="40.0" prefWidth="60.0" selected="false" styleClass="btn-run" text="Run"/>
-        <ToggleButton fx:id="pauseButton" contentDisplay="GRAPHIC_ONLY" focusTraversable="false" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="40.0" prefWidth="60.0" selected="false" styleClass="btn-pause" text="Pause" visible="false" managed="false"/>
+        <ToggleButton fx:id="runButton" contentDisplay="GRAPHIC_ONLY" focusTraversable="false" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="40.0" prefWidth="60.0" selected="false" styleClass="btn-run" text="Run" />
+        <ToggleButton fx:id="pauseButton" contentDisplay="GRAPHIC_ONLY" focusTraversable="false" managed="false" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="40.0" prefWidth="60.0" selected="false" styleClass="btn-pause" text="Pause" visible="false" />
         <ToggleButton fx:id="buildButton" contentDisplay="GRAPHIC_ONLY" focusTraversable="false" graphicTextGap="0.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="40.0" prefWidth="60.0" selected="false" styleClass="btn-build" text="Build" textOverrun="ELLIPSIS" underline="false" visible="true" wrapText="false" />
         <ToggleButton fx:id="settingsButton" contentDisplay="GRAPHIC_ONLY" focusTraversable="false" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="40.0" prefWidth="60.0" styleClass="btn-settings" text="Settings" />
         <Pane maxHeight="1.7976931348623157E308" VBox.vgrow="ALWAYS" />

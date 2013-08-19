@@ -8,15 +8,25 @@ import codeOrchestra.colt.as.compiler.fcsh.make.CompilationResult;
 import codeOrchestra.colt.as.digest.DigestException;
 import codeOrchestra.colt.as.digest.ProjectDigestHelper;
 import codeOrchestra.colt.as.model.COLTAsProject;
+import codeOrchestra.colt.as.run.ASLiveLauncher;
+import codeOrchestra.colt.core.COLTException;
+import codeOrchestra.colt.core.COLTProjectManager;
 import codeOrchestra.colt.core.LiveCodingManager;
 import codeOrchestra.colt.core.ServiceProvider;
 import codeOrchestra.colt.core.controller.AbstractCOLTController;
 import codeOrchestra.colt.core.controller.COLTControllerCallback;
 import codeOrchestra.colt.core.errorhandling.ErrorHandler;
-import codeOrchestra.colt.core.tasks.COLTTask;
+import codeOrchestra.colt.core.execution.ExecutionException;
+import codeOrchestra.colt.core.execution.LoggingProcessListener;
+import codeOrchestra.colt.core.execution.ProcessHandler;
+import codeOrchestra.colt.core.execution.ProcessHandlerWrapper;
+import codeOrchestra.colt.core.launch.LiveLauncher;
+import codeOrchestra.colt.core.loading.LiveCodingHandlerManager;
+import codeOrchestra.colt.core.logging.Level;
+import codeOrchestra.colt.core.logging.LoggerService;
 import codeOrchestra.colt.core.tasks.COLTTaskWithProgress;
 import codeOrchestra.colt.core.tasks.TasksManager;
-import codeOrchestra.colt.core.ui.components.COLTProgressIndicator;
+import codeOrchestra.colt.core.ui.components.ICOLTProgressIndicator;
 import codeOrchestra.util.ProjectHelper;
 
 /**
@@ -25,27 +35,83 @@ import codeOrchestra.util.ProjectHelper;
 public class COLTAsController extends AbstractCOLTController<COLTAsProject> {
 
     public void startProductionCompilation(final COLTControllerCallback<CompilationResult, CompilationResult> callback, final boolean run, boolean sync) {
-        // TODO: implement
+        try {
+            COLTProjectManager.getInstance().save();
+        } catch (COLTException e) {
+            callback.onError(e, null);
+        }
+
+
+        TasksManager.getInstance().scheduleBackgroundTask(new COLTTaskWithProgress<Void>() {
+            @Override
+            protected String getName() {
+                return "Production Compilation";
+            }
+
+            @Override
+            protected Void call(ICOLTProgressIndicator progressIndicator) {
+                COLTAsProject currentProject = ProjectHelper.getCurrentProject();
+
+                // Base compilation
+                progressIndicator.setText("Compiling");
+                ASLiveCodingManager liveCodingManager = (ASLiveCodingManager) ServiceProvider.get(LiveCodingManager.class);
+                CompilationResult compilationResult = liveCodingManager.runProductionCompilation();
+                progressIndicator.setProgress(run ? 80 : 100);
+
+                if (compilationResult.isOk() && run) {
+                    // Start the compiled SWF
+                    progressIndicator.setText("Launching");
+                    try {
+                        ASLiveLauncher liveLauncher = (ASLiveLauncher) ServiceProvider.get(LiveLauncher.class);
+                        ProcessHandlerWrapper processHandlerWrapper = liveLauncher.launch(currentProject);
+                        ProcessHandler processHandler = processHandlerWrapper.getProcessHandler();
+                        processHandler.addProcessListener(new LoggingProcessListener("Launch"));
+                        processHandler.startNotify();
+
+                        if (processHandlerWrapper.mustWaitForExecutionEnd()) {
+                            processHandler.waitFor();
+                        }
+
+                        progressIndicator.setProgress(100);
+                    } catch (ExecutionException e) {
+                        ErrorHandler.handle(e, "Error while launching build artifact");
+                        callback.onError(e, compilationResult);
+                        return null;
+                    }
+                } else {
+                    callback.onError(null, compilationResult);
+                    return null;
+                }
+
+                callback.onComplete(compilationResult);
+                return null;
+            }
+        });
     }
 
     public void startBaseCompilation(final COLTControllerCallback<CompilationResult, CompilationResult> callback, final boolean run, boolean sync) {
-        // TODO: implement!
+        try {
+            COLTProjectManager.getInstance().save();
+        } catch (COLTException e) {
+            callback.onError(e, null);
+        }
 
-        // TODO: save project
-        // TODO: clear livecoding messages
+        LoggerService loggerService = LiveCodingHandlerManager.getInstance().getCurrentHandler().getLoggerService();
+        loggerService.clear(Level.COMPILATION);
 
-        TasksManager.getInstance().scheduleBackgroundTask(new COLTTaskWithProgress<CompilationResult>() {
+        TasksManager.getInstance().scheduleBackgroundTask(new COLTTaskWithProgress<Void>() {
             @Override
             protected String getName() {
                 return "Live Build";
             }
 
             @Override
-            protected CompilationResult call(COLTProgressIndicator progressIndicator) {
+            protected Void call(ICOLTProgressIndicator progressIndicator) {
+                COLTAsProject currentProject = ProjectHelper.getCurrentProject();
 
                 // Building digests
                 progressIndicator.setText("Building digests");
-                ProjectDigestHelper projectDigestHelper = new ProjectDigestHelper(ProjectHelper.getCurrentProject());
+                ProjectDigestHelper projectDigestHelper = new ProjectDigestHelper(currentProject);
                 try {
                     projectDigestHelper.build();
                 } catch (DigestException e) {
@@ -73,15 +139,59 @@ public class COLTAsController extends AbstractCOLTController<COLTAsProject> {
                     t.printStackTrace();
                     return null;
                 }
-
                 try {
                     Thread.sleep(1000);
                 } catch (InterruptedException e1) {
                 }
-                progressIndicator.setProgress(10);
+                progressIndicator.setProgress(40);
 
+                // Base compilation
+                progressIndicator.setText("Compiling");
+                ASLiveCodingManager liveCodingManager = (ASLiveCodingManager) ServiceProvider.get(LiveCodingManager.class);
+                CompilationResult compilationResult;
+                try {
+                    compilationResult = liveCodingManager.runBaseCompilation();
+                } catch (Exception e) {
+                    ErrorHandler.handle(e, "Error while compiling");
+                    callback.onError(e, null);
+                    return null;
+                }
+                progressIndicator.setProgress(80);
 
-                return null;  //To change body of implemented methods use File | Settings | File Templates.
+                if (compilationResult.isOk()) {
+                    // Fetch the embed digest
+                    progressIndicator.setText("Reading embed digests");
+                    liveCodingManager.resetEmbeds(projectDigestHelper.getEmbedDigests());
+                    progressIndicator.setProgress(run ? 90 : 100);
+
+                    if (run) {
+                        // Start the compiled SWF
+                        progressIndicator.setText("Launching");
+                        try {
+                            ASLiveLauncher liveLauncher = (ASLiveLauncher) ServiceProvider.get(LiveLauncher.class);
+                            ProcessHandlerWrapper processHandlerWrapper = liveLauncher.launch(currentProject);
+                            ProcessHandler processHandler = processHandlerWrapper.getProcessHandler();
+                            processHandler.addProcessListener(new LoggingProcessListener("Launch"));
+                            processHandler.startNotify();
+
+                            if (processHandlerWrapper.mustWaitForExecutionEnd()) {
+                                processHandler.waitFor();
+                            }
+
+                            progressIndicator.setProgress(100);
+                        } catch (ExecutionException e) {
+                            ErrorHandler.handle(e, "Error while launching build artifact");
+                            callback.onError(e, compilationResult);
+                            return null;
+                        }
+                    }
+                } else {
+                    callback.onError(null, compilationResult);
+                    return null;
+                }
+
+                callback.onComplete(compilationResult);
+                return null;
             }
         });
     }
