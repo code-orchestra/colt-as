@@ -90,12 +90,10 @@ class MainAppController implements Initializable {
             coltController.startBaseCompilation(new COLTControllerCallbackEx<CompilationResult>() {
                 @Override
                 void onComplete(CompilationResult successResult) {
-                    liveSessionInProgress = false;
                 }
 
                 @Override
                 void onError(Throwable t, CompilationResult errorResult) {
-                    liveSessionInProgress = false;
                 }
             }, true, true)
 
