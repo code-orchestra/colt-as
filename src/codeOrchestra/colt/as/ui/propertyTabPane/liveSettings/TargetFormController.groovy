@@ -95,10 +95,6 @@ public class TargetFormController implements Initializable {
         } as EventHandler
 
         bindModel()
-
-        Platform.runLater{
-            window = androidGBtn.scene.window
-        }
     }
 
     void activateTarget(String newVal) {
@@ -114,6 +110,7 @@ public class TargetFormController implements Initializable {
     }
 
     void showDialog(AirFormController controller, String title, RunTargetModel model) {
+        window = androidGBtn.scene.window
         FXMLLoader loader = new FXMLLoader(AirFormController.class.getResource("air_form.fxml"))
         loader.setController(controller)
         VBox page = loader.load()

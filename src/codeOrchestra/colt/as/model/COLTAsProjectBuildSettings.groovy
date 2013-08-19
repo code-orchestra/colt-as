@@ -4,6 +4,7 @@ import codeOrchestra.colt.as.model.beans.BuildModel
 import codeOrchestra.colt.as.model.beans.ProductionBuildModel
 import codeOrchestra.colt.as.model.beans.RunTargetModel
 import codeOrchestra.colt.as.model.beans.SDKModel
+import codeOrchestra.colt.as.run.Target
 import codeOrchestra.colt.core.model.COLTProjectBuildSettings
 
 /**
@@ -37,7 +38,7 @@ class COLTAsProjectBuildSettings extends COLTProjectBuildSettings<COLTAsProject>
 
     public List<String> getExcludedClasses() {
         // TODO: implement
-        return null
+        return Collections.emptyList();
     }
 
     public boolean interruptCompilationByTimeout() {
@@ -120,5 +121,9 @@ class COLTAsProjectBuildSettings extends COLTProjectBuildSettings<COLTAsProject>
         buildModel.buildModel(node.build)
         productionBuildModel.buildModel(node.production)
         runTargetModel.buildModel(node.'run-target')
+    }
+
+    public Target getLaunchTarget() {
+        return Target.parse(runTargetModel.target);
     }
 }

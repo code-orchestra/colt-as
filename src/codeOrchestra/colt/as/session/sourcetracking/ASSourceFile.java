@@ -38,6 +38,7 @@ public class ASSourceFile implements SourceFile {
                 "decor",
                 "potr",
                 "matr"};
+
         for (String extension : extensions) {
             add(extension);
         }

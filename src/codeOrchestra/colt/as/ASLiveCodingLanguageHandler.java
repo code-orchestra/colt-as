@@ -18,6 +18,7 @@ import codeOrchestra.colt.core.logging.LoggerService;
 import codeOrchestra.colt.core.rpc.COLTRemoteService;
 import codeOrchestra.colt.core.session.sourcetracking.SourceFileFactory;
 import codeOrchestra.colt.core.ui.components.COLTProgressIndicatorController;
+import codeOrchestra.colt.core.ui.components.FxThreadCOLTProgressIndicatorWrapper;
 import codeOrchestra.colt.core.ui.components.ICOLTProgressIndicator;
 import codeOrchestra.util.StringUtils;
 import groovy.util.slurpersupport.GPathResult;
@@ -119,7 +120,7 @@ public class ASLiveCodingLanguageHandler extends AbstractLiveCodingLanguageHandl
 
     @Override
     public ICOLTProgressIndicator getProgressIndicator() {
-        return COLTProgressIndicatorController.getInstance();
+        return new FxThreadCOLTProgressIndicatorWrapper(COLTProgressIndicatorController.getInstance());
     }
 
     @Override

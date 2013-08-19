@@ -1,12 +1,11 @@
 package codeOrchestra.colt.as.ui
 
+import codeOrchestra.colt.core.ui.components.fileset.MultipleFileChooser
 import javafx.application.Application
 import javafx.fxml.FXMLLoader
 import javafx.scene.Parent
 import javafx.scene.Scene
-import javafx.scene.text.Font
 import javafx.stage.Stage
-import org.scenicview.ScenicView
 
 /**
  * @author Dima Kruk

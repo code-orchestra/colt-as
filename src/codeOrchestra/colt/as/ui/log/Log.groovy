@@ -16,7 +16,18 @@ class Log implements LoggerService {
     }
 
     @Override
-    void log(String source, String message, List<String> scopeIds, long timestamp, Level level, String stackTrace) {
+    synchronized void log(String source, String message, List<String> scopeIds, long timestamp, Level level, String stackTrace) {
         logWebView.logMessages.add(new LogMessage(source, level, message, timestamp, stackTrace))
+    }
+
+    @Override
+    synchronized void clear(Level level) {
+        def iterator = logWebView.logMessages.iterator()
+        while (iterator.hasNext()) {
+            def message = iterator.next()
+            if (level == message.getLevel()) {
+                iterator.remove();
+            }
+        }
     }
 }
