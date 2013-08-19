@@ -1,57 +1,63 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.lang.*?>
-<?import java.net.*?>
-<?import java.util.*?>
-<?import javafx.geometry.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import java.net.*?>
+<?import java.util.*?>
 <?import javafx.scene.paint.*?>
 
-<VBox fx:id="buildVB" maxWidth="640.0" styleClass="fieldset" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="codeOrchestra.colt.as.ui.propertyTabPane.compilerSettings.BuildSettingsFormController">
-  <children>
-    <Label layoutY="23" text="Compile Settings" />
+<VBox fx:id="buildVB" styleClass="fieldset" maxWidth="640.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="codeOrchestra.colt.as.ui.propertyTabPane.compilerSettings.BuildSettingsFormController">
+<children>
+    <Label text="Compile Settings" translateX="19" styleClass="legend" />
     <AnchorPane>
-      <children>
-        <Label layoutY="27.0" text="Output file name:" AnchorPane.leftAnchor="19.0" AnchorPane.rightAnchor="48.0" />
-        <TextField fx:id="fileNameTF" layoutY="46.0" prefHeight="30.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="86.0" />
-      </children>
+    <children>
+        <Label layoutY="21" text="Output file name:" AnchorPane.leftAnchor="19" AnchorPane.rightAnchor="48" />
+        <TextField fx:id="fileNameTF" layoutY="40" prefHeight="30" AnchorPane.leftAnchor="10" AnchorPane.rightAnchor="86" />
+    </children>
     </AnchorPane>
+
     <AnchorPane>
-      <children>
-        <Label layoutY="23.0" text="Output path:" AnchorPane.leftAnchor="19.0" AnchorPane.rightAnchor="48.0" />
-        <TextField fx:id="outPathTF" layoutY="42.0" prefHeight="30.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="86.0" />
-        <Button focusTraversable="false" layoutY="42.0" onAction="#outputPathBrowseHandler" prefHeight="30.0" prefWidth="67.0" styleClass="button" text="Browse" AnchorPane.rightAnchor="10.0" />
-      </children>
+    <children>
+        <Label layoutY="23" text="Output path:" AnchorPane.leftAnchor="19" AnchorPane.rightAnchor="48" />
+        <TextField fx:id="outPathTF" layoutY="42" prefHeight="30" AnchorPane.leftAnchor="10" AnchorPane.rightAnchor="86" />
+        <Button focusTraversable="false" onAction="#outputPathBrowseHandler" layoutY="42.0" prefHeight="30" prefWidth="67" styleClass="button" text="Browse" AnchorPane.rightAnchor="10" />
+    </children>
     </AnchorPane>
+
     <AnchorPane>
-      <children>
-        <ChoiceBox fx:id="playerVersionCB" layoutY="33.0" AnchorPane.leftAnchor="10.0">
-          <String fx:value="Target player version:" />
-          <String fx:value="/2" />
-          <String fx:value="/3" />
-          <String fx:value="/4" />
+    <children>
+        <ChoiceBox fx:id="playerVersionCB" layoutY="33" AnchorPane.leftAnchor="10">
+        <String fx:value="Target player version:" />
+        <String fx:value="/2" />
+        <String fx:value="/3"/>
+        <String fx:value="/4"/>
         </ChoiceBox>
-        <Label fx:id="errorLabel" layoutY="41.0" styleClass="error" text="Incorrect Flex SDK path specified" AnchorPane.leftAnchor="210.0" AnchorPane.rightAnchor="10.0" />
-      </children>
+        <Label fx:id="errorLabel" layoutY="41" AnchorPane.leftAnchor="210" AnchorPane.rightAnchor="10" text="Incorrect Flex SDK path specified" styleClass="error" />
+    </children>
     </AnchorPane>
+
     <AnchorPane>
-      <children>
-        <CheckBox fx:id="rslCB" layoutY="31.0" text="Use Framework as Runtime Shared Library (RSL)" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
-      </children>
+    <children>
+        <CheckBox fx:id="rslCB" layoutY="31" AnchorPane.leftAnchor="10" AnchorPane.rightAnchor="10" text="Use Framework as Runtime Shared Library (RSL)" />
+    </children>
     </AnchorPane>
+
     <AnchorPane>
-      <children>
-        <CheckBox fx:id="localeCB" layoutY="38.0" text="Non-default locale settings:" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
-        <TextField fx:id="localeTF" layoutY="31.0" prefHeight="30.0" AnchorPane.leftAnchor="210.0" AnchorPane.rightAnchor="86.0" />
-      </children>
+    <children>
+        <CheckBox fx:id="localeCB" text="Non-default locale settings:" layoutY="38" AnchorPane.leftAnchor="10" AnchorPane.rightAnchor="10" />
+        <TextField fx:id="localeTF" layoutY="31" prefHeight="30" AnchorPane.leftAnchor="210" AnchorPane.rightAnchor="86" />
+    </children>
     </AnchorPane>
-  </children>
-  <padding>
-    <Insets top="10" />
-  </padding>
-  <stylesheets>
-    <URL value="@main.css" />
-  </stylesheets>
+
+</children>
+<padding>
+<Insets top="26" bottom="23" />
+</padding>
+
+    <stylesheets>
+        <URL value="@main.css" />
+    </stylesheets>
+
 </VBox>

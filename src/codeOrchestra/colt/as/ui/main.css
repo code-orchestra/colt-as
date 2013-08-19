@@ -475,6 +475,8 @@
     -fx-border-color: #c9ccd0;
     -fx-border-style: solid; }
 
+.legend { -fx-font-weight: bold; }
+
 /* Inputs */
 
 .text-input {
@@ -499,28 +501,12 @@
     -fx-background-insets: -1.4, 0, 1, 2 1 1 1;
     -fx-background-radius: 2.4, 1, 0, 0; }
 
-/* Check Boxes */
-.check-box .box {
+/* Checkboxes and Radio Buttons */
+.check-box .box, .radio-button .radio {
     -fx-background-color: #cbcfd3, #f0f0f0, #fff;
-    -fx-background-insets: 0, 1px, 2px 1px 1px 1px;
-    -fx-background-radius: 0; }
+    -fx-background-insets: 0, 1px, 2px 1px 1px 1px; }
 
-
-
-.check-box .mark {
-    -fx-background-color: transparent;
-    -fx-background-insets: 1px 0px -1px 0px, 0px;
-    -fx-padding: 0.333333em;
-    -fx-shape: "M0,4H2L3,6L6,0H8L4,8H2Z"; }
-
-.check-box:selected .mark { /* FX caspian stylesheet */
--fx-background-color: -fx-mark-highlight-color, -fx-mark-color;
-}
-
-.check-box:indeterminate .mark { /* FX caspian stylesheet */
--fx-background-color: -fx-mark-highlight-color, -fx-mark-color;
--fx-shape: "M0,0H8V2H0Z";
-}
+.check-box .box { -fx-background-radius: 0; }
 
 /* Buttons andd choise-box */
 .button, .choice-box {
