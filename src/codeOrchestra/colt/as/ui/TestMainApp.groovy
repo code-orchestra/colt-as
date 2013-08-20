@@ -18,7 +18,7 @@ class TestMainApp extends Application {
         primaryStage.setTitle("COLT 1.2");
         Scene scene = new Scene(root, 580, 820)
         primaryStage.setScene(scene);
-       //ScenicView.show(scene);
+       ScenicView.show(scene);
         primaryStage.show();
     }
 

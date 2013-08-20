@@ -496,10 +496,15 @@
 
 .text-area .content { -fx-padding: 7px 7px 0 7px; }
 
-.text-area:focused, .text-field:focused, .web-view:focused{
+.text-area:focused, .text-field:focused {
     -fx-background-color: #0099ff, #008cf2, #f0f0f0, #fff;
     -fx-background-insets: -1.4, 0, 1, 2 1 1 1;
     -fx-background-radius: 2.4, 1, 0, 0; }
+
+.file-set-focus{
+    -fx-background-color: #0099ff, #008cf2;
+    -fx-background-insets: 0, 1.4;
+    -fx-background-radius: 2.4, 1; }
 
 /* Checkboxes and Radio Buttons */
 .check-box .box, .radio-button .radio {
