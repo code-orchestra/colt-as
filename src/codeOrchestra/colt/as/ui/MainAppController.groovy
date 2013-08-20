@@ -18,12 +18,14 @@ import codeOrchestra.colt.core.ui.COLTApplication
 import codeOrchestra.colt.core.ui.components.COLTProgressIndicatorController
 import codeOrchestra.colt.core.ui.components.log.LogFilter
 import codeOrchestra.colt.core.ui.components.log.LogMessage
+import codeOrchestra.colt.core.ui.components.sessionIndicator.SessionIndicatorController
 import javafx.beans.InvalidationListener
 import javafx.event.EventHandler
 import javafx.fxml.FXML
 import javafx.fxml.Initializable
 import javafx.geometry.Point2D
 import javafx.scene.control.*
+import javafx.scene.image.ImageView
 import javafx.scene.layout.BorderPane
 
 /**
@@ -53,6 +55,7 @@ class MainAppController implements Initializable {
     @FXML ToggleButton logFilterLog
 
     @FXML ProgressIndicator progressIndicator
+    @FXML ImageView sessionIndicator
 
     @Override
     void initialize(URL url, ResourceBundle resourceBundle) {
@@ -123,6 +126,8 @@ class MainAppController implements Initializable {
         runButton.selected = true // todo
 
         COLTProgressIndicatorController.instance.progressIndicator = progressIndicator
+
+        SessionIndicatorController.instance.indicator = sessionIndicator
     }
 
     private void updateLogFilter() {
