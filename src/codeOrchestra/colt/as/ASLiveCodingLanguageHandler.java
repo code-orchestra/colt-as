@@ -12,6 +12,7 @@ import codeOrchestra.colt.as.ui.TestMainApp;
 import codeOrchestra.colt.as.util.ASPathUtils;
 import codeOrchestra.colt.core.AbstractLiveCodingLanguageHandler;
 import codeOrchestra.colt.core.LiveCodingManager;
+import codeOrchestra.colt.core.ServiceProvider;
 import codeOrchestra.colt.core.controller.COLTController;
 import codeOrchestra.colt.core.launch.LiveLauncher;
 import codeOrchestra.colt.core.logging.LoggerService;
@@ -20,6 +21,7 @@ import codeOrchestra.colt.core.session.sourcetracking.SourceFileFactory;
 import codeOrchestra.colt.core.ui.components.COLTProgressIndicatorController;
 import codeOrchestra.colt.core.ui.components.FxThreadCOLTProgressIndicatorWrapper;
 import codeOrchestra.colt.core.ui.components.ICOLTProgressIndicator;
+import codeOrchestra.colt.core.ui.components.sessionIndicator.SessionIndicatorController;
 import codeOrchestra.util.StringUtils;
 import groovy.util.slurpersupport.GPathResult;
 import javafx.fxml.FXMLLoader;
@@ -97,11 +99,15 @@ public class ASLiveCodingLanguageHandler extends AbstractLiveCodingLanguageHandl
     @Override
     public void initHandler() {
         loggerServerSocketThread.openSocket();
+
+        ServiceProvider.get(LiveCodingManager.class).addListener(SessionIndicatorController.getInstance());
     }
 
     @Override
     public void disposeHandler() {
         loggerServerSocketThread.closeSocket();
+
+        ServiceProvider.get(LiveCodingManager.class).removeListener(SessionIndicatorController.getInstance());
     }
 
     @Override
