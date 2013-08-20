@@ -1,11 +1,11 @@
 package codeOrchestra.colt.as.ui
 
-import codeOrchestra.colt.core.ui.components.fileset.MultipleFileChooser
 import javafx.application.Application
 import javafx.fxml.FXMLLoader
 import javafx.scene.Parent
 import javafx.scene.Scene
 import javafx.stage.Stage
+import org.scenicview.ScenicView
 
 /**
  * @author Dima Kruk
@@ -18,7 +18,7 @@ class TestMainApp extends Application {
         primaryStage.setTitle("COLT 1.2");
         Scene scene = new Scene(root, 580, 820)
         primaryStage.setScene(scene);
-//       ScenicView.show(scene);
+       //ScenicView.show(scene);
         primaryStage.show();
     }
 

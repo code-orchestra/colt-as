@@ -496,7 +496,7 @@
 
 .text-area .content { -fx-padding: 7px 7px 0 7px; }
 
-.text-area:focused, .text-field:focused {
+.text-area:focused, .text-field:focused, .web-view:focused{
     -fx-background-color: #0099ff, #008cf2, #f0f0f0, #fff;
     -fx-background-insets: -1.4, 0, 1, 2 1 1 1;
     -fx-background-radius: 2.4, 1, 0, 0; }
