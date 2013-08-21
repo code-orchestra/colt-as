@@ -62,7 +62,6 @@ abstract class InputForm extends AnchorPane implements ITypedForm{
     }
 
     void setFormType(String type) {
-        println "type = ${FormType.valueOf(type)}"
         setType(FormType.valueOf(type))
     }
 

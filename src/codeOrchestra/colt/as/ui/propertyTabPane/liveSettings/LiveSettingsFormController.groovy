@@ -1,63 +1,67 @@
 package codeOrchestra.colt.as.ui.propertyTabPane.liveSettings
 
-import codeOrchestra.colt.as.run.LiveMethods
 import codeOrchestra.colt.as.model.ModelStorage
 import codeOrchestra.colt.as.model.beans.LiveSettingsModel
-import com.aquafx_project.AquaFx
+import codeOrchestra.colt.as.run.LiveMethods
+import codeOrchestra.colt.as.ui.components.CTBForm
+import codeOrchestra.colt.as.ui.components.LTBForm
+import codeOrchestra.colt.as.ui.components.RTBForm
 import javafx.beans.property.StringProperty
 import javafx.beans.value.ChangeListener
 import javafx.fxml.FXML
 import javafx.fxml.Initializable
-import javafx.scene.control.*
-import javafx.scene.layout.GridPane
+import javafx.scene.control.Toggle
+import javafx.scene.control.ToggleGroup
 
 /**
  * @author Dima Kruk
  */
-@SuppressWarnings(["GroovyAssignabilityCheck", "GroovyUnusedDeclaration"])
 class LiveSettingsFormController implements Initializable {
 
-    @FXML GridPane settingsGP;
+    ToggleGroup methods
 
-    @FXML ToggleGroup methods;
-    @FXML RadioButton annotatedRBtn;
-    @FXML RadioButton allRBtn;
+    @FXML RTBForm annotated
+    @FXML RTBForm all
 
-    @FXML CheckBox pausedCB;
-    @FXML CheckBox gsLiveCB;
+    @FXML CTBForm paused
+    @FXML CTBForm gsLive
 
-    @FXML TextField maxLoopTF;
+    @FXML LTBForm maxLoop
 
-    public LiveSettingsModel model = ModelStorage.instance.project.projectLiveSettings.liveSettingsModel;
+    public LiveSettingsModel model = ModelStorage.instance.project.projectLiveSettings.liveSettingsModel
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-//        AquaFx.setGroupBox(settingsGP)
+        methods = new ToggleGroup()
+        methods.toggles.addAll(annotated.radioButton, all.radioButton)
 
-        pausedCB.setDisable(true)
+        bindModel()
 
+        if (!model.liveType) {
+            model.liveType = LiveMethods.ANNOTATED.preferenceValue
+        } else {
+            activateMethods(model.liveType)
+        }
+    }
+
+    void activateMethods(String newVal) {
+        LiveMethods liveMethods = LiveMethods.parseValue(newVal)
+        methods.toggles[liveMethods.ordinal()].selected = true
+    }
+
+    void bindModel() {
         methods.selectedToggleProperty().addListener({ observableValue, Toggle old_toggle, Toggle new_toggle ->
             model.liveType = LiveMethods.values()[methods.toggles.indexOf(new_toggle)].preferenceValue
         } as ChangeListener)
 
         (model.liveType() as StringProperty).addListener({prop, oldVal, newVal ->
             if (newVal) {
-                LiveMethods liveType = LiveMethods.parseValue("" +newVal)
-                Toggle selected = methods.toggles[liveType.ordinal()]
-                selected.selected = true
+                activateMethods(newVal as String)
             }
         } as ChangeListener)
 
-        if (!model.liveType) {
-            model.liveType = LiveMethods.ANNOTATED.preferenceValue
-        }
-
-        bindModel()
-    }
-
-    void bindModel() {
-        pausedCB.selectedProperty().bindBidirectional(model.startSessionPaused())
-        gsLiveCB.selectedProperty().bindBidirectional(model.makeGSLive())
-        maxLoopTF.textProperty().bindBidirectional(model.maxLoop())
+        paused.checkBox.selectedProperty().bindBidirectional(model.startSessionPaused())
+        gsLive.checkBox.selectedProperty().bindBidirectional(model.makeGSLive())
+        maxLoop.textField.textProperty().bindBidirectional(model.maxLoop())
     }
 }
