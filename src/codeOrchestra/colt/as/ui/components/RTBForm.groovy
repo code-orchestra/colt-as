@@ -16,6 +16,9 @@ class RTBForm extends InputForm {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("rtb_form.fxml"))
         initLoader(fxmlLoader)
 
+        button.disableProperty().bind(radioButton.selectedProperty().not())
+        textField.disableProperty().bind(radioButton.selectedProperty().not())
+
         type = FormType.SIMPLE
     }
 

@@ -16,6 +16,9 @@ class CTBForm extends InputForm {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ctb_form.fxml"))
         initLoader(fxmlLoader)
 
+        button.disableProperty().bind(checkBox.selectedProperty().not())
+        textField.disableProperty().bind(checkBox.selectedProperty().not())
+
         type = FormType.SIMPLE
     }
 

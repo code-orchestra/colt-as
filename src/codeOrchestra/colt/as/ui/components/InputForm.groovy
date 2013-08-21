@@ -66,16 +66,24 @@ abstract class InputForm extends AnchorPane implements ITypedForm{
         setType(FormType.valueOf(type))
     }
 
-    public String getButtonText() {
+    String getButtonText() {
         return button.textProperty().get();
     }
 
-    public void setButtonText(String value) {
+    void setButtonText(String value) {
         button.textProperty().set(value);
     }
 
-    public StringProperty buttonTextProperty() {
+    StringProperty buttonTextProperty() {
         return button.textProperty();
+    }
+
+    Button getButton() {
+        return button
+    }
+
+    TextField getTextField() {
+        return textField
     }
 
     @Override
