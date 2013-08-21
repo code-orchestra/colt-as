@@ -489,7 +489,7 @@
     -fx-highlight-text-fill: white; /* ::selection */
     -fx-text-fill: #515458; }
 
-.text-area, .text-field {
+.text-area, .text-field, .fileset-webview {
     -fx-background-color: #c9ccd0, #f0f0f0, #fff;
     -fx-background-insets: 0, 1, 2 1 1 1;
     -fx-background-radius: 1, 0, 0;
@@ -501,12 +501,7 @@
 
 .text-area .content { -fx-padding: 7px 7px 0 7px; }
 
-.text-area:focused, .text-field:focused {
-    -fx-background-color: #0099ff, #008cf2, #f0f0f0, #fff;
-    -fx-background-insets: -1.4, 0, 1, 2 1 1 1;
-    -fx-background-radius: 2.4, 1, 0, 0; }
-
-#fileset-webview-focus{
+.text-area:focused, .text-field:focused, .fileset-webview-focus {
     -fx-background-color: #0099ff, #008cf2, #f0f0f0, #fff;
     -fx-background-insets: -1.4, 0, 1, 2 1 1 1;
     -fx-background-radius: 2.4, 1, 0, 0; }
