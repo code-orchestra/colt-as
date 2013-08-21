@@ -1,56 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.*?>
+<?import codeOrchestra.colt.as.ui.components.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="codeOrchestra.colt.as.ui.propertyTabPane.compilerSettings.BuildSettingsFormController">
-  <VBox fx:id="buildVB" minHeight="-Infinity" spacing="10.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
-    <children>
-      <GridPane hgap="10.0" vgap="10.0">
-        <children>
-          <Label text="Main class:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-          <Label text="Output file name:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-          <Label text="Output path:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
-          <Button mnemonicParsing="false" onAction="#mainClassBrowseHandler" text="Browse..." GridPane.columnIndex="2" GridPane.rowIndex="0" />
-          <Button mnemonicParsing="false" onAction="#outputPathBrowseHandler" text="Browse..." GridPane.columnIndex="2" GridPane.rowIndex="2" />
-          <TextField fx:id="mainClassTF" GridPane.columnIndex="1" GridPane.rowIndex="0" />
-          <TextField fx:id="fileNameTF" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-          <TextField fx:id="outPathTF" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-        </children>
-        <columnConstraints>
-          <ColumnConstraints hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity" />
-          <ColumnConstraints hgrow="ALWAYS" />
-          <ColumnConstraints hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints minHeight="-Infinity" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="-Infinity" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="-Infinity" vgrow="SOMETIMES" />
-        </rowConstraints>
-      </GridPane>
-      <HBox spacing="10.0">
-        <children>
-          <Label minWidth="-Infinity" text="Target player version:" />
-          <ChoiceBox fx:id="playerVersionCB" />
-          <Label fx:id="errorLabel" text="Incorrect Flex SDK path specified" textFill="#ff0000"/>
-        </children>
-      </HBox>
-      <CheckBox fx:id="rslCB" minWidth="-Infinity" mnemonicParsing="false" text="Use Framework as Runtime Shared Library (RSL)" />
-      <HBox id="HBox" spacing="10.0">
-        <children>
-          <CheckBox fx:id="localeCB" minWidth="-Infinity" mnemonicParsing="false" text="Non-default locale settings:" />
-          <TextField fx:id="localeTF" HBox.hgrow="ALWAYS" />
-        </children>
-      </HBox>
-      <CheckBox fx:id="excludeCB" minWidth="-Infinity" mnemonicParsing="false" text="Exclude unused code from incremental compilation linking" />
-      <HBox id="HBox" spacing="10.0">
-        <children>
-          <CheckBox fx:id="interruptCB" minWidth="-Infinity" mnemonicParsing="false" text="Interrupt compilation by timeout (seconds):" />
-          <TextField fx:id="interruptTF" minWidth="-Infinity" prefWidth="50.0" text="30" />
-        </children>
-      </HBox>
-    </children>
-  </VBox>
-</AnchorPane>
+<FormGroup fx:controller="codeOrchestra.colt.as.ui.propertyTabPane.compilerSettings.BuildSettingsFormController" xmlns:fx="http://javafx.com/fxml">
+  <LTBForm fx:id="mainClass" text="Main class:" formType="BUTTON" />
+  <LTBForm fx:id="fileName" text="Output file name:" formType="TEXT_FIELD" />
+  <LTBForm fx:id="outPath" text="Output path:" formType="BUTTON" browseType="DIRECTORY" />
+
+  <HBox spacing="10.0">
+      <Label minWidth="-Infinity" text="Target player version:" />
+      <ChoiceBox fx:id="playerVersionCB" />
+      <Label fx:id="errorLabel" text="Incorrect Flex SDK path specified" textFill="#ff0000"/>
+  </HBox>
+
+  <CTBForm fx:id="rsl" text="Use Framework as Runtime Shared Library (RSL)" formType="SIMPLE"/>
+  <CTBForm fx:id="locale" text="Non-default locale settings" formType="TEXT_FIELD"/>
+  <CTBForm fx:id="exclude" text="Non-default locale settings" formType="SIMPLE"/>
+  <CTBForm fx:id="interrupt" text="Interrupt compilation by timeout (seconds)" formType="TEXT_FIELD"/>
+</FormGroup>

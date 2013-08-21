@@ -4,20 +4,14 @@ import codeOrchestra.colt.as.flexsdk.FlexSDKManager
 import codeOrchestra.colt.as.model.ModelStorage
 import codeOrchestra.colt.as.model.beans.BuildModel
 import codeOrchestra.colt.as.model.beans.SDKModel
-import com.aquafx_project.AquaFx
-import javafx.beans.binding.BooleanBinding
-import javafx.beans.property.StringProperty
+import codeOrchestra.colt.as.ui.components.CTBForm
+import codeOrchestra.colt.as.ui.components.LTBForm
 import javafx.beans.value.ChangeListener
 import javafx.beans.value.ObservableValue
-import javafx.event.ActionEvent
 import javafx.fxml.FXML
 import javafx.fxml.Initializable
-import javafx.scene.control.CheckBox
 import javafx.scene.control.ChoiceBox
 import javafx.scene.control.Label
-import javafx.scene.control.TextField
-import javafx.scene.layout.VBox
-import javafx.stage.DirectoryChooser
 import javafx.stage.FileChooser
 
 /**
@@ -25,34 +19,24 @@ import javafx.stage.FileChooser
  */
 class BuildSettingsFormController implements Initializable {
 
-    @FXML VBox buildVB
-
-    @FXML TextField mainClassTF
-    @FXML TextField fileNameTF
-    @FXML TextField outPathTF
+    @FXML LTBForm mainClass
+    @FXML LTBForm fileName
+    @FXML LTBForm outPath
 
     @FXML ChoiceBox playerVersionCB
     @FXML Label errorLabel
 
-    @FXML CheckBox rslCB
-
-    @FXML CheckBox localeCB
-    @FXML TextField localeTF
-
-    @FXML CheckBox excludeCB
-
-    @FXML CheckBox interruptCB
-    @FXML TextField interruptTF
+    @FXML CTBForm rsl
+    @FXML CTBForm locale
+    @FXML CTBForm exclude
+    @FXML CTBForm interrupt
 
     BuildModel model = ModelStorage.instance.project.projectBuildSettings.buildModel
     SDKModel sdkModel = ModelStorage.instance.project.projectBuildSettings.sdkModel
 
     @Override
     void initialize(URL url, ResourceBundle resourceBundle) {
-//        AquaFx.setGroupBox(buildVB)
-
-        localeTF.disableProperty().bind(localeCB.selectedProperty().not())
-        interruptTF.disableProperty().bind(interruptCB.selectedProperty().not())
+        mainClass.extensionFilters.addAll(new FileChooser.ExtensionFilter("AS", "*.as"), new FileChooser.ExtensionFilter("MXML", "*.mxml"))
 
         errorLabel.visible = false
 
@@ -60,9 +44,9 @@ class BuildSettingsFormController implements Initializable {
     }
 
     void bindModel() {
-        mainClassTF.textProperty().bindBidirectional(model.mainClass())
-        fileNameTF.textProperty().bindBidirectional(model.outputFileName())
-        outPathTF.textProperty().bindBidirectional(model.outputPath())
+        mainClass.textField.textProperty().bindBidirectional(model.mainClass())
+        fileName.textField.textProperty().bindBidirectional(model.outputFileName())
+        outPath.textField.textProperty().bindBidirectional(model.outputPath())
 
         playerVersionCB.valueProperty().bindBidirectional(model.targetPlayerVersion())
         sdkModel.isValidFlexSDK().addListener({ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue->
@@ -78,33 +62,14 @@ class BuildSettingsFormController implements Initializable {
             errorLabel.visible = !newValue
         } as ChangeListener<Boolean>)
 
-        rslCB.selectedProperty().bindBidirectional(model.rsl())
+        rsl.checkBox.selectedProperty().bindBidirectional(model.rsl())
 
-        localeCB.selectedProperty().bindBidirectional(model.nonDefaultLocale())
-        localeTF.textProperty().bindBidirectional(model.localeSettings())
+        locale.checkBox.selectedProperty().bindBidirectional(model.nonDefaultLocale())
+        locale.textField.textProperty().bindBidirectional(model.localeSettings())
 
-        excludeCB.selectedProperty().bindBidirectional(model.excludeDeadCode())
+        exclude.checkBox.selectedProperty().bindBidirectional(model.excludeDeadCode())
 
-        interruptCB.selectedProperty().bindBidirectional(model.interrupt())
-        interruptTF.textProperty().bindBidirectional(model.interruptValue())
-    }
-
-    @FXML
-    void mainClassBrowseHandler(ActionEvent actionEvent) {
-        FileChooser fileChooser = new FileChooser()
-        fileChooser.extensionFilters.addAll(new FileChooser.ExtensionFilter("AS", "*.as"), new FileChooser.ExtensionFilter("MXML", "*.mxml"))
-        File file = fileChooser.showOpenDialog(mainClassTF.scene.window)
-        if (file) {
-            mainClassTF.text = file.path
-        }
-    }
-
-    @FXML
-    void outputPathBrowseHandler(ActionEvent actionEvent) {
-        DirectoryChooser directoryChooser = new DirectoryChooser()
-        File file = directoryChooser.showDialog(outPathTF.scene.window)
-        if (file) {
-            outPathTF.text = file.path
-        }
+        interrupt.checkBox.selectedProperty().bindBidirectional(model.interrupt())
+        interrupt.textField.textProperty().bindBidirectional(model.interruptValue())
     }
 }
