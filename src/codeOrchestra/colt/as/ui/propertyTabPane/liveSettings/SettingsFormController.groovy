@@ -2,18 +2,17 @@ package codeOrchestra.colt.as.ui.propertyTabPane.liveSettings
 
 import codeOrchestra.colt.as.model.ModelStorage
 import codeOrchestra.colt.as.model.beans.SettingsModel
+import codeOrchestra.colt.as.ui.components.CTBForm
 import javafx.fxml.FXML
 import javafx.fxml.Initializable
-import javafx.scene.control.CheckBox
 
 /**
  * @author Dima Kruk
  */
-@SuppressWarnings(["GroovyAssignabilityCheck", "GroovyUnusedDeclaration"])
 class SettingsFormController implements Initializable {
 
-    @FXML CheckBox clearLogCB;
-    @FXML CheckBox pingTimeoutCB;
+    @FXML CTBForm clearLog;
+    @FXML CTBForm pingTimeout;
 
     SettingsModel model = ModelStorage.instance.project.projectLiveSettings.settingsModel;
 
@@ -23,7 +22,7 @@ class SettingsFormController implements Initializable {
     }
 
     void bindModel() {
-        clearLogCB.selectedProperty().bindBidirectional(model.clearLog())
-        pingTimeoutCB.selectedProperty().bindBidirectional(model.disconnectOnTimeout())
+        clearLog.checkBox.selectedProperty().bindBidirectional(model.clearLog())
+        pingTimeout.checkBox.selectedProperty().bindBidirectional(model.disconnectOnTimeout())
     }
 }
