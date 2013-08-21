@@ -366,6 +366,13 @@
     /* -fx-color: -fx-base;
     -fx-base: #d0d0d0;  */ }
 
+.text, .scroll-pane {
+    -fx-font: 13px 'Arial';
+    -fx-font-smoothing-type: lcd; }
+
+.scroll-pane .legend { -fx-font-weight: bold; }
+
+
 /*
 |-------------------------------------------------------------------------------
 | Sidebar
@@ -474,8 +481,6 @@
     -fx-border-width: 1px 0 0 0;
     -fx-border-color: #c9ccd0;
     -fx-border-style: solid; }
-
-.legend { -fx-font-weight: bold; }
 
 /* Inputs */
 
