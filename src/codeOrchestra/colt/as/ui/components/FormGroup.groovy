@@ -29,6 +29,8 @@ class FormGroup extends VBox {
         }
 
         makeTitled(false)
+
+        setSpacing(23)
     }
 
     private void makeTitled(boolean b) {
