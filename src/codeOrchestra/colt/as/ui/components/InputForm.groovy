@@ -73,6 +73,11 @@ abstract class InputForm extends AnchorPane implements ITypedForm{
         button.textProperty().set(value);
     }
 
+    void changeButtonWidth(double value) {
+        setRightAnchor(textField, 86 + value - 67)
+        button.prefWidth = value
+    }
+
     StringProperty buttonTextProperty() {
         return button.textProperty();
     }

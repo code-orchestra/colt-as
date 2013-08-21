@@ -39,6 +39,10 @@ class TargetFormController implements Initializable {
         target = new ToggleGroup()
         target.toggles.addAll(swf.radioButton, http.radioButton, ios.radioButton, android.radioButton)
 
+        http.changeButtonWidth(134)
+        ios.changeButtonWidth(134)
+        android.changeButtonWidth(134)
+
         bindModel()
 
         if (!model.target) {
