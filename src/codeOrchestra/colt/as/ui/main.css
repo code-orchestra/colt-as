@@ -506,6 +506,11 @@
     -fx-background-insets: -1.4, 0, 1, 2 1 1 1;
     -fx-background-radius: 2.4, 1, 0, 0; }
 
+#fileset-webview-focus{
+    -fx-background-color: #0099ff, #008cf2, #f0f0f0, #fff;
+    -fx-background-insets: -1.4, 0, 1, 2 1 1 1;
+    -fx-background-radius: 2.4, 1, 0, 0; }
+
 /* Checkboxes and Radio Buttons */
 .check-box .box, .radio-button .radio {
     -fx-background-color: #cbcfd3, #f0f0f0, #fff;

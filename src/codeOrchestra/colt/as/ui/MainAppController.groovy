@@ -14,19 +14,18 @@ import codeOrchestra.colt.core.logging.Level
 import codeOrchestra.colt.core.rpc.security.ui.ShortCodeNotification
 import codeOrchestra.colt.core.tracker.GAController
 import codeOrchestra.colt.core.tracker.GATracker
+import codeOrchestra.colt.core.ui.COLTApplication
 import codeOrchestra.colt.core.ui.components.COLTProgressIndicatorController
 import codeOrchestra.colt.core.ui.components.log.LogFilter
 import codeOrchestra.colt.core.ui.components.log.LogMessage
+import codeOrchestra.colt.core.ui.components.sessionIndicator.SessionIndicatorController
 import javafx.beans.InvalidationListener
-import javafx.beans.value.ChangeListener
 import javafx.event.EventHandler
 import javafx.fxml.FXML
 import javafx.fxml.Initializable
 import javafx.geometry.Point2D
 import javafx.scene.control.*
-import javafx.scene.input.KeyCode
-import javafx.scene.input.KeyCodeCombination
-import javafx.scene.input.KeyCombination
+import javafx.scene.image.ImageView
 import javafx.scene.layout.BorderPane
 
 /**
@@ -56,6 +55,7 @@ class MainAppController implements Initializable {
     @FXML ToggleButton logFilterLog
 
     @FXML ProgressIndicator progressIndicator
+    @FXML ImageView sessionIndicator
 
     @Override
     void initialize(URL url, ResourceBundle resourceBundle) {
@@ -112,14 +112,12 @@ class MainAppController implements Initializable {
 
         MyContextMenu contextMenu = new MyContextMenu()
         contextMenu.setStyle("-fx-background-color: transparent;");
-        MenuItem menuItem1 = new MenuItem("Save")
-        menuItem1.accelerator = new KeyCodeCombination(KeyCode.S, KeyCombination.SHORTCUT_DOWN)
-        MenuItem menuItem2 = new MenuItem("Open")
-        contextMenu.items.addAll(menuItem1, menuItem2)
+        ArrayList<MenuItem> items = COLTApplication.get().menuItems
+        contextMenu.items.addAll(items)
 
         menuBtn.onAction = {
             Point2D point = menuBtn.parent.localToScreen(menuBtn.layoutX, menuBtn.layoutY)
-            contextMenu.show(menuBtn, point.x + 5, point.y - 75)
+            contextMenu.show(menuBtn, point.x + 5, point.y - 15 - items.size() * 25)
         } as EventHandler
 
         projectTitle.textProperty().bind(codeOrchestra.colt.as.model.ModelStorage.instance.project.name())
@@ -128,6 +126,8 @@ class MainAppController implements Initializable {
         runButton.selected = true // todo
 
         COLTProgressIndicatorController.instance.progressIndicator = progressIndicator
+
+        SessionIndicatorController.instance.indicator = sessionIndicator
     }
 
     private void updateLogFilter() {

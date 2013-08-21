@@ -4,15 +4,17 @@
 <?import java.net.*?>
 <?import java.util.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.paint.*?>
 <?scenebuilder-stylesheet main.css?>
 
-<BorderPane id="BorderPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="codeOrchestra.colt.as.ui.MainAppController">
+<BorderPane id="BorderPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="820.0" prefWidth="580.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="codeOrchestra.colt.as.ui.MainAppController_">
   <center>
     <BorderPane fx:id="borderPane">
       <bottom>
-        <HBox fx:id="" spacing="5" alignment="CENTER_RIGHT" prefHeight="-1.0" prefWidth="-1.0" styleClass="status-bar">
+        <HBox fx:id="" alignment="CENTER_RIGHT" prefHeight="-1.0" prefWidth="-1.0" spacing="5.0" styleClass="status-bar">
           <children>
             <HBox prefHeight="-1.0" prefWidth="-1.0" styleClass="filters" HBox.hgrow="ALWAYS">
               <children>
@@ -24,6 +26,7 @@
               </children>
             </HBox>
             <ProgressIndicator fx:id="progressIndicator" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="20.0" prefWidth="20.0" />
+            <ImageView fx:id="sessionIndicator" fitHeight="13.0" fitWidth="13.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="NEVER" />
             <Label text="ActionScript" />
           </children>
         </HBox>
