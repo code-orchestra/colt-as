@@ -1,5 +1,6 @@
 package codeOrchestra.colt.as.ui.components
 
+import javafx.collections.ListChangeListener
 import javafx.fxml.FXML
 import javafx.fxml.FXMLLoader
 import javafx.geometry.Insets
@@ -31,6 +32,26 @@ class FormGroup extends VBox {
         makeTitled(false)
 
         setSpacing(23)
+
+        children.addListener(new ListChangeListener<javafx.scene.Node>() {
+            @Override
+            void onChanged(ListChangeListener.Change<? extends javafx.scene.Node> change) {
+                change.next()
+                println "change = $change.list"
+                if (change.from == 1) {
+                    setMargin(change.addedSubList[0], new Insets(22, 0, 0, 0))
+                } else {
+
+                }
+            }
+        })
+    }
+
+    void fixSpasing() {
+        if (title) {
+            setMargin(children[0], new Insets(22))
+        }
+
     }
 
     private void makeTitled(boolean b) {
