@@ -2,7 +2,6 @@ package codeOrchestra.colt.as.ui.propertyTabPane
 
 import javafx.fxml.FXMLLoader
 import javafx.scene.control.ScrollPane
-import javafx.scene.layout.Region
 import javafx.scene.layout.VBox
 import javafx.scene.Node as FXNode
 
@@ -18,12 +17,12 @@ class SettingsForm {
             scrollPane = new ScrollPane()
 
             vBox = new VBox()
-            vBox.spacing = 5
+            vBox.maxWidth= 640.0
 
-            //paths
-            FXNode projectPaths = FXMLLoader.load(getClass().getResource("projectPaths/projectPaths_form.fxml"))
-            vBox.children.add(projectPaths)
-            //paths
+//            //paths
+//            FXNode projectPaths = FXMLLoader.load(getClass().getResource("projectPaths/projectPaths_form.fxml"))
+//            vBox.children.add(projectPaths)
+//            //paths
 
             //liveSettings
             FXNode target = FXMLLoader.load(getClass().getResource("liveSettings/target_form.fxml"))

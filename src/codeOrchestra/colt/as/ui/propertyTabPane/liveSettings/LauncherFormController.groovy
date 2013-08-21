@@ -52,7 +52,7 @@ class LauncherFormController implements Initializable {
 
         (model.launcherType() as StringProperty).addListener({prop, oldVal, newVal ->
             if (newVal) {
-                activateLauncher(newVal)
+                activateLauncher("" + newVal)
             }
         } as ChangeListener)
 
