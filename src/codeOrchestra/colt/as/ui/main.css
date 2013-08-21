@@ -366,6 +366,11 @@
     /* -fx-color: -fx-base;
     -fx-base: #d0d0d0;  */ }
 
+.text, .scroll-pane {
+    -fx-font: 13px 'Arial';
+    -fx-font-smoothing-type: lcd; }
+
+
 /*
 |-------------------------------------------------------------------------------
 | Sidebar

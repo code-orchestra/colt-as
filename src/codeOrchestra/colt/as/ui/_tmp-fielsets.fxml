@@ -29,9 +29,9 @@
 
         <AnchorPane>
         <children>
-            <Label layoutY="23" text="Output path:" AnchorPane.leftAnchor="19" AnchorPane.rightAnchor="48" />
-            <TextField fx:id="outPathTF" layoutY="42" prefHeight="30" AnchorPane.leftAnchor="10" AnchorPane.rightAnchor="86" />
-            <Button focusTraversable="false" onAction="#outputPathBrowseHandler" layoutY="42.0" prefHeight="30" prefWidth="67" styleClass="button" text="Browse" AnchorPane.rightAnchor="10" />
+            <Label text="Output path:" AnchorPane.leftAnchor="19" AnchorPane.rightAnchor="48" />
+            <TextField fx:id="outPathTF" layoutY="19" prefHeight="30" AnchorPane.leftAnchor="10" AnchorPane.rightAnchor="86" />
+            <Button focusTraversable="false" onAction="#outputPathBrowseHandler" layoutY="19" prefHeight="30" prefWidth="67" styleClass="button" text="Browse" AnchorPane.rightAnchor="10" />
         </children>
         </AnchorPane>
 
@@ -55,8 +55,8 @@
 
         <AnchorPane>
         <children>
-            <CheckBox fx:id="localeCB" text="Non-default locale settings:" layoutY="38" AnchorPane.leftAnchor="10" AnchorPane.rightAnchor="10" />
-            <TextField fx:id="localeTF" layoutY="58" prefHeight="30" AnchorPane.leftAnchor="10" AnchorPane.rightAnchor="86" />
+            <CheckBox fx:id="localeCB" text="Non-default locale settings:" layoutY="0" AnchorPane.leftAnchor="10" AnchorPane.rightAnchor="10" />
+            <TextField fx:id="localeTF" layoutY="28" prefHeight="30" AnchorPane.leftAnchor="10" AnchorPane.rightAnchor="86" />
         </children>
         </AnchorPane>
 
