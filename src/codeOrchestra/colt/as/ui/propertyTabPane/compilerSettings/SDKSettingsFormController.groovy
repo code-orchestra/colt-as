@@ -4,44 +4,36 @@ import codeOrchestra.colt.as.flexsdk.FlexSDKManager
 import codeOrchestra.colt.as.flexsdk.FlexSDKNotPresentException
 import codeOrchestra.colt.as.model.ModelStorage
 import codeOrchestra.colt.as.model.beans.SDKModel
+import codeOrchestra.colt.as.ui.components.CTBForm
+import codeOrchestra.colt.as.ui.components.LTBForm
 import javafx.beans.value.ChangeListener
 import javafx.beans.value.ObservableValue
-import javafx.event.ActionEvent
 import javafx.fxml.FXML
 import javafx.fxml.Initializable
-import javafx.scene.control.Button
-import javafx.scene.control.CheckBox
-import javafx.scene.control.TextField
-import javafx.stage.DirectoryChooser
 import javafx.stage.FileChooser
 
 /**
  * @author Dima Kruk
  */
-@SuppressWarnings(["GroovyAssignabilityCheck", "GroovyUnusedDeclaration"])
 class SDKSettingsFormController implements Initializable {
 
-    @FXML TextField sdkPathTF
-
-    @FXML CheckBox defConfCB
-
-    @FXML CheckBox customConfCB
-    @FXML TextField customConfTF
-    @FXML Button customConfBtn
+    @FXML LTBForm sdkPath
+    @FXML CTBForm defConf
+    @FXML CTBForm customConf
 
     public SDKModel model = ModelStorage.instance.project.projectBuildSettings.sdkModel
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        customConfTF.disableProperty().bind(customConfCB.selectedProperty().not())
-        customConfBtn.disableProperty().bind(customConfCB.selectedProperty().not())
+
+        customConf.extensionFilters.add(new FileChooser.ExtensionFilter("XML", "*.xml"))
 
         model.flexSDKPath().addListener({ ObservableValue<? extends String> observable, String oldValue, String newValue ->
             FlexSDKManager manager = FlexSDKManager.instance
             try {
                 manager.checkIsValidFlexSDKPath(newValue)
                 model.isValidFlexSDK = true
-            } catch (FlexSDKNotPresentException exception) {
+            } catch (FlexSDKNotPresentException ignored) {
                 model.isValidFlexSDK = false
             }
         } as ChangeListener<String>)
@@ -50,28 +42,9 @@ class SDKSettingsFormController implements Initializable {
     }
 
     void bindModel() {
-        sdkPathTF.textProperty().bindBidirectional(model.flexSDKPath())
-        defConfCB.selectedProperty().bindBidirectional(model.useFlexConfig())
-        customConfCB.selectedProperty().bindBidirectional(model.useCustomConfig())
-        customConfTF.textProperty().bindBidirectional(model.customConfigPath())
-    }
-
-    @FXML
-    void sdkBrowseHandler(ActionEvent actionEvent) {
-        DirectoryChooser directoryChooser = new DirectoryChooser()
-        File file = directoryChooser.showDialog(sdkPathTF.scene.window)
-        if (file) {
-            sdkPathTF.text = file.path
-        }
-    }
-
-    @FXML
-    void customConfBrowseHandler(ActionEvent actionEvent) {
-        FileChooser fileChooser = new FileChooser()
-        fileChooser.extensionFilters.add(new FileChooser.ExtensionFilter("XML", "*.xml"))
-        File file = fileChooser.showOpenDialog(customConfTF.scene.window)
-        if (file) {
-            customConfTF.text = file.path
-        }
+        sdkPath.textField.textProperty().bindBidirectional(model.flexSDKPath())
+        defConf.checkBox.selectedProperty().bindBidirectional(model.useFlexConfig())
+        customConf.checkBox.selectedProperty().bindBidirectional(model.useCustomConfig())
+        customConf.textField.textProperty().bindBidirectional(model.customConfigPath())
     }
 }
