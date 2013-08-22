@@ -8,7 +8,8 @@
 <?import java.util.*?>
 <?import javafx.scene.paint.*?>
 
-<VBox xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
+<ScrollPane prefHeight="760" prefWidth="500" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
+<VBox>
 
 <!-- First Fieldset -->
     <VBox fx:id="buildVB" styleClass="fieldset" maxWidth="640.0">
@@ -140,8 +141,10 @@
         </padding>
 
     </VBox><!-- / Third Fieldset -->
+</VBox>
 
     <stylesheets>
         <URL value="@main.css" />
     </stylesheets>
-</VBox>
+
+</ScrollPane>
