@@ -2,17 +2,16 @@ package codeOrchestra.colt.as.ui.propertyTabPane.compilerSettings
 
 import codeOrchestra.colt.as.model.ModelStorage
 import codeOrchestra.colt.as.model.beans.BuildModel
-import javafx.event.ActionEvent
+import codeOrchestra.colt.as.ui.components.LTBForm
 import javafx.fxml.FXML
 import javafx.fxml.Initializable
-import javafx.scene.control.TextField
 
 /**
  * @author Dima Kruk
  */
 @SuppressWarnings(["GroovyAssignabilityCheck", "GroovyUnusedDeclaration"])
 class CompilerSettingsFormController implements Initializable {
-    @FXML TextField optionsTF
+    @FXML LTBForm options
 
     BuildModel model = ModelStorage.instance.project.projectBuildSettings.buildModel
 
@@ -22,11 +21,6 @@ class CompilerSettingsFormController implements Initializable {
     }
 
     void bindModel() {
-        optionsTF.textProperty().bindBidirectional(model.compilerOptions())
-    }
-
-    @FXML
-    void excludeClassesHandler(ActionEvent actionEvent) {
-
+        options.textField.textProperty().bindBidirectional(model.compilerOptions())
     }
 }

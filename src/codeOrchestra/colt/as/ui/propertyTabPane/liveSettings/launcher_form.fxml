@@ -1,31 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="codeOrchestra.colt.as.ui.propertyTabPane.liveSettings.LauncherFormController">
-  <VBox spacing="10.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
-    <fx:define>
-      <ToggleGroup fx:id="launcher" />
-    </fx:define>
-    <children>
-      <Label text="Launcher">
-        <VBox.margin>
-          <Insets left="10.0" />
-        </VBox.margin>
-      </Label>
-      <VBox fx:id="launcherVB" spacing="10.0">
-        <children>
-          <RadioButton fx:id="defaultRBtn" mnemonicParsing="false" text="System default application" toggleGroup="$launcher" />
-          <HBox spacing="10.0">
-            <children>
-              <RadioButton fx:id="playerRBtn" maxWidth="1.7976931348623157E308" minWidth="-Infinity" mnemonicParsing="false" text="Flash Player" toggleGroup="$launcher" />
-              <TextField fx:id="playerTF" HBox.hgrow="ALWAYS" />
-              <Button fx:id="browsBtn" maxWidth="1.7976931348623157E308" minWidth="-Infinity" mnemonicParsing="false" onAction="#browseHandler" prefWidth="80.0" text="Browse..." />
-            </children>
-          </HBox>
-        </children>
-      </VBox>
-    </children>
-  </VBox>
-</AnchorPane>
+<?import codeOrchestra.colt.as.ui.components.*?>
+
+<FormGroup title="Launcher" fx:controller="codeOrchestra.colt.as.ui.propertyTabPane.liveSettings.LauncherFormController" xmlns:fx="http://javafx.com/fxml">
+  <RTBForm fx:id="defaultPlayer" text="System default application" formType="SIMPLE" />
+  <RTBForm fx:id="player" text="Flash Player" formType="BUTTON" />
+</FormGroup>
