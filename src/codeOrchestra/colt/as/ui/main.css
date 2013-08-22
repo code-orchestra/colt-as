@@ -370,6 +370,7 @@
     -fx-font: 13px 'Arial';
     -fx-font-smoothing-type: lcd; }
 
+.scroll-pane .legend { -fx-font-weight: bold; }
 
 /*
 |-------------------------------------------------------------------------------
@@ -475,12 +476,6 @@
     -fx-padding: 9px 60px 10px 0;
     -fx-effect: dropshadow(gaussian, #f1f4f8, 0, 0, 0, 1px); }
 
-.fieldset {
-    -fx-border-width: 1px 0 0 0;
-    -fx-border-color: #c9ccd0;
-    -fx-border-style: solid; }
-
-.legend { -fx-font-weight: bold; }
 
 /* Inputs */
 
@@ -489,7 +484,7 @@
     -fx-highlight-text-fill: white; /* ::selection */
     -fx-text-fill: #515458; }
 
-.text-area, .text-field {
+.text-area, .text-field, .fileset-webview {
     -fx-background-color: #c9ccd0, #f0f0f0, #fff;
     -fx-background-insets: 0, 1, 2 1 1 1;
     -fx-background-radius: 1, 0, 0;
@@ -501,24 +496,20 @@
 
 .text-area .content { -fx-padding: 7px 7px 0 7px; }
 
-.text-area:focused, .text-field:focused {
+.text-area:focused, .text-field:focused, .fileset-webview-focus {
     -fx-background-color: #0099ff, #008cf2, #f0f0f0, #fff;
     -fx-background-insets: -1.4, 0, 1, 2 1 1 1;
     -fx-background-radius: 2.4, 1, 0, 0; }
 
-#fileset-webview-focus{
-    -fx-background-color: #0099ff, #008cf2, #f0f0f0, #fff;
-    -fx-background-insets: -1.4, 0, 1, 2 1 1 1;
-    -fx-background-radius: 2.4, 1, 0, 0; }
+/* Messages */
+.error { -fx-text-fill: #c00;}
 
 /* Checkboxes and Radio Buttons */
 .check-box .box, .radio-button .radio {
     -fx-background-color: #cbcfd3, #f0f0f0, #fff;
     -fx-background-insets: 0, 1px, 2px 1px 1px 1px; }
 
-.check-box .box { -fx-background-radius: 0; }
-
-/* Buttons andd choise-box */
+/* Buttons andd choics-box */
 .button, .choice-box {
     -fx-alignment: top-center;
     -fx-background-color: #c9ccd0, #fff, linear-gradient(#f8f9fb, #e4e5e7 90%, #edeef0 100%);  /* Border, highlight, main */
@@ -609,8 +600,6 @@
     -fx-background-color: #0073bf, #0066cc;
     -fx-effect: innershadow(gaussian, rgba(0, 0, 51, .4), 8, 0, 0, 2); }
 
-/* Messages */
-.error { -fx-text-fill: #c00;}
 
 /*
 |-------------------------------------------------------------------------------
