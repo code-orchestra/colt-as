@@ -1,7 +1,7 @@
 package codeOrchestra.colt.as.socket.command.impl;
 
-import codeOrchestra.colt.as.logging.model.LoggerMessage;
 import codeOrchestra.colt.as.socket.command.TraceCommand;
+import codeOrchestra.colt.core.logging.model.LoggerMessage;
 import codeOrchestra.colt.core.socket.ClientSocketHandler;
 
 import java.util.ArrayList;

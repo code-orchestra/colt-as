@@ -1,10 +1,10 @@
 package codeOrchestra.colt.as.socket.command.impl;
 
 import codeOrchestra.colt.as.ASLiveCodingManager;
-import codeOrchestra.colt.as.logging.model.LoggerMessage;
 import codeOrchestra.colt.as.socket.command.TraceCommand;
 import codeOrchestra.colt.core.LiveCodingManager;
 import codeOrchestra.colt.core.ServiceProvider;
+import codeOrchestra.colt.core.logging.model.LoggerMessage;
 import codeOrchestra.colt.core.socket.ClientSocketHandler;
 
 import java.io.UnsupportedEncodingException;

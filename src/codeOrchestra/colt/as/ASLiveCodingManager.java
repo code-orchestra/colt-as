@@ -35,7 +35,7 @@ import java.util.*;
 /**
  * @author Alexander Eliseyev
  */
-public class ASLiveCodingManager extends AbstractLiveCodingManager<COLTAsProject> implements LiveCodingManager<COLTAsProject> {
+public class ASLiveCodingManager extends AbstractLiveCodingManager<COLTAsProject, ClientSocketHandler> {
 
     private static final Logger LOG = Logger.getLogger(LiveCodingManager.class);
 

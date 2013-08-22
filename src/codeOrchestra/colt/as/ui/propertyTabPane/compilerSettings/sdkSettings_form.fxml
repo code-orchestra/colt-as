@@ -1,30 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<AnchorPane fx:controller="codeOrchestra.colt.as.ui.propertyTabPane.compilerSettings.SDKSettingsFormController" xmlns:fx="http://javafx.com/fxml">
-  <VBox id="VBox" alignment="CENTER" spacing="10.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
-    <children>
-      <HBox minHeight="-Infinity" spacing="10.0">
-        <children>
-          <Label maxWidth="-Infinity" minWidth="-Infinity" text="Flex SDK Path:" />
-          <TextField fx:id="sdkPathTF" HBox.hgrow="ALWAYS" />
-          <Button maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" text="Browse..." onAction="#sdkBrowseHandler" />
-        </children>
-      </HBox>
-      <VBox minHeight="-Infinity" spacing="10.0">
-        <children>
-          <CheckBox mnemonicParsing="false" text="Use default SDK compiler configuration file" fx:id="defConfCB" />
-          <HBox spacing="10.0">
-            <children>
-              <CheckBox maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" text="Use custom compiler configuration file" fx:id="customConfCB" />
-              <TextField fx:id="customConfTF" HBox.hgrow="ALWAYS" />
-              <Button maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" text="Browse..." fx:id="customConfBtn" onAction="#customConfBrowseHandler" />
-            </children>
-          </HBox>
-        </children>
-      </VBox>
-    </children>
-  </VBox>
-</AnchorPane>
+<?import codeOrchestra.colt.as.ui.components.*?>
+
+<FormGroup fx:controller="codeOrchestra.colt.as.ui.propertyTabPane.compilerSettings.SDKSettingsFormController" xmlns:fx="http://javafx.com/fxml">
+  <LTBForm fx:id="sdkPath" text="Flex SDK Path:" formType="BUTTON" browseType="DIRECTORY"/>
+  <CTBForm fx:id="defConf" text="Use default SDK compiler configuration file" formType="SIMPLE"/>
+  <CTBForm fx:id="customConf" text="Use custom compiler configuration file" formType="BUTTON"/>
+</FormGroup>
