@@ -15,7 +15,7 @@ class FormGroup extends VBox {
     private static final Insets TITLED = new Insets(26, 0, 23, 0)
     private static final Insets NOT_TITLED = new Insets(3, 0, 23, 0)
 
-    private static final int SPASING = 23
+    private static final int SPASING = 22
 
     @FXML private Label label
 
@@ -51,7 +51,7 @@ class FormGroup extends VBox {
                         if (cur instanceof CTBForm) {
                             if (prev instanceof CTBForm) {
                                 if(prev.type == FormType.SIMPLE) {
-                                    setMargin(cur, new Insets(38 - SPASING, 0, 0, 0))
+                                    setMargin(cur, new Insets(18 - SPASING, 0, 0, 0))
                                 } else {
                                     setMargin(cur, new Insets(22 - SPASING, 0, 0, 0))
                                 }
@@ -62,10 +62,17 @@ class FormGroup extends VBox {
                         if (cur instanceof RTBForm) {
                             if (prev instanceof RTBForm) {
                                 if(prev.type == FormType.SIMPLE) {
-                                    setMargin(cur, new Insets(20 - SPASING, 0, 0, 0))
+                                    setMargin(cur, new Insets(18 - SPASING, 0, 0, 0))
                                 } else {
                                     setMargin(cur, new Insets(22 - SPASING, 0, 0, 0))
                                 }
+                            }
+                        }
+                        if (cur instanceof LTBForm) {
+                            if(prev.type == FormType.SIMPLE) {
+                                setMargin(cur, new Insets(18 - SPASING, 0, 0, 0))
+                            } else {
+                                setMargin(cur, new Insets(23 - SPASING, 0, 0, 0))
                             }
                         }
                     }
