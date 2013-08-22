@@ -12,6 +12,7 @@ import javafx.fxml.FXML
 import javafx.fxml.Initializable
 import javafx.scene.control.ChoiceBox
 import javafx.scene.control.Label
+import javafx.scene.layout.HBox
 import javafx.stage.FileChooser
 
 /**
@@ -23,6 +24,7 @@ class BuildSettingsFormController implements Initializable {
     @FXML LTBForm fileName
     @FXML LTBForm outPath
 
+    @FXML HBox playerHBox
     @FXML ChoiceBox playerVersionCB
     @FXML Label errorLabel
 
@@ -47,6 +49,8 @@ class BuildSettingsFormController implements Initializable {
         mainClass.textField.textProperty().bindBidirectional(model.mainClass())
         fileName.textField.textProperty().bindBidirectional(model.outputFileName())
         outPath.textField.textProperty().bindBidirectional(model.outputPath())
+
+        playerHBox.visible = playerHBox.managed = false
 
         playerVersionCB.valueProperty().bindBidirectional(model.targetPlayerVersion())
         sdkModel.isValidFlexSDK().addListener({ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue->

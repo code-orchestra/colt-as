@@ -9,7 +9,7 @@
   <LTBForm fx:id="fileName" text="Output file name:" formType="TEXT_FIELD" />
   <LTBForm fx:id="outPath" text="Output path:" formType="BUTTON" browseType="DIRECTORY" />
 
-  <HBox spacing="10.0">
+  <HBox fx:id="playerHBox" spacing="10.0">
       <Label minWidth="-Infinity" text="Target player version:" />
       <ChoiceBox fx:id="playerVersionCB" />
       <Label fx:id="errorLabel" text="Incorrect Flex SDK path specified" textFill="#ff0000"/>
