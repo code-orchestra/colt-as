@@ -20,37 +20,40 @@ class SettingsForm {
             vBox = new VBox()
             vBox.maxWidth= 640.0
 
-//            //paths
-//            FXNode projectPaths = FXMLLoader.load(getClass().getResource("projectPaths/projectPaths_form.fxml"))
-//            vBox.children.add(projectPaths)
-//            //paths
+            //paths
+            FXNode projectPaths = FXMLLoader.load(getClass().getResource("projectPaths/projectPaths_form.fxml"))
+            vBox.children.add(projectPaths)
+            //paths
+
+            VBox advancedVBox = new VBox()
+            vBox.children.add(advancedVBox)
 
             //liveSettings
             FXNode target = FXMLLoader.load(getClass().getResource("liveSettings/target_form.fxml"))
-            vBox.children.add(target)
+            advancedVBox.children.add(target)
 
             FXNode launcher = FXMLLoader.load(getClass().getResource("liveSettings/launcher_form.fxml"))
-            vBox.children.add(launcher)
+            advancedVBox.children.add(launcher)
 
             FXNode liveSettings = FXMLLoader.load(getClass().getResource("liveSettings/liveSettings_form.fxml"))
-            vBox.children.add(liveSettings)
+            advancedVBox.children.add(liveSettings)
 
             FXNode lSettings = FXMLLoader.load(getClass().getResource("liveSettings/settings_form.fxml"))
-            vBox.children.add(lSettings)
+            advancedVBox.children.add(lSettings)
             //liveSettings
 
             //compilerSettings
             FXNode sdkSettings = FXMLLoader.load(getClass().getResource("compilerSettings/sdkSettings_form.fxml"))
-            vBox.children.add(sdkSettings)
+            advancedVBox.children.add(sdkSettings)
 
             FXNode buildSettings = FXMLLoader.load(getClass().getResource("compilerSettings/buildSettings_form.fxml"))
-            vBox.children.add(buildSettings)
+            advancedVBox.children.add(buildSettings)
 
             FXNode productionBuild = FXMLLoader.load(getClass().getResource("compilerSettings/productionBuild_form.fxml"))
-            vBox.children.add(productionBuild)
+            advancedVBox.children.add(productionBuild)
 
             FXNode compilerSettings = FXMLLoader.load(getClass().getResource("compilerSettings/compilerSettings_form.fxml"))
-            vBox.children.add(compilerSettings)
+            advancedVBox.children.add(compilerSettings)
             //compilerSettings
 
             scrollPane.content = vBox

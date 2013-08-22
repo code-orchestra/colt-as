@@ -2,6 +2,8 @@ package codeOrchestra.colt.as.ui.propertyTabPane.projectPaths
 
 import codeOrchestra.colt.as.model.ModelStorage
 import codeOrchestra.colt.as.model.COLTAsProjectPaths
+import codeOrchestra.colt.as.ui.components.LTBForm
+import codeOrchestra.colt.core.ui.components.fileset.FilesetInput
 import javafx.event.ActionEvent
 import javafx.fxml.FXML
 import javafx.fxml.Initializable
@@ -13,45 +15,26 @@ import javafx.stage.FileChooser
  * @author Dima Kruk
  */
 class ProjectPathsFormController implements Initializable {
-    @FXML TextField templateTF
+    @FXML FilesetInput sources
+    @FXML FilesetInput libraries
+    @FXML FilesetInput assets
 
-    //initialise from fxml by ids (Nested Controllers)
-    @FXML PathsFormController sourcePathsController
-    @FXML PathsFormController libraryPathsController
-    @FXML PathsFormController assetsPathsController
+    @FXML LTBForm mainClass
 
     COLTAsProjectPaths model = ModelStorage.instance.project.projectPaths
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        sourcePathsController.titleText = "Source Paths:"
-        sourcePathsController.chooserType = PathsFormController.DIRECTORY
-        sourcePathsController.chooserTitle = "Select Source directory"
-        sourcePathsController.model = model.sources()
-
-        libraryPathsController.titleText = "Library Paths:"
-        libraryPathsController.chooserType = PathsFormController.FILE
-        libraryPathsController.fileChooser.extensionFilters.add(new FileChooser.ExtensionFilter("SWC", "*.swc"))
-        libraryPathsController.chooserTitle = "Select Library files"
-        libraryPathsController.model = model.libraries()
-
-        assetsPathsController.titleText = "Assets Paths:"
-        assetsPathsController.chooserType = PathsFormController.DIRECTORY
-        assetsPathsController.chooserTitle = "Select Assets directory"
-        assetsPathsController.model = model.assets()
+//        sourcePathsController.model = model.sources()
+//
+//        libraryPathsController.model = model.libraries()
+//
+//        assetsPathsController.model = model.assets()
 
         bindModel()
     }
 
     void bindModel() {
-        templateTF.textProperty().bindBidirectional(model.htmlTemplatePath())
-    }
 
-    public void browseHandler(ActionEvent actionEvent) {
-        DirectoryChooser fileChooser = new DirectoryChooser()
-        File file = fileChooser.showDialog(templateTF.scene.window)
-        if (file) {
-            templateTF.text = file.path
-        }
     }
 }
