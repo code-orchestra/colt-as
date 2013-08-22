@@ -2,13 +2,11 @@ package codeOrchestra.colt.as.ui.propertyTabPane.projectPaths
 
 import codeOrchestra.colt.as.model.ModelStorage
 import codeOrchestra.colt.as.model.COLTAsProjectPaths
+import codeOrchestra.colt.as.model.beans.BuildModel
 import codeOrchestra.colt.as.ui.components.LTBForm
 import codeOrchestra.colt.core.ui.components.fileset.FilesetInput
-import javafx.event.ActionEvent
 import javafx.fxml.FXML
 import javafx.fxml.Initializable
-import javafx.scene.control.TextField
-import javafx.stage.DirectoryChooser
 import javafx.stage.FileChooser
 
 /**
@@ -22,19 +20,23 @@ class ProjectPathsFormController implements Initializable {
     @FXML LTBForm mainClass
 
     COLTAsProjectPaths model = ModelStorage.instance.project.projectPaths
+    BuildModel buildModel = ModelStorage.instance.project.projectBuildSettings.buildModel
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-//        sourcePathsController.model = model.sources()
-//
-//        libraryPathsController.model = model.libraries()
-//
-//        assetsPathsController.model = model.assets()
+        mainClass.extensionFilters.addAll(new FileChooser.ExtensionFilter("AS", "*.as"), new FileChooser.ExtensionFilter("MXML", "*.mxml"))
 
         bindModel()
+        sources.files = "src/"
+        libraries.files = "lib/"
+        assets.files = "assets/"
     }
 
     void bindModel() {
+        mainClass.textField.textProperty().bindBidirectional(buildModel.mainClass())
 
+        sources.files().bindBidirectional(model.sources())
+        libraries.files().bindBidirectional(model.libraries())
+        assets.files().bindBidirectional(model.assets())
     }
 }
