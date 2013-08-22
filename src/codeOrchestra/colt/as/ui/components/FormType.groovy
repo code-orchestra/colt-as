@@ -6,5 +6,6 @@ package codeOrchestra.colt.as.ui.components
 public enum FormType {
     SIMPLE,
     TEXT_FIELD,
-    BUTTON
+    BUTTON,
+    CHOICE_BOX
 }

@@ -4,6 +4,7 @@ import codeOrchestra.colt.as.flexsdk.FlexSDKManager
 import codeOrchestra.colt.as.model.ModelStorage
 import codeOrchestra.colt.as.model.beans.BuildModel
 import codeOrchestra.colt.as.model.beans.SDKModel
+import codeOrchestra.colt.as.ui.components.CBForm
 import codeOrchestra.colt.as.ui.components.CTBForm
 import codeOrchestra.colt.as.ui.components.LTBForm
 import javafx.beans.value.ChangeListener
@@ -24,9 +25,7 @@ class BuildSettingsFormController implements Initializable {
     @FXML LTBForm fileName
     @FXML LTBForm outPath
 
-    @FXML HBox playerHBox
-    @FXML ChoiceBox playerVersionCB
-    @FXML Label errorLabel
+    @FXML CBForm player
 
     @FXML CTBForm rsl
     @FXML CTBForm locale
@@ -40,7 +39,7 @@ class BuildSettingsFormController implements Initializable {
     void initialize(URL url, ResourceBundle resourceBundle) {
         mainClass.extensionFilters.addAll(new FileChooser.ExtensionFilter("AS", "*.as"), new FileChooser.ExtensionFilter("MXML", "*.mxml"))
 
-        errorLabel.visible = false
+        player.errorLabel.visible = false
 
         bindModel()
     }
@@ -50,20 +49,18 @@ class BuildSettingsFormController implements Initializable {
         fileName.textField.textProperty().bindBidirectional(model.outputFileName())
         outPath.textField.textProperty().bindBidirectional(model.outputPath())
 
-        playerHBox.visible = playerHBox.managed = false
-
-        playerVersionCB.valueProperty().bindBidirectional(model.targetPlayerVersion())
+        player.choiceBox.valueProperty().bindBidirectional(model.targetPlayerVersion())
         sdkModel.isValidFlexSDK().addListener({ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue->
-            playerVersionCB.items.clear()
+            player.choiceBox.items.clear()
             if (newValue) {
                 FlexSDKManager manager = FlexSDKManager.instance
                 List<String> versions = manager.getAvailablePlayerVersions(new File(sdkModel.flexSDKPath))
-                playerVersionCB.items.addAll(versions)
+                player.choiceBox.items.addAll(versions)
                 if (!model.targetPlayerVersion) {
-                    playerVersionCB.value = versions.first()
+                    player.choiceBox.value = versions.first()
                 }
             }
-            errorLabel.visible = !newValue
+            player.errorLabel.visible = !newValue
         } as ChangeListener<Boolean>)
 
         rsl.checkBox.selectedProperty().bindBidirectional(model.rsl())

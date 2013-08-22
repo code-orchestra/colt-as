@@ -47,7 +47,7 @@ class FormGroup extends VBox {
                 } else {
                     FXNode prev = change.list[change.from - 1]
                     FXNode cur = change.addedSubList[0]
-                    if (prev instanceof InputForm && cur instanceof InputForm) {
+                    if (prev instanceof ITypedForm && cur instanceof ITypedForm) {
                         if (cur instanceof CTBForm) {
                             if (prev instanceof CTBForm) {
                                 if(prev.type == FormType.SIMPLE) {
@@ -57,6 +57,9 @@ class FormGroup extends VBox {
                                 }
                             } else if(prev.type != FormType.SIMPLE) {
                                 setMargin(cur, new Insets(22 - SPASING, 0, 0, 0))
+                            }
+                            if (prev instanceof CBForm) {
+                                setMargin(cur, new Insets(21 - SPASING, 0, 0, 0))
                             }
                         }
                         if (cur instanceof RTBForm) {
@@ -74,6 +77,9 @@ class FormGroup extends VBox {
                             } else {
                                 setMargin(cur, new Insets(23 - SPASING, 0, 0, 0))
                             }
+                        }
+                        if (cur instanceof CBForm) {
+                            setMargin(cur, new Insets(23 - SPASING, 0, 0, 0))
                         }
                     }
                 }

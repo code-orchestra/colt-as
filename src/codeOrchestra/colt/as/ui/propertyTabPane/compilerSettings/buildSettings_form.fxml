@@ -8,12 +8,7 @@
   <LTBForm fx:id="mainClass" text="Main class:" formType="BUTTON" />
   <LTBForm fx:id="fileName" text="Output file name:" formType="TEXT_FIELD" />
   <LTBForm fx:id="outPath" text="Output path:" formType="BUTTON" browseType="DIRECTORY" />
-
-  <HBox fx:id="playerHBox" spacing="10.0">
-      <Label minWidth="-Infinity" text="Target player version:" />
-      <ChoiceBox fx:id="playerVersionCB" />
-      <Label fx:id="errorLabel" text="Incorrect Flex SDK path specified" textFill="#ff0000"/>
-  </HBox>
+  <CBForm fx:id="player" text="Target player version:"/>
 
   <CTBForm fx:id="rsl" text="Use Framework as Runtime Shared Library (RSL)" formType="SIMPLE"/>
   <CTBForm fx:id="locale" text="Non-default locale settings" formType="TEXT_FIELD"/>
