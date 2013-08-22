@@ -1,5 +1,6 @@
 package codeOrchestra.colt.as.ui.propertyTabPane
 
+import javafx.application.Platform
 import javafx.fxml.FXMLLoader
 import javafx.scene.control.ScrollPane
 import javafx.scene.layout.VBox
@@ -56,6 +57,7 @@ class SettingsForm {
             scrollPane.fitToWidth = true
 
         }
+        Platform.runLater({scrollPane.requestFocus()})
 
         return scrollPane
     }
