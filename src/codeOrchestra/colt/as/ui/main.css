@@ -479,7 +479,7 @@
     -fx-border-color: #c9ccd0;
     -fx-border-style: solid; }
 
-.scroll-pane .legend, .legend { -fx-font-weight: bold; }
+.scroll-pane .legend, .legend .text { -fx-font-weight: bold; }
 
 /* Inputs */
 
