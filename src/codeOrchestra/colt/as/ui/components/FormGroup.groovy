@@ -53,13 +53,13 @@ class FormGroup extends VBox {
                                 if(prev.type == FormType.SIMPLE) {
                                     setMargin(cur, new Insets(18 - SPASING, 0, 0, 0))
                                 } else {
-                                    setMargin(cur, new Insets(22 - SPASING, 0, 0, 0))
+                                    setMargin(cur, new Insets(25 - SPASING, 0, 0, 0))
                                 }
                             } else if(prev.type != FormType.SIMPLE) {
                                 setMargin(cur, new Insets(22 - SPASING, 0, 0, 0))
                             }
                             if (prev instanceof CBForm) {
-                                setMargin(cur, new Insets(21 - SPASING, 0, 0, 0))
+                                setMargin(cur, new Insets(24 - SPASING, 0, 0, 0))
                             }
                         }
                         if (cur instanceof RTBForm) {
@@ -67,7 +67,7 @@ class FormGroup extends VBox {
                                 if(prev.type == FormType.SIMPLE) {
                                     setMargin(cur, new Insets(18 - SPASING, 0, 0, 0))
                                 } else {
-                                    setMargin(cur, new Insets(22 - SPASING, 0, 0, 0))
+                                    setMargin(cur, new Insets(25 - SPASING, 0, 0, 0))
                                 }
                             }
                         }
@@ -75,7 +75,7 @@ class FormGroup extends VBox {
                             if(prev.type == FormType.SIMPLE) {
                                 setMargin(cur, new Insets(18 - SPASING, 0, 0, 0))
                             } else {
-                                setMargin(cur, new Insets(23 - SPASING, 0, 0, 0))
+                                setMargin(cur, new Insets(26 - SPASING, 0, 0, 0))
                             }
                         }
                         if (cur instanceof CBForm) {
