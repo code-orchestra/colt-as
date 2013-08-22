@@ -1,9 +1,9 @@
 package codeOrchestra.colt.as.socket.command;
 
-import codeOrchestra.colt.as.logging.model.LoggerMessage;
 import codeOrchestra.colt.as.socket.command.impl.LiveCodingSessionStartTraceCommand;
 import codeOrchestra.colt.as.socket.command.impl.LoggerTraceCommand;
 import codeOrchestra.colt.as.socket.command.impl.PongTraceCommand;
+import codeOrchestra.colt.core.logging.model.LoggerMessage;
 import codeOrchestra.colt.core.socket.ClientSocketHandler;
 
 import java.util.ArrayList;

@@ -1,12 +1,12 @@
 package codeOrchestra.colt.as.socket.command.impl;
 
-import codeOrchestra.colt.as.logging.model.LoggerMessage;
-import codeOrchestra.colt.as.logging.model.LoggerMessageEncoder;
-import codeOrchestra.colt.as.logging.model.LoggerScopeWrapper;
 import codeOrchestra.colt.as.logging.scope.MessageScopeRegistry;
 import codeOrchestra.colt.as.socket.command.TraceCommand;
 import codeOrchestra.colt.core.logging.Level;
 import codeOrchestra.colt.core.logging.Logger;
+import codeOrchestra.colt.core.logging.model.LoggerMessage;
+import codeOrchestra.colt.core.logging.model.LoggerMessageEncoder;
+import codeOrchestra.colt.core.logging.model.LoggerScopeWrapper;
 import codeOrchestra.colt.core.socket.ClientSocketHandler;
 
 import java.util.ArrayList;
@@ -34,7 +34,7 @@ public class LoggerTraceCommand implements TraceCommand {
     // Scopes
     List<String> scopeIds = null;
     if (!loggerMessage.getScopes().isEmpty()) {
-      scopeIds = new ArrayList<String>();
+      scopeIds = new ArrayList<>();
       for (LoggerScopeWrapper scopeWrapper : loggerMessage.getScopes()) {
         MessageScopeRegistry.getInstance().addOrUpdateScope(scopeWrapper.getId(), scopeWrapper.getName());
 

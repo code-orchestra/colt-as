@@ -1,6 +1,6 @@
 package codeOrchestra.colt.as.socket.command;
 
-import codeOrchestra.colt.as.logging.model.LoggerMessage;
+import codeOrchestra.colt.core.logging.model.LoggerMessage;
 import codeOrchestra.colt.core.socket.ClientSocketHandler;
 
 /**

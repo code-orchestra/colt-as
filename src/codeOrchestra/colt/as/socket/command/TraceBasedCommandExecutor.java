@@ -1,8 +1,8 @@
 package codeOrchestra.colt.as.socket.command;
 
-import codeOrchestra.colt.as.logging.model.LoggerMessageEncoder;
 import codeOrchestra.colt.as.logging.transport.LoggerServerSocketThread;
 import codeOrchestra.colt.as.socket.FlashClientSocketHandler;
+import codeOrchestra.colt.core.logging.model.LoggerMessageEncoder;
 
 import java.net.Socket;
 
