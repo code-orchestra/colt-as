@@ -602,7 +602,7 @@
 
 .btn-show { -fx-background-image: url('images/btns/arrow-r.png'); }
 
-.btn-hide { -fx-background-image: url('images/btns/arrow-u.png'); }
+.btn-hide { -fx-background-image: url('images/btns/arrow-d.png'); }
 
 .btn-show:hover, .btn-hide:hover { -fx-text-fill: #000; }
 
