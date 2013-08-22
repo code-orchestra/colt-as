@@ -368,7 +368,8 @@
 
 .text, .scroll-pane {
     -fx-font: 13px 'Arial';
-    -fx-font-smoothing-type: lcd; }
+    -fx-font-smoothing-type: inherit;
+}
 
 /*
 |-------------------------------------------------------------------------------
