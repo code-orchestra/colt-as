@@ -486,8 +486,7 @@
 
 .scroll-pane, .scroll-pane:focused {
     -fx-background-color: transparent;
-    -fx-background-insets: 0;
-    -fx-padding: 0; }
+    -fx-background-insets: 0; }
 
 .fieldset {
     -fx-border-width: 1px 0 0 0;
