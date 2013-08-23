@@ -10,17 +10,34 @@
 
 <AnchorPane prefHeight="400" prefWidth="600" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
 <children>
-    <StackPane styleClass="player-box" layoutX="145" layoutY="166" prefHeight="69" prefWidth="310">
+    <StackPane layoutX="145" layoutY="166" minHeight="-Infinity" minWidth="-Infinity" prefHeight="94" prefWidth="206" styleClass="player-box">
     <children>
-        <HBox styleClass="player" prefHeight="94" prefWidth="206" spacing="10">
+        <HBox spacing="10">
         <children>
-            <ToggleButton contentDisplay="graphic_only" focusTraversable="false" prefHeight="38" prefWidth="20" styleClass="btn-pause" text="Pause" />
-            <ToggleButton contentDisplay="graphic_only" focusTraversable="false" prefHeight="38" prefWidth="20" styleClass="btn-play" text="Play" />
-            <ToggleButton contentDisplay="graphic_only" focusTraversable="false" prefHeight="38" prefWidth="20" styleClass="btn-stop" text="Stop" />
-            <ToggleButton contentDisplay="graphic_only" focusTraversable="false" prefHeight="38" prefWidth="20" styleClass="btn-add-connection" text="Add" />
+            <ToggleButton contentDisplay="GRAPHIC_ONLY" focusTraversable="false" prefHeight="24" prefWidth="20" styleClass="btn-player-pause" text="Pause">
+                <HBox.margin>
+                <Insets top="7" />
+                </HBox.margin>
+            </ToggleButton>
+            <ToggleButton contentDisplay="graphic_only" focusTraversable="false" prefHeight="24" prefWidth="20" styleClass="btn-player-play" text="Play">
+                <HBox.margin>
+                <Insets top="7" />
+                </HBox.margin>
+            </ToggleButton>
+            <ToggleButton contentDisplay="graphic_only" focusTraversable="false" prefHeight="24" prefWidth="20" styleClass="btn-player-stop" text="Stop">
+                <HBox.margin>
+                <Insets top="7" />
+                </HBox.margin>
+            </ToggleButton>
+            <Separator minHeight="-Infinity" orientation="VERTICAL" prefHeight="38" prefWidth="1" />
+            <ToggleButton contentDisplay="graphic_only" focusTraversable="false" prefHeight="24" prefWidth="20" styleClass="btn-player-add" text="Add">
+                <HBox.margin>
+                <Insets top="7" />
+                </HBox.margin>
+            </ToggleButton>
         </children>
         <padding>
-            <Insets bottom="10" top="10" />
+            <Insets left="3" bottom="11" top="9" />
         </padding>
         </HBox>
     </children>
