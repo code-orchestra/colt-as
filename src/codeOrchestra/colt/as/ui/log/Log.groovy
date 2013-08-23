@@ -12,6 +12,7 @@ class Log implements LoggerService {
     LogWebView logWebView = new LogWebView()
 
     Log() {
+//        logWebView.logMessages.addAll(TestLog.createTestLogList())
     }
 
     @Override
