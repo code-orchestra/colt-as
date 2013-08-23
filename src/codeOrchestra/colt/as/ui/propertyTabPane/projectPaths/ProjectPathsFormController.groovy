@@ -27,9 +27,6 @@ class ProjectPathsFormController implements Initializable {
         mainClass.extensionFilters.addAll(new FileChooser.ExtensionFilter("AS", "*.as"), new FileChooser.ExtensionFilter("MXML", "*.mxml"))
 
         bindModel()
-        sources.files = "src/"
-        libraries.files = "lib/"
-        assets.files = "assets/"
     }
 
     void bindModel() {
