@@ -7,7 +7,7 @@ import codeOrchestra.colt.core.logging.Logger;
  */
 public class FCSHConsoleView {
 
-    private static Logger logger = Logger.getLogger("FCSH");
+    private static Logger logger = Logger.getLogger("fcsh");
 
     private static FCSHConsoleView sharedInstance;
 

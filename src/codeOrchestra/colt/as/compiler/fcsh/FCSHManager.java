@@ -78,7 +78,7 @@ public class FCSHManager {
     assureFCSHIsActive();
 
     CompileTargetCommand compileCommand = new CompileTargetCommand(this, target);
-    LOG.info("Compiling the target #" + target.getId());
+    LOG.compile("Compiling the target #" + target.getId());
 
     submitCommand(compileCommand);
 
@@ -111,7 +111,7 @@ public class FCSHManager {
     }
 
     String commandString = StringUtils.join(processBuilder.command(), ", ");
-    LOG.info(commandString);
+    LOG.compile(commandString);
 
     fcshProcessHandler = new FCSHProcessHandler(fcshProcess, commandString);
     fcshProcessHandler.startNotify();
@@ -155,7 +155,7 @@ public class FCSHManager {
     assureFCSHIsActive();
 
     LivecodingBaseMXMLCCommand mxmlcCommand = new LivecodingBaseMXMLCCommand(arguments);
-    LOG.info("Compiling: " + mxmlcCommand.getCommand());
+    LOG.compile("Compiling: " + mxmlcCommand.getCommand());
 
     submitCommand(mxmlcCommand);
 
@@ -166,7 +166,7 @@ public class FCSHManager {
     assureFCSHIsActive();
 
     LivecodingBaseCOMPCCommand compcCommand = new LivecodingBaseCOMPCCommand(arguments);
-    LOG.info("Compiling: " + compcCommand.getCommand());
+    LOG.compile("Compiling: " + compcCommand.getCommand());
 
     submitCommand(compcCommand);
 
@@ -179,7 +179,7 @@ public class FCSHManager {
     assureFCSHIsActive();
 
     LivecodingIncrementalCOMPCCommand compcCommand = new LivecodingIncrementalCOMPCCommand(arguments);
-    LOG.info("Compiling: " + compcCommand.getCommand());
+    LOG.compile("Compiling: " + compcCommand.getCommand());
 
     submitCommand(compcCommand);
 
@@ -199,7 +199,7 @@ public class FCSHManager {
     }
     
     COMPCCommand compcCommand = new COMPCCommand(commandArguments);
-    LOG.info("Compiling: " + compcCommand.getCommand());
+    LOG.compile("Compiling: " + compcCommand.getCommand());
 
     submitCommand(compcCommand);
 
@@ -219,7 +219,7 @@ public class FCSHManager {
     }
     
     MXMLCCommand mxmlcCommand = new MXMLCCommand(commandArguments);
-    LOG.info("Compiling: " + mxmlcCommand.getCommand());
+    LOG.compile("Compiling: " + mxmlcCommand.getCommand());
 
     submitCommand(mxmlcCommand);
 
