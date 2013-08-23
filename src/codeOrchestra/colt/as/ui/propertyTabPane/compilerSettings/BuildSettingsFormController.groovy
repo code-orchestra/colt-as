@@ -47,17 +47,32 @@ class BuildSettingsFormController implements Initializable {
         outPath.textField.textProperty().bindBidirectional(model.outputPath())
 
         player.choiceBox.valueProperty().bindBidirectional(model.targetPlayerVersion())
+//        model.targetPlayerVersion().addListener({ ObservableValue<? extends String> observableValue, String t, String t1 ->
+//
+//
+//
+//        } as ChangeListener)
+
         sdkModel.isValidFlexSDK().addListener({ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue->
+            String value = model.targetPlayerVersion
             player.choiceBox.items.clear()
             if (newValue) {
                 FlexSDKManager manager = FlexSDKManager.instance
                 List<String> versions = manager.getAvailablePlayerVersions(new File(sdkModel.flexSDKPath))
                 player.choiceBox.items.addAll(versions)
-                if (!model.targetPlayerVersion) {
-                    player.choiceBox.value = versions.first()
+                if (versions.size() > 0) {
+                    model.targetPlayerVersion = versions.contains(value) ? value : versions.first()
+                    error(false)
+                } else {
+                    player.choiceBox.items.add(value)
+                    model.targetPlayerVersion = value
+                    error(true)
                 }
+            } else {
+                player.choiceBox.items.add(value)
+                model.targetPlayerVersion = value
+                error(true)
             }
-            player.errorLabel.visible = !newValue
         } as ChangeListener<Boolean>)
 
         rsl.checkBox.selectedProperty().bindBidirectional(model.rsl())
@@ -69,5 +84,9 @@ class BuildSettingsFormController implements Initializable {
 
         interrupt.checkBox.selectedProperty().bindBidirectional(model.interrupt())
         interrupt.textField.textProperty().bindBidirectional(model.interruptValue())
+    }
+
+    private void error(boolean b) {
+        player.errorLabel.visible = b
     }
 }
