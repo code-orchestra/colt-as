@@ -25,8 +25,12 @@
                 <ToggleButton fx:id="logFilterLog" mnemonicParsing="false" text="Log" />
               </children>
             </HBox>
-            <ProgressIndicator fx:id="progressIndicator" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="20.0" prefWidth="20.0" />
-            <ImageView fx:id="sessionIndicator" fitHeight="13.0" fitWidth="13.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="NEVER" />
+            <AnchorPane id="AnchorPane" prefWidth="-1.0">
+              <children>
+                <ImageView fx:id="sessionIndicator" fitHeight="13.0" fitWidth="13.0" layoutX="1.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true" />
+                <ProgressIndicator fx:id="progressIndicator" layoutX="0.0" layoutY="2.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="15.0" prefWidth="15.0" visible="false" />
+              </children>
+            </AnchorPane>
             <Label text="ActionScript" />
           </children>
         </HBox>
