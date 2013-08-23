@@ -46,12 +46,23 @@ class BuildSettingsFormController implements Initializable {
         fileName.textField.textProperty().bindBidirectional(model.outputFileName())
         outPath.textField.textProperty().bindBidirectional(model.outputPath())
 
-        player.choiceBox.valueProperty().bindBidirectional(model.targetPlayerVersion())
-//        model.targetPlayerVersion().addListener({ ObservableValue<? extends String> observableValue, String t, String t1 ->
-//
-//
-//
-//        } as ChangeListener)
+        model.targetPlayerVersion().bindBidirectional(player.choiceBox.valueProperty())
+        player.choiceBox.valueProperty().addListener({ ObservableValue<? extends String> observableValue, String t, String t1 ->
+            if(t1 != null && !t1?.isEmpty()) {
+                if(!player.choiceBox.items.contains(t1)) {
+                    player.choiceBox.items.add(t1)
+                    error(true)
+                } else {
+                    if(player.errorLabel.visible) {
+                        player.choiceBox.items.remove(t)
+                    }
+                    error(false)
+                }
+            } else {
+                error(false)
+            }
+
+        } as ChangeListener)
 
         sdkModel.isValidFlexSDK().addListener({ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue->
             String value = model.targetPlayerVersion
@@ -60,10 +71,10 @@ class BuildSettingsFormController implements Initializable {
                 FlexSDKManager manager = FlexSDKManager.instance
                 List<String> versions = manager.getAvailablePlayerVersions(new File(sdkModel.flexSDKPath))
                 player.choiceBox.items.addAll(versions)
-                if (versions.size() > 0) {
-                    model.targetPlayerVersion = versions.contains(value) ? value : versions.first()
+                if (versions.size() > 0 && versions.contains(value)) {
+                    model.targetPlayerVersion = value
                     error(false)
-                } else {
+                } else if(!value.isEmpty()) {
                     player.choiceBox.items.add(value)
                     model.targetPlayerVersion = value
                     error(true)
@@ -88,5 +99,6 @@ class BuildSettingsFormController implements Initializable {
 
     private void error(boolean b) {
         player.errorLabel.visible = b
+        player.errorLabel.text = sdkModel.isValidFlexSDK ? "Incorrect player version specified" : "Incorrect Flex SDK path specified"
     }
 }
