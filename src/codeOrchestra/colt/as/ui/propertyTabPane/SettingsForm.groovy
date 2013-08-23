@@ -1,5 +1,6 @@
 package codeOrchestra.colt.as.ui.propertyTabPane
 
+import codeOrchestra.colt.core.ui.components.advancedSeparator.AdvancedSeparator
 import javafx.application.Platform
 import javafx.fxml.FXMLLoader
 import javafx.scene.control.ScrollPane
@@ -25,7 +26,11 @@ class SettingsForm {
             vBox.children.add(projectPaths)
             //paths
 
+            AdvancedSeparator separator = new AdvancedSeparator()
+            vBox.children.add(separator)
+
             VBox advancedVBox = new VBox()
+            separator.content = advancedVBox
             vBox.children.add(advancedVBox)
 
             //liveSettings
