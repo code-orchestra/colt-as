@@ -116,4 +116,10 @@ class COLTAsProject extends COLTProject {
     }
 
 
+    public void initDefaultValues() {
+        buildSettings.flexSDKPath = codeOrchestra.colt.as.util.ASPathUtils.flexSDKPath
+        buildSettings.setUseDefaultSDKConfiguration(true);
+        liveSettings.launcherType = codeOrchestra.colt.as.run.LauncherType.DEFAULT;
+        liveSettings.liveMethods = codeOrchestra.colt.as.run.LiveMethods.ANNOTATED;
+    }
 }
