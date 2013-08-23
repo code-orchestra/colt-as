@@ -6,7 +6,7 @@
 <?import javafx.scene.control.*?>
 
 <FormGroup fx:controller="codeOrchestra.colt.as.ui.propertyTabPane.compilerSettings.BuildSettingsFormController" xmlns:fx="http://javafx.com/fxml">
-  <LTBForm fx:id="mainClass" text="Main class:" formType="BUTTON" />
+  <!--<LTBForm fx:id="mainClass" text="Main class:" formType="BUTTON" />-->
   <LTBForm fx:id="fileName" text="Output file name:" formType="TEXT_FIELD" />
   <LTBForm fx:id="outPath" text="Output path:" formType="BUTTON" browseType="DIRECTORY" />
   <CBForm fx:id="player" text="Target player version:"/>

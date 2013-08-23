@@ -18,7 +18,7 @@ import javafx.stage.FileChooser
  */
 class BuildSettingsFormController implements Initializable {
 
-    @FXML LTBForm mainClass
+//    @FXML LTBForm mainClass
     @FXML LTBForm fileName
     @FXML LTBForm outPath
 
@@ -34,7 +34,7 @@ class BuildSettingsFormController implements Initializable {
 
     @Override
     void initialize(URL url, ResourceBundle resourceBundle) {
-        mainClass.extensionFilters.addAll(new FileChooser.ExtensionFilter("AS", "*.as"), new FileChooser.ExtensionFilter("MXML", "*.mxml"))
+//        mainClass.extensionFilters.addAll(new FileChooser.ExtensionFilter("AS", "*.as"), new FileChooser.ExtensionFilter("MXML", "*.mxml"))
 
         player.errorLabel.visible = false
 
@@ -42,7 +42,7 @@ class BuildSettingsFormController implements Initializable {
     }
 
     void bindModel() {
-        mainClass.textField.textProperty().bindBidirectional(model.mainClass())
+//        mainClass.textField.textProperty().bindBidirectional(model.mainClass())
         fileName.textField.textProperty().bindBidirectional(model.outputFileName())
         outPath.textField.textProperty().bindBidirectional(model.outputPath())
 
