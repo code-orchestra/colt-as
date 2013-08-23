@@ -2,6 +2,7 @@ package codeOrchestra.colt.as.ui.log
 
 import codeOrchestra.colt.core.logging.Level
 import codeOrchestra.colt.core.logging.LoggerService
+import codeOrchestra.colt.core.tracker.GAController
 import codeOrchestra.colt.core.ui.components.log.LogMessage
 import codeOrchestra.colt.core.ui.components.log.LogWebView
 
@@ -13,6 +14,7 @@ class Log implements LoggerService {
 
     Log() {
 //        logWebView.logMessages.addAll(TestLog.createTestLogList())
+        GAController.instance.registerPage(logWebView, "/as/asLog.html", "asLog")
     }
 
     @Override

@@ -28,9 +28,9 @@ class COLTAsProjectPaths extends COLTProjectPaths<COLTAsProject> {
     }
 
     void clear() {
-        sources = ""
-        libraries = ""
-        assets = ""
+        sources = "src/"
+        libraries = "lib/"
+        assets = "assets/"
         htmlTemplatePath = ""
     }
 

@@ -19,6 +19,7 @@ import codeOrchestra.colt.core.ui.components.COLTProgressIndicatorController
 import codeOrchestra.colt.core.ui.components.log.LogFilter
 import codeOrchestra.colt.core.ui.components.log.LogMessage
 import codeOrchestra.colt.core.ui.components.sessionIndicator.SessionIndicatorController
+import javafx.application.Platform
 import javafx.beans.InvalidationListener
 import javafx.event.EventHandler
 import javafx.fxml.FXML
@@ -144,16 +145,10 @@ class MainAppController implements Initializable {
     }
 
     void initGA() {
-        GATracker tracker = GATracker.instance
-        tracker.trackPageView("/as/asProject.html", "asProject")
-        GAController gaController = GAController.instance
-        gaController.pageContainer = borderPane.centerProperty()
-
-        gaController.registerPage(log.logWebView, "/as/asLog.html", "asLog")
-        gaController.registerPage(sForm.getPane(), "/as/asSettings.html", "asSettings")
-
-        gaController.registerEvent(runButton, "ActionMenu", "Run pressed")
-        gaController.registerEvent(pauseButton, "ActionMenu", "Pause pressed")
-        gaController.registerEvent(settingsButton, "ActionMenu", "Settings pressed")
+        GATracker.instance.trackPageView("/as/asProject.html", "asProject")
+        GAController.instance.pageContainer = borderPane.centerProperty()
+        GAController.instance.registerEvent(runButton, "ActionMenu", "Run pressed")
+        GAController.instance.registerEvent(pauseButton, "ActionMenu", "Pause pressed")
+        GAController.instance.registerEvent(settingsButton, "ActionMenu", "Settings pressed")
     }
 }

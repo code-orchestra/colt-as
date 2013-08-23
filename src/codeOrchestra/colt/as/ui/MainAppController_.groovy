@@ -65,7 +65,6 @@ class MainAppController_ implements Initializable {
         }
 
         GATracker tracker = GATracker.instance
-        tracker.trackPageView("/as/asProject.html", "asProject")
 
         navigationToggleGroup.toggles.addAll(runButton, buildButton, settingsButton)
         logFilterToggleGroup.toggles.addAll(logFilterAll, logFilterErrors, logFilterWarnings, logFilterInfo, logFilterLog)
@@ -78,9 +77,6 @@ class MainAppController_ implements Initializable {
         } as InvalidationListener)
 
         runButton.onAction = {
-            tracker.trackEvent("Menu", "Run pressed")
-            tracker.trackPageView("/as/asLog.html", "asLog")
-
             COLTAsController coltController = (COLTAsController) ServiceProvider.get(COLTController.class)
             coltController?.startBaseCompilation(new COLTControllerCallbackEx<CompilationResult>() {
                 @Override
@@ -96,8 +92,6 @@ class MainAppController_ implements Initializable {
         } as EventHandler
 
         settingsButton.onAction = {
-            tracker.trackEvent("Menu", "Settings pressed")
-            tracker.trackPageView("/as/asSettings.html", "asSettings")
             borderPane.center = sForm
         } as EventHandler
 

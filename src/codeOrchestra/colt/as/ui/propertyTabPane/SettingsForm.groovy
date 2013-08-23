@@ -1,5 +1,6 @@
 package codeOrchestra.colt.as.ui.propertyTabPane
 
+import codeOrchestra.colt.core.tracker.GAController
 import codeOrchestra.colt.core.ui.components.advancedSeparator.AdvancedSeparator
 import codeOrchestra.colt.core.ui.components.inputForms.group.FormGroup
 import javafx.application.Platform
@@ -72,6 +73,8 @@ class SettingsForm {
 
             scrollPane.content = vBox
             scrollPane.fitToWidth = true
+
+            GAController.instance.registerPage(scrollPane, "/as/asSettings.html", "asSettings")
 
         }
 //        Platform.runLater({scrollPane.requestFocus()})
