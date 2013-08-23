@@ -461,12 +461,49 @@
     -fx-border-image-width: 40px 60px 40px 40px; }
 
 /* Player */
-.separator { -fx-background-color: #595959; }
-
 .player-box {
     -fx-border-image-source: url('images/player-box.png');
     -fx-border-image-slice: 40px 40px 40px 40px fill;
     -fx-border-image-width: 40px 40px 40px 40px; }
+
+.player-box .toggle-button {
+    -fx-background-color: null;
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: 20px, 24px;
+    -fx-padding: 0; }
+
+.player-box .toggle-button:pressed { -fx-background-position: 0 1px; }
+
+.player-box .btn-player-pause {
+    -fx-background-image: url('images/btns/player-pause.png'); }
+
+.player-box .btn-player-pause:selected {
+    -fx-background-image: url('images/btns/player-pause-selected.png'); }
+
+.player-box .btn-player-play {
+    -fx-background-image: url('images/btns/player-play.png'); }
+
+.player-box .btn-player-play:selected {
+    -fx-background-image: url('images/btns/player-play-selected.png'); }
+
+.player-box .btn-player-stop {
+    -fx-background-image: url('images/btns/player-stop.png'); }
+
+.player-box .btn-player-stop:selected {
+    -fx-background-image: url('images/btns/player-stop-selected.png'); }
+
+.player-box .separator .line {
+    -fx-background-color: #595959;
+    -fx-border-width: 0;
+    -fx-padding: .5; }
+
+.player-box .btn-player-add {
+    -fx-background-image: url('images/btns/player-add.png'); }
+
+.player-box .btn-player-add:selected {
+    -fx-background-image: url('images/btns/player-add-selected.png'); }
 
 /*
 |-------------------------------------------------------------------------------
@@ -484,7 +521,7 @@
 
 /* Containers */
 
-.scroll-pane, .scroll-pane:focused {
+.scroll-pane-settings, .scroll-pane-settings:focused {
     -fx-background-color: transparent;
     -fx-background-insets: 0; }
 
@@ -494,7 +531,6 @@
     -fx-border-style: solid; }
 
 .scroll-pane .legend, .legend .text { -fx-font-weight: bold; }
-
 
 /* Inputs */
 
