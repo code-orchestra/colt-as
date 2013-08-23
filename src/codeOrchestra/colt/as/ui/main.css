@@ -496,7 +496,8 @@
 
 .player-box .separator .line {
     -fx-background-color: #595959;
-    -fx-border-width: 0; }
+    -fx-border-width: 0;
+    -fx-padding: .5; }
 
 .player-box .btn-player-add {
     -fx-background-image: url('images/btns/player-add.png'); }
