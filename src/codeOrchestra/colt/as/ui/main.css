@@ -368,7 +368,7 @@
 
 .text, .scroll-pane {
     -fx-font: 13px 'Arial';
-    -fx-font-smoothing-type: lcd; }
+    -fx-font-smoothing-type: inherit; }
 
 /*
 |-------------------------------------------------------------------------------
@@ -460,6 +460,14 @@
     -fx-border-image-slice: 40px 60px 40px 40px fill;
     -fx-border-image-width: 40px 60px 40px 40px; }
 
+/* Player */
+.separator { -fx-background-color: #595959; }
+
+.player-box {
+    -fx-border-image-source: url('images/player-box.png');
+    -fx-border-image-slice: 40px 40px 40px 40px fill;
+    -fx-border-image-width: 40px 40px 40px 40px; }
+
 /*
 |-------------------------------------------------------------------------------
 | Main Area
@@ -473,6 +481,13 @@
     -fx-font: 17px 'Roboto';
     -fx-padding: 9px 60px 10px 0;
     -fx-effect: dropshadow(gaussian, #f1f4f8, 0, 0, 0, 1px); }
+
+/* Containers */
+
+.scroll-pane, .scroll-pane:focused {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-padding: 0; }
 
 .fieldset {
     -fx-border-width: 1px 0 0 0;
