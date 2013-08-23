@@ -127,6 +127,7 @@ class MainAppController implements Initializable {
 
         COLTProgressIndicatorController.instance.progressIndicator = progressIndicator
 
+        sessionIndicator.visibleProperty().bind(progressIndicator.visibleProperty().not())
         SessionIndicatorController.instance.indicator = sessionIndicator
     }
 
