@@ -4,6 +4,8 @@ import codeOrchestra.colt.core.ui.components.advancedSeparator.AdvancedSeparator
 import codeOrchestra.colt.core.ui.components.inputForms.group.FormGroup
 import javafx.application.Platform
 import javafx.fxml.FXMLLoader
+import javafx.geometry.Insets
+import javafx.geometry.Pos
 import javafx.scene.control.ScrollPane
 import javafx.scene.layout.VBox
 import javafx.scene.Node as FXNode
@@ -20,10 +22,11 @@ class SettingsForm {
             scrollPane = new ScrollPane()
 
             vBox = new VBox()
-            vBox.maxWidth= 640.0
+            vBox.alignment = Pos.TOP_CENTER
 
             //paths
             FXNode projectPaths = FXMLLoader.load(getClass().getResource("projectPaths/projectPaths_form.fxml"))
+            projectPaths.maxWidth = 640.0
             vBox.children.add(projectPaths)
             //paths
 
@@ -31,6 +34,8 @@ class SettingsForm {
             vBox.children.add(separator)
 
             VBox advancedVBox = new VBox()
+            VBox.setMargin(advancedVBox, new Insets(0, 0, 72, 0))
+            advancedVBox.padding = new Insets(0, 0, 18, 0)
             separator.content = advancedVBox
             vBox.children.add(advancedVBox)
 
@@ -69,7 +74,7 @@ class SettingsForm {
             scrollPane.fitToWidth = true
 
         }
-        Platform.runLater({scrollPane.requestFocus()})
+//        Platform.runLater({scrollPane.requestFocus()})
 
         return scrollPane
     }
