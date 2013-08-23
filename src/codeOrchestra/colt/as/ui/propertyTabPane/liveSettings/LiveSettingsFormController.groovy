@@ -33,7 +33,7 @@ class LiveSettingsFormController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         methods = new ToggleGroup()
-        methods.toggles.addAll(annotated.radioButton, all.radioButton)
+        methods.toggles.addAll(all.radioButton, annotated.radioButton)
 
         bindModel()
 
