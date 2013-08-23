@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import codeOrchestra.colt.as.ui.components.*?>
+<?import codeOrchestra.colt.core.ui.components.inputForms.*?>
 
 <FormGroup title="Launcher" fx:controller="codeOrchestra.colt.as.ui.propertyTabPane.liveSettings.LauncherFormController" xmlns:fx="http://javafx.com/fxml">
   <RTBForm fx:id="defaultPlayer" text="System default application" formType="SIMPLE" />

@@ -70,7 +70,7 @@
 
         <AnchorPane styleClass="fieldset-advanced-caption">
         <children>
-            <Button focusTraversable="false" layoutY="7" prefHeight="30" styleClass="btn-show" text="Advanced" AnchorPane.leftAnchor="19" />
+            <Button focusTraversable="false" layoutY="7" prefHeight="30" styleClass="btn-hide" text="Advanced" AnchorPane.leftAnchor="19" />
             <Button focusTraversable="false" layoutY="7" prefHeight="30" prefWidth="67" styleClass="btn-done" text="Save" AnchorPane.rightAnchor="10" />
         </children>
         <padding>

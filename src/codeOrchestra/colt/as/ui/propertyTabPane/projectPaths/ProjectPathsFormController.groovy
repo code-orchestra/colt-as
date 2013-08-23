@@ -3,7 +3,7 @@ package codeOrchestra.colt.as.ui.propertyTabPane.projectPaths
 import codeOrchestra.colt.as.model.ModelStorage
 import codeOrchestra.colt.as.model.COLTAsProjectPaths
 import codeOrchestra.colt.as.model.beans.BuildModel
-import codeOrchestra.colt.as.ui.components.LTBForm
+import codeOrchestra.colt.core.ui.components.inputForms.LTBForm
 import codeOrchestra.colt.core.ui.components.fileset.FilesetInput
 import javafx.fxml.FXML
 import javafx.fxml.Initializable

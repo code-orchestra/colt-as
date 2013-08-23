@@ -7,7 +7,7 @@ import codeOrchestra.colt.as.model.COLTAsProjectBuildSettings
 import codeOrchestra.colt.as.model.ModelStorage
 import codeOrchestra.colt.as.model.beans.RunTargetModel
 import codeOrchestra.colt.as.run.Target
-import codeOrchestra.colt.as.ui.components.RTBForm
+import codeOrchestra.colt.core.ui.components.inputForms.RTBForm
 import javafx.beans.property.StringProperty
 import javafx.beans.value.ChangeListener
 import javafx.event.EventHandler

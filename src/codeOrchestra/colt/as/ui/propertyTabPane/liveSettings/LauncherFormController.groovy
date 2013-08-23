@@ -3,7 +3,7 @@ package codeOrchestra.colt.as.ui.propertyTabPane.liveSettings
 import codeOrchestra.colt.as.model.ModelStorage
 import codeOrchestra.colt.as.model.beans.LauncherModel
 import codeOrchestra.colt.as.run.LauncherType
-import codeOrchestra.colt.as.ui.components.RTBForm
+import codeOrchestra.colt.core.ui.components.inputForms.RTBForm
 import javafx.beans.property.StringProperty
 import javafx.beans.value.ChangeListener
 import javafx.fxml.FXML

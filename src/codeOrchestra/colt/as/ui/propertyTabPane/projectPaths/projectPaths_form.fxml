@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.geometry.Insets?>
 
-<?import codeOrchestra.colt.as.ui.components.LTBForm?>
+<?import codeOrchestra.colt.core.ui.components.inputForms.LTBForm?>
 <VBox xmlns:fx="http://javafx.com/fxml" fx:controller="codeOrchestra.colt.as.ui.propertyTabPane.projectPaths.ProjectPathsFormController">
   <FilesetInput fx:id="sources" title="Source Paths:" useFiles="false" useExcludes="false" files="src/"/>
   <FilesetInput fx:id="libraries" title="Library Paths:" useExcludes="false" files="lib/"/>

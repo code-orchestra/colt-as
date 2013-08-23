@@ -4,8 +4,8 @@ import codeOrchestra.colt.as.flexsdk.FlexSDKManager
 import codeOrchestra.colt.as.flexsdk.FlexSDKNotPresentException
 import codeOrchestra.colt.as.model.ModelStorage
 import codeOrchestra.colt.as.model.beans.SDKModel
-import codeOrchestra.colt.as.ui.components.CTBForm
-import codeOrchestra.colt.as.ui.components.LTBForm
+import codeOrchestra.colt.core.ui.components.inputForms.CTBForm
+import codeOrchestra.colt.core.ui.components.inputForms.LTBForm
 import javafx.beans.value.ChangeListener
 import javafx.beans.value.ObservableValue
 import javafx.fxml.FXML

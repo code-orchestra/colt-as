@@ -4,16 +4,13 @@ import codeOrchestra.colt.as.flexsdk.FlexSDKManager
 import codeOrchestra.colt.as.model.ModelStorage
 import codeOrchestra.colt.as.model.beans.BuildModel
 import codeOrchestra.colt.as.model.beans.SDKModel
-import codeOrchestra.colt.as.ui.components.CBForm
-import codeOrchestra.colt.as.ui.components.CTBForm
-import codeOrchestra.colt.as.ui.components.LTBForm
+import codeOrchestra.colt.core.ui.components.inputForms.CBForm
+import codeOrchestra.colt.core.ui.components.inputForms.CTBForm
+import codeOrchestra.colt.core.ui.components.inputForms.LTBForm
 import javafx.beans.value.ChangeListener
 import javafx.beans.value.ObservableValue
 import javafx.fxml.FXML
 import javafx.fxml.Initializable
-import javafx.scene.control.ChoiceBox
-import javafx.scene.control.Label
-import javafx.scene.layout.HBox
 import javafx.stage.FileChooser
 
 /**
