@@ -19,8 +19,9 @@ import codeOrchestra.colt.core.ui.components.COLTProgressIndicatorController
 import codeOrchestra.colt.core.ui.components.log.LogFilter
 import codeOrchestra.colt.core.ui.components.log.LogMessage
 import codeOrchestra.colt.core.ui.components.sessionIndicator.SessionIndicatorController
-import javafx.application.Platform
 import javafx.beans.InvalidationListener
+import javafx.beans.value.ChangeListener
+import javafx.beans.value.ObservableValue
 import javafx.event.EventHandler
 import javafx.fxml.FXML
 import javafx.fxml.Initializable
@@ -28,6 +29,7 @@ import javafx.geometry.Point2D
 import javafx.scene.control.*
 import javafx.scene.image.ImageView
 import javafx.scene.layout.BorderPane
+import javafx.scene.layout.HBox
 
 /**
  * @author Dima Kruk
@@ -48,12 +50,17 @@ class MainAppController implements Initializable {
     Log log = new Log()
     SettingsForm sForm = new SettingsForm()
 
+    @FXML HBox logFiltersContainer
+
     ToggleGroup logFilterToggleGroup = new ToggleGroup()
+
     @FXML ToggleButton logFilterAll
     @FXML ToggleButton logFilterErrors
     @FXML ToggleButton logFilterWarnings
     @FXML ToggleButton logFilterInfo
     @FXML ToggleButton logFilterLog
+
+    List<ToggleButton> allFilters
 
     @FXML ProgressIndicator progressIndicator
     @FXML ImageView sessionIndicator
@@ -66,8 +73,10 @@ class MainAppController implements Initializable {
 
         initGA()
 
+        allFilters = [logFilterAll, logFilterErrors, logFilterWarnings, logFilterInfo, logFilterLog]
+
         navigationToggleGroup.toggles.addAll(runButton, buildButton, settingsButton)
-        logFilterToggleGroup.toggles.addAll(logFilterAll, logFilterErrors, logFilterWarnings, logFilterInfo, logFilterLog)
+        logFilterToggleGroup.toggles.addAll(allFilters)
 
         log.logWebView.logMessages.addListener({ javafx.beans.Observable observable ->
             updateLogFilter()
@@ -130,18 +139,34 @@ class MainAppController implements Initializable {
 
         sessionIndicator.visibleProperty().bind(progressIndicator.visibleProperty().not())
         SessionIndicatorController.instance.indicator = sessionIndicator
+
+        borderPane.centerProperty().addListener({ o, old, javafx.scene.Node newValue ->
+            allFilters.each {it.visible = borderPane.center == log.logWebView }
+            updateLogFilter()
+        } as ChangeListener)
+
+        logFiltersContainer.widthProperty().addListener({ o, old, Number newValue ->
+            updateLogFilter()
+        } as ChangeListener)
     }
 
     private void updateLogFilter() {
-        if(!logFilterToggleGroup.selectedToggle){
+        if (!logFilterToggleGroup.selectedToggle) {
             logFilterAll.selected = true
             return
         }
-        int filterIndex = [logFilterAll, logFilterErrors, logFilterWarnings, logFilterInfo, getLogFilterLog()].indexOf(logFilterToggleGroup.selectedToggle)
+
+        int filterIndex = allFilters.indexOf(logFilterToggleGroup.selectedToggle)
         log.logWebView.filter(LogFilter.values()[filterIndex])
-        logFilterErrors.text = "Errors (" + log.logWebView.logMessages.grep { LogMessage m -> m.level == Level.ERROR }.size() + ")"
-        logFilterWarnings.text = "Warnings (" + log.logWebView.logMessages.grep { LogMessage m -> m.level == Level.WARN }.size() + ")"
-        logFilterInfo.text = "Info (" + log.logWebView.logMessages.grep { LogMessage m -> m.level == Level.INFO }.size() + ")"
+        logFilterErrors.text = "Errors" + logFilterPrefix(Level.ERROR)
+        logFilterWarnings.text = "Warnings" + logFilterPrefix(Level.WARN)
+        logFilterInfo.text = "Info" + logFilterPrefix(Level.INFO)
+        logFilterLog.text = "Log" + logFilterPrefix(Level.COMPILATION, Level.LIVE)
+    }
+
+    private String logFilterPrefix(Level... levels) {
+        if(log.logWebView.logMessages.empty || logFiltersContainer.width < 300) return  ""
+        " (" + log.logWebView.logMessages.grep { LogMessage m -> m.level in levels }.size() + ")"
     }
 
     void initGA() {

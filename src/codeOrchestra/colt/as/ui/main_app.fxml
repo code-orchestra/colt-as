@@ -16,7 +16,7 @@
       <bottom>
         <HBox fx:id="" alignment="CENTER_RIGHT" prefHeight="-1.0" prefWidth="-1.0" spacing="5.0" styleClass="status-bar">
           <children>
-            <HBox prefHeight="-1.0" prefWidth="-1.0" styleClass="filters" HBox.hgrow="ALWAYS">
+            <HBox fx:id="logFiltersContainer" prefHeight="-1.0" prefWidth="-1.0" minWidth="220" styleClass="filters" HBox.hgrow="ALWAYS">
               <children>
                 <ToggleButton fx:id="logFilterAll" mnemonicParsing="false" selected="true" text="All" />
                 <ToggleButton fx:id="logFilterErrors" mnemonicParsing="false" text="Errors" />
