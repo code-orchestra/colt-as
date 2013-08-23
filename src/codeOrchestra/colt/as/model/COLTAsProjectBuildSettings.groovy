@@ -53,8 +53,16 @@ class COLTAsProjectBuildSettings extends COLTProjectBuildSettings<COLTAsProject>
         return sdkModel.flexSDKPath
     }
 
+    public void setFlexSDKPath(String flexSDKPath) {
+        sdkModel.flexSDKPath = flexSDKPath
+    }
+
     public boolean useDefaultSDKConfiguration() {
         return sdkModel.useFlexConfig
+    }
+
+    public void setUseDefaultSDKConfiguration(boolean use) {
+        sdkModel.useFlexConfig = use;
     }
 
     public boolean useCustomSDKConfiguration() {

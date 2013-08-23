@@ -2,7 +2,7 @@ package codeOrchestra.colt.as.ui.propertyTabPane.liveSettings
 
 import codeOrchestra.colt.as.model.ModelStorage
 import codeOrchestra.colt.as.model.beans.SettingsModel
-import codeOrchestra.colt.as.ui.components.CTBForm
+import codeOrchestra.colt.core.ui.components.inputForms.CTBForm
 import javafx.fxml.FXML
 import javafx.fxml.Initializable
 

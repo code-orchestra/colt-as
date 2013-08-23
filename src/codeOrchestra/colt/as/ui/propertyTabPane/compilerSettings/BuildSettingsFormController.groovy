@@ -4,16 +4,13 @@ import codeOrchestra.colt.as.flexsdk.FlexSDKManager
 import codeOrchestra.colt.as.model.ModelStorage
 import codeOrchestra.colt.as.model.beans.BuildModel
 import codeOrchestra.colt.as.model.beans.SDKModel
-import codeOrchestra.colt.as.ui.components.CBForm
-import codeOrchestra.colt.as.ui.components.CTBForm
-import codeOrchestra.colt.as.ui.components.LTBForm
+import codeOrchestra.colt.core.ui.components.inputForms.CBForm
+import codeOrchestra.colt.core.ui.components.inputForms.CTBForm
+import codeOrchestra.colt.core.ui.components.inputForms.LTBForm
 import javafx.beans.value.ChangeListener
 import javafx.beans.value.ObservableValue
 import javafx.fxml.FXML
 import javafx.fxml.Initializable
-import javafx.scene.control.ChoiceBox
-import javafx.scene.control.Label
-import javafx.scene.layout.HBox
 import javafx.stage.FileChooser
 
 /**
@@ -21,7 +18,7 @@ import javafx.stage.FileChooser
  */
 class BuildSettingsFormController implements Initializable {
 
-    @FXML LTBForm mainClass
+//    @FXML LTBForm mainClass
     @FXML LTBForm fileName
     @FXML LTBForm outPath
 
@@ -37,7 +34,7 @@ class BuildSettingsFormController implements Initializable {
 
     @Override
     void initialize(URL url, ResourceBundle resourceBundle) {
-        mainClass.extensionFilters.addAll(new FileChooser.ExtensionFilter("AS", "*.as"), new FileChooser.ExtensionFilter("MXML", "*.mxml"))
+//        mainClass.extensionFilters.addAll(new FileChooser.ExtensionFilter("AS", "*.as"), new FileChooser.ExtensionFilter("MXML", "*.mxml"))
 
         player.errorLabel.visible = false
 
@@ -45,22 +42,37 @@ class BuildSettingsFormController implements Initializable {
     }
 
     void bindModel() {
-        mainClass.textField.textProperty().bindBidirectional(model.mainClass())
+//        mainClass.textField.textProperty().bindBidirectional(model.mainClass())
         fileName.textField.textProperty().bindBidirectional(model.outputFileName())
         outPath.textField.textProperty().bindBidirectional(model.outputPath())
 
         player.choiceBox.valueProperty().bindBidirectional(model.targetPlayerVersion())
+//        model.targetPlayerVersion().addListener({ ObservableValue<? extends String> observableValue, String t, String t1 ->
+//
+//
+//
+//        } as ChangeListener)
+
         sdkModel.isValidFlexSDK().addListener({ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue->
+            String value = model.targetPlayerVersion
             player.choiceBox.items.clear()
             if (newValue) {
                 FlexSDKManager manager = FlexSDKManager.instance
                 List<String> versions = manager.getAvailablePlayerVersions(new File(sdkModel.flexSDKPath))
                 player.choiceBox.items.addAll(versions)
-                if (!model.targetPlayerVersion) {
-                    player.choiceBox.value = versions.first()
+                if (versions.size() > 0) {
+                    model.targetPlayerVersion = versions.contains(value) ? value : versions.first()
+                    error(false)
+                } else {
+                    player.choiceBox.items.add(value)
+                    model.targetPlayerVersion = value
+                    error(true)
                 }
+            } else {
+                player.choiceBox.items.add(value)
+                model.targetPlayerVersion = value
+                error(true)
             }
-            player.errorLabel.visible = !newValue
         } as ChangeListener<Boolean>)
 
         rsl.checkBox.selectedProperty().bindBidirectional(model.rsl())
@@ -72,5 +84,9 @@ class BuildSettingsFormController implements Initializable {
 
         interrupt.checkBox.selectedProperty().bindBidirectional(model.interrupt())
         interrupt.textField.textProperty().bindBidirectional(model.interruptValue())
+    }
+
+    private void error(boolean b) {
+        player.errorLabel.visible = b
     }
 }

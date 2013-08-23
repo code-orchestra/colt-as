@@ -2,6 +2,7 @@ package codeOrchestra.colt.as.model
 
 import codeOrchestra.colt.core.model.COLTProjectPaths
 import codeOrchestra.colt.core.model.monitor.ChangingMonitor
+import codeOrchestra.colt.core.ui.components.fileset.FilesetInput
 import codeOrchestra.groovyfx.FXBindable
 import codeOrchestra.util.PathUtils
 import groovy.transform.Canonical
@@ -14,9 +15,9 @@ import javafx.collections.ObservableList as FXObservableList
 @Canonical
 @FXBindable
 class COLTAsProjectPaths extends COLTProjectPaths<COLTAsProject> {
-    FXObservableList<String> sources = FXCollections.observableArrayList()
-    FXObservableList<String> libraries = FXCollections.observableArrayList()
-    FXObservableList<String> assets = FXCollections.observableArrayList()
+    String sources
+    String libraries
+    String assets
 
     String htmlTemplatePath
 
@@ -27,9 +28,9 @@ class COLTAsProjectPaths extends COLTProjectPaths<COLTAsProject> {
     }
 
     void clear() {
-        sources.clear()
-        libraries.clear()
-        assets.clear()
+        sources = ""
+        libraries = ""
+        assets = ""
         htmlTemplatePath = ""
     }
 
@@ -37,54 +38,45 @@ class COLTAsProjectPaths extends COLTProjectPaths<COLTAsProject> {
         return htmlTemplatePath
     }
 
+    public addSources(String[] value) {
+        sources = FilesetInput.createFilesetString(value.collect {new File(it)})
+    }
+
+    public addLibraries(String[] value) {
+        libraries = FilesetInput.createFilesetString(value.collect {new File(it)})
+    }
+
+    public addAssets(String[] value) {
+        assets = FilesetInput.createFilesetString(value.collect {new File(it)})
+    }
+
     public List<String> getSourcePaths() {
-        return sources.toList()
+        return FilesetInput.getDirectoriesFromString(sources).collect({it.path})
     }
 
     public List<String> getLibraryPaths() {
-        return libraries.toList()
+        return FilesetInput.getFilesFromString(libraries).collect({it.path})
     }
 
     public List<String> getAssetPaths() {
-        return assets.toList()
+        return FilesetInput.getDirectoriesFromString(assets).collect({it.path})
     }
 
     @Override
     Closure buildXml() {
         return {
-            'sources-list' {
-                for (s in sources) {
-                    item(PathUtils.makeRelative(s))
-                }
-            }
-            'libraries-list' {
-                for (s in libraries) {
-                    item(PathUtils.makeRelative(s))
-                }
-            }
-            'assets-list' {
-                for (s in assets) {
-                    item(PathUtils.makeRelative(s))
-                }
-            }
+            'sources-set' (sources)
+            'libraries-set' (libraries)
+            'assets-set' (assets)
             'html-template'(PathUtils.makeRelative(htmlTemplatePath))
         }
     }
 
     @Override
     void buildModel(Object node) {
-        sources.clear()
-        libraries.clear()
-        assets.clear()
-        node.'sources-list'.item.each{it ->
-            sources << PathUtils.makeAbsolute(it.toString())
-        }
-        node.'libraries-list'.item.each{it ->
-            libraries << PathUtils.makeAbsolute(it.toString())
-        }
-        node.'assets-list'.item.each{it ->
-            assets << PathUtils.makeAbsolute(it.toString())
-        }
+        sources = node.'sources-set'
+        libraries = node.'libraries-set'
+        assets = node.'assets-set'
         htmlTemplatePath = PathUtils.makeAbsolute((node.'html-template')?.toString())
     }
 }

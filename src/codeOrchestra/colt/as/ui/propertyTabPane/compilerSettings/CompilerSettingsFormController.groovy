@@ -2,7 +2,7 @@ package codeOrchestra.colt.as.ui.propertyTabPane.compilerSettings
 
 import codeOrchestra.colt.as.model.ModelStorage
 import codeOrchestra.colt.as.model.beans.BuildModel
-import codeOrchestra.colt.as.ui.components.LTBForm
+import codeOrchestra.colt.core.ui.components.inputForms.LTBForm
 import javafx.fxml.FXML
 import javafx.fxml.Initializable
 

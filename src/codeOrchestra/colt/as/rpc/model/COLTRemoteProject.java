@@ -34,19 +34,13 @@ public class COLTRemoteProject {
 
   public void copyTo(COLTAsProject coltProject) {
     if (sources != null) {
-      for (String sourcePath : sources) {
-        coltProject.getProjectPaths().getSources().add(sourcePath);
-      }
+      coltProject.getProjectPaths().addSources(sources);
     }
     if (libraries != null) {
-      for (String libraryPath : libraries) {
-          coltProject.getProjectPaths().getLibraries().add(libraryPath);
-      }
+      coltProject.getProjectPaths().addLibraries(libraries);
     }
     if (assets != null) {
-      for (String assetPath : assets) {
-          coltProject.getProjectPaths().getAssets().add(assetPath);
-      }
+      coltProject.getProjectPaths().addAssets(libraries);
     }
     if (htmlTemplateDir != null) {
         coltProject.getProjectPaths().setHtmlTemplatePath(htmlTemplateDir);

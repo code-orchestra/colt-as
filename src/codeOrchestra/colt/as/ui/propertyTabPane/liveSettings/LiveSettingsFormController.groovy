@@ -3,9 +3,9 @@ package codeOrchestra.colt.as.ui.propertyTabPane.liveSettings
 import codeOrchestra.colt.as.model.ModelStorage
 import codeOrchestra.colt.as.model.beans.LiveSettingsModel
 import codeOrchestra.colt.as.run.LiveMethods
-import codeOrchestra.colt.as.ui.components.CTBForm
-import codeOrchestra.colt.as.ui.components.LTBForm
-import codeOrchestra.colt.as.ui.components.RTBForm
+import codeOrchestra.colt.core.ui.components.inputForms.CTBForm
+import codeOrchestra.colt.core.ui.components.inputForms.LTBForm
+import codeOrchestra.colt.core.ui.components.inputForms.RTBForm
 import javafx.beans.property.StringProperty
 import javafx.beans.value.ChangeListener
 import javafx.fxml.FXML
@@ -33,7 +33,7 @@ class LiveSettingsFormController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         methods = new ToggleGroup()
-        methods.toggles.addAll(annotated.radioButton, all.radioButton)
+        methods.toggles.addAll(all.radioButton, annotated.radioButton)
 
         bindModel()
 

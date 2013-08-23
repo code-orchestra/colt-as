@@ -54,7 +54,7 @@ class BuildModel implements IModelElement {
         mainClass = ""
         outputFileName = ""
         outputPath = ""
-        targetPlayerVersion = ""
+        targetPlayerVersion = "11.5.0"
 
         rsl = false
 

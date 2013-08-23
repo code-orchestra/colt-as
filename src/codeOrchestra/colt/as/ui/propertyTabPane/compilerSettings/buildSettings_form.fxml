@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import codeOrchestra.colt.as.ui.components.*?>
+<?import codeOrchestra.colt.core.ui.components.inputForms.*?>
+<?import codeOrchestra.colt.core.ui.components.inputForms.group.FormGroup?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.control.*?>
 
 <FormGroup fx:controller="codeOrchestra.colt.as.ui.propertyTabPane.compilerSettings.BuildSettingsFormController" xmlns:fx="http://javafx.com/fxml">
-  <LTBForm fx:id="mainClass" text="Main class:" formType="BUTTON" />
+  <!--<LTBForm fx:id="mainClass" text="Main class:" formType="BUTTON" />-->
   <LTBForm fx:id="fileName" text="Output file name:" formType="TEXT_FIELD" />
   <LTBForm fx:id="outPath" text="Output path:" formType="BUTTON" browseType="DIRECTORY" />
   <CBForm fx:id="player" text="Target player version:"/>

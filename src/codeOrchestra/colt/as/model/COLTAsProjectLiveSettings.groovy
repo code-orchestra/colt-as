@@ -31,6 +31,10 @@ class COLTAsProjectLiveSettings extends COLTProjectLiveSettings<COLTAsProject>{
         }
     }
 
+    public void setLauncherType(LauncherType launcherType) {
+        launcherModel.launcherType = launcherType.name();
+    }
+
     public String getFlashPlayerPath() {
         return launcherModel.flashPlayerPath;
     }
@@ -46,6 +50,10 @@ class COLTAsProjectLiveSettings extends COLTProjectLiveSettings<COLTAsProject>{
 
     public LiveMethods getLiveMethods() {
         return LiveMethods.parseValue(liveSettingsModel.liveType);
+    }
+
+    public void setLiveMethods(LiveMethods liveMethods) {
+        liveSettingsModel.liveType = liveMethods.preferenceValue;
     }
 
     public boolean clearMessagesOnSessionStart() {
