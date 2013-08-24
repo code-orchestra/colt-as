@@ -23,7 +23,10 @@ class COLTAsProjectPaths extends COLTProjectPaths<COLTAsProject> {
 
     COLTAsProjectPaths() {
         ChangingMonitor monitor = ChangingMonitor.instance
-        monitor.add(htmlTemplatePath())
+        monitor.addAll(sources(),
+                libraries(),
+                assets(),
+                htmlTemplatePath())
     }
 
     public String getHTMLTemplatePath() {
