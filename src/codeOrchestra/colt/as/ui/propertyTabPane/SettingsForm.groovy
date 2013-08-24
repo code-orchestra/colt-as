@@ -2,10 +2,13 @@ package codeOrchestra.colt.as.ui.propertyTabPane
 
 import codeOrchestra.colt.core.tracker.GAController
 import codeOrchestra.colt.core.ui.components.advancedSeparator.AdvancedSeparator
+import javafx.event.ActionEvent
+import javafx.event.EventHandler
 import javafx.fxml.FXMLLoader
 import javafx.geometry.Insets
 import javafx.geometry.Pos
 import javafx.scene.Node as FXNode
+import javafx.scene.control.Button
 import javafx.scene.control.ScrollPane
 import javafx.scene.layout.VBox
 
@@ -13,6 +16,9 @@ import javafx.scene.layout.VBox
  * @author Dima Kruk
  */
 class SettingsForm extends ScrollPane{
+
+    Button saveAndRunButton
+
     SettingsForm() {
 
         VBox vBox = new VBox()
@@ -39,6 +45,8 @@ class SettingsForm extends ScrollPane{
         //liveSettings
         FXNode target = FXMLLoader.load(getClass().getResource("liveSettings/target_form.fxml"))
         advancedVBox.children.add(target)
+
+        saveAndRunButton = separator.saveButton
 
         FXNode launcher = FXMLLoader.load(getClass().getResource("liveSettings/launcher_form.fxml"))
         advancedVBox.children.add(launcher)

@@ -6,6 +6,7 @@ import codeOrchestra.colt.as.model.ModelStorage
 import codeOrchestra.colt.as.ui.log.Log
 import codeOrchestra.colt.as.ui.popupmenu.MyContextMenu
 import codeOrchestra.colt.as.ui.propertyTabPane.SettingsForm
+import codeOrchestra.colt.core.COLTProjectManager
 import codeOrchestra.colt.core.ServiceProvider
 import codeOrchestra.colt.core.controller.COLTController
 import codeOrchestra.colt.core.loading.LiveCodingHandlerManager
@@ -14,6 +15,7 @@ import codeOrchestra.colt.core.rpc.security.ui.ShortCodeNotification
 import codeOrchestra.colt.core.tracker.GAController
 import codeOrchestra.colt.core.tracker.GATracker
 import codeOrchestra.colt.core.ui.COLTApplication
+import codeOrchestra.colt.core.ui.ColtMenuBar
 import codeOrchestra.colt.core.ui.components.COLTProgressIndicatorController
 import codeOrchestra.colt.core.ui.components.log.LogFilter
 import codeOrchestra.colt.core.ui.components.log.LogMessage
@@ -24,6 +26,7 @@ import javafx.beans.InvalidationListener
 import javafx.beans.binding.StringBinding
 import javafx.beans.value.ChangeListener
 import javafx.collections.ListChangeListener
+import javafx.event.ActionEvent
 import javafx.event.EventHandler
 import javafx.fxml.FXML
 import javafx.fxml.Initializable
@@ -88,10 +91,17 @@ class MainAppController implements Initializable {
             COLTAsController coltController = (COLTAsController) ServiceProvider.get(COLTController.class)
             coltController.startBaseCompilation()
             root.center = logView
+            runButton.selected = true
+        } as EventHandler
+
+        settingsForm.saveAndRunButton.onAction = { ActionEvent event ->
+            COLTProjectManager.instance.save()
+            runButton.onAction.handle(null)
         } as EventHandler
 
         settingsButton.onAction = {
             root.center = settingsForm
+            settingsButton.selected = true
         } as EventHandler
 
         root.top = ShortCodeNotification.initNotification(root.top)
@@ -99,6 +109,7 @@ class MainAppController implements Initializable {
         buildButton.onAction = {
             COLTAsController coltController = (COLTAsController) ServiceProvider.get(COLTController.class)
             coltController.startProductionCompilation()
+            buildButton.selected = true
         } as EventHandler
 
         MyContextMenu contextMenu = new MyContextMenu()
@@ -155,7 +166,6 @@ class MainAppController implements Initializable {
         // start
 
         settingsButton.onAction.handle(null)
-        settingsButton.selected = true
     }
 
     private static void initLog() {
