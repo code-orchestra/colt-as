@@ -150,7 +150,7 @@ class MainAppController implements Initializable {
             }
             @Override
             protected String computeValue() {
-                model.project.name + " / " + getApplicationState()
+                model?.project?.name?.capitalize() + " / " + getApplicationState()
             }
         })
 

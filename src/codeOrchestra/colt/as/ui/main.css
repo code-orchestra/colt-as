@@ -661,6 +661,10 @@
     -fx-padding: 9px 0 0 20px;
     -fx-opacity: 1; }
 
+#settings-form:focused, #settings-form {
+    -fx-background-insets: 0;
+}
+
 /*
 |-------------------------------------------------------------------------------
 | Status Bar

@@ -2,6 +2,7 @@ package codeOrchestra.colt.as.ui.propertyTabPane
 
 import codeOrchestra.colt.core.tracker.GAController
 import codeOrchestra.colt.core.ui.components.advancedSeparator.AdvancedSeparator
+import javafx.beans.value.ChangeListener
 import javafx.event.ActionEvent
 import javafx.event.EventHandler
 import javafx.fxml.FXMLLoader
@@ -20,6 +21,8 @@ class SettingsForm extends ScrollPane{
     Button saveAndRunButton
 
     SettingsForm() {
+
+        setId("settings-form")
 
         VBox vBox = new VBox()
         vBox.alignment = Pos.TOP_CENTER

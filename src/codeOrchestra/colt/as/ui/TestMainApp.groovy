@@ -16,7 +16,7 @@ class TestMainApp extends Application {
         //new groovy.ui.Console().run()
         Parent root = FXMLLoader.load(getClass().getResource("main_app.fxml"));
         primaryStage.setTitle("COLT — Code Orchestra Livecoding Tool");
-        Scene scene = new Scene(root, 580, 820)
+        Scene scene = new Scene(root, 506, 820)
         primaryStage.setScene(scene);
         ScenicView.show(scene);
         primaryStage.show();
