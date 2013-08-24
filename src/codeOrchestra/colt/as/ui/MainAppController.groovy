@@ -165,7 +165,14 @@ class MainAppController implements Initializable {
 
         // start
 
-        settingsButton.onAction.handle(null)
+
+        boolean newProject = true// todo: както узнать (project еще не загружен, из модели никак)
+        if(newProject){
+            settingsButton.onAction.handle(null)
+        }else{
+            runButton.selected = true
+            root.center = logView
+        }
     }
 
     private static void initLog() {
