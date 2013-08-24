@@ -15,6 +15,7 @@ import codeOrchestra.colt.core.LiveCodingManager;
 import codeOrchestra.colt.core.ServiceProvider;
 import codeOrchestra.colt.core.controller.AbstractCOLTController;
 import codeOrchestra.colt.core.controller.COLTControllerCallback;
+import codeOrchestra.colt.core.controller.COLTControllerCallbackEx;
 import codeOrchestra.colt.core.errorhandling.ErrorHandler;
 import codeOrchestra.colt.core.execution.ExecutionException;
 import codeOrchestra.colt.core.execution.LoggingProcessListener;
@@ -33,6 +34,18 @@ import codeOrchestra.util.ProjectHelper;
  * @author Alexander Eliseyev
  */
 public class COLTAsController extends AbstractCOLTController<COLTAsProject> {
+
+    public void startProductionCompilation() {
+        startProductionCompilation(new COLTControllerCallback<CompilationResult, CompilationResult>() {
+            @Override
+            public void onComplete(CompilationResult successResult) {
+            }
+
+            @Override
+            public void onError(Throwable t, CompilationResult errorResult) {
+            }
+        }, true, true);
+    }
 
     public void startProductionCompilation(final COLTControllerCallback<CompilationResult, CompilationResult> callback, final boolean run, boolean sync) {
         try {
@@ -87,6 +100,18 @@ public class COLTAsController extends AbstractCOLTController<COLTAsProject> {
                 return null;
             }
         });
+    }
+
+    public void startBaseCompilation() {
+        startBaseCompilation(new COLTControllerCallback<CompilationResult, CompilationResult>() {
+            @Override
+            public void onComplete(CompilationResult successResult) {
+            }
+
+            @Override
+            public void onError(Throwable t, CompilationResult errorResult) {
+            }
+        }, true, true);
     }
 
     public void startBaseCompilation(final COLTControllerCallback<CompilationResult, CompilationResult> callback, final boolean run, boolean sync) {

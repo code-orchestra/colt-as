@@ -12,17 +12,17 @@
 
 <BorderPane id="BorderPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="820.0" prefWidth="580.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="codeOrchestra.colt.as.ui.MainAppController">
   <center>
-    <BorderPane fx:id="borderPane">
+    <BorderPane fx:id="root">
       <bottom>
         <HBox fx:id="" alignment="CENTER_RIGHT" prefHeight="-1.0" prefWidth="-1.0" spacing="5.0" styleClass="status-bar">
           <children>
-            <HBox fx:id="logFiltersContainer" prefHeight="-1.0" prefWidth="-1.0" minWidth="220" styleClass="filters" HBox.hgrow="ALWAYS">
+            <HBox fx:id="logFiltersContainer" prefHeight="-1.0" prefWidth="-1.0" styleClass="filters" HBox.hgrow="ALWAYS">
               <children>
-                <ToggleButton fx:id="logFilterAll" mnemonicParsing="false" selected="true" text="All" />
-                <ToggleButton fx:id="logFilterErrors" mnemonicParsing="false" text="Errors" />
-                <ToggleButton fx:id="logFilterWarnings" mnemonicParsing="false" text="Warnings" />
-                <ToggleButton fx:id="logFilterInfo" mnemonicParsing="false" text="Info" />
-                <ToggleButton fx:id="logFilterLog" mnemonicParsing="false" text="Log" />
+                <ToggleButton fx:id="logFilterAll" mnemonicParsing="false" selected="true" text="All" minWidth="-Infinity" />
+                <ToggleButton fx:id="logFilterErrors" mnemonicParsing="false" text="Errors" minWidth="-Infinity" />
+                <ToggleButton fx:id="logFilterWarnings" mnemonicParsing="false" text="Warnings" minWidth="-Infinity" />
+                <ToggleButton fx:id="logFilterInfo" mnemonicParsing="false" text="Info" minWidth="-Infinity" />
+                <ToggleButton fx:id="logFilterLog" mnemonicParsing="false" text="Log" minWidth="-Infinity" />
               </children>
             </HBox>
             <AnchorPane id="AnchorPane" prefWidth="-1.0">
@@ -51,7 +51,7 @@
         <ToggleButton fx:id="buildButton" contentDisplay="GRAPHIC_ONLY" focusTraversable="false" graphicTextGap="0.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="40.0" prefWidth="60.0" selected="false" styleClass="btn-build" text="Build" textOverrun="ELLIPSIS" underline="false" visible="true" wrapText="false" />
         <ToggleButton fx:id="settingsButton" contentDisplay="GRAPHIC_ONLY" focusTraversable="false" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="40.0" prefWidth="60.0" styleClass="btn-settings" text="Settings" />
         <Pane maxHeight="1.7976931348623157E308" VBox.vgrow="ALWAYS" />
-        <Button fx:id="menuBtn" contentDisplay="GRAPHIC_ONLY" focusTraversable="false" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="40.0" prefWidth="60.0" styleClass="btn-more" text="Menu" />
+        <Button fx:id="popupMenuButton" contentDisplay="GRAPHIC_ONLY" focusTraversable="false" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="40.0" prefWidth="60.0" styleClass="btn-more" text="Menu" />
       </children>
     </VBox>
   </left>

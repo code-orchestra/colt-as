@@ -3,6 +3,7 @@ package codeOrchestra.colt.as.ui
 import codeOrchestra.colt.as.ASLiveCodingLanguageHandler
 import codeOrchestra.colt.as.compiler.fcsh.make.CompilationResult
 import codeOrchestra.colt.as.controller.COLTAsController
+import codeOrchestra.colt.as.model.ModelStorage
 import codeOrchestra.colt.as.ui.log.Log
 import codeOrchestra.colt.as.ui.popupmenu.MyContextMenu
 import codeOrchestra.colt.as.ui.propertyTabPane.SettingsForm
@@ -19,7 +20,9 @@ import codeOrchestra.colt.core.ui.components.COLTProgressIndicatorController
 import codeOrchestra.colt.core.ui.components.log.LogFilter
 import codeOrchestra.colt.core.ui.components.log.LogMessage
 import codeOrchestra.colt.core.ui.components.sessionIndicator.SessionIndicatorController
+import codeOrchestra.groovyfx.FXBindable
 import javafx.beans.InvalidationListener
+import javafx.beans.binding.StringBinding
 import javafx.beans.value.ChangeListener
 import javafx.beans.value.ObservableValue
 import javafx.event.EventHandler
@@ -43,9 +46,9 @@ class MainAppController implements Initializable {
     @FXML ToggleButton buildButton
     @FXML ToggleButton settingsButton
 
-    @FXML BorderPane borderPane
+    @FXML BorderPane root
 
-    @FXML Button menuBtn
+    @FXML Button popupMenuButton
 
     Log log = new Log()
     SettingsForm sForm = new SettingsForm()
@@ -65,6 +68,10 @@ class MainAppController implements Initializable {
     @FXML ProgressIndicator progressIndicator
     @FXML ImageView sessionIndicator
 
+    @FXBindable String applicationState
+
+    ModelStorage model = codeOrchestra.colt.as.model.ModelStorage.instance
+
     @Override
     void initialize(URL url, ResourceBundle resourceBundle) {
         if (LiveCodingHandlerManager.instance.currentHandler != null) {
@@ -73,81 +80,86 @@ class MainAppController implements Initializable {
 
         initGA()
 
+        // build ui
+
         allFilters = [logFilterAll, logFilterErrors, logFilterWarnings, logFilterInfo, logFilterLog]
 
         navigationToggleGroup.toggles.addAll(runButton, buildButton, settingsButton)
         logFilterToggleGroup.toggles.addAll(allFilters)
 
-        log.logWebView.logMessages.addListener({ javafx.beans.Observable observable ->
-            updateLogFilter()
-        } as InvalidationListener)
-        logFilterToggleGroup.selectedToggleProperty().addListener({ javafx.beans.Observable observable ->
-            updateLogFilter()
-        } as InvalidationListener)
-
         runButton.onAction = {
-
             COLTAsController coltController = (COLTAsController) ServiceProvider.get(COLTController.class)
-            coltController.startBaseCompilation(new COLTControllerCallbackEx<CompilationResult>() {
-                @Override
-                void onComplete(CompilationResult successResult) {
-                }
-
-                @Override
-                void onError(Throwable t, CompilationResult errorResult) {
-                }
-            }, true, true)
-
-            borderPane.center = log.logWebView
+            coltController.startBaseCompilation()
+            root.center = log.logWebView
         } as EventHandler
 
         settingsButton.onAction = {
-            borderPane.center = sForm.getPane()
+            root.center = sForm.getPane()
         } as EventHandler
 
-        borderPane.top = ShortCodeNotification.initNotification(borderPane.top)
+        root.top = ShortCodeNotification.initNotification(root.top)
 
         buildButton.onAction = {
             COLTAsController coltController = (COLTAsController) ServiceProvider.get(COLTController.class)
-            coltController.startProductionCompilation(new COLTControllerCallbackEx<CompilationResult>() {
-                @Override
-                void onComplete(CompilationResult successResult) {
-                }
-
-                @Override
-                void onError(Throwable t, CompilationResult errorResult) {
-                }
-            }, true, true)
+            coltController.startProductionCompilation()
         } as EventHandler
 
         MyContextMenu contextMenu = new MyContextMenu()
         contextMenu.setStyle("-fx-background-color: transparent;");
-        ArrayList<MenuItem> items = COLTApplication.get().menuItems
+        ArrayList<MenuItem> items = COLTApplication.get().menuBar.popupMenuItems
         contextMenu.items.addAll(items)
 
-        menuBtn.onAction = {
-            Point2D point = menuBtn.parent.localToScreen(menuBtn.layoutX, menuBtn.layoutY)
-            contextMenu.show(menuBtn, point.x + 5, point.y - 15 - items.size() * 25)
+        popupMenuButton.onAction = {
+            Point2D point = popupMenuButton.parent.localToScreen(popupMenuButton.layoutX, popupMenuButton.layoutY)
+            contextMenu.show(popupMenuButton, point.x + 5, point.y - 15 - items.size() * 25)
         } as EventHandler
 
-        projectTitle.textProperty().bind(codeOrchestra.colt.as.model.ModelStorage.instance.project.name())
-
-        borderPane.center = log.logWebView // todo
-        runButton.selected = true // todo
+        // progress monitor
 
         COLTProgressIndicatorController.instance.progressIndicator = progressIndicator
 
         sessionIndicator.visibleProperty().bind(progressIndicator.visibleProperty().not())
         SessionIndicatorController.instance.indicator = sessionIndicator
 
-        borderPane.centerProperty().addListener({ o, old, javafx.scene.Node newValue ->
-            allFilters.each {it.visible = borderPane.center == log.logWebView }
+        // data binding
+
+        navigationToggleGroup.selectedToggleProperty().addListener({ v, o, newValue ->
+            int index = navigationToggleGroup.toggles.indexOf(navigationToggleGroup.selectedToggle)
+            applicationState = ["Log", "Production Build", "Project Settings"][index]
+            println "applicationState = $applicationState"
+        } as ChangeListener)
+
+        log.logWebView.logMessages.addListener({ v, o, newValue ->
+            updateLogFilter()
+        } as InvalidationListener)
+
+        logFilterToggleGroup.selectedToggleProperty().addListener({ javafx.beans.Observable observable ->
+            updateLogFilter()
+        } as InvalidationListener)
+
+        projectTitle.textProperty().bind(new StringBinding() {
+            {
+                super.bind(model.project.name(), applicationState())
+            }
+            @Override
+            protected String computeValue() {
+                model.project.name + " / " + getApplicationState()
+            }
+        })
+
+        root.centerProperty().addListener({ o, old, javafx.scene.Node newValue ->
+            allFilters.each {it.visible = root.center == log.logWebView }
             updateLogFilter()
         } as ChangeListener)
 
         logFiltersContainer.widthProperty().addListener({ o, old, Number newValue ->
             updateLogFilter()
         } as ChangeListener)
+
+        // start
+
+        root.center = log.logWebView // todo
+        runButton.selected = true // todo
     }
 
     private void updateLogFilter() {
@@ -171,7 +183,7 @@ class MainAppController implements Initializable {
 
     void initGA() {
         GATracker.instance.trackPageView("/as/asProject.html", "asProject")
-        GAController.instance.pageContainer = borderPane.centerProperty()
+        GAController.instance.pageContainer = root.centerProperty()
         GAController.instance.registerEvent(runButton, "ActionMenu", "Run pressed")
         GAController.instance.registerEvent(pauseButton, "ActionMenu", "Pause pressed")
         GAController.instance.registerEvent(settingsButton, "ActionMenu", "Settings pressed")
