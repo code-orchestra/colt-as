@@ -24,6 +24,8 @@ class SettingsForm extends ScrollPane{
 
         setId("settings-form")
 
+        styleClass.add("scroll-pane-settings")
+
         VBox vBox = new VBox()
         vBox.alignment = Pos.TOP_CENTER
 
