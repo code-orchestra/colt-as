@@ -1,7 +1,6 @@
 package codeOrchestra.colt.as.ui
 
 import codeOrchestra.colt.as.ASLiveCodingLanguageHandler
-import codeOrchestra.colt.as.compiler.fcsh.make.CompilationResult
 import codeOrchestra.colt.as.controller.COLTAsController
 import codeOrchestra.colt.as.model.ModelStorage
 import codeOrchestra.colt.as.ui.log.Log
@@ -9,7 +8,6 @@ import codeOrchestra.colt.as.ui.popupmenu.MyContextMenu
 import codeOrchestra.colt.as.ui.propertyTabPane.SettingsForm
 import codeOrchestra.colt.core.ServiceProvider
 import codeOrchestra.colt.core.controller.COLTController
-import codeOrchestra.colt.core.controller.COLTControllerCallbackEx
 import codeOrchestra.colt.core.loading.LiveCodingHandlerManager
 import codeOrchestra.colt.core.logging.Level
 import codeOrchestra.colt.core.rpc.security.ui.ShortCodeNotification
@@ -19,12 +17,13 @@ import codeOrchestra.colt.core.ui.COLTApplication
 import codeOrchestra.colt.core.ui.components.COLTProgressIndicatorController
 import codeOrchestra.colt.core.ui.components.log.LogFilter
 import codeOrchestra.colt.core.ui.components.log.LogMessage
+import codeOrchestra.colt.core.ui.components.log.LogWebView
 import codeOrchestra.colt.core.ui.components.sessionIndicator.SessionIndicatorController
 import codeOrchestra.groovyfx.FXBindable
 import javafx.beans.InvalidationListener
 import javafx.beans.binding.StringBinding
 import javafx.beans.value.ChangeListener
-import javafx.beans.value.ObservableValue
+import javafx.collections.ListChangeListener
 import javafx.event.EventHandler
 import javafx.fxml.FXML
 import javafx.fxml.Initializable
@@ -40,18 +39,19 @@ import javafx.scene.layout.HBox
 class MainAppController implements Initializable {
     @FXML Label projectTitle
 
+    @FXML BorderPane root
+
     ToggleGroup navigationToggleGroup = new ToggleGroup()
+
     @FXML ToggleButton runButton
     @FXML ToggleButton pauseButton
     @FXML ToggleButton buildButton
     @FXML ToggleButton settingsButton
 
-    @FXML BorderPane root
-
     @FXML Button popupMenuButton
 
-    Log log = new Log()
-    SettingsForm sForm = new SettingsForm()
+    @Lazy LogWebView logView = Log.instance.logWebView
+    @Lazy SettingsForm settingsForm = new SettingsForm()
 
     @FXML HBox logFiltersContainer
 
@@ -74,11 +74,7 @@ class MainAppController implements Initializable {
 
     @Override
     void initialize(URL url, ResourceBundle resourceBundle) {
-        if (LiveCodingHandlerManager.instance.currentHandler != null) {
-            ((ASLiveCodingLanguageHandler) LiveCodingHandlerManager.instance.currentHandler).setLoggerService(log);
-        }
-
-        initGA()
+        initLog(); initGoogleAnalytics()
 
         // build ui
 
@@ -90,11 +86,11 @@ class MainAppController implements Initializable {
         runButton.onAction = {
             COLTAsController coltController = (COLTAsController) ServiceProvider.get(COLTController.class)
             coltController.startBaseCompilation()
-            root.center = log.logWebView
+            root.center = logView
         } as EventHandler
 
         settingsButton.onAction = {
-            root.center = sForm.getPane()
+            root.center = settingsForm
         } as EventHandler
 
         root.top = ShortCodeNotification.initNotification(root.top)
@@ -126,14 +122,13 @@ class MainAppController implements Initializable {
         navigationToggleGroup.selectedToggleProperty().addListener({ v, o, newValue ->
             int index = navigationToggleGroup.toggles.indexOf(navigationToggleGroup.selectedToggle)
             applicationState = ["Log", "Production Build", "Project Settings"][index]
-            println "applicationState = $applicationState"
         } as ChangeListener)
 
-        log.logWebView.logMessages.addListener({ v, o, newValue ->
+        logView.logMessages.addListener({ ListChangeListener.Change<? extends LogMessage> c ->
             updateLogFilter()
-        } as InvalidationListener)
+        } as ListChangeListener)
 
-        logFilterToggleGroup.selectedToggleProperty().addListener({ javafx.beans.Observable observable ->
+        logFilterToggleGroup.selectedToggleProperty().addListener({ o ->
             updateLogFilter()
         } as InvalidationListener)
 
@@ -148,7 +143,7 @@ class MainAppController implements Initializable {
         })
 
         root.centerProperty().addListener({ o, old, javafx.scene.Node newValue ->
-            allFilters.each {it.visible = root.center == log.logWebView }
+            allFilters.each {it.visible = root.center == logView }
             updateLogFilter()
         } as ChangeListener)
 
@@ -158,8 +153,14 @@ class MainAppController implements Initializable {
 
         // start
 
-        root.center = log.logWebView // todo
-        runButton.selected = true // todo
+        settingsButton.onAction.handle(null)
+        settingsButton.selected = true
+    }
+
+    private static void initLog() {
+        if (LiveCodingHandlerManager.instance.currentHandler != null) {
+            ((ASLiveCodingLanguageHandler) LiveCodingHandlerManager.instance.currentHandler).setLoggerService(Log.instance);
+        }
     }
 
     private void updateLogFilter() {
@@ -169,7 +170,7 @@ class MainAppController implements Initializable {
         }
 
         int filterIndex = allFilters.indexOf(logFilterToggleGroup.selectedToggle)
-        log.logWebView.filter(LogFilter.values()[filterIndex])
+        logView.filter(LogFilter.values()[filterIndex])
         logFilterErrors.text = "Errors" + logFilterPrefix(Level.ERROR)
         logFilterWarnings.text = "Warnings" + logFilterPrefix(Level.WARN)
         logFilterInfo.text = "Info" + logFilterPrefix(Level.INFO)
@@ -177,11 +178,11 @@ class MainAppController implements Initializable {
     }
 
     private String logFilterPrefix(Level... levels) {
-        if(log.logWebView.logMessages.empty || logFiltersContainer.width < 300) return  ""
-        " (" + log.logWebView.logMessages.grep { LogMessage m -> m.level in levels }.size() + ")"
+        if(logView.logMessages.empty || logFiltersContainer.width < 300) return  ""
+        " (" + logView.logMessages.grep { LogMessage m -> m.level in levels }.size() + ")"
     }
 
-    void initGA() {
+    void initGoogleAnalytics() {
         GATracker.instance.trackPageView("/as/asProject.html", "asProject")
         GAController.instance.pageContainer = root.centerProperty()
         GAController.instance.registerEvent(runButton, "ActionMenu", "Run pressed")
