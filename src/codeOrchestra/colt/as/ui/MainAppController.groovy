@@ -35,6 +35,7 @@ import javafx.scene.layout.HBox
 
 /**
  * @author Dima Kruk
+ * @author Eugene Potapenko
  */
 class MainAppController implements Initializable {
     @FXML Label projectTitle

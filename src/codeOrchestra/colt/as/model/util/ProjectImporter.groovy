@@ -1,6 +1,7 @@
 package codeOrchestra.colt.as.model.util
 
 import codeOrchestra.colt.as.model.COLTAsProject
+import codeOrchestra.colt.core.ui.components.fileset.FilesetInput
 import codeOrchestra.util.PathUtils
 import codeOrchestra.colt.as.model.ModelStorage
 
@@ -107,22 +108,16 @@ class ProjectImporter {
                 },
 
                 sourcePaths: {String s ->
-                    String[] paths = s.split(/\\:/)
-                    paths = paths.collect { PathUtils.makeAbsolute(it) }
-                    project.projectPaths.sources.clear()
-                    project.projectPaths.sources.addAll(paths)
+                    List<File> paths = s.split(/\\:/).collect{new File(it)}
+                    project.projectPaths.sources = FilesetInput.createFilesetString(paths)
                 },
                 libraryPaths: {String s ->
-                    String[] paths = s.split(/\\:/)
-                    paths = paths.collect { PathUtils.makeAbsolute(it) }
-                    project.projectPaths.libraries.clear()
-                    project.projectPaths.libraries.addAll(paths)
+                    List<File> paths = s.split(/\\:/).collect{new File(it)}
+                    project.projectPaths.libraries = FilesetInput.createFilesetString(paths)
                 },
                 asssetPaths: {String s ->
-                    String[] paths = s.split(/\\:/)
-                    paths = paths.collect { PathUtils.makeAbsolute(it) }
-                    project.projectPaths.assets.clear()
-                    project.projectPaths.assets.addAll(paths)
+                    List<File> paths = s.split(/\\:/).collect{new File(it)}
+                    project.projectPaths.assets = FilesetInput.createFilesetString(paths)
                 },
                 htmlTemplatePath: {String s ->
                     project.projectPaths.htmlTemplatePath = PathUtils.makeAbsolute(s)

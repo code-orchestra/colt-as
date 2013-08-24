@@ -15,11 +15,11 @@ import javafx.collections.ObservableList as FXObservableList
 @Canonical
 @FXBindable
 class COLTAsProjectPaths extends COLTProjectPaths<COLTAsProject> {
-    String sources
-    String libraries
-    String assets
+    String sources = "src/"
+    String libraries = "lib/"
+    String assets = "assets/"
 
-    String htmlTemplatePath
+    String htmlTemplatePath = ""
 
     COLTAsProjectPaths() {
         clear()
