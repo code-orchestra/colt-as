@@ -21,8 +21,8 @@ public class COLTCompilationResult {
   public COLTCompilationResult(CompilationResult compilationResult) {
     this.successful = compilationResult.isOk();
     
-    List<COLTCompilerMessage> errorMessagesList = new ArrayList<COLTCompilerMessage>();
-    List<COLTCompilerMessage> warningMessagesList = new ArrayList<COLTCompilerMessage>();
+    List<COLTCompilerMessage> errorMessagesList = new ArrayList<>();
+    List<COLTCompilerMessage> warningMessagesList = new ArrayList<>();
     
     List<CompilerMessage> messages = compilationResult.getMessages();
     for (CompilerMessage compilerMessage : messages) {

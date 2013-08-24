@@ -103,7 +103,7 @@ public class COLTAsRemoteServiceImpl extends AbstractCOLTRemoteService<COLTAsPro
             public COLTState execute() throws COLTRemoteException {
                 COLTState state = new COLTState();
 
-                List<COLTConnection> coltConnections = new ArrayList<COLTConnection>();
+                List<COLTConnection> coltConnections = new ArrayList<>();
                 List<LiveCodingSession> currentConnections = ServiceProvider.get(LiveCodingManager.class).getCurrentConnections();
                 for (LiveCodingSession session : currentConnections) {
                     if (!session.isDisposed()) {

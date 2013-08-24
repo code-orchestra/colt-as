@@ -10,7 +10,7 @@ import java.util.Map;
  */
 public class CommandOutput {
 
-  private Map<String, StringBuilder> outputMap = new HashMap<String, StringBuilder>();
+  private Map<String, StringBuilder> outputMap = new HashMap<>();
 
   public void addOutput(String key, String text) {
     StringBuilder stringBuilder = outputMap.get(key);

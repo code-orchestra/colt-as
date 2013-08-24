@@ -14,12 +14,6 @@ class COLTAsProject extends COLTProject {
     private final COLTAsProjectBuildSettings buildSettings = new COLTAsProjectBuildSettings()
     private final COLTAsProjectLiveSettings liveSettings = new COLTAsProjectLiveSettings()
 
-    void clear() {
-        projectPaths.clear()
-        buildSettings.clear()
-        liveSettings.clear()
-    }
-
     @Override
     COLTAsProjectPaths getProjectPaths() {
         return projectPaths

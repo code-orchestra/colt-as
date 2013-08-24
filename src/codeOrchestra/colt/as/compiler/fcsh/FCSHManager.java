@@ -36,7 +36,7 @@ public class FCSHManager {
 
   private FCSHProcessHandler fcshProcessHandler;
 
-  private final Map<List<String>, CompilerTarget> compilerTargets = Collections.synchronizedMap(new HashMap<List<String>, CompilerTarget>());
+  private final Map<List<String>, CompilerTarget> compilerTargets = Collections.synchronizedMap(new HashMap<>());
 
   public void restart() throws FCSHException, MaximumCompilationsCountReachedException {
     if (DemoHelper.get().maxCompilationsCountReached()) {

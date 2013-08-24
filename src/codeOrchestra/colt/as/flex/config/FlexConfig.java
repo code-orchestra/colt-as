@@ -49,15 +49,15 @@ public class FlexConfig {
   public static final String INCREMENTAL_ELEMENT = "incremental";
   private static final String OMIT_TRACE_STATEMENTS = "omit-trace-statements";
 
-  private List<String> customMetadataList = new ArrayList<String>();
-  private List<String> sourcePaths = new ArrayList<String>();
-  private List<String> includeClasses = new ArrayList<String>();
-  private List<FileWrapper> includeFiles = new ArrayList<FileWrapper>();
+  private List<String> customMetadataList = new ArrayList<>();
+  private List<String> sourcePaths = new ArrayList<>();
+  private List<String> includeClasses = new ArrayList<>();
+  private List<FileWrapper> includeFiles = new ArrayList<>();
 
-  private List<String> fileSpecs = new ArrayList<String>();
+  private List<String> fileSpecs = new ArrayList<>();
 
-  private List<String> libraryPaths = new ArrayList<String>();
-  private List<String> externalLibraryPaths = new ArrayList<String>();
+  private List<String> libraryPaths = new ArrayList<>();
+  private List<String> externalLibraryPaths = new ArrayList<>();
 
   List<String> locales;
 
@@ -185,7 +185,8 @@ public class FlexConfig {
 
   public void setLocale(String localeStr) {
     if (localeStr != null) {
-      locales = new ArrayList<String>();
+        //noinspection Convert2Diamond
+        locales = new ArrayList<>();
       String[] localesArray = localeStr.split(",");
       for (String splittedLocale : localesArray) {
         String trimmedLocale = splittedLocale.trim();

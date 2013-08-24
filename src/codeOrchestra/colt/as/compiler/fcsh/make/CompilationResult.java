@@ -22,7 +22,7 @@ public class CompilationResult implements Serializable {
   private boolean myAborted;
   private boolean myCompiledAnything;
 
-  private List<CompilerMessage> messages = new ArrayList<CompilerMessage>();
+  private List<CompilerMessage> messages = new ArrayList<>();
 
   public CompilationResult(int errors, int warnings, boolean aborted) {
     this(errors, warnings, aborted, true);

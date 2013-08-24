@@ -12,13 +12,12 @@ import groovy.transform.Canonical
 @Canonical
 @FXBindable
 class LiveSettingsModel implements IModelElement{
-    String liveType
-    boolean startSessionPaused
-    boolean makeGSLive
-    String maxLoop
+    String liveType = LiveMethods.ANNOTATED.preferenceValue
+    boolean startSessionPaused = false
+    boolean makeGSLive = false
+    String maxLoop = "1000"
 
     LiveSettingsModel() {
-        clear()
         ChangingMonitor monitor = ChangingMonitor.instance
         monitor.addAll(
                 liveType(),
@@ -26,13 +25,6 @@ class LiveSettingsModel implements IModelElement{
                 makeGSLive(),
                 maxLoop()
         )
-    }
-
-    void clear() {
-        liveType = LiveMethods.ANNOTATED.preferenceValue
-        startSessionPaused = false
-        makeGSLive = false
-        maxLoop = "1000"
     }
 
     @Override

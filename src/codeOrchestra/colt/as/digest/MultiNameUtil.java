@@ -25,7 +25,7 @@ public class MultiNameUtil {
     } else if (name instanceof AbcMultiname) {
       boolean emptyNamespace = false;
 
-      List<AbcNamespace> nameList = new ArrayList<AbcNamespace>();
+      @SuppressWarnings("Convert2Diamond") List<AbcNamespace> nameList = new ArrayList<>();
       AbcNamespace[] namespaces = ((AbcMultiname) name).nsset().set();
       for (AbcNamespace namespace : namespaces) {
         nameList.add(namespace);

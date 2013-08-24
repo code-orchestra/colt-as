@@ -28,7 +28,7 @@ public class IndexHTMLGenerator {
     File targetIndexFile = new File(project.getOutputDir(), "index.html");
     FileUtils.copyFileChecked(new File(ASPathUtils.getTemplatesDir(), "index.html"), targetIndexFile, false);
     
-    Map<String, String> replacements = new HashMap<String, String>();
+    @SuppressWarnings("Convert2Diamond") Map<String, String> replacements = new HashMap<>();
     replacements.put("{SWF_NAME}", project.getProjectBuildSettings().getOutputFilename());
     new TemplateProcessor(targetIndexFile, replacements).process();
   }

@@ -95,7 +95,7 @@ public enum FlexSDKLib {
       return null;
     }
 
-    List<File> playersList = new ArrayList<File>();
+    @SuppressWarnings("Convert2Diamond") List<File> playersList = new ArrayList<>();
     for (File playerDir : playerDirs) {
       playersList.add(playerDir);
     }

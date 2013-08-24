@@ -46,7 +46,7 @@ public class CompilerMessage implements Serializable {
   }
 
   public static CompilerMessagesWrapper extract(String compilerOutput) {
-    List<CompilerMessage> compilerMessages = new ArrayList<CompilerMessage>();
+    @SuppressWarnings("Convert2Diamond") List<CompilerMessage> compilerMessages = new ArrayList<>();
 
     Pattern pattern = Pattern.compile(MESSAGE_PATTERN, Pattern.MULTILINE);
     Matcher matcher = pattern.matcher(compilerOutput);

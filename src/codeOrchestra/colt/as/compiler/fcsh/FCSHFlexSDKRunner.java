@@ -54,7 +54,7 @@ public class FCSHFlexSDKRunner extends AbstractFlexSDKRunner {
 
   @Override
   protected List<String> getCommandArguments() {
-    List<String> commandArguments = new ArrayList<String>();
+    @SuppressWarnings("Convert2Diamond") List<String> commandArguments = new ArrayList<>();
 
     // Custom configuration file
     if (compilerSettings.useCustomSDKConfiguration()) {

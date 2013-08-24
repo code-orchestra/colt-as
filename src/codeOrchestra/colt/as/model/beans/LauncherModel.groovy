@@ -12,18 +12,12 @@ import codeOrchestra.colt.as.run.LauncherType
 @Canonical
 @FXBindable
 class LauncherModel  implements IModelElement{
-    String launcherType
-    String flashPlayerPath
+    String launcherType = LauncherType.DEFAULT.toString()
+    String flashPlayerPath = ""
 
     LauncherModel() {
-        clear()
         ChangingMonitor monitor = ChangingMonitor.instance
         monitor.addAll(launcherType(), flashPlayerPath())
-    }
-
-    void clear() {
-        launcherType = LauncherType.DEFAULT.toString()
-        flashPlayerPath = ""
     }
 
     @Override

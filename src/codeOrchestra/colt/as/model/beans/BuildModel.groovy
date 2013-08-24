@@ -16,24 +16,19 @@ import codeOrchestra.colt.core.model.monitor.ChangingMonitor
 @Canonical
 @FXBindable
 class BuildModel implements IModelElement {
-    String mainClass
-    String outputFileName
-    String outputPath
-    String targetPlayerVersion
-    boolean rsl
-
-    boolean nonDefaultLocale
-    String localeSettings
-
-    boolean excludeDeadCode
-
-    boolean interrupt
-    String interruptValue
-
-    String compilerOptions
+    String mainClass = ""
+    String outputFileName = ""
+    String outputPath = ""
+    String targetPlayerVersion = ""
+    boolean rsl = false
+    boolean nonDefaultLocale = false
+    String localeSettings = ""
+    boolean excludeDeadCode = false
+    boolean interrupt = false
+    String interruptValue = "30"
+    String compilerOptions = ""
 
     BuildModel() {
-        clear()
         ChangingMonitor monitor = ChangingMonitor.instance
         monitor.addAll(
                 mainClass(),
@@ -48,25 +43,6 @@ class BuildModel implements IModelElement {
                 interruptValue(),
                 compilerOptions()
         )
-    }
-
-    void clear() {
-        mainClass = ""
-        outputFileName = ""
-        outputPath = ""
-        targetPlayerVersion = ""
-
-        rsl = false
-
-        nonDefaultLocale = false
-        localeSettings = ""
-
-        excludeDeadCode = false
-
-        interrupt = false
-        interruptValue = "30"
-
-        compilerOptions = ""
     }
 
     @Override

@@ -25,7 +25,7 @@ public class COLTConnection {
     this.startTimestamp = session.getStartTimestamp();
     this.broadcastId = session.getBroadcastId();
     this.clientId = session.getClientId();
-    this.clientInfo = new HashMap<String, String>(session.getClientInfo());
+    this.clientInfo = new HashMap<>(session.getClientInfo());
     this.connectionNumber = session.getSessionNumber();
   }
 

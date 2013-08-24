@@ -22,7 +22,7 @@ public final class TraceCommandManager {
     return instance;
   }
 
-  private List<TraceCommand> commands = new ArrayList<TraceCommand>();
+  private List<TraceCommand> commands = new ArrayList<>();
 
   private TraceCommandManager() {
     addCommand(new LoggerTraceCommand());

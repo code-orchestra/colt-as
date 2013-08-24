@@ -25,7 +25,7 @@ public class FlexSDKManager {
   
   private static final String DEFAULT_PLAYER_VERSION = "10.2.0";
   
-  private Map<FlexSDKLibWrapper, String> libPathCache = new HashMap<FlexSDKLibWrapper, String>();
+  private Map<FlexSDKLibWrapper, String> libPathCache = new HashMap<>();
   
   private String playerDirName;
   
@@ -77,7 +77,7 @@ public class FlexSDKManager {
   }
   
   public List<String> getAvailablePlayerVersions(File flexSDKDir) throws FlexSDKNotPresentException {
-    List<String> result = new ArrayList<String>();
+    @SuppressWarnings("Convert2Diamond") List<String> result = new ArrayList<>();
     
     File playerLibsDir = new File(flexSDKDir, PLAYERLIBS_RELATIVE_PATH);
     if (!playerLibsDir.exists()) {
@@ -158,7 +158,7 @@ public class FlexSDKManager {
       return null;
     }
 
-    List<File> playersList = new ArrayList<File>();
+    @SuppressWarnings("Convert2Diamond") List<File> playersList = new ArrayList<>();
     for (File playerDir : playerDirs) {
       playersList.add(playerDir);
     }

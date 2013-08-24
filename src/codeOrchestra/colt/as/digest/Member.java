@@ -27,7 +27,8 @@ public class Member {
   
   public void addParameter(String name, String type) {
     if (parameters == null) {
-      parameters = new ArrayList<Parameter>();
+        //noinspection Convert2Diamond
+        parameters = new ArrayList<>();
     }
     parameters.add(new Parameter(name, type));
   }

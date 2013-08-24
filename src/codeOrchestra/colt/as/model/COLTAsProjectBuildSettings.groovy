@@ -17,13 +17,6 @@ class COLTAsProjectBuildSettings extends COLTProjectBuildSettings<COLTAsProject>
     public final ProductionBuildModel productionBuildModel = new ProductionBuildModel()
     public final RunTargetModel runTargetModel = new RunTargetModel()
 
-    void clear() {
-        sdkModel.clear()
-        buildModel.clear()
-        productionBuildModel.clear()
-        runTargetModel.clear()
-    }
-
     public boolean allowCompression() {
         return productionBuildModel.compression
     }

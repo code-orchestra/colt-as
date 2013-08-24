@@ -11,21 +11,15 @@ import groovy.transform.Canonical
 @Canonical
 @FXBindable
 class ProductionBuildModel implements IModelElement {
-    boolean compression
-    boolean optimization
+    boolean compression = false
+    boolean optimization = false
 
     ProductionBuildModel() {
-        clear()
         ChangingMonitor monitor = ChangingMonitor.instance
         monitor.addAll(
                 compression(),
                 optimization()
         )
-    }
-
-    void clear() {
-        compression = false
-        optimization = false
     }
 
     @Override

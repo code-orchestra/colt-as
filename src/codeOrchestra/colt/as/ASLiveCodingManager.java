@@ -42,17 +42,17 @@ public class ASLiveCodingManager extends AbstractLiveCodingManager<COLTAsProject
     private SourcesTrackerThread sourceTrackerThread;
     private boolean compilationInProgress;
 
-    private List<ASSourceFile> changedFiles = new ArrayList<ASSourceFile>();
+    private List<ASSourceFile> changedFiles = new ArrayList<>();
 
     private LiveCodingListener finisherThreadLiveCodingListener = new SessionHandleListener();
 
     private Object runMonitor = new Object();
 
-    private List<String> deliveryMessages = new ArrayList<String>();
-    private Map<String, List<String>> deliveryMessagesHistory = new HashMap<String, List<String>>();
+    private List<String> deliveryMessages = new ArrayList<>();
+    private Map<String, List<String>> deliveryMessagesHistory = new HashMap<>();
 
     // full path -> list of embeds
-    private Map<String, List<EmbedDigest>> embedDigests = new HashMap<String, List<EmbedDigest>>();
+    private Map<String, List<EmbedDigest>> embedDigests = new HashMap<>();
 
     private SourcesTrackerCallback sourcesTrackerCallback = new SourcesTrackerCallback() {
         @Override
@@ -118,7 +118,7 @@ public class ASLiveCodingManager extends AbstractLiveCodingManager<COLTAsProject
 
             List<ASSourceFile> changedFilesSnapshot;
             synchronized (runMonitor) {
-                changedFilesSnapshot = new ArrayList<ASSourceFile>(changedFiles);
+                changedFilesSnapshot = new ArrayList<>(changedFiles);
                 changedFiles.clear();
             }
 
@@ -189,11 +189,11 @@ public class ASLiveCodingManager extends AbstractLiveCodingManager<COLTAsProject
         if (sourceFile.isAsset()) {
             List<EmbedDigest> embedDigestsByFullPath = embedDigests.get(sourceFile.getFile().getPath());
 
-            Map<String, List<String>> mimeTypeToSourceAttributes = new HashMap<String, List<String>>();
+            Map<String, List<String>> mimeTypeToSourceAttributes = new HashMap<>();
             for (EmbedDigest embedDigest : embedDigestsByFullPath) {
                 List<String> sourceAttributes = mimeTypeToSourceAttributes.get(embedDigest.getMimeType());
                 if (sourceAttributes == null) {
-                    sourceAttributes = new ArrayList<String>();
+                    sourceAttributes = new ArrayList<>();
                     mimeTypeToSourceAttributes.put(embedDigest.getMimeType(), sourceAttributes);
                 }
 
@@ -239,7 +239,7 @@ public class ASLiveCodingManager extends AbstractLiveCodingManager<COLTAsProject
         File templateFile = new File(ASPathUtils.getTemplatesDir(), StringUtils.isEmpty(mimeType) ? "Asset_update_template.as" : "Asset_update_mimetype_template.as");
         File targetFile = new File(currentProject.getOrCreateIncrementalSourcesDir(), "codeOrchestra/liveCoding/load/" + className + ".as");
 
-        Map<String, String> replacements = new HashMap<String, String>();
+        Map<String, String> replacements = new HashMap<>();
         replacements.put("{CLASS_POSTFIX}", classPostfix);
         replacements.put("{RELATIVE_PATH}", "/" + assetFile.getFile().getName());
         replacements.put("{MIME_TYPE}", mimeType);
@@ -327,7 +327,7 @@ public class ASLiveCodingManager extends AbstractLiveCodingManager<COLTAsProject
     public void addDeliveryMessageToHistory(String broadcastId, String deliveryMessage) {
         List<String> history = deliveryMessagesHistory.get(broadcastId);
         if (history == null) {
-            history = new ArrayList<String>();
+            history = new ArrayList<>();
             deliveryMessagesHistory.put(broadcastId, history);
         }
         history.add(deliveryMessage);
@@ -342,7 +342,7 @@ public class ASLiveCodingManager extends AbstractLiveCodingManager<COLTAsProject
         for (EmbedDigest embedDigest : embeds) {
             List<EmbedDigest> storedEmbeds = getEmbedDigests(embedDigest.getFullPath());
             if (storedEmbeds == null) {
-                storedEmbeds = new ArrayList<EmbedDigest>();
+                storedEmbeds = new ArrayList<>();
                 embedDigests.put(embedDigest.getFullPath(), storedEmbeds);
             }
 
@@ -388,7 +388,7 @@ public class ASLiveCodingManager extends AbstractLiveCodingManager<COLTAsProject
     }
 
     public void startListeningForSourcesChanges() {
-        List<File> watchedDirs = new ArrayList<File>();
+        List<File> watchedDirs = new ArrayList<>();
         COLTAsProject currentProject = COLTAsProject.getCurrentProject();
         for (String sourceDirPath : currentProject.getProjectPaths().getSourcePaths()) {
             File sourceDir = new File(sourceDirPath);
@@ -456,7 +456,7 @@ public class ASLiveCodingManager extends AbstractLiveCodingManager<COLTAsProject
     private class SessionHandleListener extends LiveCodingAdapter {
 
         // clientId -> session finisher thread
-        private Map<String, SessionFinisher> sessionFinisherThreads = new HashMap<String, SessionFinisher>();
+        private Map<String, SessionFinisher> sessionFinisherThreads = new HashMap<>();
 
         @Override
         public void onSessionStart(LiveCodingSession session) {

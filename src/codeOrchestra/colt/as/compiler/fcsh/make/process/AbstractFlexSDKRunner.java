@@ -37,7 +37,7 @@ public abstract class AbstractFlexSDKRunner {
   protected abstract String getCommandName();
 
   protected List<String> getCommandArguments() {
-    List<String> commandArguments = new ArrayList<String>();
+    List<String> commandArguments = new ArrayList<>();
 
     boolean firstConfigSet = false;
 

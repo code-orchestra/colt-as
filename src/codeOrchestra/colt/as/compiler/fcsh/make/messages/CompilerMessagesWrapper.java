@@ -30,7 +30,7 @@ public class CompilerMessagesWrapper {
   }
   
   public List<CompilerMessage> getMessagesSmart() {
-    List<CompilerMessage> smartMessages = new ArrayList<CompilerMessage>();
+    @SuppressWarnings("Convert2Diamond") List<CompilerMessage> smartMessages = new ArrayList<>();
     
     if (errorCount > 0) {
       Iterator<CompilerMessage> messagesIterator = messages.iterator();

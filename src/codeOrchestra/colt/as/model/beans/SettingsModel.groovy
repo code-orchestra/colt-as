@@ -11,21 +11,15 @@ import groovy.transform.Canonical
 @Canonical
 @FXBindable
 class SettingsModel implements IModelElement{
-    boolean clearLog
-    boolean disconnectOnTimeout
+    boolean clearLog = false
+    boolean disconnectOnTimeout = false
 
     SettingsModel() {
-        clear()
         ChangingMonitor monitor = ChangingMonitor.instance
         monitor.addAll(
                 clearLog(),
                 disconnectOnTimeout()
         )
-    }
-
-    void clear() {
-        clearLog = false
-        disconnectOnTimeout = false
     }
 
     @Override

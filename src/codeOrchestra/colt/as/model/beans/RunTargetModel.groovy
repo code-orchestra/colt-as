@@ -14,15 +14,14 @@ import codeOrchestra.colt.as.run.Target
 @Canonical
 @FXBindable
 class RunTargetModel implements IModelElement{
-    String target
-    String httpIndex
-    String iosScript
+    String target = Target.SWF.name()
+    String httpIndex = ""
+    String iosScript = ""
     AIRModel iosAirModel = new AIRModel()
-    String androidScript
+    String androidScript = ""
     AIRModel androidAirModel = new AIRModel()
 
     RunTargetModel() {
-        clear()
         ChangingMonitor monitor = ChangingMonitor.instance
         monitor.addAll(
                 target(),
@@ -30,15 +29,6 @@ class RunTargetModel implements IModelElement{
                 iosScript(),
                 androidScript()
         )
-    }
-
-    void clear() {
-        target = Target.SWF.name()
-        httpIndex = ""
-        iosScript = ""
-        iosAirModel.clear()
-        androidScript = ""
-        androidAirModel.clear()
     }
 
     @Override

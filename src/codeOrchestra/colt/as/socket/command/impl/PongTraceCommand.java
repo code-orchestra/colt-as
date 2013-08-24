@@ -22,7 +22,7 @@ public final class PongTraceCommand implements TraceCommand {
 
   private static final String PONG_COMMAND = "pong";
 
-  private List<PongListener> pongListeners = new ArrayList<PongListener>();
+  private List<PongListener> pongListeners = new ArrayList<>();
 
   private PongTraceCommand() {
   }

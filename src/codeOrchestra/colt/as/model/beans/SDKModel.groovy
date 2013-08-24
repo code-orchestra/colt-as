@@ -14,15 +14,14 @@ import javafx.beans.property.StringProperty
 @FXBindable
 class SDKModel implements IModelElement{
 
-    String flexSDKPath
-    boolean useFlexConfig
-    boolean useCustomConfig
-    String customConfigPath
+    String flexSDKPath = ""
+    boolean useFlexConfig = false
+    boolean useCustomConfig = false
+    String customConfigPath = ""
 
-    boolean isValidFlexSDK
+    boolean isValidFlexSDK = false
 
     SDKModel() {
-        clear()
         ChangingMonitor monitor = ChangingMonitor.instance
         monitor.addAll(
                 flexSDKPath(),
@@ -30,15 +29,6 @@ class SDKModel implements IModelElement{
                 useCustomConfig(),
                 customConfigPath()
         )
-    }
-
-    void clear() {
-        flexSDKPath = ""
-        useFlexConfig = false
-        useCustomConfig = false
-        customConfigPath = ""
-
-        isValidFlexSDK = false
     }
 
     @Override

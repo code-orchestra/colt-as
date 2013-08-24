@@ -29,7 +29,7 @@ public class SWCDigest {
     private java.util.List<String> swcPaths;
     private String outputPath;
 
-    private Map<String, Document> digestsMap = new HashMap<String, Document>();
+    private Map<String, Document> digestsMap = new HashMap<>();
 
     public SWCDigest(java.util.List<String> swcPaths, String outputPath) {
         this.swcPaths = swcPaths;
@@ -322,7 +322,7 @@ public class SWCDigest {
     }
 
     private java.util.List<Member> getMembers(AbcTraitClass traitClass) {
-        java.util.List<Member> result = new ArrayList<Member>();
+        @SuppressWarnings("Convert2Diamond") java.util.List<Member> result = new ArrayList<>();
 
         AbcClass klass = traitClass.nominalType().klass();
         AbcInstance abcInstance = traitClass.nominalType().inst();

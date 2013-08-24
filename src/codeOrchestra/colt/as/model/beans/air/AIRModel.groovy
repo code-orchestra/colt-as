@@ -11,13 +11,12 @@ import groovy.transform.Canonical
 @Canonical
 @FXBindable
 class AIRModel implements IModelElement {
-    String airSDKPath
-    String provisionPath
-    String keystorePath
-    String storePass
+    String airSDKPath = ""
+    String provisionPath = ""
+    String keystorePath = ""
+    String storePass = ""
 
     AIRModel() {
-        clear()
         ChangingMonitor monitor = ChangingMonitor.instance
         monitor.addAll(
                 airSDKPath(),
@@ -25,13 +24,6 @@ class AIRModel implements IModelElement {
                 keystorePath(),
                 storePass()
         )
-    }
-
-    void clear() {
-        airSDKPath = ""
-        provisionPath = ""
-        keystorePath = ""
-        storePass = ""
     }
 
     @Override

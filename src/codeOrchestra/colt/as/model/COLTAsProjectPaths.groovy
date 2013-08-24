@@ -22,16 +22,8 @@ class COLTAsProjectPaths extends COLTProjectPaths<COLTAsProject> {
     String htmlTemplatePath = ""
 
     COLTAsProjectPaths() {
-        clear()
         ChangingMonitor monitor = ChangingMonitor.instance
         monitor.add(htmlTemplatePath())
-    }
-
-    void clear() {
-        sources = "src/"
-        libraries = "lib/"
-        assets = "assets/"
-        htmlTemplatePath = ""
     }
 
     public String getHTMLTemplatePath() {
@@ -39,27 +31,27 @@ class COLTAsProjectPaths extends COLTProjectPaths<COLTAsProject> {
     }
 
     public addSources(String[] value) {
-        sources = FilesetInput.createFilesetString(value.collect {new File(it)})
+        sources = FilesetInput.createFilesetString(value.collect{new File(it)})
     }
 
     public addLibraries(String[] value) {
-        libraries = FilesetInput.createFilesetString(value.collect {new File(it)})
+        libraries = FilesetInput.createFilesetString(value.collect{new File(it)})
     }
 
     public addAssets(String[] value) {
-        assets = FilesetInput.createFilesetString(value.collect {new File(it)})
+        assets = FilesetInput.createFilesetString(value.collect{new File(it)})
     }
 
     public List<String> getSourcePaths() {
-        return FilesetInput.getDirectoriesFromString(sources).collect({it.path})
+        return FilesetInput.getDirectoriesFromString(sources).collect{it.path}
     }
 
     public List<String> getLibraryPaths() {
-        return FilesetInput.getFilesFromString(libraries).collect({it.path})
+        return FilesetInput.getFilesFromString(libraries).collect{it.path}
     }
 
     public List<String> getAssetPaths() {
-        return FilesetInput.getDirectoriesFromString(assets).collect({it.path})
+        return FilesetInput.getDirectoriesFromString(assets).collect{it.path}
     }
 
     @Override
