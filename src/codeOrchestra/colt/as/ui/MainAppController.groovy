@@ -89,7 +89,7 @@ class MainAppController implements Initializable {
 
         runButton.onAction = {
             COLTAsController coltController = (COLTAsController) ServiceProvider.get(COLTController.class)
-            coltController.startBaseCompilation()
+            coltController.startBaseCompilation()//todo: handle errors?
             root.center = logView
             runButton.selected = true
         } as EventHandler
@@ -108,7 +108,7 @@ class MainAppController implements Initializable {
 
         buildButton.onAction = {
             COLTAsController coltController = (COLTAsController) ServiceProvider.get(COLTController.class)
-            coltController.startProductionCompilation()
+            coltController.startProductionCompilation()//todo: handle errors?
             buildButton.selected = true
         } as EventHandler
 
