@@ -20,6 +20,7 @@ import javafx.scene.control.ToggleGroup
 import javafx.scene.layout.VBox
 import javafx.stage.Modality
 import javafx.stage.Stage
+import codeOrchestra.colt.as.run.indexhtml.IndexHTMLGenerator
 
 /**
  * @author Dima Kruk
@@ -52,7 +53,12 @@ class TargetFormController implements Initializable {
         }
 
         http.button.onAction = {
-            //todo: implement
+            AsProjectBuildSettings buildSettings = ModelStorage.instance.project.getProjectBuildSettings()
+            if (buildSettings.outputFilename) {
+                model.httpIndex = IndexHTMLGenerator.generate(ModelStorage.instance.project)
+            } else {
+                //TODO: show message
+            }
         } as EventHandler
 
         ios.button.onAction = {

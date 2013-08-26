@@ -15,22 +15,17 @@ import java.util.Map;
  */
 public class IndexHTMLGenerator {
 
-  private AsProject project;
-
-  public IndexHTMLGenerator(AsProject project) {
-    this.project = project;
-  }
-
-  public void generate() throws IOException {
-    File targetSWFObjectFile = new File(project.getOutputDir(), "swfobject.html");
-    FileUtils.copyFileChecked(new File(ASPathUtils.getTemplatesDir(), "swfobject.html"), targetSWFObjectFile, false);
+  public static String generate(AsProject project) throws IOException {
+    File targetSWFObjectFile = new File(project.getOutputDir(), "swfobject.js");
+    FileUtils.copyFileChecked(new File(ASPathUtils.getTemplatesDir(), "swfobject.js"), targetSWFObjectFile, false);
     
     File targetIndexFile = new File(project.getOutputDir(), "index.html");
     FileUtils.copyFileChecked(new File(ASPathUtils.getTemplatesDir(), "index.html"), targetIndexFile, false);
     
-    @SuppressWarnings("Convert2Diamond") Map<String, String> replacements = new HashMap<>();
+    Map<String, String> replacements = new HashMap<>();
     replacements.put("{SWF_NAME}", project.getProjectBuildSettings().getOutputFilename());
     new TemplateProcessor(targetIndexFile, replacements).process();
+    return targetIndexFile.getPath();
   }
   
 }
