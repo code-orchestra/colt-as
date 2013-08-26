@@ -38,28 +38,27 @@ class BuildSettingsFormController implements Initializable {
         player.errorLabel.visible = false
 
         bindModel()
-    }
 
-    void bindModel() {
-//        mainClass.textField.textProperty().bindBidirectional(model.mainClass())
-        fileName.textField.textProperty().bindBidirectional(model.outputFileName())
-        outPath.textField.textProperty().bindBidirectional(model.outputPath())
-
-        player.choiceBox.valueProperty().bindBidirectional(model.targetPlayerVersion())
-        model.targetPlayerVersion().addListener({ ObservableValue<? extends String> observableValue, String t, String t1 ->
+        model.targetPlayerVersion().addListener({ ObservableValue<? extends String> observableValue, String oldValue, String newValue ->
             //model.targetPlayerVersion can't be empty
-            if (t1?.isEmpty()) {
-                model.targetPlayerVersion = t
-            }   
+            if (newValue?.isEmpty()) {
+                //fix model value
+                model.targetPlayerVersion = oldValue
+            }
+            if(model.useMaxVersion && newValue != null && !player.choiceBox.items.contains(newValue)) {
+                //fix model value
+                model.targetPlayerVersion = oldValue
+            }
         } as ChangeListener)
-        player.choiceBox.valueProperty().addListener({ ObservableValue<? extends String> observableValue, String t, String t1 ->
-            if(t1 != null && !t1?.isEmpty()) {
-                if(!player.choiceBox.items.contains(t1)) {
-                    player.choiceBox.items.add(t1)
+
+        player.choiceBox.valueProperty().addListener({ ObservableValue<? extends String> observableValue, String oldValue, String newValue ->
+            if(newValue != null && !newValue?.isEmpty()) {
+                if(!player.choiceBox.items.contains(newValue) && !model.useMaxVersion) {
+                    player.choiceBox.items.add(newValue)
                     error(true)
                 } else {
                     if(player.errorLabel.visible) {
-                        player.choiceBox.items.remove(t)
+                        player.choiceBox.items.remove(oldValue)
                     }
                     error(false)
                 }
@@ -76,7 +75,7 @@ class BuildSettingsFormController implements Initializable {
                 FlexSDKManager manager = FlexSDKManager.instance
                 List<String> versions = manager.getAvailablePlayerVersions(new File(sdkModel.flexSDKPath))
                 player.choiceBox.items.addAll(versions)
-                if(modelValue != null && !modelValue.isEmpty()) {
+                if(!model.useMaxVersion && modelValue != null && !modelValue.isEmpty()) {
                     if (versions.contains(modelValue)) {
                         model.targetPlayerVersion = modelValue
                         error(false)
@@ -95,6 +94,25 @@ class BuildSettingsFormController implements Initializable {
                 error(true)
             }
         } as ChangeListener<Boolean>)
+
+        model.useMaxVersion().addListener({ ObservableValue<? extends Boolean> observableValue, Boolean oldValue, Boolean newValue ->
+            if (newValue && sdkModel.isValidFlexSDK) {
+                player.choiceBox.items.clear()
+                FlexSDKManager manager = FlexSDKManager.instance
+                List<String> versions = manager.getAvailablePlayerVersions(new File(sdkModel.flexSDKPath))
+                player.choiceBox.items.addAll(versions)
+                model.targetPlayerVersion = versions.first()
+            }
+        } as ChangeListener)
+    }
+
+    void bindModel() {
+//        mainClass.textField.textProperty().bindBidirectional(model.mainClass())
+        fileName.textField.textProperty().bindBidirectional(model.outputFileName())
+        outPath.textField.textProperty().bindBidirectional(model.outputPath())
+        player.checkBox.selectedProperty().bindBidirectional(model.useMaxVersion())
+
+        player.choiceBox.valueProperty().bindBidirectional(model.targetPlayerVersion())
 
         rsl.checkBox.selectedProperty().bindBidirectional(model.rsl())
 

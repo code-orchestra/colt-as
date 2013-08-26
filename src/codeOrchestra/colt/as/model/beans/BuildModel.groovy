@@ -5,6 +5,8 @@ import codeOrchestra.groovyfx.FXBindable
 import codeOrchestra.util.PathUtils
 import groovy.transform.Canonical
 import codeOrchestra.colt.core.model.monitor.ChangingMonitor
+import javafx.beans.value.ChangeListener
+import javafx.beans.value.ObservableValue
 
 /**
  * Created with IntelliJ IDEA.
@@ -19,6 +21,7 @@ class BuildModel implements IModelElement {
     String mainClass = ""
     String outputFileName = ""
     String outputPath = ""
+    boolean useMaxVersion = true
     String targetPlayerVersion = ""
     boolean rsl = false
     boolean nonDefaultLocale = false
@@ -34,7 +37,8 @@ class BuildModel implements IModelElement {
                 mainClass(),
                 outputFileName(),
                 outputPath(),
-                targetPlayerVersion(),
+                useMaxVersion(),
+//                targetPlayerVersion(),
                 rsl(),
                 nonDefaultLocale(),
                 localeSettings(),
@@ -43,6 +47,9 @@ class BuildModel implements IModelElement {
                 interruptValue(),
                 compilerOptions()
         )
+        useMaxVersion().addListener({ ObservableValue<? extends Boolean> observableValue, Boolean t, Boolean t1 ->
+            t1 ? monitor.remove(targetPlayerVersion()) : monitor.add(targetPlayerVersion())
+        } as ChangeListener)
     }
 
     @Override
@@ -51,6 +58,7 @@ class BuildModel implements IModelElement {
             'main-class'(PathUtils.makeRelative(mainClass))
             'output-name'(outputFileName)
             'output-path'(PathUtils.makeRelative(outputPath))
+            'use-max-version'(useMaxVersion)
             'player-version'(targetPlayerVersion)
             'is-rsl'(rsl)
 
@@ -71,6 +79,7 @@ class BuildModel implements IModelElement {
         mainClass = PathUtils.makeAbsolute((node.'main-class'?.toString()))
         outputFileName = node.'output-name'
         outputPath = PathUtils.makeAbsolute((node.'output-path'?.toString()))
+        useMaxVersion = node.'use-max-version' == "true"
         targetPlayerVersion = node.'player-version'
         rsl = node.'is-rsl' == "true"
 

@@ -9,7 +9,7 @@
   <!--<LTBForm fx:id="mainClass" text="Main class:" formType="BUTTON" />-->
   <LTBForm fx:id="fileName" text="Output file name:" formType="TEXT_FIELD" />
   <LTBForm fx:id="outPath" text="Output path:" formType="BUTTON" browseType="DIRECTORY" />
-  <CBForm fx:id="player" text="Target player version:"/>
+  <CBForm fx:id="player"/>
 
   <CTBForm fx:id="rsl" text="Use Framework as Runtime Shared Library (RSL)" formType="SIMPLE"/>
   <CTBForm fx:id="locale" text="Non-default locale settings" formType="TEXT_FIELD"/>
