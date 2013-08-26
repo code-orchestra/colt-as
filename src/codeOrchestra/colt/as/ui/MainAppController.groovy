@@ -7,6 +7,7 @@ import codeOrchestra.colt.as.ui.log.Log
 import codeOrchestra.colt.as.ui.popupmenu.MyContextMenu
 import codeOrchestra.colt.as.ui.propertyTabPane.SettingsForm
 import codeOrchestra.colt.core.ServiceProvider
+import codeOrchestra.colt.core.annotation.Service
 import codeOrchestra.colt.core.controller.ColtController
 import codeOrchestra.colt.core.loading.LiveCodingHandlerManager
 import codeOrchestra.colt.core.logging.Level
@@ -51,9 +52,10 @@ class MainAppController implements Initializable {
 
     @FXML Button popupMenuButton
 
+    @Service ColtAsController coltController
+
     @Lazy LogWebView logView = Log.instance.logWebView
     @Lazy SettingsForm settingsForm = new SettingsForm(saveRunAction:{
-        ColtAsController coltController = (ColtAsController) ServiceProvider.get(ColtController.class)
         coltController.startBaseCompilation()//todo: handle errors?
         root.center = logView
         runButton.selected = true
@@ -102,7 +104,6 @@ class MainAppController implements Initializable {
         root.top = ShortCodeNotification.initNotification(root.top)
 
         buildButton.onAction = {
-            ColtAsController coltController = (ColtAsController) ServiceProvider.get(ColtController.class)
             coltController.startProductionCompilation()//todo: handle errors?
             buildButton.selected = true
         } as EventHandler
