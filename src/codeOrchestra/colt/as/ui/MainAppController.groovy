@@ -55,8 +55,8 @@ class MainAppController implements Initializable {
     @Lazy SettingsForm settingsForm = new SettingsForm(saveRunAction:{
         ColtAsController coltController = (ColtAsController) ServiceProvider.get(ColtController.class)
         coltController.startBaseCompilation()//todo: handle errors?
-        root.center = settingsForm
-        settingsButton.selected = true
+        root.center = logView
+        runButton.selected = true
     } as EventHandler)
 
     @FXML HBox logFiltersContainer
