@@ -19,6 +19,7 @@ import codeOrchestra.colt.core.errorhandling.ErrorHandler;
 import codeOrchestra.colt.core.http.CodeOrchestraResourcesHttpServer;
 import codeOrchestra.colt.core.logging.Logger;
 import codeOrchestra.colt.core.session.LiveCodingSession;
+import codeOrchestra.colt.core.session.SocketWriter;
 import codeOrchestra.colt.core.session.listener.LiveCodingAdapter;
 import codeOrchestra.colt.core.session.listener.LiveCodingListener;
 import codeOrchestra.colt.core.session.sourcetracking.SourceFile;
@@ -35,7 +36,7 @@ import java.util.*;
 /**
  * @author Alexander Eliseyev
  */
-public class ASLiveCodingManager extends AbstractLiveCodingManager<AsProject, ClientSocketHandler> {
+public class ASLiveCodingManager extends AbstractLiveCodingManager<AsProject, SocketWriter> {
 
     private static final Logger LOG = Logger.getLogger(LiveCodingManager.class);
 
@@ -373,10 +374,10 @@ public class ASLiveCodingManager extends AbstractLiveCodingManager<AsProject, Cl
     }
 
     @Override
-    public void startSession(String broadcastId, String clientId, Map<String, String> clientInfo, ClientSocketHandler clientSocketHandler) {
+    public void startSession(String broadcastId, String clientId, Map<String, String> clientInfo, SocketWriter socketWriter) {
         boolean noSessionsWereActive = currentSessions.isEmpty();
 
-        LiveCodingSession newSession = new ASLiveCodingSession(broadcastId, clientId, clientInfo, System.currentTimeMillis(), clientSocketHandler);
+        LiveCodingSession newSession = new ASLiveCodingSession(broadcastId, clientId, clientInfo, System.currentTimeMillis(), socketWriter);
         currentSessions.put(clientId, newSession);
 
         if (noSessionsWereActive) {
@@ -514,13 +515,13 @@ public class ASLiveCodingManager extends AbstractLiveCodingManager<AsProject, Cl
             PongTraceCommand.getInstance().removePongListener(this);
         }
 
-        private LiveCodingSession getLiveCodingSession() {
-            return currentSessions.get(clientId);
+        private ASLiveCodingSession getLiveCodingSession() {
+            return (ASLiveCodingSession) currentSessions.get(clientId);
         }
 
         private void ping() {
             lastPing = System.currentTimeMillis();
-            getLiveCodingSession().getSocketWriter().writeToSocket(PING_COMMAND);
+            getLiveCodingSession().getSocketWrapper().writeToSocket(PING_COMMAND);
         }
 
         @Override

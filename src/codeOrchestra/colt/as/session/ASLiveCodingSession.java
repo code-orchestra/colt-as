@@ -11,7 +11,7 @@ import java.util.Map;
 /**
  * @author Alexander Eliseyev
  */
-public class ASLiveCodingSession implements LiveCodingSession {
+public class ASLiveCodingSession implements LiveCodingSession<SocketWriter> {
 
     private static int counter = 1;
 
@@ -37,7 +37,8 @@ public class ASLiveCodingSession implements LiveCodingSession {
         return sessionNumber;
     }
 
-    public SocketWriter getSocketWriter() {
+    @Override
+    public SocketWriter getSocketWrapper() {
         return socketWriter;
     }
 
