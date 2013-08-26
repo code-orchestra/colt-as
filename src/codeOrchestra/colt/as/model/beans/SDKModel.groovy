@@ -1,5 +1,7 @@
 package codeOrchestra.colt.as.model.beans
 
+import codeOrchestra.colt.as.flexsdk.FlexSDKManager
+import codeOrchestra.colt.as.flexsdk.FlexSDKNotPresentException
 import codeOrchestra.colt.core.model.monitor.ChangingMonitor
 import codeOrchestra.colt.core.model.IModelElement
 import codeOrchestra.groovyfx.FXBindable
@@ -44,6 +46,15 @@ class SDKModel implements IModelElement{
     @Override
     void buildModel(Object node) {
         flexSDKPath = PathUtils.makeAbsolute((node.'sdk-path')?.toString())
+        //check SDK path
+        FlexSDKManager manager = FlexSDKManager.instance
+        try {
+            manager.checkIsValidFlexSDKPath(flexSDKPath)
+            isValidFlexSDK = true
+        } catch (FlexSDKNotPresentException ignored) {
+            isValidFlexSDK = false
+        }
+        //
         useFlexConfig = node.'use-flex' == "true"
         useCustomConfig = node.'use-custom' == "true"
         customConfigPath = PathUtils.makeAbsolute((node.'custom-config'?.toString()))

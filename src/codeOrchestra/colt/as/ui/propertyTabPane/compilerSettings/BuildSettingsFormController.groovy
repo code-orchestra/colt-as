@@ -37,7 +37,11 @@ class BuildSettingsFormController implements Initializable {
 
         player.errorLabel.visible = false
 
-        bindModel()
+        if (sdkModel.isValidFlexSDK) {
+            initChoiceBox()
+        } else {
+            error(true)
+        }
 
         model.targetPlayerVersion().addListener({ ObservableValue<? extends String> observableValue, String oldValue, String newValue ->
             //model.targetPlayerVersion can't be empty
@@ -45,7 +49,7 @@ class BuildSettingsFormController implements Initializable {
                 //fix model value
                 model.targetPlayerVersion = oldValue
             }
-            if(model.useMaxVersion && newValue != null && !player.choiceBox.items.contains(newValue)) {
+            if(sdkModel.isValidFlexSDK && model.useMaxVersion && newValue != null && !player.choiceBox.items.contains(newValue)) {
                 //fix model value
                 model.targetPlayerVersion = oldValue
             }
@@ -53,7 +57,7 @@ class BuildSettingsFormController implements Initializable {
 
         player.choiceBox.valueProperty().addListener({ ObservableValue<? extends String> observableValue, String oldValue, String newValue ->
             if(newValue != null && !newValue?.isEmpty()) {
-                if(!player.choiceBox.items.contains(newValue) && !model.useMaxVersion) {
+                if(!player.choiceBox.items.contains(newValue)) {
                     player.choiceBox.items.add(newValue)
                     error(true)
                 } else {
@@ -72,9 +76,7 @@ class BuildSettingsFormController implements Initializable {
             String modelValue = model.targetPlayerVersion
             player.choiceBox.items.clear()
             if (newValue) {
-                FlexSDKManager manager = FlexSDKManager.instance
-                List<String> versions = manager.getAvailablePlayerVersions(new File(sdkModel.flexSDKPath))
-                player.choiceBox.items.addAll(versions)
+                List<String> versions = initChoiceBox()
                 if(!model.useMaxVersion && modelValue != null && !modelValue.isEmpty()) {
                     if (versions.contains(modelValue)) {
                         model.targetPlayerVersion = modelValue
@@ -97,13 +99,22 @@ class BuildSettingsFormController implements Initializable {
 
         model.useMaxVersion().addListener({ ObservableValue<? extends Boolean> observableValue, Boolean oldValue, Boolean newValue ->
             if (newValue && sdkModel.isValidFlexSDK) {
-                player.choiceBox.items.clear()
-                FlexSDKManager manager = FlexSDKManager.instance
-                List<String> versions = manager.getAvailablePlayerVersions(new File(sdkModel.flexSDKPath))
-                player.choiceBox.items.addAll(versions)
-                model.targetPlayerVersion = versions.first()
+                initChoiceBox(true)
             }
         } as ChangeListener)
+
+        bindModel()
+    }
+
+    private List<String> initChoiceBox(boolean setFirst = false) {
+        FlexSDKManager manager = FlexSDKManager.instance
+        List<String> versions = manager.getAvailablePlayerVersions(new File(sdkModel.flexSDKPath))
+        player.choiceBox.items.clear()
+        player.choiceBox.items.addAll(versions)
+        if (setFirst) {
+            model.targetPlayerVersion = versions.first()
+        }
+        return versions
     }
 
     void bindModel() {

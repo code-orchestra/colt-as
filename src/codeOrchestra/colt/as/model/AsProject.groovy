@@ -1,6 +1,7 @@
 package codeOrchestra.colt.as.model
 
 import codeOrchestra.colt.as.compiler.fcsh.FSCHCompilerKind
+import codeOrchestra.colt.as.flexsdk.FlexSDKManager
 import codeOrchestra.colt.core.ColtProjectManager
 import codeOrchestra.colt.core.model.Project
 import codeOrchestra.util.StringUtils
@@ -113,6 +114,11 @@ class AsProject extends Project {
     public void initDefaultValues() {
         buildSettings.flexSDKPath = codeOrchestra.colt.as.util.ASPathUtils.flexSDKPath
         buildSettings.setUseDefaultSDKConfiguration(true);
+        FlexSDKManager manager = FlexSDKManager.instance
+        List<String> versions = manager.getAvailablePlayerVersions(new File(buildSettings.flexSDKPath))
+        buildSettings.buildModel.targetPlayerVersion = versions.first()
+        buildSettings.sdkModel.isValidFlexSDK = true
+
         liveSettings.launcherType = codeOrchestra.colt.as.run.LauncherType.DEFAULT;
         liveSettings.liveMethods = codeOrchestra.colt.as.run.LiveMethods.ANNOTATED;
     }
