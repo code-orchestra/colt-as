@@ -18,11 +18,14 @@ import javafx.scene.layout.VBox
  */
 class SettingsForm extends ScrollPane{
 
-    Button saveAndRunButton
+    private Button saveAndRunButton
+    EventHandler saveRunAction
 
     SettingsForm() {
 
         setId("settings-form")
+
+        println("settings form")
 
         styleClass.add("scroll-pane-settings")
 
@@ -52,6 +55,7 @@ class SettingsForm extends ScrollPane{
         advancedVBox.children.add(target)
 
         saveAndRunButton = separator.saveButton
+        saveAndRunButton.onAction = saveRunAction
 
         FXNode launcher = FXMLLoader.load(getClass().getResource("liveSettings/launcher_form.fxml"))
         advancedVBox.children.add(launcher)
@@ -81,5 +85,10 @@ class SettingsForm extends ScrollPane{
         this.fitToWidth = true
 
         GAController.instance.registerPage(this, "/as/asSettings.html", "asSettings")
+    }
+
+    void setSaveRunAction(EventHandler saveRunAction) {
+        this.saveRunAction = saveRunAction
+        saveAndRunButton.onAction = saveRunAction
     }
 }

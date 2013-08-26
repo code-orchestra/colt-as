@@ -6,7 +6,6 @@ import codeOrchestra.colt.as.model.ModelStorage
 import codeOrchestra.colt.as.ui.log.Log
 import codeOrchestra.colt.as.ui.popupmenu.MyContextMenu
 import codeOrchestra.colt.as.ui.propertyTabPane.SettingsForm
-import codeOrchestra.colt.core.COLTProjectManager
 import codeOrchestra.colt.core.ServiceProvider
 import codeOrchestra.colt.core.controller.COLTController
 import codeOrchestra.colt.core.loading.LiveCodingHandlerManager
@@ -15,7 +14,6 @@ import codeOrchestra.colt.core.rpc.security.ui.ShortCodeNotification
 import codeOrchestra.colt.core.tracker.GAController
 import codeOrchestra.colt.core.tracker.GATracker
 import codeOrchestra.colt.core.ui.COLTApplication
-import codeOrchestra.colt.core.ui.ColtMenuBar
 import codeOrchestra.colt.core.ui.components.COLTProgressIndicatorController
 import codeOrchestra.colt.core.ui.components.log.LogFilter
 import codeOrchestra.colt.core.ui.components.log.LogMessage
@@ -26,7 +24,6 @@ import javafx.beans.InvalidationListener
 import javafx.beans.binding.StringBinding
 import javafx.beans.value.ChangeListener
 import javafx.collections.ListChangeListener
-import javafx.event.ActionEvent
 import javafx.event.EventHandler
 import javafx.fxml.FXML
 import javafx.fxml.Initializable
@@ -55,7 +52,10 @@ class MainAppController implements Initializable {
     @FXML Button popupMenuButton
 
     @Lazy LogWebView logView = Log.instance.logWebView
-    @Lazy SettingsForm settingsForm = new SettingsForm()
+    @Lazy SettingsForm settingsForm = new SettingsForm(saveRunAction:{
+        root.center = settingsForm
+        settingsButton.selected = true
+    } as EventHandler)
 
     @FXML HBox logFiltersContainer
 
@@ -92,11 +92,6 @@ class MainAppController implements Initializable {
             coltController.startBaseCompilation()//todo: handle errors?
             root.center = logView
             runButton.selected = true
-        } as EventHandler
-
-        settingsForm.saveAndRunButton.onAction = { ActionEvent event ->
-            COLTProjectManager.instance.save()
-            runButton.onAction.handle(null)
         } as EventHandler
 
         settingsButton.onAction = {
@@ -166,7 +161,7 @@ class MainAppController implements Initializable {
         // start
 
 
-        boolean newProject = true// todo: както узнать (project еще не загружен, из модели никак)
+        boolean newProject = false// todo: както узнать (project еще не загружен, из модели никак)
         if(newProject){
             settingsButton.onAction.handle(null)
         }else{
