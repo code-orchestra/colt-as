@@ -13,7 +13,7 @@ import javafx.scene.control.ListView
 import javafx.scene.layout.GridPane
 import javafx.stage.Stage
 import javafx.util.Callback
-import codeOrchestra.colt.as.model.COLTAsProject
+import codeOrchestra.colt.as.model.AsProject
 
 
 /**
@@ -51,7 +51,7 @@ abstract class AirFormController implements Initializable{
             return new FileCell()
         } as Callback
 
-        COLTAsProject project = codeOrchestra.colt.as.model.ModelStorage.instance.project
+        AsProject project = codeOrchestra.colt.as.model.ModelStorage.instance.project
         File dir = project.outputDir
         String outName = project.getProjectBuildSettings().outputFilename
         dir.eachFileRecurse (FileType.FILES) { file ->
@@ -71,14 +71,14 @@ abstract class AirFormController implements Initializable{
 
     protected abstract void initOptions();
 
-    protected abstract AirBuildScriptGenerator createBuildScriptGenerator(COLTAsProject project)
+    protected abstract AirBuildScriptGenerator createBuildScriptGenerator(AsProject project)
 
     protected abstract void updateScriptPathValue(String scriptPath)
 
     protected boolean runGeneration() {
         // 1 - save
         //TODO: save model
-        COLTAsProject project = codeOrchestra.colt.as.model.ModelStorage.instance.project
+        AsProject project = codeOrchestra.colt.as.model.ModelStorage.instance.project
 
         // 2 - generate
         String scriptPath = null

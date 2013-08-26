@@ -1,6 +1,6 @@
 package codeOrchestra.colt.as.air
 
-import codeOrchestra.colt.as.model.COLTAsProject
+import codeOrchestra.colt.as.model.AsProject
 import codeOrchestra.colt.as.model.beans.air.AIRModel
 import codeOrchestra.util.PathUtils
 import codeOrchestra.util.SystemInfo
@@ -10,7 +10,7 @@ import codeOrchestra.util.templates.TemplateCopyUtil
  * @author Dima Kruk
  */
 class AirAndroidApkBuildScriptGenerator extends AirBuildScriptGenerator {
-    AirAndroidApkBuildScriptGenerator(COLTAsProject project) {
+    AirAndroidApkBuildScriptGenerator(AsProject project) {
         super(project)
     }
 

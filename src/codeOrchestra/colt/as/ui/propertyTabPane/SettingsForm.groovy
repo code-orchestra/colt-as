@@ -25,8 +25,6 @@ class SettingsForm extends ScrollPane{
 
         setId("settings-form")
 
-        println("settings form")
-
         styleClass.add("scroll-pane-settings")
 
         VBox vBox = new VBox()

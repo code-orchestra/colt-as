@@ -3,7 +3,7 @@ package codeOrchestra.colt.as.ui.propertyTabPane.liveSettings
 import codeOrchestra.colt.as.air.ui.AirFormController
 import codeOrchestra.colt.as.air.ui.android.AndroidAirFormController
 import codeOrchestra.colt.as.air.ui.ios.IOSAirFormController
-import codeOrchestra.colt.as.model.COLTAsProjectBuildSettings
+import codeOrchestra.colt.as.model.AsProjectBuildSettings
 import codeOrchestra.colt.as.model.ModelStorage
 import codeOrchestra.colt.as.model.beans.RunTargetModel
 import codeOrchestra.colt.as.run.Target
@@ -78,7 +78,7 @@ class TargetFormController implements Initializable {
     }
 
     static boolean canShowDialog() {
-        COLTAsProjectBuildSettings buildSettings = ModelStorage.instance.project.getProjectBuildSettings()
+        AsProjectBuildSettings buildSettings = ModelStorage.instance.project.getProjectBuildSettings()
         return buildSettings.outputPath && buildSettings.outputFilename
     }
 

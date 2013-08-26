@@ -5,7 +5,7 @@ import codeOrchestra.colt.as.compiler.fcsh.make.messages.CompilerMessage;
 /**
  * @author Alexander Eliseyev
  */
-public class COLTCompilerMessage {
+public class ColtCompilerMessage {
 
   private String sourcePath;
   private int lineNumber;
@@ -14,10 +14,10 @@ public class COLTCompilerMessage {
   private String content;
   private String fullMessage;
 
-  public COLTCompilerMessage() {    
+  public ColtCompilerMessage() {
   }
   
-  public COLTCompilerMessage(CompilerMessage compilerMessage) {
+  public ColtCompilerMessage(CompilerMessage compilerMessage) {
     this.sourcePath = compilerMessage.getSourcePath();
     this.lineNumber = compilerMessage.getLineNumber();
     this.columnNumber = compilerMessage.getColumnNumber();

@@ -1,6 +1,6 @@
 package codeOrchestra.colt.as.flexsdk;
 
-import codeOrchestra.colt.as.model.COLTAsProject;
+import codeOrchestra.colt.as.model.AsProject;
 import codeOrchestra.util.FileUtils;
 import codeOrchestra.util.ProjectHelper;
 
@@ -54,7 +54,7 @@ public enum FlexSDKLib {
   }
   
   public String getPath() {
-    String flexSDKDir = ProjectHelper.<COLTAsProject>getCurrentProject().getProjectBuildSettings().getFlexSDKPath();
+    String flexSDKDir = ProjectHelper.<AsProject>getCurrentProject().getProjectBuildSettings().getFlexSDKPath();
     if (isPlayerGlobal()) {
       return getMostRecentPlayerglobalSWCPath(new File(flexSDKDir));
     } else {

@@ -3,8 +3,8 @@ package codeOrchestra.colt.as.compiler.fcsh.console.command;
 import codeOrchestra.colt.as.compiler.fcsh.FCSHManager;
 import codeOrchestra.colt.as.compiler.fcsh.FCSHProcessHandler;
 import codeOrchestra.colt.as.compiler.fcsh.console.command.output.ProcessOutputTypes;
-import codeOrchestra.colt.as.model.COLTAsProject;
-import codeOrchestra.colt.as.model.COLTAsProjectBuildSettings;
+import codeOrchestra.colt.as.model.AsProject;
+import codeOrchestra.colt.as.model.AsProjectBuildSettings;
 import codeOrchestra.colt.core.execution.ProcessEvent;
 import codeOrchestra.colt.core.execution.ProcessListener;
 import codeOrchestra.colt.core.logging.Logger;
@@ -53,7 +53,7 @@ public class FCSHCommandRunnable implements Runnable  {
           return;
         }
 
-        COLTAsProjectBuildSettings compilerSettings = ProjectHelper.<COLTAsProject>getCurrentProject().getProjectBuildSettings();
+        AsProjectBuildSettings compilerSettings = ProjectHelper.<AsProject>getCurrentProject().getProjectBuildSettings();
         long timeout = compilerSettings.interruptCompilationByTimeout() ? compilerSettings.getCompilationTimeout() * 1000 : Long.MAX_VALUE;
         while (true) {
           // Sleep a bit

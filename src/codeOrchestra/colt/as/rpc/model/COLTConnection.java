@@ -8,7 +8,7 @@ import java.util.Map;
 /**
  * @author Alexander Eliseyev
  */
-public class COLTConnection {
+public class ColtConnection {
 
   private long startTimestamp;
   
@@ -18,10 +18,10 @@ public class COLTConnection {
   
   private int connectionNumber;
   
-  public COLTConnection() {    
+  public ColtConnection() {
   }
   
-  public COLTConnection(LiveCodingSession session) {
+  public ColtConnection(LiveCodingSession session) {
     this.startTimestamp = session.getStartTimestamp();
     this.broadcastId = session.getBroadcastId();
     this.clientId = session.getClientId();

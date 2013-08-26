@@ -4,7 +4,7 @@ import codeOrchestra.colt.as.air.AirBuildScriptGenerator
 import codeOrchestra.colt.as.air.AirIosIpaBuildScriptGenerator
 import codeOrchestra.colt.as.air.ui.AirFormController
 import codeOrchestra.colt.as.air.ui.AirOption
-import codeOrchestra.colt.as.model.COLTAsProject
+import codeOrchestra.colt.as.model.AsProject
 import javafx.stage.FileChooser
 
 /**
@@ -24,7 +24,7 @@ class IOSAirFormController extends AirFormController {
     }
 
     @Override
-    protected AirBuildScriptGenerator createBuildScriptGenerator(COLTAsProject project) {
+    protected AirBuildScriptGenerator createBuildScriptGenerator(AsProject project) {
         return new AirIosIpaBuildScriptGenerator(project)
     }
 

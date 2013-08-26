@@ -9,37 +9,37 @@ import java.util.List;
 /**
  * @author Alexander Eliseyev
  */
-public class COLTCompilationResult {
+public class ColtCompilationResult {
   
   private boolean successful;
-  private COLTCompilerMessage[] errorMessages;
-  private COLTCompilerMessage[] warningMessages;
+  private ColtCompilerMessage[] errorMessages;
+  private ColtCompilerMessage[] warningMessages;
   
-  public COLTCompilationResult() {    
+  public ColtCompilationResult() {
   }
   
-  public COLTCompilationResult(CompilationResult compilationResult) {
+  public ColtCompilationResult(CompilationResult compilationResult) {
     this.successful = compilationResult.isOk();
     
-    List<COLTCompilerMessage> errorMessagesList = new ArrayList<>();
-    List<COLTCompilerMessage> warningMessagesList = new ArrayList<>();
+    List<ColtCompilerMessage> errorMessagesList = new ArrayList<>();
+    List<ColtCompilerMessage> warningMessagesList = new ArrayList<>();
     
     List<CompilerMessage> messages = compilationResult.getMessages();
     for (CompilerMessage compilerMessage : messages) {
       switch (compilerMessage.getType()) {
       case ERROR:
-        errorMessagesList.add(new COLTCompilerMessage(compilerMessage));
+        errorMessagesList.add(new ColtCompilerMessage(compilerMessage));
         break;
       case WARNING:
-        warningMessagesList.add(new COLTCompilerMessage(compilerMessage));
+        warningMessagesList.add(new ColtCompilerMessage(compilerMessage));
         break;
       default:
         break;
       }
     }
     
-    errorMessages = errorMessagesList.toArray(new COLTCompilerMessage[errorMessagesList.size()]);
-    warningMessages = warningMessagesList.toArray(new COLTCompilerMessage[warningMessagesList.size()]);
+    errorMessages = errorMessagesList.toArray(new ColtCompilerMessage[errorMessagesList.size()]);
+    warningMessages = warningMessagesList.toArray(new ColtCompilerMessage[warningMessagesList.size()]);
   }
 
   public boolean isSuccessful() {
@@ -50,19 +50,19 @@ public class COLTCompilationResult {
     this.successful = successful;
   }
 
-  public COLTCompilerMessage[] getErrorMessages() {
+  public ColtCompilerMessage[] getErrorMessages() {
     return errorMessages;
   }
 
-  public void setErrorMessages(COLTCompilerMessage[] errorMessages) {
+  public void setErrorMessages(ColtCompilerMessage[] errorMessages) {
     this.errorMessages = errorMessages;
   }
 
-  public COLTCompilerMessage[] getWarningMessages() {
+  public ColtCompilerMessage[] getWarningMessages() {
     return warningMessages;
   }
 
-  public void setWarningMessages(COLTCompilerMessage[] warningMessages) {
+  public void setWarningMessages(ColtCompilerMessage[] warningMessages) {
     this.warningMessages = warningMessages;
   }
 

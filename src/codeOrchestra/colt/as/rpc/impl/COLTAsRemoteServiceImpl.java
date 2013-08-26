@@ -1,20 +1,20 @@
 package codeOrchestra.colt.as.rpc.impl;
 
 import codeOrchestra.colt.as.compiler.fcsh.make.CompilationResult;
-import codeOrchestra.colt.as.controller.COLTAsController;
-import codeOrchestra.colt.as.model.COLTAsProject;
-import codeOrchestra.colt.as.rpc.COLTAsRemoteService;
-import codeOrchestra.colt.as.rpc.model.COLTCompilationResult;
-import codeOrchestra.colt.as.rpc.model.COLTConnection;
-import codeOrchestra.colt.as.rpc.model.COLTRemoteProject;
-import codeOrchestra.colt.as.rpc.model.COLTState;
+import codeOrchestra.colt.as.controller.ColtAsController;
+import codeOrchestra.colt.as.model.AsProject;
+import codeOrchestra.colt.as.rpc.ColtAsRemoteService;
+import codeOrchestra.colt.as.rpc.model.ColtCompilationResult;
+import codeOrchestra.colt.as.rpc.model.ColtConnection;
+import codeOrchestra.colt.as.rpc.model.ColtRemoteProject;
+import codeOrchestra.colt.as.rpc.model.ColtState;
 import codeOrchestra.colt.core.LiveCodingManager;
 import codeOrchestra.colt.core.ServiceProvider;
-import codeOrchestra.colt.core.controller.COLTController;
-import codeOrchestra.colt.core.controller.COLTControllerCallbackEx;
-import codeOrchestra.colt.core.rpc.AbstractCOLTRemoteService;
-import codeOrchestra.colt.core.rpc.COLTRemoteException;
-import codeOrchestra.colt.core.rpc.COLTRemoteTransferableException;
+import codeOrchestra.colt.core.controller.ColtController;
+import codeOrchestra.colt.core.controller.ColtControllerCallbackEx;
+import codeOrchestra.colt.core.rpc.AbstractColtRemoteService;
+import codeOrchestra.colt.core.rpc.ColtRemoteException;
+import codeOrchestra.colt.core.rpc.ColtRemoteTransferableException;
 import codeOrchestra.colt.core.rpc.command.RemoteAsyncCommand;
 import codeOrchestra.colt.core.rpc.command.RemoteCommand;
 import codeOrchestra.colt.core.session.LiveCodingSession;
@@ -27,33 +27,33 @@ import java.util.List;
 /**
  * @author Alexander Eliseyev
  */
-public class COLTAsRemoteServiceImpl extends AbstractCOLTRemoteService<COLTAsProject> implements COLTAsRemoteService {
+public class ColtAsRemoteServiceImpl extends AbstractColtRemoteService<AsProject> implements ColtAsRemoteService {
 
-    private COLTAsController controller = (COLTAsController) ServiceProvider.get(COLTController.class);
+    private ColtAsController controller = (ColtAsController) ServiceProvider.get(ColtController.class);
 
     @Override
     public void dispose() {
     }
 
     @Override
-    public COLTCompilationResult runProductionCompilation(String securityToken, final boolean run) throws COLTRemoteTransferableException {
-        return executeSecurilyAsyncInUI(securityToken, new RemoteAsyncCommand<COLTCompilationResult>() {
+    public ColtCompilationResult runProductionCompilation(String securityToken, final boolean run) throws ColtRemoteTransferableException {
+        return executeSecurilyAsyncInUI(securityToken, new RemoteAsyncCommand<ColtCompilationResult>() {
             @Override
             public String getName() {
                 return "Production Compile" + (run ? " and Run" : "");
             }
 
             @Override
-            public void execute(final COLTControllerCallbackEx<COLTCompilationResult> callback) {
-                controller.startProductionCompilation(new COLTControllerCallbackEx<CompilationResult>() {
+            public void execute(final ColtControllerCallbackEx<ColtCompilationResult> callback) {
+                controller.startProductionCompilation(new ColtControllerCallbackEx<CompilationResult>() {
                     @Override
                     public void onComplete(CompilationResult successResult) {
-                        callback.onComplete(new COLTCompilationResult(successResult));
+                        callback.onComplete(new ColtCompilationResult(successResult));
                     }
 
                     @Override
                     public void onError(Throwable t, CompilationResult errorResult) {
-                        callback.onError(t, errorResult != null ? new COLTCompilationResult(errorResult) : null);
+                        callback.onError(t, errorResult != null ? new ColtCompilationResult(errorResult) : null);
                     }
                 }, run, false);
             }
@@ -61,25 +61,25 @@ public class COLTAsRemoteServiceImpl extends AbstractCOLTRemoteService<COLTAsPro
     }
 
     @Override
-    public COLTCompilationResult runBaseCompilation(String securityToken, final boolean run)
-            throws COLTRemoteTransferableException {
-        return executeSecurilyAsyncInUI(securityToken, new RemoteAsyncCommand<COLTCompilationResult>() {
+    public ColtCompilationResult runBaseCompilation(String securityToken, final boolean run)
+            throws ColtRemoteTransferableException {
+        return executeSecurilyAsyncInUI(securityToken, new RemoteAsyncCommand<ColtCompilationResult>() {
             @Override
             public String getName() {
                 return "Base Compile and Run";
             }
 
             @Override
-            public void execute(final COLTControllerCallbackEx<COLTCompilationResult> callback) {
-                controller.startBaseCompilation(new COLTControllerCallbackEx<CompilationResult>() {
+            public void execute(final ColtControllerCallbackEx<ColtCompilationResult> callback) {
+                controller.startBaseCompilation(new ColtControllerCallbackEx<CompilationResult>() {
                     @Override
                     public void onComplete(CompilationResult successResult) {
-                        callback.onComplete(new COLTCompilationResult(successResult));
+                        callback.onComplete(new ColtCompilationResult(successResult));
                     }
 
                     @Override
                     public void onError(Throwable t, CompilationResult errorResult) {
-                        callback.onError(t, errorResult != null ? new COLTCompilationResult(errorResult) : null);
+                        callback.onError(t, errorResult != null ? new ColtCompilationResult(errorResult) : null);
                     }
                 }, run, false);
             }
@@ -87,30 +87,30 @@ public class COLTAsRemoteServiceImpl extends AbstractCOLTRemoteService<COLTAsPro
     }
 
     @Override
-    public COLTCompilationResult runBaseCompilation(String securityToken) throws COLTRemoteTransferableException {
+    public ColtCompilationResult runBaseCompilation(String securityToken) throws ColtRemoteTransferableException {
         return runBaseCompilation(securityToken, true);
     }
 
     @Override
-    public COLTState getState(String securityToken) throws COLTRemoteTransferableException {
-        return executeSecurily(securityToken, new RemoteCommand<COLTState>() {
+    public ColtState getState(String securityToken) throws ColtRemoteTransferableException {
+        return executeSecurily(securityToken, new RemoteCommand<ColtState>() {
             @Override
             public String getName() {
                 return "Get COLT state";
             }
 
             @Override
-            public COLTState execute() throws COLTRemoteException {
-                COLTState state = new COLTState();
+            public ColtState execute() throws ColtRemoteException {
+                ColtState state = new ColtState();
 
-                List<COLTConnection> coltConnections = new ArrayList<>();
+                List<ColtConnection> coltConnections = new ArrayList<>();
                 List<LiveCodingSession> currentConnections = ServiceProvider.get(LiveCodingManager.class).getCurrentConnections();
                 for (LiveCodingSession session : currentConnections) {
                     if (!session.isDisposed()) {
-                        coltConnections.add(new COLTConnection(session));
+                        coltConnections.add(new ColtConnection(session));
                     }
                 }
-                state.setActiveConnections(coltConnections.toArray(new COLTConnection[coltConnections.size()]));
+                state.setActiveConnections(coltConnections.toArray(new ColtConnection[coltConnections.size()]));
 
                 return state;
             }
@@ -118,8 +118,8 @@ public class COLTAsRemoteServiceImpl extends AbstractCOLTRemoteService<COLTAsPro
     }
 
     @Override
-    public void createProject(String securityToken, final COLTRemoteProject remoteProject)
-            throws COLTRemoteTransferableException {
+    public void createProject(String securityToken, final ColtRemoteProject remoteProject)
+            throws ColtRemoteTransferableException {
         executeSecurilyInUI(securityToken, new RemoteCommand<Void>() {
             @Override
             public String getName() {
@@ -127,7 +127,7 @@ public class COLTAsRemoteServiceImpl extends AbstractCOLTRemoteService<COLTAsPro
             }
 
             @Override
-            public Void execute() throws COLTRemoteException {
+            public Void execute() throws ColtRemoteException {
                 File projectFile = new File(remoteProject.getPath());
                 if (projectFile.exists()) {
                     projectFile.delete();
@@ -135,7 +135,7 @@ public class COLTAsRemoteServiceImpl extends AbstractCOLTRemoteService<COLTAsPro
                 try {
                     projectFile.createNewFile();
                 } catch (IOException e) {
-                    throw new COLTRemoteException("Error while creating project file", e);
+                    throw new ColtRemoteException("Error while creating project file", e);
                 }
 
                 // TODO: implement
@@ -154,7 +154,7 @@ public class COLTAsRemoteServiceImpl extends AbstractCOLTRemoteService<COLTAsPro
         });
     }
 
-    public void loadProject(String securityToken, final String path) throws COLTRemoteTransferableException {
+    public void loadProject(String securityToken, final String path) throws ColtRemoteTransferableException {
         executeSecurilyInUI(securityToken, new RemoteCommand<Void>() {
             @Override
             public String getName() {
@@ -162,14 +162,14 @@ public class COLTAsRemoteServiceImpl extends AbstractCOLTRemoteService<COLTAsPro
             }
 
             @Override
-            public Void execute() throws COLTRemoteException {
+            public Void execute() throws ColtRemoteException {
                 // TODO: implement
                 /*
                 try {
                     ProjectManager.getInstance().openProject(path, window);
                     return null;
                 } catch (PartInitException e) {
-                    throw new COLTRemoteException(e);
+                    throw new ColtRemoteException(e);
                 }
                 */
 

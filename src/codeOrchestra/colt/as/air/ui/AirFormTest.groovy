@@ -1,7 +1,7 @@
 package codeOrchestra.colt.as.air.ui
 
 import codeOrchestra.colt.as.air.ui.android.AndroidAirFormController
-import codeOrchestra.colt.as.model.COLTAsProject
+import codeOrchestra.colt.as.model.AsProject
 import javafx.application.Application
 import javafx.event.EventHandler
 import javafx.fxml.FXMLLoader
@@ -38,7 +38,7 @@ class AirFormTest extends Application {
     }
 
     void showDialog(Window window) {
-        COLTAsProject project = codeOrchestra.colt.as.model.ModelStorage.instance.project
+        AsProject project = codeOrchestra.colt.as.model.ModelStorage.instance.project
 
 
         FXMLLoader loader = new FXMLLoader(AirFormController.class.getResource("air_form.fxml"))

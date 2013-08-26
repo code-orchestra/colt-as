@@ -1,6 +1,6 @@
 package codeOrchestra.colt.as.air
 
-import codeOrchestra.colt.as.model.COLTAsProject
+import codeOrchestra.colt.as.model.AsProject
 import codeOrchestra.colt.as.model.beans.air.AIRModel
 import codeOrchestra.util.PathUtils
 import codeOrchestra.util.SystemInfo
@@ -11,7 +11,7 @@ import codeOrchestra.util.templates.TemplateCopyUtil
  */
 class AirIosIpaBuildScriptGenerator extends AirBuildScriptGenerator {
 
-    AirIosIpaBuildScriptGenerator(COLTAsProject project) {
+    AirIosIpaBuildScriptGenerator(AsProject project) {
         super(project)
     }
 

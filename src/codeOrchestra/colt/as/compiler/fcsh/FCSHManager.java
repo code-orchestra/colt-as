@@ -8,7 +8,7 @@ import codeOrchestra.colt.as.compiler.fcsh.make.CompilationResult;
 import codeOrchestra.colt.as.compiler.fcsh.target.CompilerTarget;
 import codeOrchestra.colt.core.license.DemoHelper;
 import codeOrchestra.colt.core.logging.Logger;
-import codeOrchestra.lcs.license.COLTRunningKey;
+import codeOrchestra.lcs.license.ColtRunningKey;
 import codeOrchestra.util.StringUtils;
 import codeOrchestra.util.SystemInfo;
 
@@ -40,10 +40,10 @@ public class FCSHManager {
 
   public void restart() throws FCSHException, MaximumCompilationsCountReachedException {
     if (DemoHelper.get().maxCompilationsCountReached()) {
-      COLTRunningKey.setRunning(false);
+      ColtRunningKey.setRunning(false);
       throw new MaximumCompilationsCountReachedException(); 
     } else {
-      COLTRunningKey.setRunning(true);
+      ColtRunningKey.setRunning(true);
     }
     
     destroyProcess();
@@ -228,10 +228,10 @@ public class FCSHManager {
   
   private void incrementCompilationCount() throws MaximumCompilationsCountReachedException {
     if (DemoHelper.get().maxCompilationsCountReached()) {
-      COLTRunningKey.setRunning(false);
+      ColtRunningKey.setRunning(false);
       throw new MaximumCompilationsCountReachedException(); 
     } else {
-      COLTRunningKey.setRunning(true);
+      ColtRunningKey.setRunning(true);
     }
     
     DemoHelper.get().incrementCompilationsCount();

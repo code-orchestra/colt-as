@@ -1,20 +1,20 @@
 package codeOrchestra.colt.as.ui
 
 import codeOrchestra.colt.as.ASLiveCodingLanguageHandler
-import codeOrchestra.colt.as.controller.COLTAsController
+import codeOrchestra.colt.as.controller.ColtAsController
 import codeOrchestra.colt.as.model.ModelStorage
 import codeOrchestra.colt.as.ui.log.Log
 import codeOrchestra.colt.as.ui.popupmenu.MyContextMenu
 import codeOrchestra.colt.as.ui.propertyTabPane.SettingsForm
 import codeOrchestra.colt.core.ServiceProvider
-import codeOrchestra.colt.core.controller.COLTController
+import codeOrchestra.colt.core.controller.ColtController
 import codeOrchestra.colt.core.loading.LiveCodingHandlerManager
 import codeOrchestra.colt.core.logging.Level
 import codeOrchestra.colt.core.rpc.security.ui.ShortCodeNotification
 import codeOrchestra.colt.core.tracker.GAController
 import codeOrchestra.colt.core.tracker.GATracker
-import codeOrchestra.colt.core.ui.COLTApplication
-import codeOrchestra.colt.core.ui.components.COLTProgressIndicatorController
+import codeOrchestra.colt.core.ui.ColtApplication
+import codeOrchestra.colt.core.ui.components.ProgressIndicatorController
 import codeOrchestra.colt.core.ui.components.log.LogFilter
 import codeOrchestra.colt.core.ui.components.log.LogMessage
 import codeOrchestra.colt.core.ui.components.log.LogWebView
@@ -53,6 +53,8 @@ class MainAppController implements Initializable {
 
     @Lazy LogWebView logView = Log.instance.logWebView
     @Lazy SettingsForm settingsForm = new SettingsForm(saveRunAction:{
+        ColtAsController coltController = (ColtAsController) ServiceProvider.get(ColtController.class)
+        coltController.startBaseCompilation()//todo: handle errors?
         root.center = settingsForm
         settingsButton.selected = true
     } as EventHandler)
@@ -88,8 +90,6 @@ class MainAppController implements Initializable {
         logFilterToggleGroup.toggles.addAll(allFilters)
 
         runButton.onAction = {
-            COLTAsController coltController = (COLTAsController) ServiceProvider.get(COLTController.class)
-            coltController.startBaseCompilation()//todo: handle errors?
             root.center = logView
             runButton.selected = true
         } as EventHandler
@@ -102,14 +102,14 @@ class MainAppController implements Initializable {
         root.top = ShortCodeNotification.initNotification(root.top)
 
         buildButton.onAction = {
-            COLTAsController coltController = (COLTAsController) ServiceProvider.get(COLTController.class)
+            ColtAsController coltController = (ColtAsController) ServiceProvider.get(ColtController.class)
             coltController.startProductionCompilation()//todo: handle errors?
             buildButton.selected = true
         } as EventHandler
 
         MyContextMenu contextMenu = new MyContextMenu()
         contextMenu.setStyle("-fx-background-color: transparent;");
-        ArrayList<MenuItem> items = COLTApplication.get().menuBar.popupMenuItems
+        ArrayList<MenuItem> items = ColtApplication.get().menuBar.popupMenuItems
         contextMenu.items.addAll(items)
 
         popupMenuButton.onAction = {
@@ -119,7 +119,7 @@ class MainAppController implements Initializable {
 
         // progress monitor
 
-        COLTProgressIndicatorController.instance.progressIndicator = progressIndicator
+        ProgressIndicatorController.instance.progressIndicator = progressIndicator
 
         sessionIndicator.visibleProperty().bind(progressIndicator.visibleProperty().not())
         SessionIndicatorController.instance.indicator = sessionIndicator
@@ -161,7 +161,7 @@ class MainAppController implements Initializable {
         // start
 
 
-        boolean newProject = false// todo: както узнать (project еще не загружен, из модели никак)
+        boolean newProject = true// todo: както узнать (project еще не загружен, из модели никак)
         if(newProject){
             settingsButton.onAction.handle(null)
         }else{

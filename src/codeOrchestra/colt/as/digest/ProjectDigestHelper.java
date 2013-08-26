@@ -1,7 +1,7 @@
 package codeOrchestra.colt.as.digest;
 
 import codeOrchestra.colt.as.flexsdk.FlexSDKLib;
-import codeOrchestra.colt.as.model.COLTAsProject;
+import codeOrchestra.colt.as.model.AsProject;
 import codeOrchestra.colt.core.logging.Logger;
 import codeOrchestra.util.XMLUtils;
 import org.w3c.dom.Document;
@@ -19,9 +19,9 @@ public class ProjectDigestHelper {
 
   private final static Logger LOG = Logger.getLogger(ProjectDigestHelper.class);
   
-  private final COLTAsProject project;
+  private final AsProject project;
 
-  public ProjectDigestHelper(COLTAsProject project) {
+  public ProjectDigestHelper(AsProject project) {
     this.project = project;    
   }
   

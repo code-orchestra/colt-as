@@ -5,8 +5,8 @@ import codeOrchestra.colt.as.compiler.fcsh.console.command.impl.LivecodingStartC
 import codeOrchestra.colt.as.compiler.fcsh.console.command.impl.LivecodingStopCommand;
 import codeOrchestra.colt.as.flex.config.FlexConfig;
 import codeOrchestra.colt.as.flex.config.FlexConfigBuilder;
-import codeOrchestra.colt.as.model.COLTAsProject;
-import codeOrchestra.colt.as.model.COLTAsProjectBuildSettings;
+import codeOrchestra.colt.as.model.AsProject;
+import codeOrchestra.colt.as.model.AsProjectBuildSettings;
 import codeOrchestra.colt.as.session.sourcetracking.ASSourceFile;
 import codeOrchestra.colt.core.build.BuildException;
 import codeOrchestra.colt.core.logging.Logger;
@@ -17,9 +17,9 @@ import java.util.List;
 /**
  * @author Alexander Eliseyev
  */
-public class COLTAsMaker {
+public class AsMaker {
 
-    private static final Logger LOG = Logger.getLogger(COLTAsMaker.class.getSimpleName());
+    private static final Logger LOG = Logger.getLogger(AsMaker.class.getSimpleName());
 
     private static boolean sentLiveCodingCommand;
     private boolean isIncremental;
@@ -29,15 +29,15 @@ public class COLTAsMaker {
     private boolean skipSecondPhase;
     private boolean productionMode;
 
-    public COLTAsMaker(boolean isIncremental) {
+    public AsMaker(boolean isIncremental) {
         this.isIncremental = isIncremental;
     }
 
-    public COLTAsMaker(List<ASSourceFile> changedFilesSnapshot) {
+    public AsMaker(List<ASSourceFile> changedFilesSnapshot) {
         this(changedFilesSnapshot, false);
     }
 
-    public COLTAsMaker(List<ASSourceFile> changedFilesSnapshot, boolean assetMode) {
+    public AsMaker(List<ASSourceFile> changedFilesSnapshot, boolean assetMode) {
         this(true);
         this.changedFiles = changedFilesSnapshot;
         this.assetMode = assetMode;
@@ -61,8 +61,8 @@ public class COLTAsMaker {
                 )
         );
 
-        COLTAsProject currentProject = COLTAsProject.getCurrentProject();
-        COLTAsProjectBuildSettings compilerSettings = currentProject.getProjectBuildSettings();
+        AsProject currentProject = AsProject.getCurrentProject();
+        AsProjectBuildSettings compilerSettings = currentProject.getProjectBuildSettings();
 
         // Generate & save Flex config
         FlexConfigBuilder flexConfigBuilder = new FlexConfigBuilder(currentProject, isIncremental, changedFiles, assetMode);

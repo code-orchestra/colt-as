@@ -1,31 +1,31 @@
 package codeOrchestra.colt.as.model
 
 import codeOrchestra.colt.as.compiler.fcsh.FSCHCompilerKind
-import codeOrchestra.colt.core.COLTProjectManager
-import codeOrchestra.colt.core.model.COLTProject
+import codeOrchestra.colt.core.ColtProjectManager
+import codeOrchestra.colt.core.model.Project
 import codeOrchestra.util.StringUtils
 
 /**
  * @author Dima Kruk
  */
-class COLTAsProject extends COLTProject {
+class AsProject extends Project {
 
-    private final COLTAsProjectPaths projectPaths = new COLTAsProjectPaths()
-    private final COLTAsProjectBuildSettings buildSettings = new COLTAsProjectBuildSettings()
-    private final COLTAsProjectLiveSettings liveSettings = new COLTAsProjectLiveSettings()
+    private final AsProjectPaths projectPaths = new AsProjectPaths()
+    private final AsProjectBuildSettings buildSettings = new AsProjectBuildSettings()
+    private final AsProjectLiveSettings liveSettings = new AsProjectLiveSettings()
 
     @Override
-    COLTAsProjectPaths getProjectPaths() {
+    AsProjectPaths getProjectPaths() {
         return projectPaths
     }
 
     @Override
-    COLTAsProjectLiveSettings getProjectLiveSettings() {
+    AsProjectLiveSettings getProjectLiveSettings() {
         return liveSettings
     }
 
     @Override
-    COLTAsProjectBuildSettings getProjectBuildSettings() {
+    AsProjectBuildSettings getProjectBuildSettings() {
         return buildSettings
     }
 
@@ -52,8 +52,8 @@ class COLTAsProject extends COLTProject {
         liveSettings.buildModel(node.live)
     }
 
-    static COLTAsProject getCurrentProject() {
-        return (COLTAsProject) COLTProjectManager.instance.currentProject
+    static AsProject getCurrentProject() {
+        return (AsProject) ColtProjectManager.instance.currentProject
     }
 
     public File getOrCreateIncrementalSourcesDir() {

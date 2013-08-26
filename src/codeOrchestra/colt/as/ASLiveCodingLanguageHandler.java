@@ -1,11 +1,11 @@
 package codeOrchestra.colt.as;
 
-import codeOrchestra.colt.as.controller.COLTAsController;
+import codeOrchestra.colt.as.controller.ColtAsController;
 import codeOrchestra.colt.as.logging.transport.LoggerServerSocketThread;
-import codeOrchestra.colt.as.model.COLTAsProject;
+import codeOrchestra.colt.as.model.AsProject;
 import codeOrchestra.colt.as.model.ModelStorage;
 import codeOrchestra.colt.as.model.util.ProjectImporter;
-import codeOrchestra.colt.as.rpc.impl.COLTAsRemoteServiceImpl;
+import codeOrchestra.colt.as.rpc.impl.ColtAsRemoteServiceImpl;
 import codeOrchestra.colt.as.run.ASLiveLauncher;
 import codeOrchestra.colt.as.session.sourcetracking.ASSourceFileFactory;
 import codeOrchestra.colt.as.ui.TestMainApp;
@@ -13,15 +13,15 @@ import codeOrchestra.colt.as.util.ASPathUtils;
 import codeOrchestra.colt.core.AbstractLiveCodingLanguageHandler;
 import codeOrchestra.colt.core.LiveCodingManager;
 import codeOrchestra.colt.core.ServiceProvider;
-import codeOrchestra.colt.core.controller.COLTController;
+import codeOrchestra.colt.core.controller.ColtController;
 import codeOrchestra.colt.core.launch.LiveLauncher;
 import codeOrchestra.colt.core.logging.LoggerService;
-import codeOrchestra.colt.core.rpc.COLTRemoteService;
+import codeOrchestra.colt.core.rpc.ColtRemoteService;
 import codeOrchestra.colt.core.session.sourcetracking.SourceFileFactory;
 import codeOrchestra.colt.core.socket.ClientSocketHandler;
-import codeOrchestra.colt.core.ui.components.COLTProgressIndicatorController;
-import codeOrchestra.colt.core.ui.components.FxThreadCOLTProgressIndicatorWrapper;
-import codeOrchestra.colt.core.ui.components.ICOLTProgressIndicator;
+import codeOrchestra.colt.core.ui.components.FxThreadProgressIndicatorWrapper;
+import codeOrchestra.colt.core.ui.components.IProgressIndicator;
+import codeOrchestra.colt.core.ui.components.ProgressIndicatorController;
 import codeOrchestra.colt.core.ui.components.sessionIndicator.SessionIndicatorController;
 import codeOrchestra.util.StringUtils;
 import groovy.util.slurpersupport.GPathResult;
@@ -33,7 +33,7 @@ import java.io.File;
 /**
  * @author Alexander Eliseyev
  */
-public class ASLiveCodingLanguageHandler extends AbstractLiveCodingLanguageHandler<COLTAsProject> {
+public class ASLiveCodingLanguageHandler extends AbstractLiveCodingLanguageHandler<AsProject> {
 
     private LoggerServerSocketThread loggerServerSocketThread = new LoggerServerSocketThread();
 
@@ -50,8 +50,8 @@ public class ASLiveCodingLanguageHandler extends AbstractLiveCodingLanguageHandl
     }
 
     @Override
-    public COLTAsProject parseProject(GPathResult gPathResult, String projectPath) {
-        COLTAsProject project = ModelStorage.getInstance().getProject();
+    public AsProject parseProject(GPathResult gPathResult, String projectPath) {
+        AsProject project = ModelStorage.getInstance().getProject();
         project.setPath(projectPath);
 
         project.buildModel(gPathResult);
@@ -68,8 +68,8 @@ public class ASLiveCodingLanguageHandler extends AbstractLiveCodingLanguageHandl
     }
 
     @Override
-    public COLTAsProject createProject(String pName, File pFile) {
-        COLTAsProject project = ModelStorage.getInstance().getProject();
+    public AsProject createProject(String pName, File pFile) {
+        AsProject project = ModelStorage.getInstance().getProject();
 
         project.setName(pName);
         project.setPath(pFile.getPath());
@@ -82,8 +82,8 @@ public class ASLiveCodingLanguageHandler extends AbstractLiveCodingLanguageHandl
     }
 
     @Override
-    public COLTAsProject importProject(File file) {
-        COLTAsProject project = ProjectImporter.importProject(file);
+    public AsProject importProject(File file) {
+        AsProject project = ProjectImporter.importProject(file);
 
         // Prepare dirs
         project.initPaths();
@@ -92,7 +92,7 @@ public class ASLiveCodingLanguageHandler extends AbstractLiveCodingLanguageHandl
     }
 
     @Override
-    public COLTAsProject getCurrentProject() {
+    public AsProject getCurrentProject() {
         return ModelStorage.getInstance().getProject();
     }
 
@@ -125,27 +125,27 @@ public class ASLiveCodingLanguageHandler extends AbstractLiveCodingLanguageHandl
     }
 
     @Override
-    public ICOLTProgressIndicator getProgressIndicator() {
-        return new FxThreadCOLTProgressIndicatorWrapper(COLTProgressIndicatorController.getInstance());
+    public IProgressIndicator getProgressIndicator() {
+        return new FxThreadProgressIndicatorWrapper(ProgressIndicatorController.getInstance());
     }
 
     @Override
-    public COLTController<COLTAsProject> createCOLTController() {
-        return new COLTAsController();
+    public ColtController<AsProject> createColtController() {
+        return new ColtAsController();
     }
 
     @Override
-    public COLTRemoteService<COLTAsProject> createRPCService() {
-        return new COLTAsRemoteServiceImpl();
+    public ColtRemoteService<AsProject> createRPCService() {
+        return new ColtAsRemoteServiceImpl();
     }
 
     @Override
-    public LiveLauncher<COLTAsProject> createLauncher() {
+    public LiveLauncher<AsProject> createLauncher() {
         return new ASLiveLauncher();
     }
 
     @Override
-    public LiveCodingManager<COLTAsProject, ClientSocketHandler> createLiveCodingManager() {
+    public LiveCodingManager<AsProject, ClientSocketHandler> createLiveCodingManager() {
         return new ASLiveCodingManager();
     }
 

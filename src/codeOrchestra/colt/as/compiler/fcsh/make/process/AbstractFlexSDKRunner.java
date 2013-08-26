@@ -4,8 +4,8 @@ import codeOrchestra.colt.as.compiler.fcsh.MaximumCompilationsCountReachedExcept
 import codeOrchestra.colt.as.compiler.fcsh.make.CompilationResult;
 import codeOrchestra.colt.as.compiler.fcsh.make.MakeException;
 import codeOrchestra.colt.as.flex.FlexSDKSettings;
-import codeOrchestra.colt.as.model.COLTAsProject;
-import codeOrchestra.colt.as.model.COLTAsProjectBuildSettings;
+import codeOrchestra.colt.as.model.AsProject;
+import codeOrchestra.colt.as.model.AsProjectBuildSettings;
 import codeOrchestra.util.ProjectHelper;
 import codeOrchestra.util.StringUtils;
 import org.apache.tools.ant.types.Commandline;
@@ -23,11 +23,11 @@ public abstract class AbstractFlexSDKRunner {
   private static final String DEFAULT_CONFIG_FILE_DIR = "frameworks";
 
   protected File configFile;
-  protected COLTAsProjectBuildSettings compilerSettings;
+  protected AsProjectBuildSettings compilerSettings;
 
   public AbstractFlexSDKRunner(File configFile) {
     this.configFile = configFile;
-    this.compilerSettings = ProjectHelper.<COLTAsProject>getCurrentProject().getProjectBuildSettings();
+    this.compilerSettings = ProjectHelper.<AsProject>getCurrentProject().getProjectBuildSettings();
   }
 
   public abstract CompilationResult run() throws MakeException, MaximumCompilationsCountReachedException;

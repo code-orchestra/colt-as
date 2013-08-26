@@ -1,12 +1,12 @@
 package codeOrchestra.colt.as.rpc.model;
 
-import codeOrchestra.colt.as.model.COLTAsProject;
+import codeOrchestra.colt.as.model.AsProject;
 import codeOrchestra.colt.as.run.LauncherType;
 
 /**
  * @author Alexander Eliseyev
  */
-public class COLTRemoteProject {
+public class ColtRemoteProject {
 
   private String parentIDEProjectPath;
 
@@ -32,7 +32,7 @@ public class COLTRemoteProject {
 
   private String launchTarget; // corresponds to codeOrchestra.colt.as.run.Target
 
-  public void copyTo(COLTAsProject coltProject) {
+  public void copyTo(AsProject coltProject) {
     if (sources != null) {
       coltProject.getProjectPaths().addSources(sources);
     }

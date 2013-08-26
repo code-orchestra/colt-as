@@ -3,8 +3,8 @@ package codeOrchestra.colt.as.flex.config;
 import codeOrchestra.colt.as.flex.LiveCodingAnnotation;
 import codeOrchestra.colt.as.flex.usedCode.LinkReportException;
 import codeOrchestra.colt.as.flex.usedCode.LinkReportReader;
-import codeOrchestra.colt.as.model.COLTAsProject;
-import codeOrchestra.colt.as.model.COLTAsProjectBuildSettings;
+import codeOrchestra.colt.as.model.AsProject;
+import codeOrchestra.colt.as.model.AsProjectBuildSettings;
 import codeOrchestra.colt.as.session.sourcetracking.ASSourceFile;
 import codeOrchestra.colt.as.session.sourcetracking.IgnoredSources;
 import codeOrchestra.colt.as.util.ASPathUtils;
@@ -24,12 +24,12 @@ import java.util.List;
  */
 public class FlexConfigBuilder {
   
-  private final COLTAsProject project;
+  private final AsProject project;
   private final boolean incrementalCompilation;
   private final List<ASSourceFile> changedFiles;
   private final boolean assetsUpdateMode;
 
-  public FlexConfigBuilder(COLTAsProject project, boolean incrementalCompilation, List<ASSourceFile> changedFiles, boolean skipClear) {
+  public FlexConfigBuilder(AsProject project, boolean incrementalCompilation, List<ASSourceFile> changedFiles, boolean skipClear) {
     this.project = project;
     this.incrementalCompilation = incrementalCompilation;
     this.changedFiles = changedFiles;
@@ -37,7 +37,7 @@ public class FlexConfigBuilder {
   }
 
   public FlexConfig build() throws BuildException {
-    COLTAsProjectBuildSettings compilerSettings = COLTAsProject.getCurrentProject().getProjectBuildSettings();
+    AsProjectBuildSettings compilerSettings = AsProject.getCurrentProject().getProjectBuildSettings();
     FlexConfig flexConfig = new FlexConfig(incrementalCompilation, false);
 
     // Sources
@@ -178,8 +178,8 @@ public class FlexConfigBuilder {
   }
 
   public static void addLibraryClasses(FlexConfig flexConfig, List<String> sourcePaths) throws BuildException {
-    COLTAsProject currentProject = COLTAsProject.getCurrentProject();
-    COLTAsProjectBuildSettings compilerSettings = currentProject.getProjectBuildSettings();
+    AsProject currentProject = AsProject.getCurrentProject();
+    AsProjectBuildSettings compilerSettings = currentProject.getProjectBuildSettings();
     List<String> excludedClasses = compilerSettings.getExcludedClasses();
     
     for (String sourcePath : sourcePaths) {

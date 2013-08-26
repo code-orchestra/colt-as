@@ -1,7 +1,7 @@
 package codeOrchestra.colt.as.ui.propertyTabPane.projectPaths
 
 import codeOrchestra.colt.as.model.ModelStorage
-import codeOrchestra.colt.as.model.COLTAsProjectPaths
+import codeOrchestra.colt.as.model.AsProjectPaths
 import codeOrchestra.colt.as.model.beans.BuildModel
 import codeOrchestra.colt.core.ui.components.inputForms.LTBForm
 import codeOrchestra.colt.core.ui.components.fileset.FilesetInput
@@ -19,7 +19,7 @@ class ProjectPathsFormController implements Initializable {
 
     @FXML LTBForm mainClass
 
-    COLTAsProjectPaths model = ModelStorage.instance.project.projectPaths
+    AsProjectPaths model = ModelStorage.instance.project.projectPaths
     BuildModel buildModel = ModelStorage.instance.project.projectBuildSettings.buildModel
 
     @Override

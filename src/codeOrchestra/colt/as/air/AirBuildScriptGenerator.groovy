@@ -1,25 +1,25 @@
 package codeOrchestra.colt.as.air
 
-import codeOrchestra.colt.as.model.COLTAsProject
+import codeOrchestra.colt.as.model.AsProject
 import codeOrchestra.colt.as.model.beans.air.AIRModel
 
 /**
  * @author Dima Kruk
  */
 abstract class AirBuildScriptGenerator {
-    protected COLTAsProject project
+    protected AsProject project
     protected String appName
 
-    AirBuildScriptGenerator(COLTAsProject project) {
+    AirBuildScriptGenerator(AsProject project) {
         this.project = project
         appName = project.name
     }
 
-    File getScriptPath(COLTAsProject project) {
+    File getScriptPath(AsProject project) {
         return new File(project.getOutputDir(), getScriptFileName())
     }
 
-    File getDescScriptPath(COLTAsProject project) {
+    File getDescScriptPath(AsProject project) {
         return new File(project.getOutputDir(), appName + "-app.xml")
     }
 

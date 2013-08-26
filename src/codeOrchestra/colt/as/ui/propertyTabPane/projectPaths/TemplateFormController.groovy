@@ -1,6 +1,6 @@
 package codeOrchestra.colt.as.ui.propertyTabPane.projectPaths
 
-import codeOrchestra.colt.as.model.COLTAsProjectPaths
+import codeOrchestra.colt.as.model.AsProjectPaths
 import codeOrchestra.colt.core.ui.components.inputForms.LTBForm
 import javafx.fxml.FXML
 import javafx.fxml.Initializable
@@ -11,7 +11,7 @@ import javafx.fxml.Initializable
 class TemplateFormController implements Initializable {
     @FXML LTBForm template
 
-    COLTAsProjectPaths model = codeOrchestra.colt.as.model.ModelStorage.instance.project.projectPaths
+    AsProjectPaths model = codeOrchestra.colt.as.model.ModelStorage.instance.project.projectPaths
 
     @Override
     void initialize(URL url, ResourceBundle resourceBundle) {

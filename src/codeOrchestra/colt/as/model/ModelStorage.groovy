@@ -9,10 +9,10 @@ class ModelStorage {
         return ourInstance
     }
 
-    COLTAsProject project
+    AsProject project
 
     private ModelStorage() {
-        project = new COLTAsProject()
+        project = new AsProject()
     }
 
     public String save() {

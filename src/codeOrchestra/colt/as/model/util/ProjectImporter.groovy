@@ -1,6 +1,6 @@
 package codeOrchestra.colt.as.model.util
 
-import codeOrchestra.colt.as.model.COLTAsProject
+import codeOrchestra.colt.as.model.AsProject
 import codeOrchestra.colt.core.ui.components.fileset.FilesetInput
 import codeOrchestra.util.PathUtils
 import codeOrchestra.colt.as.model.ModelStorage
@@ -10,8 +10,8 @@ import codeOrchestra.colt.as.model.ModelStorage
  */
 class ProjectImporter {
 
-    static COLTAsProject importProject(File file) {
-        COLTAsProject project = ModelStorage.instance.project
+    static AsProject importProject(File file) {
+        AsProject project = ModelStorage.instance.project
         project.clear()
 
         project.path = file.path

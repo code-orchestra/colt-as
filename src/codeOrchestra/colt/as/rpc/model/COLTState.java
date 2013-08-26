@@ -3,15 +3,15 @@ package codeOrchestra.colt.as.rpc.model;
 /**
  * @author Alexander Eliseyev
  */
-public class COLTState {
+public class ColtState {
   
-  private COLTConnection[] activeConnections;
+  private ColtConnection[] activeConnections;
   
-  public COLTConnection[] getActiveConnections() {
+  public ColtConnection[] getActiveConnections() {
     return activeConnections;
   }
   
-  public void setActiveConnections(COLTConnection[] activeConnections) {
+  public void setActiveConnections(ColtConnection[] activeConnections) {
     this.activeConnections = activeConnections;
   }
 

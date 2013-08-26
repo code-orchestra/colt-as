@@ -4,7 +4,7 @@ import codeOrchestra.colt.as.air.AirAndroidApkBuildScriptGenerator
 import codeOrchestra.colt.as.air.AirBuildScriptGenerator
 import codeOrchestra.colt.as.air.ui.AirFormController
 import codeOrchestra.colt.as.air.ui.AirOption
-import codeOrchestra.colt.as.model.COLTAsProject
+import codeOrchestra.colt.as.model.AsProject
 import javafx.stage.FileChooser
 
 /**
@@ -22,7 +22,7 @@ class AndroidAirFormController extends AirFormController  {
     }
 
     @Override
-    protected AirBuildScriptGenerator createBuildScriptGenerator(COLTAsProject project) {
+    protected AirBuildScriptGenerator createBuildScriptGenerator(AsProject project) {
         return new AirAndroidApkBuildScriptGenerator(project)
     }
 

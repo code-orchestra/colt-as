@@ -1,6 +1,6 @@
 package codeOrchestra.colt.as.run.indexhtml;
 
-import codeOrchestra.colt.as.model.COLTAsProject;
+import codeOrchestra.colt.as.model.AsProject;
 import codeOrchestra.colt.as.util.ASPathUtils;
 import codeOrchestra.util.FileUtils;
 import codeOrchestra.util.templates.TemplateProcessor;
@@ -15,9 +15,9 @@ import java.util.Map;
  */
 public class IndexHTMLGenerator {
 
-  private COLTAsProject project;
+  private AsProject project;
 
-  public IndexHTMLGenerator(COLTAsProject project) {
+  public IndexHTMLGenerator(AsProject project) {
     this.project = project;
   }
 

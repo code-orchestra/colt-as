@@ -3,7 +3,7 @@ package codeOrchestra.colt.as.compiler.fcsh;
 import codeOrchestra.colt.as.compiler.fcsh.make.CompilationResult;
 import codeOrchestra.colt.as.compiler.fcsh.make.MakeException;
 import codeOrchestra.colt.as.compiler.fcsh.make.process.AbstractFlexSDKRunner;
-import codeOrchestra.colt.as.model.COLTAsProject;
+import codeOrchestra.colt.as.model.AsProject;
 import codeOrchestra.util.FileUtils;
 import codeOrchestra.util.ProjectHelper;
 import codeOrchestra.util.StringUtils;
@@ -100,7 +100,7 @@ public class FCSHFlexSDKRunner extends AbstractFlexSDKRunner {
 
   @Override
   public String getErrorLogFilePath() {
-    return new File(ProjectHelper.<COLTAsProject>getCurrentProject().getBaseDir(), COMPILE_ERRORS_LOG_FILE_NAME).getPath();
+    return new File(ProjectHelper.<AsProject>getCurrentProject().getBaseDir(), COMPILE_ERRORS_LOG_FILE_NAME).getPath();
   }
 
   @Override

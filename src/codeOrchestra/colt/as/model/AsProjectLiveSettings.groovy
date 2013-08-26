@@ -5,13 +5,12 @@ import codeOrchestra.colt.as.model.beans.LiveSettingsModel
 import codeOrchestra.colt.as.model.beans.SettingsModel
 import codeOrchestra.colt.as.run.LauncherType
 import codeOrchestra.colt.as.run.LiveMethods
-import codeOrchestra.colt.as.run.Target
-import codeOrchestra.colt.core.model.COLTProjectLiveSettings
+import codeOrchestra.colt.core.model.ProjectLiveSettings
 
 /**
  * @author Dima Kruk
  */
-class COLTAsProjectLiveSettings extends COLTProjectLiveSettings<COLTAsProject>{
+class AsProjectLiveSettings extends ProjectLiveSettings<AsProject>{
 
     public final SettingsModel settingsModel = new SettingsModel()
     public final LauncherModel launcherModel = new LauncherModel()

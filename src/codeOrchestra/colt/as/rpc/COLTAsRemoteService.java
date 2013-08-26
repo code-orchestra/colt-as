@@ -1,29 +1,29 @@
 package codeOrchestra.colt.as.rpc;
 
-import codeOrchestra.colt.as.model.COLTAsProject;
-import codeOrchestra.colt.as.rpc.model.COLTCompilationResult;
-import codeOrchestra.colt.as.rpc.model.COLTRemoteProject;
-import codeOrchestra.colt.as.rpc.model.COLTState;
-import codeOrchestra.colt.core.rpc.COLTRemoteService;
-import codeOrchestra.colt.core.rpc.COLTRemoteTransferableException;
+import codeOrchestra.colt.as.model.AsProject;
+import codeOrchestra.colt.as.rpc.model.ColtCompilationResult;
+import codeOrchestra.colt.as.rpc.model.ColtRemoteProject;
+import codeOrchestra.colt.as.rpc.model.ColtState;
+import codeOrchestra.colt.core.rpc.ColtRemoteService;
+import codeOrchestra.colt.core.rpc.ColtRemoteTransferableException;
 
 /**
  * @author Alexander Eliseyev
  */
-public interface COLTAsRemoteService extends COLTRemoteService<COLTAsProject> {
+public interface ColtAsRemoteService extends ColtRemoteService<AsProject> {
 
     // Secured methods
 
-    COLTState getState(String securityToken) throws COLTRemoteTransferableException;
+    ColtState getState(String securityToken) throws ColtRemoteTransferableException;
 
-    COLTCompilationResult runBaseCompilation(String securityToken) throws COLTRemoteTransferableException;
+    ColtCompilationResult runBaseCompilation(String securityToken) throws ColtRemoteTransferableException;
 
-    COLTCompilationResult runBaseCompilation(String securityToken, boolean run) throws COLTRemoteTransferableException;
+    ColtCompilationResult runBaseCompilation(String securityToken, boolean run) throws ColtRemoteTransferableException;
 
-    COLTCompilationResult runProductionCompilation(String securityToken, boolean run) throws COLTRemoteTransferableException;
+    ColtCompilationResult runProductionCompilation(String securityToken, boolean run) throws ColtRemoteTransferableException;
 
-    void createProject(String securityToken, COLTRemoteProject project) throws COLTRemoteTransferableException;
+    void createProject(String securityToken, ColtRemoteProject project) throws ColtRemoteTransferableException;
 
-    void loadProject(String securityToken, String path) throws COLTRemoteTransferableException;
+    void loadProject(String securityToken, String path) throws ColtRemoteTransferableException;
 
 }

@@ -1,6 +1,6 @@
 package codeOrchestra.colt.as.util;
 
-import codeOrchestra.colt.as.model.COLTAsProject;
+import codeOrchestra.colt.as.model.AsProject;
 import codeOrchestra.util.PathUtils;
 
 import java.io.File;
@@ -25,19 +25,19 @@ public class ASPathUtils {
         return new File(new File(productDir, "lib"), "colt.swc").getPath();
     }
 
-    public static String getIncrementalSWFPath(COLTAsProject project, int packageId) {
+    public static String getIncrementalSWFPath(AsProject project, int packageId) {
         return getIncrementalOutputDir(project) + File.separator + "package_" + packageId + ".swf";
     }
 
-    public static String getIncrementalOutputDir(COLTAsProject project) {
+    public static String getIncrementalOutputDir(AsProject project) {
         return project.getOutputDir().getPath() + File.separator + "livecoding";
     }
 
-    public static String getSourceIncrementalSWCPath(COLTAsProject project) {
+    public static String getSourceIncrementalSWCPath(AsProject project) {
         return project.getOutputDir().getPath() + File.separator + project.getName() + "_liveCoding.swc";
     }
 
-    public static String getTargetIncrementalSWCPath(COLTAsProject project, int packageId) {
+    public static String getTargetIncrementalSWCPath(AsProject project, int packageId) {
         return getIncrementalOutputDir(project) + File.separator + "package_" + packageId + ".swc";
     }
 

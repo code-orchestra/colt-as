@@ -3,11 +3,11 @@ package codeOrchestra.colt.as;
 import codeOrchestra.colt.as.compiler.fcsh.FCSHException;
 import codeOrchestra.colt.as.compiler.fcsh.FCSHManager;
 import codeOrchestra.colt.as.compiler.fcsh.MaximumCompilationsCountReachedException;
-import codeOrchestra.colt.as.compiler.fcsh.make.COLTAsMaker;
+import codeOrchestra.colt.as.compiler.fcsh.make.AsMaker;
 import codeOrchestra.colt.as.compiler.fcsh.make.CompilationResult;
 import codeOrchestra.colt.as.compiler.fcsh.make.MakeException;
 import codeOrchestra.colt.as.digest.EmbedDigest;
-import codeOrchestra.colt.as.model.COLTAsProject;
+import codeOrchestra.colt.as.model.AsProject;
 import codeOrchestra.colt.as.run.Target;
 import codeOrchestra.colt.as.session.ASLiveCodingSession;
 import codeOrchestra.colt.as.session.sourcetracking.ASSourceFile;
@@ -35,7 +35,7 @@ import java.util.*;
 /**
  * @author Alexander Eliseyev
  */
-public class ASLiveCodingManager extends AbstractLiveCodingManager<COLTAsProject, ClientSocketHandler> {
+public class ASLiveCodingManager extends AbstractLiveCodingManager<AsProject, ClientSocketHandler> {
 
     private static final Logger LOG = Logger.getLogger(LiveCodingManager.class);
 
@@ -73,7 +73,7 @@ public class ASLiveCodingManager extends AbstractLiveCodingManager<COLTAsProject
         try {
             compilationInProgress = true;
 
-            COLTAsProject currentProject = COLTAsProject.getCurrentProject();
+            AsProject currentProject = AsProject.getCurrentProject();
 
             if (!production) {
                 FileUtils.clear(new File(ASPathUtils.getIncrementalOutputDir(currentProject)));
@@ -88,7 +88,7 @@ public class ASLiveCodingManager extends AbstractLiveCodingManager<COLTAsProject
                 }
             }
 
-            COLTAsMaker lcsMaker = new COLTAsMaker(false);
+            AsMaker lcsMaker = new AsMaker(false);
             lcsMaker.setProductionMode(production);
             try {
                 return lcsMaker.make();
@@ -112,7 +112,7 @@ public class ASLiveCodingManager extends AbstractLiveCodingManager<COLTAsProject
     }
 
     public synchronized void runIncrementalCompilation() {
-        COLTAsProject currentProject = COLTAsProject.getCurrentProject();
+        AsProject currentProject = AsProject.getCurrentProject();
         try {
             compilationInProgress = true;
 
@@ -128,7 +128,7 @@ public class ASLiveCodingManager extends AbstractLiveCodingManager<COLTAsProject
                 ErrorHandler.handle(e, "Error while starting profling");
             }
 
-            COLTAsMaker lcsMaker = new COLTAsMaker(changedFilesSnapshot);
+            AsMaker lcsMaker = new AsMaker(changedFilesSnapshot);
             try {
                 if (lcsMaker.make().isOk()) {
                     try {
@@ -223,7 +223,7 @@ public class ASLiveCodingManager extends AbstractLiveCodingManager<COLTAsProject
         long timeStamp = System.currentTimeMillis();
 
         // 0 - clear the incremental sources dir
-        COLTAsProject currentProject = COLTAsProject.getCurrentProject();
+        AsProject currentProject = AsProject.getCurrentProject();
         FileUtils.clear(currentProject.getOrCreateIncrementalSourcesDir());
 
         // 1 - copy the changed asset to the root of incremental dir
@@ -251,7 +251,7 @@ public class ASLiveCodingManager extends AbstractLiveCodingManager<COLTAsProject
         }
 
         // 3 - compile
-        COLTAsMaker lcsMaker = new COLTAsMaker(Collections.singletonList(new ASSourceFile(targetFile, currentProject.getOrCreateIncrementalSourcesDir().getPath())), true);
+        AsMaker lcsMaker = new AsMaker(Collections.singletonList(new ASSourceFile(targetFile, currentProject.getOrCreateIncrementalSourcesDir().getPath())), true);
         try {
             if (lcsMaker.make().isOk()) {
                 // Extract and copy the artifact
@@ -389,7 +389,7 @@ public class ASLiveCodingManager extends AbstractLiveCodingManager<COLTAsProject
 
     public void startListeningForSourcesChanges() {
         List<File> watchedDirs = new ArrayList<>();
-        COLTAsProject currentProject = COLTAsProject.getCurrentProject();
+        AsProject currentProject = AsProject.getCurrentProject();
         for (String sourceDirPath : currentProject.getProjectPaths().getSourcePaths()) {
             File sourceDir = new File(sourceDirPath);
             if (sourceDir.exists() && sourceDir.isDirectory()) {
@@ -471,7 +471,7 @@ public class ASLiveCodingManager extends AbstractLiveCodingManager<COLTAsProject
             }
             sessionFinisherThread.start();
 
-            if (COLTAsProject.getCurrentProject().getProjectBuildSettings().getLaunchTarget() != Target.SWF) {
+            if (AsProject.getCurrentProject().getProjectBuildSettings().getLaunchTarget() != Target.SWF) {
                 sendBaseUrl(session, getWebOutputAddress());
             }
 
@@ -548,7 +548,7 @@ public class ASLiveCodingManager extends AbstractLiveCodingManager<COLTAsProject
                 }
 
                 if (lastPong < lastPing) {
-                    COLTAsProject coltAsProject = COLTAsProject.getCurrentProject();
+                    AsProject coltAsProject = AsProject.getCurrentProject();
                     if (coltAsProject == null || coltAsProject.getProjectLiveSettings().disconnectOnTimeout()) {
                         stopSession(liveCodingSession);
                     }

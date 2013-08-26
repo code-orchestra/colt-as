@@ -5,12 +5,12 @@ import codeOrchestra.colt.as.model.beans.ProductionBuildModel
 import codeOrchestra.colt.as.model.beans.RunTargetModel
 import codeOrchestra.colt.as.model.beans.SDKModel
 import codeOrchestra.colt.as.run.Target
-import codeOrchestra.colt.core.model.COLTProjectBuildSettings
+import codeOrchestra.colt.core.model.ProjectBuildSettings
 
 /**
  * @author Dima Kruk
  */
-class COLTAsProjectBuildSettings extends COLTProjectBuildSettings<COLTAsProject> {
+class AsProjectBuildSettings extends ProjectBuildSettings<AsProject> {
 
     public final SDKModel sdkModel = new SDKModel()
     public final BuildModel buildModel = new BuildModel()

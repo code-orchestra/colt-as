@@ -7,15 +7,14 @@ import codeOrchestra.colt.as.compiler.fcsh.MaximumCompilationsCountReachedExcept
 import codeOrchestra.colt.as.compiler.fcsh.make.CompilationResult;
 import codeOrchestra.colt.as.digest.DigestException;
 import codeOrchestra.colt.as.digest.ProjectDigestHelper;
-import codeOrchestra.colt.as.model.COLTAsProject;
+import codeOrchestra.colt.as.model.AsProject;
 import codeOrchestra.colt.as.run.ASLiveLauncher;
-import codeOrchestra.colt.core.COLTException;
-import codeOrchestra.colt.core.COLTProjectManager;
+import codeOrchestra.colt.core.ColtException;
+import codeOrchestra.colt.core.ColtProjectManager;
 import codeOrchestra.colt.core.LiveCodingManager;
 import codeOrchestra.colt.core.ServiceProvider;
-import codeOrchestra.colt.core.controller.AbstractCOLTController;
-import codeOrchestra.colt.core.controller.COLTControllerCallback;
-import codeOrchestra.colt.core.controller.COLTControllerCallbackEx;
+import codeOrchestra.colt.core.controller.AbstractColtController;
+import codeOrchestra.colt.core.controller.ColtControllerCallback;
 import codeOrchestra.colt.core.errorhandling.ErrorHandler;
 import codeOrchestra.colt.core.execution.ExecutionException;
 import codeOrchestra.colt.core.execution.LoggingProcessListener;
@@ -25,18 +24,18 @@ import codeOrchestra.colt.core.launch.LiveLauncher;
 import codeOrchestra.colt.core.loading.LiveCodingHandlerManager;
 import codeOrchestra.colt.core.logging.Level;
 import codeOrchestra.colt.core.logging.LoggerService;
-import codeOrchestra.colt.core.tasks.COLTTaskWithProgress;
+import codeOrchestra.colt.core.tasks.ColtTaskWithProgress;
 import codeOrchestra.colt.core.tasks.TasksManager;
-import codeOrchestra.colt.core.ui.components.ICOLTProgressIndicator;
+import codeOrchestra.colt.core.ui.components.IProgressIndicator;
 import codeOrchestra.util.ProjectHelper;
 
 /**
  * @author Alexander Eliseyev
  */
-public class COLTAsController extends AbstractCOLTController<COLTAsProject> {
+public class ColtAsController extends AbstractColtController<AsProject> {
 
     public void startProductionCompilation() {
-        startProductionCompilation(new COLTControllerCallback<CompilationResult, CompilationResult>() {
+        startProductionCompilation(new ColtControllerCallback<CompilationResult, CompilationResult>() {
             @Override
             public void onComplete(CompilationResult successResult) {
             }
@@ -47,23 +46,23 @@ public class COLTAsController extends AbstractCOLTController<COLTAsProject> {
         }, true, true);
     }
 
-    public void startProductionCompilation(final COLTControllerCallback<CompilationResult, CompilationResult> callback, final boolean run, boolean sync) {
+    public void startProductionCompilation(final ColtControllerCallback<CompilationResult, CompilationResult> callback, final boolean run, boolean sync) {
         try {
-            COLTProjectManager.getInstance().save();
-        } catch (COLTException e) {
+            ColtProjectManager.getInstance().save();
+        } catch (ColtException e) {
             callback.onError(e, null);
         }
 
 
-        TasksManager.getInstance().scheduleBackgroundTask(new COLTTaskWithProgress<Void>() {
+        TasksManager.getInstance().scheduleBackgroundTask(new ColtTaskWithProgress<Void>() {
             @Override
             protected String getName() {
                 return "Production Compilation";
             }
 
             @Override
-            protected Void call(ICOLTProgressIndicator progressIndicator) {
-                COLTAsProject currentProject = ProjectHelper.getCurrentProject();
+            protected Void call(IProgressIndicator progressIndicator) {
+                AsProject currentProject = ProjectHelper.getCurrentProject();
 
                 // Base compilation
                 progressIndicator.setText("Compiling");
@@ -103,7 +102,7 @@ public class COLTAsController extends AbstractCOLTController<COLTAsProject> {
     }
 
     public void startBaseCompilation() {
-        startBaseCompilation(new COLTControllerCallback<CompilationResult, CompilationResult>() {
+        startBaseCompilation(new ColtControllerCallback<CompilationResult, CompilationResult>() {
             @Override
             public void onComplete(CompilationResult successResult) {
             }
@@ -114,25 +113,25 @@ public class COLTAsController extends AbstractCOLTController<COLTAsProject> {
         }, true, true);
     }
 
-    public void startBaseCompilation(final COLTControllerCallback<CompilationResult, CompilationResult> callback, final boolean run, boolean sync) {
+    public void startBaseCompilation(final ColtControllerCallback<CompilationResult, CompilationResult> callback, final boolean run, boolean sync) {
         try {
-            COLTProjectManager.getInstance().save();
-        } catch (COLTException e) {
+            ColtProjectManager.getInstance().save();
+        } catch (ColtException e) {
             callback.onError(e, null);
         }
 
         LoggerService loggerService = LiveCodingHandlerManager.getInstance().getCurrentHandler().getLoggerService();
         loggerService.clear(Level.COMPILATION);
 
-        TasksManager.getInstance().scheduleBackgroundTask(new COLTTaskWithProgress<Void>() {
+        TasksManager.getInstance().scheduleBackgroundTask(new ColtTaskWithProgress<Void>() {
             @Override
             protected String getName() {
                 return "Live Build";
             }
 
             @Override
-            protected Void call(ICOLTProgressIndicator progressIndicator) {
-                COLTAsProject currentProject = ProjectHelper.getCurrentProject();
+            protected Void call(IProgressIndicator progressIndicator) {
+                AsProject currentProject = ProjectHelper.getCurrentProject();
 
                 // Building digests
                 progressIndicator.setText("Building digests");

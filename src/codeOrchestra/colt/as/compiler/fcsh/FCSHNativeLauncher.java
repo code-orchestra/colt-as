@@ -2,8 +2,8 @@ package codeOrchestra.colt.as.compiler.fcsh;
 
 import codeOrchestra.colt.as.flex.FlexSDKSettings;
 import codeOrchestra.colt.as.logging.transport.LoggerServerSocketThread;
-import codeOrchestra.colt.as.model.COLTAsProject;
-import codeOrchestra.colt.as.model.COLTAsProjectLiveSettings;
+import codeOrchestra.colt.as.model.AsProject;
+import codeOrchestra.colt.as.model.AsProjectLiveSettings;
 import codeOrchestra.colt.as.util.ASPathUtils;
 import codeOrchestra.util.LocalhostUtil;
 
@@ -20,7 +20,7 @@ public class FCSHNativeLauncher implements IFCSHLauncher {
         StringBuilder programParameters = new StringBuilder();
 
         String applicationHome;
-        COLTAsProject currentProject = COLTAsProject.getCurrentProject();
+        AsProject currentProject = AsProject.getCurrentProject();
         if (currentProject != null) {
             applicationHome = currentProject.getProjectBuildSettings().getFlexSDKPath();
             if (!new File(applicationHome).exists()) {
@@ -42,7 +42,7 @@ public class FCSHNativeLauncher implements IFCSHLauncher {
 
         // Livecoding parameters
         if (currentProject != null) {
-            COLTAsProjectLiveSettings liveCodingSettings = currentProject.getProjectLiveSettings();
+            AsProjectLiveSettings liveCodingSettings = currentProject.getProjectLiveSettings();
             programParameters.append(" -DcodeOrchestra.live.liveMethods=" + liveCodingSettings.getLiveMethods().getPreferenceValue());
             programParameters.append(" -DcodeOrchestra.live.gettersSetters=" + liveCodingSettings.makeGettersSettersLive());
             programParameters.append(" -DcodeOrchestra.live.maxLoops=" + liveCodingSettings.getMaxIterationsCount());

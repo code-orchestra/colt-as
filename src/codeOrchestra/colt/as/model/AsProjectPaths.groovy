@@ -1,27 +1,25 @@
 package codeOrchestra.colt.as.model
 
-import codeOrchestra.colt.core.model.COLTProjectPaths
+import codeOrchestra.colt.core.model.ProjectPaths
 import codeOrchestra.colt.core.model.monitor.ChangingMonitor
 import codeOrchestra.colt.core.ui.components.fileset.FilesetInput
 import codeOrchestra.groovyfx.FXBindable
 import codeOrchestra.util.PathUtils
 import groovy.transform.Canonical
-import javafx.collections.FXCollections
-import javafx.collections.ObservableList as FXObservableList
 
 /**
  * @author Dima Kruk
  */
 @Canonical
 @FXBindable
-class COLTAsProjectPaths extends COLTProjectPaths<COLTAsProject> {
+class AsProjectPaths extends ProjectPaths<AsProject> {
     String sources = "src/"
     String libraries = "lib/"
     String assets = "assets/"
 
     String htmlTemplatePath = ""
 
-    COLTAsProjectPaths() {
+    AsProjectPaths() {
         ChangingMonitor monitor = ChangingMonitor.instance
         monitor.addAll(sources(),
                 libraries(),

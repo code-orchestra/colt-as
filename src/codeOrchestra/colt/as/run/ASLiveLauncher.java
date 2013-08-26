@@ -1,8 +1,8 @@
 package codeOrchestra.colt.as.run;
 
-import codeOrchestra.colt.as.model.COLTAsProject;
-import codeOrchestra.colt.as.model.COLTAsProjectBuildSettings;
-import codeOrchestra.colt.as.model.COLTAsProjectLiveSettings;
+import codeOrchestra.colt.as.model.AsProject;
+import codeOrchestra.colt.as.model.AsProjectBuildSettings;
+import codeOrchestra.colt.as.model.AsProjectLiveSettings;
 import codeOrchestra.colt.as.security.TrustedLocations;
 import codeOrchestra.colt.core.execution.ExecutionException;
 import codeOrchestra.colt.core.execution.ProcessHandlerWrapper;
@@ -17,11 +17,11 @@ import java.io.FilenameFilter;
 /**
  * @author Alexander Eliseyev
  */
-public class ASLiveLauncher implements LiveLauncher<COLTAsProject> {
+public class ASLiveLauncher implements LiveLauncher<AsProject> {
 
-    public ProcessHandlerWrapper launch(COLTAsProject project) throws ExecutionException {
-        COLTAsProjectLiveSettings liveCodingSettings = project.getProjectLiveSettings();
-        COLTAsProjectBuildSettings compilerSettings = project.getProjectBuildSettings();
+    public ProcessHandlerWrapper launch(AsProject project) throws ExecutionException {
+        AsProjectLiveSettings liveCodingSettings = project.getProjectLiveSettings();
+        AsProjectBuildSettings compilerSettings = project.getProjectBuildSettings();
         Target launchTarget = compilerSettings.getLaunchTarget();
 
         if (launchTarget == Target.AIR_IOS) {
