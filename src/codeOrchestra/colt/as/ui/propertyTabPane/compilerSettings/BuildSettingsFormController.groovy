@@ -11,7 +11,6 @@ import javafx.beans.value.ChangeListener
 import javafx.beans.value.ObservableValue
 import javafx.fxml.FXML
 import javafx.fxml.Initializable
-import javafx.stage.FileChooser
 
 /**
  * @author Dima Kruk
@@ -46,7 +45,13 @@ class BuildSettingsFormController implements Initializable {
         fileName.textField.textProperty().bindBidirectional(model.outputFileName())
         outPath.textField.textProperty().bindBidirectional(model.outputPath())
 
-        model.targetPlayerVersion().bindBidirectional(player.choiceBox.valueProperty())
+        player.choiceBox.valueProperty().bindBidirectional(model.targetPlayerVersion())
+        model.targetPlayerVersion().addListener({ ObservableValue<? extends String> observableValue, String t, String t1 ->
+            //model.targetPlayerVersion can't be empty
+            if (t1?.isEmpty()) {
+                model.targetPlayerVersion = t
+            }   
+        } as ChangeListener)
         player.choiceBox.valueProperty().addListener({ ObservableValue<? extends String> observableValue, String t, String t1 ->
             if(t1 != null && !t1?.isEmpty()) {
                 if(!player.choiceBox.items.contains(t1)) {
@@ -65,23 +70,28 @@ class BuildSettingsFormController implements Initializable {
         } as ChangeListener)
 
         sdkModel.isValidFlexSDK().addListener({ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue->
-            String value = model.targetPlayerVersion
+            String modelValue = model.targetPlayerVersion
             player.choiceBox.items.clear()
             if (newValue) {
                 FlexSDKManager manager = FlexSDKManager.instance
                 List<String> versions = manager.getAvailablePlayerVersions(new File(sdkModel.flexSDKPath))
                 player.choiceBox.items.addAll(versions)
-                if (versions.size() > 0 && versions.contains(value)) {
-                    model.targetPlayerVersion = value
+                if(modelValue != null && !modelValue.isEmpty()) {
+                    if (versions.contains(modelValue)) {
+                        model.targetPlayerVersion = modelValue
+                        error(false)
+                    } else {
+                        player.choiceBox.items.add(modelValue)
+                        model.targetPlayerVersion = modelValue
+                        error(true)
+                    }
+                } else {
+                    model.targetPlayerVersion = versions.first()
                     error(false)
-                } else if(!value.isEmpty()) {
-                    player.choiceBox.items.add(value)
-                    model.targetPlayerVersion = value
-                    error(true)
                 }
             } else {
-                player.choiceBox.items.add(value)
-                model.targetPlayerVersion = value
+                player.choiceBox.items.add(modelValue)
+                model.targetPlayerVersion = modelValue
                 error(true)
             }
         } as ChangeListener<Boolean>)
