@@ -34,6 +34,36 @@ import codeOrchestra.util.ProjectHelper;
  */
 public class ColtAsController extends AbstractColtController<AsProject> {
 
+    public void launch() {
+        TasksManager.getInstance().scheduleBackgroundTask(new ColtTaskWithProgress<Void>() {
+            @Override
+            protected Void call(IProgressIndicator progressIndicator) {
+                AsProject currentProject = ProjectHelper.getCurrentProject();
+                progressIndicator.setText("Launching");
+
+                ASLiveLauncher liveLauncher = (ASLiveLauncher) ServiceProvider.get(LiveLauncher.class);
+                ProcessHandlerWrapper processHandlerWrapper = null;
+                try {
+                    processHandlerWrapper = liveLauncher.launch(currentProject);
+                } catch (ExecutionException e) {
+                    ErrorHandler.handle(e, "Error while launching build artifact");
+                    return null;
+                }
+
+                ProcessHandler processHandler = processHandlerWrapper.getProcessHandler();
+                processHandler.addProcessListener(new LoggingProcessListener("Launch"));
+                processHandler.startNotify();
+
+                return null;
+            }
+
+            @Override
+            protected String getName() {
+                return "Launch";
+            }
+        });
+    }
+
     public void startProductionCompilation() {
         startProductionCompilation(new ColtControllerCallback<CompilationResult, CompilationResult>() {
             @Override
