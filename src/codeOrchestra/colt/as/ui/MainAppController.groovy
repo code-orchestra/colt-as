@@ -1,14 +1,14 @@
 package codeOrchestra.colt.as.ui
 
 import codeOrchestra.colt.as.ASLiveCodingLanguageHandler
+import codeOrchestra.colt.as.compiler.fcsh.make.CompilationResult
 import codeOrchestra.colt.as.controller.ColtAsController
 import codeOrchestra.colt.as.model.ModelStorage
 import codeOrchestra.colt.as.ui.log.Log
 import codeOrchestra.colt.as.ui.popupmenu.MyContextMenu
 import codeOrchestra.colt.as.ui.propertyTabPane.SettingsForm
-import codeOrchestra.colt.core.ServiceProvider
 import codeOrchestra.colt.core.annotation.Service
-import codeOrchestra.colt.core.controller.ColtController
+import codeOrchestra.colt.core.controller.ColtControllerCallback
 import codeOrchestra.colt.core.loading.LiveCodingHandlerManager
 import codeOrchestra.colt.core.logging.Level
 import codeOrchestra.colt.core.rpc.security.ui.ShortCodeNotification
@@ -19,8 +19,10 @@ import codeOrchestra.colt.core.ui.components.ProgressIndicatorController
 import codeOrchestra.colt.core.ui.components.log.LogFilter
 import codeOrchestra.colt.core.ui.components.log.LogMessage
 import codeOrchestra.colt.core.ui.components.log.LogWebView
+import codeOrchestra.colt.core.ui.components.player.ActionPlayerPopup
 import codeOrchestra.colt.core.ui.components.sessionIndicator.SessionIndicatorController
 import codeOrchestra.groovyfx.FXBindable
+import javafx.application.Platform
 import javafx.beans.InvalidationListener
 import javafx.beans.binding.StringBinding
 import javafx.beans.value.ChangeListener
@@ -56,9 +58,11 @@ class MainAppController implements Initializable {
 
     @Lazy LogWebView logView = Log.instance.logWebView
     @Lazy SettingsForm settingsForm = new SettingsForm(saveRunAction:{
-        coltController.startBaseCompilation()//todo: handle errors?
-        root.center = logView
-        runButton.selected = true
+        runButton.onAction.handle(null)
+
+        ToggleButton playAction = actionPlayerPopup.actionPlayer.play
+        playAction.selected = true
+        playAction.onAction.handle(null)
     } as EventHandler)
 
     @FXML HBox logFiltersContainer
@@ -80,6 +84,8 @@ class MainAppController implements Initializable {
 
     ModelStorage model = codeOrchestra.colt.as.model.ModelStorage.instance
 
+    private ActionPlayerPopup actionPlayerPopup
+
     @Override
     void initialize(URL url, ResourceBundle resourceBundle) {
         initLog(); initGoogleAnalytics()
@@ -91,9 +97,34 @@ class MainAppController implements Initializable {
         navigationToggleGroup.toggles.addAll(runButton, buildButton, settingsButton)
         logFilterToggleGroup.toggles.addAll(allFilters)
 
+        PopupControl
+        actionPlayerPopup = new ActionPlayerPopup()
+        actionPlayerPopup.actionPlayer.stylesheets.add(getClass().getResource("main.css").toString())
+        actionPlayerPopup.actionPlayer.play.onAction = {
+            coltController.startBaseCompilation(new ColtControllerCallback<CompilationResult, CompilationResult>() {
+                @Override
+                void onComplete(CompilationResult successResult) {
+                    //todo: implement
+                }
+
+                @Override
+                void onError(Throwable t, CompilationResult errorResult) {
+                    Platform.runLater({
+                        actionPlayerPopup.actionPlayer.stop.selected = true
+                    })
+                }
+            }, true, true)//todo: handle errors?
+        } as EventHandler
+
         runButton.onAction = {
             root.center = logView
             runButton.selected = true
+
+            if (actionPlayerPopup.isShowing()) {
+                actionPlayerPopup.hide()
+            } else {
+                actionPlayerPopup.show(runButton)
+            }
         } as EventHandler
 
         settingsButton.onAction = {
