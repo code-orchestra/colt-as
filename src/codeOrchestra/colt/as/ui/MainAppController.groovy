@@ -104,7 +104,9 @@ class MainAppController implements Initializable {
             coltController.startBaseCompilation(new ColtControllerCallback<CompilationResult, CompilationResult>() {
                 @Override
                 void onComplete(CompilationResult successResult) {
-                    //todo: implement
+                    Platform.runLater({
+                        actionPlayerPopup.actionPlayer.showAdd(true)
+                    })
                 }
 
                 @Override
@@ -113,7 +115,11 @@ class MainAppController implements Initializable {
                         actionPlayerPopup.actionPlayer.stop.selected = true
                     })
                 }
-            }, true, true)//todo: handle errors?
+            }, true, true)
+        } as EventHandler
+
+        actionPlayerPopup.actionPlayer.add.onAction = {
+            coltController.launch()
         } as EventHandler
 
         runButton.onAction = {
