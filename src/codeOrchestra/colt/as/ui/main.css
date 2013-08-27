@@ -479,7 +479,7 @@
 
 .player-box .toggle-button:hover, .player-box .button:hover { -fx-opacity: .72; }
 
-.player-box .toggle-button:disabled { -fx-opacity: 1; }
+.player-box .toggle-button:selected:disabled { -fx-opacity: 1; }
 
 .player-box .toggle-button:selected:hover, .player-box .button:selected:hover { -fx-opacity: 1; }
 
@@ -487,19 +487,19 @@
 .player-box .btn-player-pause {
     -fx-background-image: url('images/btns/player-pause.png'); }
 
-.player-box .btn-player-pause:selected, .player-box .btn-player-pause:hover, .player-box .btn-player-pause:disabled {
+.player-box .btn-player-pause:selected, .player-box .btn-player-pause:hover, .player-box .btn-player-pause:selected:disabled {
     -fx-background-image: url('images/btns/player-pause-selected.png'); }
 
 .player-box .btn-player-play {
     -fx-background-image: url('images/btns/player-play.png'); }
 
-.player-box .btn-player-play:selected, .player-box .btn-player-play:hover, , .player-box .btn-player-play:disabled {
+.player-box .btn-player-play:selected, .player-box .btn-player-play:hover, .player-box .btn-player-play:selected:disabled {
     -fx-background-image: url('images/btns/player-play-selected.png'); }
 
 .player-box .btn-player-stop {
     -fx-background-image: url('images/btns/player-stop.png'); }
 
-.player-box .btn-player-stop:selected, .player-box .btn-player-stop:hover, .player-box .btn-player-stop:disabled {
+.player-box .btn-player-stop:selected, .player-box .btn-player-stop:hover, .player-box .btn-player-stop:selected:disabled {
     -fx-background-image: url('images/btns/player-stop-selected.png'); }
 
 .player-box .separator .line {
