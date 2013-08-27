@@ -1,5 +1,6 @@
 package codeOrchestra.colt.as;
 
+import codeOrchestra.colt.as.compiler.fcsh.FCSHManager;
 import codeOrchestra.colt.as.controller.ColtAsController;
 import codeOrchestra.colt.as.logging.transport.LoggerServerSocketThread;
 import codeOrchestra.colt.as.model.AsProject;
@@ -107,6 +108,7 @@ public class ASLiveCodingLanguageHandler extends AbstractLiveCodingLanguageHandl
     @Override
     public void disposeHandler() {
         loggerServerSocketThread.closeSocket();
+        FCSHManager.instance().destroyProcess();
 
         ServiceProvider.get(LiveCodingManager.class).removeListener(SessionIndicatorController.getInstance());
     }

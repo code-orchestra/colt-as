@@ -45,7 +45,7 @@ public class ASLiveCodingManager extends AbstractLiveCodingManager<AsProject, So
 
     private List<ASSourceFile> changedFiles = new ArrayList<>();
 
-    private LiveCodingListener finisherThreadLiveCodingListener = new SessionHandleListener();
+    private SessionHandleListener finisherThreadLiveCodingListener = new SessionHandleListener();
 
     private Object runMonitor = new Object();
 
@@ -363,6 +363,8 @@ public class ASLiveCodingManager extends AbstractLiveCodingManager<AsProject, So
     public void dispose() {
         super.dispose();
 
+        finisherThreadLiveCodingListener.dispose();
+
         if (sourceTrackerThread != null) {
             sourceTrackerThread.stopRightThere();
         }
@@ -492,6 +494,13 @@ public class ASLiveCodingManager extends AbstractLiveCodingManager<AsProject, So
                 sessionFinisherThread.stopRightThere();
             }
         }
+
+        public void dispose() {
+            for (SessionFinisher sessionFinisher : sessionFinisherThreads.values()) {
+                sessionFinisher.stopRightThere();
+            }
+        }
+
     }
 
     private class SessionFinisher extends Thread implements PongTraceCommand.PongListener {
