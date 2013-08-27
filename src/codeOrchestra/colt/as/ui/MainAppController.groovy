@@ -1,6 +1,7 @@
 package codeOrchestra.colt.as.ui
 
 import codeOrchestra.colt.as.ASLiveCodingLanguageHandler
+import codeOrchestra.colt.as.ASLiveCodingManager
 import codeOrchestra.colt.as.compiler.fcsh.make.CompilationResult
 import codeOrchestra.colt.as.controller.ColtAsController
 import codeOrchestra.colt.as.model.ModelStorage
@@ -12,6 +13,8 @@ import codeOrchestra.colt.core.controller.ColtControllerCallback
 import codeOrchestra.colt.core.loading.LiveCodingHandlerManager
 import codeOrchestra.colt.core.logging.Level
 import codeOrchestra.colt.core.rpc.security.ui.ShortCodeNotification
+import codeOrchestra.colt.core.session.LiveCodingSession
+import codeOrchestra.colt.core.session.SocketWriter
 import codeOrchestra.colt.core.tracker.GAController
 import codeOrchestra.colt.core.tracker.GATracker
 import codeOrchestra.colt.core.ui.ColtApplication
@@ -55,6 +58,7 @@ class MainAppController implements Initializable {
     @FXML Button popupMenuButton
 
     @Service ColtAsController coltController
+    @Service ASLiveCodingManager liveCodingManager
 
     @Lazy LogWebView logView = Log.instance.logWebView
     @Lazy SettingsForm settingsForm = new SettingsForm(saveRunAction:{
@@ -116,6 +120,13 @@ class MainAppController implements Initializable {
                     })
                 }
             }, true, true)
+        } as EventHandler
+
+        actionPlayerPopup.actionPlayer.stop.onAction = {
+            List<LiveCodingSession<SocketWriter>> connections = liveCodingManager.currentConnections
+            connections.each {
+                liveCodingManager.stopSession(it)
+            }
         } as EventHandler
 
         actionPlayerPopup.actionPlayer.add.onAction = {
