@@ -121,5 +121,7 @@ class AsProject extends Project {
 
         liveSettings.launcherType = codeOrchestra.colt.as.run.LauncherType.DEFAULT;
         liveSettings.liveMethods = codeOrchestra.colt.as.run.LiveMethods.ANNOTATED;
+
+        buildSettings.buildModel.outputPath = getDefaultOutputDir().path
     }
 }
