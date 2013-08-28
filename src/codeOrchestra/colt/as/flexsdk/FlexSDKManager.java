@@ -77,7 +77,7 @@ public class FlexSDKManager {
   }
   
   public List<String> getAvailablePlayerVersions(File flexSDKDir) throws FlexSDKNotPresentException {
-    @SuppressWarnings("Convert2Diamond") List<String> result = new ArrayList<>();
+    List<String> result = new ArrayList<>();
     
     File playerLibsDir = new File(flexSDKDir, PLAYERLIBS_RELATIVE_PATH);
     if (!playerLibsDir.exists()) {
@@ -158,7 +158,7 @@ public class FlexSDKManager {
       return null;
     }
 
-    @SuppressWarnings("Convert2Diamond") List<File> playersList = new ArrayList<>();
+    List<File> playersList = new ArrayList<>();
     for (File playerDir : playerDirs) {
       playersList.add(playerDir);
     }

@@ -53,7 +53,7 @@ public class TrustedLocations {
   }
 
   public List<String> getTrustedLocations() {
-    @SuppressWarnings("Convert2Diamond") List<String> trustedLocations = new ArrayList<>();
+    List<String> trustedLocations = new ArrayList<>();
 
     String trustConfigurationContent = FileUtils.read(getOrCreateTrustConfigurationFile());
     String[] trustLocationsSplit = trustConfigurationContent.split("\\n");

@@ -26,7 +26,7 @@ public class ProjectDigestHelper {
   }
   
   public List<EmbedDigest> getEmbedDigests() {
-    @SuppressWarnings("Convert2Diamond") List<EmbedDigest> result = new ArrayList<>();
+    List<EmbedDigest> result = new ArrayList<>();
     
     File embedDigestsFile = new File(project.getDigestsDir(), "embedDigests.xml");
     if (!embedDigestsFile.exists()) {
@@ -56,7 +56,7 @@ public class ProjectDigestHelper {
   public void build() throws DigestException {
     long timeStarted = System.currentTimeMillis();
     
-    @SuppressWarnings("Convert2Diamond") List<String> swcPaths = new ArrayList<>();
+    List<String> swcPaths = new ArrayList<>();
 
     for (FlexSDKLib flexLib : FlexSDKLib.values()) {
       String swcPath = flexLib.getPath();
