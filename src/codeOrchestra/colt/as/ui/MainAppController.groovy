@@ -22,6 +22,7 @@ import codeOrchestra.colt.core.ui.components.ProgressIndicatorController
 import codeOrchestra.colt.core.ui.components.log.LogFilter
 import codeOrchestra.colt.core.ui.components.log.LogMessage
 import codeOrchestra.colt.core.ui.components.log.LogWebView
+import codeOrchestra.colt.core.ui.components.player.ActionPlayer
 import codeOrchestra.colt.core.ui.components.player.ActionPlayerPopup
 import codeOrchestra.colt.core.ui.components.sessionIndicator.SessionIndicatorController
 import codeOrchestra.groovyfx.FXBindable
@@ -66,7 +67,7 @@ class MainAppController implements Initializable {
     @Lazy SettingsForm settingsForm = new SettingsForm(saveRunAction:{
         runButton.onAction.handle(null)
 
-        ToggleButton playAction = actionPlayerPopup.actionPlayer.play
+        ToggleButton playAction = playerControls.play
         playAction.selected = true
         playAction.onAction.handle(null)
     } as EventHandler)
@@ -103,47 +104,15 @@ class MainAppController implements Initializable {
         navigationToggleGroup.toggles.addAll(runButton, buildButton, settingsButton)
         logFilterToggleGroup.toggles.addAll(allFilters)
 
-        PopupControl
-        actionPlayerPopup = new ActionPlayerPopup()
-        actionPlayerPopup.actionPlayer.stylesheets.add(getClass().getResource("main.css").toString())
-        actionPlayerPopup.actionPlayer.play.onAction = {
-            coltController.startBaseCompilation(new ColtControllerCallback<CompilationResult, CompilationResult>() {
-                @Override
-                void onComplete(CompilationResult successResult) {
-                    Platform.runLater({
-                        actionPlayerPopup.actionPlayer.showAdd(true)
-                    })
-                }
-
-                @Override
-                void onError(Throwable t, CompilationResult errorResult) {
-                    Platform.runLater({
-                        actionPlayerPopup.actionPlayer.stop.selected = true
-                    })
-                }
-            }, true, true)
-        } as EventHandler
-
-        actionPlayerPopup.actionPlayer.stop.onAction = {
-            List<LiveCodingSession<SocketWriter>> connections = liveCodingManager.currentConnections
-            connections.each {
-                liveCodingManager.stopSession(it)
-            }
-        } as EventHandler
-
-        actionPlayerPopup.actionPlayer.add.onAction = {
-            coltController.launch()
-        } as EventHandler
+        intiActionPlayerPopup()
 
         runButton.onAction = {
+            if (!runButton.selected) {
+                actionPlayerPopup.isShowing() ? actionPlayerPopup.hide() : actionPlayerPopup.show(runButton)
+            }
+
             root.center = logView
             runButton.selected = true
-
-            if (actionPlayerPopup.isShowing()) {
-                actionPlayerPopup.hide()
-            } else {
-                actionPlayerPopup.show(runButton)
-            }
         } as EventHandler
 
         settingsButton.onAction = {
@@ -222,6 +191,45 @@ class MainAppController implements Initializable {
 
         runButton.selected = true
         root.center = logView
+    }
+
+    private intiActionPlayerPopup() {
+        actionPlayerPopup = new ActionPlayerPopup()
+
+        ActionPlayer playerControls = actionPlayerPopup.actionPlayer
+        playerControls.stylesheets.add(getClass().getResource("main.css").toString())
+
+        playerControls.play.onAction = {
+            playerControls.disable = true
+            coltController.startBaseCompilation(new ColtControllerCallback<CompilationResult, CompilationResult>() {
+                @Override
+                void onComplete(CompilationResult successResult) {
+                    Platform.runLater({
+                        playerControls.showAdd(true)
+                        playerControls.disable = false
+                    })
+                }
+
+                @Override
+                void onError(Throwable t, CompilationResult errorResult) {
+                    Platform.runLater({
+                        playerControls.stop.selected = true
+                        playerControls.disable = false
+                    })
+                }
+            }, true, true)
+        } as EventHandler
+
+        playerControls.stop.onAction = {
+            List<LiveCodingSession<SocketWriter>> connections = liveCodingManager.currentConnections
+            connections.each {
+                liveCodingManager.stopSession(it)
+            }
+        } as EventHandler
+
+        playerControls.add.onAction = {
+            coltController.launch()
+        } as EventHandler
     }
 
     private static void initLog() {
