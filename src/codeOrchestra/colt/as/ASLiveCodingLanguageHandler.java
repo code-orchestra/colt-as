@@ -9,7 +9,7 @@ import codeOrchestra.colt.as.model.util.ProjectImporter;
 import codeOrchestra.colt.as.rpc.impl.ColtAsRemoteServiceImpl;
 import codeOrchestra.colt.as.run.ASLiveLauncher;
 import codeOrchestra.colt.as.session.sourcetracking.ASSourceFileFactory;
-import codeOrchestra.colt.as.ui.TestMainApp;
+import codeOrchestra.colt.as.ui.ASApplicationGUI;
 import codeOrchestra.colt.as.util.ASPathUtils;
 import codeOrchestra.colt.core.AbstractLiveCodingLanguageHandler;
 import codeOrchestra.colt.core.LiveCodingManager;
@@ -20,11 +20,11 @@ import codeOrchestra.colt.core.logging.LoggerService;
 import codeOrchestra.colt.core.rpc.ColtRemoteService;
 import codeOrchestra.colt.core.session.SocketWriter;
 import codeOrchestra.colt.core.session.sourcetracking.SourceFileFactory;
-import codeOrchestra.colt.core.socket.ClientSocketHandler;
 import codeOrchestra.colt.core.ui.components.FxThreadProgressIndicatorWrapper;
 import codeOrchestra.colt.core.ui.components.IProgressIndicator;
 import codeOrchestra.colt.core.ui.components.ProgressIndicatorController;
 import codeOrchestra.colt.core.ui.components.sessionIndicator.SessionIndicatorController;
+import codeOrchestra.colt.core.ui.window.ApplicationGUI;
 import codeOrchestra.util.StringUtils;
 import groovy.util.slurpersupport.GPathResult;
 import javafx.fxml.FXMLLoader;
@@ -124,7 +124,7 @@ public class ASLiveCodingLanguageHandler extends AbstractLiveCodingLanguageHandl
 
     @Override
     public Node getPane() throws Exception {
-        return FXMLLoader.load(TestMainApp.class.getResource("main_app.fxml"));
+        return new ASApplicationGUI();
     }
 
     @Override

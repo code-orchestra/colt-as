@@ -5,7 +5,6 @@ import codeOrchestra.colt.as.ASLiveCodingManager
 import codeOrchestra.colt.as.compiler.fcsh.make.CompilationResult
 import codeOrchestra.colt.as.controller.ColtAsController
 import codeOrchestra.colt.as.model.ModelStorage
-import codeOrchestra.colt.as.ui.log.Log
 import codeOrchestra.colt.as.ui.popupmenu.MyContextMenu
 import codeOrchestra.colt.as.ui.propertyTabPane.SettingsForm
 import codeOrchestra.colt.core.annotation.Service
@@ -25,6 +24,7 @@ import codeOrchestra.colt.core.ui.components.log.LogWebView
 import codeOrchestra.colt.core.ui.components.player.ActionPlayer
 import codeOrchestra.colt.core.ui.components.player.ActionPlayerPopup
 import codeOrchestra.colt.core.ui.components.sessionIndicator.SessionIndicatorController
+import codeOrchestra.colt.core.ui.window.ApplicationGUI
 import codeOrchestra.groovyfx.FXBindable
 import javafx.application.Platform
 import javafx.beans.InvalidationListener
@@ -34,37 +34,21 @@ import javafx.beans.value.ChangeListener
 import javafx.beans.value.ObservableValue
 import javafx.collections.ListChangeListener
 import javafx.event.EventHandler
-import javafx.fxml.FXML
-import javafx.fxml.Initializable
 import javafx.geometry.Point2D
-import javafx.scene.control.*
-import javafx.scene.image.ImageView
-import javafx.scene.layout.BorderPane
-import javafx.scene.layout.HBox
+import javafx.scene.control.MenuItem
+import javafx.scene.control.ToggleButton
 
 /**
  * @author Dima Kruk
- * @author Eugene Potapenko
  */
-@Deprecated
-class MainAppController implements Initializable {
-    @FXML Label projectTitle
+class ASApplicationGUI extends ApplicationGUI {
 
-    @FXML BorderPane root
-
-    ToggleGroup navigationToggleGroup = new ToggleGroup()
-
-    @FXML ToggleButton runButton
-    @FXML ToggleButton pauseButton
-    @FXML ToggleButton buildButton
-    @FXML ToggleButton settingsButton
-
-    @FXML Button popupMenuButton
+    private ActionPlayerPopup actionPlayerPopup
 
     @Service ColtAsController coltController
     @Service ASLiveCodingManager liveCodingManager
 
-    @Lazy LogWebView logView = Log.instance.logWebView
+    @Lazy LogWebView logView = codeOrchestra.colt.as.ui.log.Log.instance.logWebView
     @Lazy SettingsForm settingsForm = new SettingsForm(saveRunAction:{
         runButton.onAction.handle(null)
 
@@ -73,29 +57,15 @@ class MainAppController implements Initializable {
         playAction.onAction.handle(null)
     } as EventHandler)
 
-    @FXML HBox logFiltersContainer
-
-    ToggleGroup logFilterToggleGroup = new ToggleGroup()
-
-    @FXML ToggleButton logFilterAll
-    @FXML ToggleButton logFilterErrors
-    @FXML ToggleButton logFilterWarnings
-    @FXML ToggleButton logFilterInfo
-    @FXML ToggleButton logFilterLog
-
     List<ToggleButton> allFilters
-
-    @FXML ProgressIndicator progressIndicator
-    @FXML ImageView sessionIndicator
 
     @FXBindable String applicationState
 
     ModelStorage model = codeOrchestra.colt.as.model.ModelStorage.instance
 
-    private ActionPlayerPopup actionPlayerPopup
-
     @Override
-    void initialize(URL url, ResourceBundle resourceBundle) {
+    void initialize() {
+        super.initialize()
         initLog(); initGoogleAnalytics()
 
         // build ui
@@ -198,7 +168,7 @@ class MainAppController implements Initializable {
         actionPlayerPopup = new ActionPlayerPopup()
 
         ActionPlayer playerControls = actionPlayerPopup.actionPlayer
-        playerControls.stylesheets.add(getClass().getResource("main.css").toString())
+        playerControls.stylesheets.addAll(stylesheets)
 
         playerControls.play.onAction = {
             playerControls.disable = true
@@ -235,7 +205,7 @@ class MainAppController implements Initializable {
 
     private static void initLog() {
         if (LiveCodingHandlerManager.instance.currentHandler != null) {
-            ((ASLiveCodingLanguageHandler) LiveCodingHandlerManager.instance.currentHandler).setLoggerService(Log.instance);
+            ((ASLiveCodingLanguageHandler) LiveCodingHandlerManager.instance.currentHandler).setLoggerService(codeOrchestra.colt.as.ui.log.Log.instance);
         }
     }
 
@@ -262,7 +232,7 @@ class MainAppController implements Initializable {
         GATracker.instance.trackPageView("/as/asProject.html", "asProject")
         GAController.instance.pageContainer = root.centerProperty()
         GAController.instance.registerEvent(runButton, "ActionMenu", "Run pressed")
-        GAController.instance.registerEvent(pauseButton, "ActionMenu", "Pause pressed")
         GAController.instance.registerEvent(settingsButton, "ActionMenu", "Settings pressed")
     }
+
 }

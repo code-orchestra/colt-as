@@ -14,7 +14,7 @@ class TestMainApp extends Application {
     @Override
     void start(Stage primaryStage) throws Exception {
         //new groovy.ui.Console().run()
-        Parent root = FXMLLoader.load(getClass().getResource("main_app.fxml"));
+        Parent root = new ASApplicationGUI();
         primaryStage.setTitle("COLT — Code Orchestra Livecoding Tool");
         Scene scene = new Scene(root, 506, 820)
         primaryStage.setScene(scene);
