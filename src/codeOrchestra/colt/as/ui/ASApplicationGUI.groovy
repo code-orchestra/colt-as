@@ -44,7 +44,6 @@ class ASApplicationGUI extends ApplicationGUI {
     @Override
     protected void initialize() {
         super.initialize()
-        initLog(); initGoogleAnalytics()
 
         // build ui
 
