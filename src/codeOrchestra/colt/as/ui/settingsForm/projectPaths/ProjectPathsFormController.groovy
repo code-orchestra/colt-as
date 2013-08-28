@@ -1,4 +1,4 @@
-package codeOrchestra.colt.as.ui.propertyTabPane.projectPaths
+package codeOrchestra.colt.as.ui.settingsForm.projectPaths
 
 import codeOrchestra.colt.as.model.ModelStorage
 import codeOrchestra.colt.as.model.AsProjectPaths

@@ -1,4 +1,4 @@
-package codeOrchestra.colt.as.ui.propertyTabPane.liveSettings
+package codeOrchestra.colt.as.ui.settingsForm.liveSettings
 
 import codeOrchestra.colt.as.model.ModelStorage
 import codeOrchestra.colt.as.model.beans.SettingsModel

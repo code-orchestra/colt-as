@@ -1,4 +1,4 @@
-package codeOrchestra.colt.as.ui.propertyTabPane.projectPaths
+package codeOrchestra.colt.as.ui.settingsForm.projectPaths
 
 import codeOrchestra.colt.as.model.AsProjectPaths
 import codeOrchestra.colt.core.ui.components.inputForms.LTBForm

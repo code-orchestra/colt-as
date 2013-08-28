@@ -5,7 +5,7 @@ import codeOrchestra.colt.as.ASLiveCodingManager
 import codeOrchestra.colt.as.compiler.fcsh.make.CompilationResult
 import codeOrchestra.colt.as.controller.ColtAsController
 import codeOrchestra.colt.as.model.ModelStorage
-import codeOrchestra.colt.as.ui.propertyTabPane.AsSettingsForm
+import codeOrchestra.colt.as.ui.settingsForm.AsSettingsForm
 import codeOrchestra.colt.core.annotation.Service
 import codeOrchestra.colt.core.controller.ColtControllerCallback
 import codeOrchestra.colt.core.loading.LiveCodingHandlerManager

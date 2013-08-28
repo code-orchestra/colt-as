@@ -4,7 +4,7 @@
 <?import codeOrchestra.colt.core.ui.components.inputForms.group.FormGroup?>
 <?import javafx.scene.layout.Pane?>
 
-<FormGroup title="Live Settings" fx:controller="codeOrchestra.colt.as.ui.propertyTabPane.liveSettings.LiveSettingsFormController" xmlns:fx="http://javafx.com/fxml">
+<FormGroup title="Live Settings" fx:controller="codeOrchestra.colt.as.ui.settingsForm.liveSettings.LiveSettingsFormController" xmlns:fx="http://javafx.com/fxml">
   <Pane/>
   <LTBForm text="Live Methods:" formType="SIMPLE" />
   <RTBForm fx:id="annotated" text="Annotated with [Live]" formType="SIMPLE" />

@@ -1,4 +1,4 @@
-package codeOrchestra.colt.as.ui.propertyTabPane.compilerSettings
+package codeOrchestra.colt.as.ui.settingsForm.compilerSettings
 
 import codeOrchestra.colt.as.flexsdk.FlexSDKManager
 import codeOrchestra.colt.as.flexsdk.FlexSDKNotPresentException

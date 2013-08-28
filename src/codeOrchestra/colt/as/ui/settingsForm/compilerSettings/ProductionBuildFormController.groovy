@@ -1,4 +1,4 @@
-package codeOrchestra.colt.as.ui.propertyTabPane.compilerSettings
+package codeOrchestra.colt.as.ui.settingsForm.compilerSettings
 
 import codeOrchestra.colt.as.model.ModelStorage
 import codeOrchestra.colt.as.model.beans.ProductionBuildModel

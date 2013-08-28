@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.paint.*?>
 
-<VBox fx:controller="codeOrchestra.colt.as.ui.propertyTabPane.projectPaths.PathsFormController" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
+<VBox fx:controller="codeOrchestra.colt.as.ui.settingsForm.projectPaths.PathsFormController" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
   <children>
     <Label fx:id="titleLabel" minWidth="-Infinity" text="Label" VBox.vgrow="NEVER" />
     <HBox spacing="5" VBox.vgrow="ALWAYS">

@@ -1,9 +1,7 @@
-package codeOrchestra.colt.as.ui.propertyTabPane
+package codeOrchestra.colt.as.ui.settingsForm
 
 import codeOrchestra.colt.core.tracker.GAController
 import codeOrchestra.colt.core.ui.components.advancedSeparator.AdvancedSeparator
-import javafx.beans.value.ChangeListener
-import javafx.event.ActionEvent
 import javafx.event.EventHandler
 import javafx.fxml.FXMLLoader
 import javafx.geometry.Insets

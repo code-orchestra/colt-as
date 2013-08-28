@@ -8,6 +8,6 @@
 
 <?import codeOrchestra.colt.core.ui.components.inputForms.group.FormGroup?>
 <?import codeOrchestra.colt.core.ui.components.inputForms.LTBForm?>
-<FormGroup fx:controller="codeOrchestra.colt.as.ui.propertyTabPane.projectPaths.TemplateFormController" xmlns:fx="http://javafx.com/fxml">
+<FormGroup fx:controller="codeOrchestra.colt.as.ui.settingsForm.projectPaths.TemplateFormController" xmlns:fx="http://javafx.com/fxml">
   <LTBForm fx:id="template" text="HTML Template:" browseType="DIRECTORY" formType="BUTTON"/>
 </FormGroup>

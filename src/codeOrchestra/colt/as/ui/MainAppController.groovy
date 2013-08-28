@@ -7,7 +7,7 @@ import codeOrchestra.colt.as.controller.ColtAsController
 import codeOrchestra.colt.as.model.ModelStorage
 import codeOrchestra.colt.core.ui.components.log.Log
 import codeOrchestra.colt.core.ui.components.popupmenu.MyContextMenu
-import codeOrchestra.colt.as.ui.propertyTabPane.AsSettingsForm
+import codeOrchestra.colt.as.ui.settingsForm.AsSettingsForm
 import codeOrchestra.colt.core.annotation.Service
 import codeOrchestra.colt.core.controller.ColtControllerCallback
 import codeOrchestra.colt.core.loading.LiveCodingHandlerManager

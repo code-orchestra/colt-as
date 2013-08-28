@@ -3,6 +3,6 @@
 <?import codeOrchestra.colt.core.ui.components.inputForms.*?>
 <?import codeOrchestra.colt.core.ui.components.inputForms.group.FormGroup?>
 
-<FormGroup fx:controller="codeOrchestra.colt.as.ui.propertyTabPane.compilerSettings.CompilerSettingsFormController" xmlns:fx="http://javafx.com/fxml">
+<FormGroup fx:controller="codeOrchestra.colt.as.ui.settingsForm.compilerSettings.CompilerSettingsFormController" xmlns:fx="http://javafx.com/fxml">
   <LTBForm fx:id="options" text="Additional compiler options:" formType="TEXT_FIELD" />
 </FormGroup>

@@ -16,14 +16,14 @@
     <VBox>
     <children>
         <fx:include source="_tmp-current.fxml" />
-        <fx:include source="propertyTabPane/compilerSettings/buildSettings_form.fxml" />
-        <fx:include source="propertyTabPane/compilerSettings/compilerSettings_form.fxml" />
-        <fx:include source="propertyTabPane/compilerSettings/productionBuild_form.fxml" />
-        <fx:include source="propertyTabPane/compilerSettings/compilerSettings_form.fxml" />
-        <fx:include source="propertyTabPane/liveSettings/launcher_form.fxml" />
-        <fx:include source="propertyTabPane/liveSettings/liveSettings_form.fxml" />
-        <fx:include source="propertyTabPane/liveSettings/settings_form.fxml" />
-        <fx:include source="propertyTabPane/liveSettings/target_form.fxml" />
+        <fx:include source="settingsForm/compilerSettings/buildSettings_form.fxml" />
+        <fx:include source="settingsForm/compilerSettings/compilerSettings_form.fxml" />
+        <fx:include source="settingsForm/compilerSettings/productionBuild_form.fxml" />
+        <fx:include source="settingsForm/compilerSettings/compilerSettings_form.fxml" />
+        <fx:include source="settingsForm/liveSettings/launcher_form.fxml" />
+        <fx:include source="settingsForm/liveSettings/liveSettings_form.fxml" />
+        <fx:include source="settingsForm/liveSettings/settings_form.fxml" />
+        <fx:include source="settingsForm/liveSettings/target_form.fxml" />
     </children>
     </VBox>
     </children>

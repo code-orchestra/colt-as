@@ -1,4 +1,4 @@
-package codeOrchestra.colt.as.ui.propertyTabPane.liveSettings
+package codeOrchestra.colt.as.ui.settingsForm.liveSettings
 
 import codeOrchestra.colt.as.air.ui.AirFormController
 import codeOrchestra.colt.as.air.ui.android.AndroidAirFormController
