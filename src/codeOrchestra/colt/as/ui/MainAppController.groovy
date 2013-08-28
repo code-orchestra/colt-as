@@ -7,7 +7,7 @@ import codeOrchestra.colt.as.controller.ColtAsController
 import codeOrchestra.colt.as.model.ModelStorage
 import codeOrchestra.colt.core.ui.components.log.Log
 import codeOrchestra.colt.as.ui.popupmenu.MyContextMenu
-import codeOrchestra.colt.as.ui.propertyTabPane.SettingsForm
+import codeOrchestra.colt.as.ui.propertyTabPane.AsSettingsForm
 import codeOrchestra.colt.core.annotation.Service
 import codeOrchestra.colt.core.controller.ColtControllerCallback
 import codeOrchestra.colt.core.loading.LiveCodingHandlerManager
@@ -65,7 +65,7 @@ class MainAppController implements Initializable {
     @Service ASLiveCodingManager liveCodingManager
 
     @Lazy LogWebView logView = Log.instance.logWebView
-    @Lazy SettingsForm settingsForm = new SettingsForm(saveRunAction:{
+    @Lazy AsSettingsForm settingsForm = new AsSettingsForm(saveRunAction:{
         runButton.onAction.handle(null)
 
         ToggleButton playAction = actionPlayerPopup.actionPlayer.play

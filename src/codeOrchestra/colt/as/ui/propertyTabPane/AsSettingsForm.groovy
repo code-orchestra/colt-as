@@ -16,12 +16,12 @@ import javafx.scene.layout.VBox
 /**
  * @author Dima Kruk
  */
-class SettingsForm extends ScrollPane{
+class AsSettingsForm extends ScrollPane{
 
     private Button saveAndRunButton
     EventHandler saveRunAction
 
-    SettingsForm() {
+    AsSettingsForm() {
 
         setId("settings-form")
 

@@ -6,11 +6,10 @@ import codeOrchestra.colt.as.compiler.fcsh.make.CompilationResult
 import codeOrchestra.colt.as.controller.ColtAsController
 import codeOrchestra.colt.as.model.ModelStorage
 import codeOrchestra.colt.as.ui.popupmenu.MyContextMenu
-import codeOrchestra.colt.as.ui.propertyTabPane.SettingsForm
+import codeOrchestra.colt.as.ui.propertyTabPane.AsSettingsForm
 import codeOrchestra.colt.core.annotation.Service
 import codeOrchestra.colt.core.controller.ColtControllerCallback
 import codeOrchestra.colt.core.loading.LiveCodingHandlerManager
-import codeOrchestra.colt.core.logging.Level
 import codeOrchestra.colt.core.rpc.security.ui.ShortCodeNotification
 import codeOrchestra.colt.core.session.LiveCodingSession
 import codeOrchestra.colt.core.session.SocketWriter
@@ -19,9 +18,7 @@ import codeOrchestra.colt.core.tracker.GATracker
 import codeOrchestra.colt.core.ui.ColtApplication
 import codeOrchestra.colt.core.ui.components.ProgressIndicatorController
 import codeOrchestra.colt.core.ui.components.log.Log
-import codeOrchestra.colt.core.ui.components.log.LogFilter
 import codeOrchestra.colt.core.ui.components.log.LogMessage
-import codeOrchestra.colt.core.ui.components.log.LogWebView
 import codeOrchestra.colt.core.ui.components.player.ActionPlayer
 import codeOrchestra.colt.core.ui.components.player.ActionPlayerPopup
 import codeOrchestra.colt.core.ui.components.sessionIndicator.SessionIndicatorController
@@ -49,7 +46,7 @@ class ASApplicationGUI extends ApplicationGUI {
     @Service ColtAsController coltController
     @Service ASLiveCodingManager liveCodingManager
 
-    @Lazy SettingsForm settingsForm = new SettingsForm(saveRunAction:{
+    @Lazy AsSettingsForm settingsForm = new AsSettingsForm(saveRunAction:{
         runButton.onAction.handle(null)
 
         ToggleButton playAction = actionPlayerPopup.actionPlayer.play
