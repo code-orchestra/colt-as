@@ -45,6 +45,8 @@ class ASApplicationGUI extends ApplicationGUI {
     protected void initialize() {
         super.initialize()
 
+        projectType.text = "ActionScript"
+
         // build ui
 
         runButton.onAction = {
