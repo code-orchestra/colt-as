@@ -67,7 +67,7 @@ class MainAppController implements Initializable {
     @Lazy SettingsForm settingsForm = new SettingsForm(saveRunAction:{
         runButton.onAction.handle(null)
 
-        ToggleButton playAction = playerControls.play
+        ToggleButton playAction = actionPlayerPopup.actionPlayer.play
         playAction.selected = true
         playAction.onAction.handle(null)
     } as EventHandler)
