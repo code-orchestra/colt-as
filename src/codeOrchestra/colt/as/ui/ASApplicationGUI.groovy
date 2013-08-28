@@ -18,6 +18,7 @@ import codeOrchestra.colt.core.tracker.GAController
 import codeOrchestra.colt.core.tracker.GATracker
 import codeOrchestra.colt.core.ui.ColtApplication
 import codeOrchestra.colt.core.ui.components.ProgressIndicatorController
+import codeOrchestra.colt.core.ui.components.log.Log
 import codeOrchestra.colt.core.ui.components.log.LogFilter
 import codeOrchestra.colt.core.ui.components.log.LogMessage
 import codeOrchestra.colt.core.ui.components.log.LogWebView
@@ -48,7 +49,7 @@ class ASApplicationGUI extends ApplicationGUI {
     @Service ColtAsController coltController
     @Service ASLiveCodingManager liveCodingManager
 
-    @Lazy LogWebView logView = codeOrchestra.colt.as.ui.log.Log.instance.logWebView
+    @Lazy LogWebView logView = Log.instance.logWebView
     @Lazy SettingsForm settingsForm = new SettingsForm(saveRunAction:{
         runButton.onAction.handle(null)
 
@@ -205,7 +206,7 @@ class ASApplicationGUI extends ApplicationGUI {
 
     private static void initLog() {
         if (LiveCodingHandlerManager.instance.currentHandler != null) {
-            ((ASLiveCodingLanguageHandler) LiveCodingHandlerManager.instance.currentHandler).setLoggerService(codeOrchestra.colt.as.ui.log.Log.instance);
+            ((ASLiveCodingLanguageHandler) LiveCodingHandlerManager.instance.currentHandler).setLoggerService(Log.instance);
         }
     }
 

@@ -5,7 +5,7 @@ import codeOrchestra.colt.as.ASLiveCodingManager
 import codeOrchestra.colt.as.compiler.fcsh.make.CompilationResult
 import codeOrchestra.colt.as.controller.ColtAsController
 import codeOrchestra.colt.as.model.ModelStorage
-import codeOrchestra.colt.as.ui.log.Log
+import codeOrchestra.colt.core.ui.components.log.Log
 import codeOrchestra.colt.as.ui.popupmenu.MyContextMenu
 import codeOrchestra.colt.as.ui.propertyTabPane.SettingsForm
 import codeOrchestra.colt.core.annotation.Service
