@@ -13,11 +13,15 @@ import codeOrchestra.util.process.ProcessHandlerBuilder;
 
 import java.io.File;
 import java.io.FilenameFilter;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Alexander Eliseyev
  */
 public class ASLiveLauncher implements LiveLauncher<AsProject> {
+
+    private List<ProcessHandlerWrapper> processHandlerWrappers = new ArrayList<>();
 
     public ProcessHandlerWrapper launch(AsProject project) throws ExecutionException {
         AsProjectLiveSettings liveCodingSettings = project.getProjectLiveSettings();
@@ -42,15 +46,22 @@ public class ASLiveLauncher implements LiveLauncher<AsProject> {
 
         String target = launchTarget == Target.WEB_ADDRESS ? liveCodingSettings.getWebAddress() : swfPath;
 
+        ProcessHandlerWrapper processHandlerWrapper;
+
         switch (launcherType) {
             case DEFAULT:
-                return new ProcessHandlerWrapper(new ProcessHandlerBuilder().append(getCommand(BrowserUtil.launchBrowser(target, null))).build(), false);
+                processHandlerWrapper = new ProcessHandlerWrapper(new ProcessHandlerBuilder().append(getCommand(BrowserUtil.launchBrowser(target, null))).build(), false);
+                break;
             case FLASH_PLAYER:
-                return new ProcessHandlerWrapper(new ProcessHandlerBuilder().append(completeFlashPlayerPath(liveCodingSettings.getFlashPlayerPath()))
-                        .append(protect(target)).build(), false);
+                processHandlerWrapper = new ProcessHandlerWrapper(new ProcessHandlerBuilder().append(completeFlashPlayerPath(liveCodingSettings.getFlashPlayerPath())).append(protect(target)).build(), false);
+                break;
             default:
                 throw new ExecutionException("Unsupported launcher type: " + launcherType);
         }
+
+        processHandlerWrappers.add(processHandlerWrapper);
+
+        return processHandlerWrapper;
     }
 
     private String getCommand(ProcessBuilder processBuilder) {
@@ -105,5 +116,10 @@ public class ASLiveLauncher implements LiveLauncher<AsProject> {
 
     @Override
     public void dispose() {
+        for (ProcessHandlerWrapper processHandlerWrapper : processHandlerWrappers) {
+            processHandlerWrapper.getProcessHandler().detachProcess();
+        }
+
+        processHandlerWrappers.clear();
     }
 }
