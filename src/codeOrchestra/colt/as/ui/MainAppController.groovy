@@ -1,6 +1,7 @@
 package codeOrchestra.colt.as.ui
 
 import codeOrchestra.colt.as.ASLiveCodingLanguageHandler
+import codeOrchestra.colt.as.ASLiveCodingManager
 import codeOrchestra.colt.as.compiler.fcsh.make.CompilationResult
 import codeOrchestra.colt.as.controller.ColtAsController
 import codeOrchestra.colt.as.model.ModelStorage
@@ -12,6 +13,8 @@ import codeOrchestra.colt.core.controller.ColtControllerCallback
 import codeOrchestra.colt.core.loading.LiveCodingHandlerManager
 import codeOrchestra.colt.core.logging.Level
 import codeOrchestra.colt.core.rpc.security.ui.ShortCodeNotification
+import codeOrchestra.colt.core.session.LiveCodingSession
+import codeOrchestra.colt.core.session.SocketWriter
 import codeOrchestra.colt.core.tracker.GAController
 import codeOrchestra.colt.core.tracker.GATracker
 import codeOrchestra.colt.core.ui.ColtApplication
@@ -19,13 +22,16 @@ import codeOrchestra.colt.core.ui.components.ProgressIndicatorController
 import codeOrchestra.colt.core.ui.components.log.LogFilter
 import codeOrchestra.colt.core.ui.components.log.LogMessage
 import codeOrchestra.colt.core.ui.components.log.LogWebView
+import codeOrchestra.colt.core.ui.components.player.ActionPlayer
 import codeOrchestra.colt.core.ui.components.player.ActionPlayerPopup
 import codeOrchestra.colt.core.ui.components.sessionIndicator.SessionIndicatorController
 import codeOrchestra.groovyfx.FXBindable
 import javafx.application.Platform
 import javafx.beans.InvalidationListener
 import javafx.beans.binding.StringBinding
+import javafx.beans.property.BooleanProperty
 import javafx.beans.value.ChangeListener
+import javafx.beans.value.ObservableValue
 import javafx.collections.ListChangeListener
 import javafx.event.EventHandler
 import javafx.fxml.FXML
@@ -55,6 +61,7 @@ class MainAppController implements Initializable {
     @FXML Button popupMenuButton
 
     @Service ColtAsController coltController
+    @Service ASLiveCodingManager liveCodingManager
 
     @Lazy LogWebView logView = Log.instance.logWebView
     @Lazy SettingsForm settingsForm = new SettingsForm(saveRunAction:{
@@ -97,40 +104,15 @@ class MainAppController implements Initializable {
         navigationToggleGroup.toggles.addAll(runButton, buildButton, settingsButton)
         logFilterToggleGroup.toggles.addAll(allFilters)
 
-        PopupControl
-        actionPlayerPopup = new ActionPlayerPopup()
-        actionPlayerPopup.actionPlayer.stylesheets.add(getClass().getResource("main.css").toString())
-        actionPlayerPopup.actionPlayer.play.onAction = {
-            coltController.startBaseCompilation(new ColtControllerCallback<CompilationResult, CompilationResult>() {
-                @Override
-                void onComplete(CompilationResult successResult) {
-                    Platform.runLater({
-                        actionPlayerPopup.actionPlayer.showAdd(true)
-                    })
-                }
-
-                @Override
-                void onError(Throwable t, CompilationResult errorResult) {
-                    Platform.runLater({
-                        actionPlayerPopup.actionPlayer.stop.selected = true
-                    })
-                }
-            }, true, true)
-        } as EventHandler
-
-        actionPlayerPopup.actionPlayer.add.onAction = {
-            coltController.launch()
-        } as EventHandler
+        intiActionPlayerPopup()
 
         runButton.onAction = {
+            if (!runButton.selected) {
+                actionPlayerPopup.isShowing() ? actionPlayerPopup.hide() : actionPlayerPopup.show(runButton)
+            }
+
             root.center = logView
             runButton.selected = true
-
-            if (actionPlayerPopup.isShowing()) {
-                actionPlayerPopup.hide()
-            } else {
-                actionPlayerPopup.show(runButton)
-            }
         } as EventHandler
 
         settingsButton.onAction = {
@@ -198,14 +180,56 @@ class MainAppController implements Initializable {
 
         // start
 
+        (model.project.newProject() as BooleanProperty).addListener({ ObservableValue<? extends Boolean> observableValue, Boolean t, Boolean t1 ->
+            if (t1) {
+                settingsButton.onAction.handle(null)
+            } else {
+                runButton.selected = true
+                root.center = logView
+            }
+        } as ChangeListener)
 
-        boolean newProject = true// todo: както узнать (project еще не загружен, из модели никак)
-        if(newProject){
-            settingsButton.onAction.handle(null)
-        }else{
-            runButton.selected = true
-            root.center = logView
-        }
+        runButton.selected = true
+        root.center = logView
+    }
+
+    private intiActionPlayerPopup() {
+        actionPlayerPopup = new ActionPlayerPopup()
+
+        ActionPlayer playerControls = actionPlayerPopup.actionPlayer
+        playerControls.stylesheets.add(getClass().getResource("main.css").toString())
+
+        playerControls.play.onAction = {
+            playerControls.disable = true
+            coltController.startBaseCompilation(new ColtControllerCallback<CompilationResult, CompilationResult>() {
+                @Override
+                void onComplete(CompilationResult successResult) {
+                    Platform.runLater({
+                        playerControls.showAdd(true)
+                        playerControls.disable = false
+                    })
+                }
+
+                @Override
+                void onError(Throwable t, CompilationResult errorResult) {
+                    Platform.runLater({
+                        playerControls.stop.selected = true
+                        playerControls.disable = false
+                    })
+                }
+            }, true, true)
+        } as EventHandler
+
+        playerControls.stop.onAction = {
+            List<LiveCodingSession<SocketWriter>> connections = liveCodingManager.currentConnections
+            connections.each {
+                liveCodingManager.stopSession(it)
+            }
+        } as EventHandler
+
+        playerControls.add.onAction = {
+            coltController.launch()
+        } as EventHandler
     }
 
     private static void initLog() {
