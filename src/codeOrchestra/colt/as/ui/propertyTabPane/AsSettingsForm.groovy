@@ -39,6 +39,9 @@ class AsSettingsForm extends ScrollPane{
         AdvancedSeparator separator = new AdvancedSeparator()
         vBox.children.add(separator)
 
+        saveAndRunButton = separator.saveButton
+        saveAndRunButton.onAction = saveRunAction
+
         VBox advancedVBox = new VBox()
         VBox.setMargin(advancedVBox, new Insets(0, 0, 72, 0))
         advancedVBox.padding = new Insets(0, 0, 18, 0)
@@ -52,8 +55,6 @@ class AsSettingsForm extends ScrollPane{
         FXNode target = FXMLLoader.load(getClass().getResource("liveSettings/target_form.fxml"))
         advancedVBox.children.add(target)
 
-        saveAndRunButton = separator.saveButton
-        saveAndRunButton.onAction = saveRunAction
 
         FXNode launcher = FXMLLoader.load(getClass().getResource("liveSettings/launcher_form.fxml"))
         advancedVBox.children.add(launcher)
