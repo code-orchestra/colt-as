@@ -28,7 +28,9 @@ import codeOrchestra.groovyfx.FXBindable
 import javafx.application.Platform
 import javafx.beans.InvalidationListener
 import javafx.beans.binding.StringBinding
+import javafx.beans.property.BooleanProperty
 import javafx.beans.value.ChangeListener
+import javafx.beans.value.ObservableValue
 import javafx.collections.ListChangeListener
 import javafx.event.EventHandler
 import javafx.fxml.FXML
@@ -209,14 +211,17 @@ class MainAppController implements Initializable {
 
         // start
 
+        (model.project.newProject() as BooleanProperty).addListener({ ObservableValue<? extends Boolean> observableValue, Boolean t, Boolean t1 ->
+            if (t1) {
+                settingsButton.onAction.handle(null)
+            } else {
+                runButton.selected = true
+                root.center = logView
+            }
+        } as ChangeListener)
 
-        boolean newProject = true// todo: както узнать (project еще не загружен, из модели никак)
-        if(newProject){
-            settingsButton.onAction.handle(null)
-        }else{
-            runButton.selected = true
-            root.center = logView
-        }
+        runButton.selected = true
+        root.center = logView
     }
 
     private static void initLog() {
