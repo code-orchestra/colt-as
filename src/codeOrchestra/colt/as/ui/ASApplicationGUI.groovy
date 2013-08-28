@@ -49,7 +49,6 @@ class ASApplicationGUI extends ApplicationGUI {
     @Service ColtAsController coltController
     @Service ASLiveCodingManager liveCodingManager
 
-    @Lazy LogWebView logView = Log.instance.logWebView
     @Lazy SettingsForm settingsForm = new SettingsForm(saveRunAction:{
         runButton.onAction.handle(null)
 
@@ -58,23 +57,17 @@ class ASApplicationGUI extends ApplicationGUI {
         playAction.onAction.handle(null)
     } as EventHandler)
 
-    List<ToggleButton> allFilters
 
     @FXBindable String applicationState
 
     ModelStorage model = codeOrchestra.colt.as.model.ModelStorage.instance
 
     @Override
-    void initialize() {
+    protected void initialize() {
         super.initialize()
         initLog(); initGoogleAnalytics()
 
         // build ui
-
-        allFilters = [logFilterAll, logFilterErrors, logFilterWarnings, logFilterInfo, logFilterLog]
-
-        navigationToggleGroup.toggles.addAll(runButton, buildButton, settingsButton)
-        logFilterToggleGroup.toggles.addAll(allFilters)
 
         intiActionPlayerPopup()
 
@@ -208,25 +201,6 @@ class ASApplicationGUI extends ApplicationGUI {
         if (LiveCodingHandlerManager.instance.currentHandler != null) {
             ((ASLiveCodingLanguageHandler) LiveCodingHandlerManager.instance.currentHandler).setLoggerService(Log.instance);
         }
-    }
-
-    private void updateLogFilter() {
-        if (!logFilterToggleGroup.selectedToggle) {
-            logFilterAll.selected = true
-            return
-        }
-
-        int filterIndex = allFilters.indexOf(logFilterToggleGroup.selectedToggle)
-        logView.filter(LogFilter.values()[filterIndex])
-        logFilterErrors.text = "Errors" + logFilterPrefix(Level.ERROR)
-        logFilterWarnings.text = "Warnings" + logFilterPrefix(Level.WARN)
-        logFilterInfo.text = "Info" + logFilterPrefix(Level.INFO)
-        logFilterLog.text = "Log" + logFilterPrefix(Level.COMPILATION, Level.LIVE)
-    }
-
-    private String logFilterPrefix(Level... levels) {
-        if(logView.logMessages.empty || logFiltersContainer.width < 300) return  ""
-        " (" + logView.logMessages.grep { LogMessage m -> m.level in levels }.size() + ")"
     }
 
     void initGoogleAnalytics() {
