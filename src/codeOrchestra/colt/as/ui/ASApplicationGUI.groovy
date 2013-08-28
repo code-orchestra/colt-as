@@ -15,7 +15,7 @@ import codeOrchestra.colt.core.tracker.GAController
 import codeOrchestra.colt.core.tracker.GATracker
 import codeOrchestra.colt.core.ui.components.log.Log
 import codeOrchestra.colt.core.ui.components.player.ActionPlayer
-import codeOrchestra.colt.core.ui.window.ApplicationGUI
+import codeOrchestra.colt.core.ui.ApplicationGUI
 import javafx.application.Platform
 import javafx.beans.property.BooleanProperty
 import javafx.beans.value.ChangeListener

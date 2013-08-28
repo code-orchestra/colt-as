@@ -24,10 +24,8 @@ import codeOrchestra.colt.core.ui.components.FxThreadProgressIndicatorWrapper;
 import codeOrchestra.colt.core.ui.components.IProgressIndicator;
 import codeOrchestra.colt.core.ui.components.ProgressIndicatorController;
 import codeOrchestra.colt.core.ui.components.sessionIndicator.SessionIndicatorController;
-import codeOrchestra.colt.core.ui.window.ApplicationGUI;
 import codeOrchestra.util.StringUtils;
 import groovy.util.slurpersupport.GPathResult;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 
 import java.io.File;
