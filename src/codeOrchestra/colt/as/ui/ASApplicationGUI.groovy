@@ -5,43 +5,28 @@ import codeOrchestra.colt.as.ASLiveCodingManager
 import codeOrchestra.colt.as.compiler.fcsh.make.CompilationResult
 import codeOrchestra.colt.as.controller.ColtAsController
 import codeOrchestra.colt.as.model.ModelStorage
-import codeOrchestra.colt.as.ui.popupmenu.MyContextMenu
 import codeOrchestra.colt.as.ui.propertyTabPane.AsSettingsForm
 import codeOrchestra.colt.core.annotation.Service
 import codeOrchestra.colt.core.controller.ColtControllerCallback
 import codeOrchestra.colt.core.loading.LiveCodingHandlerManager
-import codeOrchestra.colt.core.rpc.security.ui.ShortCodeNotification
 import codeOrchestra.colt.core.session.LiveCodingSession
 import codeOrchestra.colt.core.session.SocketWriter
 import codeOrchestra.colt.core.tracker.GAController
 import codeOrchestra.colt.core.tracker.GATracker
-import codeOrchestra.colt.core.ui.ColtApplication
-import codeOrchestra.colt.core.ui.components.ProgressIndicatorController
 import codeOrchestra.colt.core.ui.components.log.Log
-import codeOrchestra.colt.core.ui.components.log.LogMessage
 import codeOrchestra.colt.core.ui.components.player.ActionPlayer
-import codeOrchestra.colt.core.ui.components.player.ActionPlayerPopup
-import codeOrchestra.colt.core.ui.components.sessionIndicator.SessionIndicatorController
 import codeOrchestra.colt.core.ui.window.ApplicationGUI
-import codeOrchestra.groovyfx.FXBindable
 import javafx.application.Platform
-import javafx.beans.InvalidationListener
-import javafx.beans.binding.StringBinding
 import javafx.beans.property.BooleanProperty
 import javafx.beans.value.ChangeListener
 import javafx.beans.value.ObservableValue
-import javafx.collections.ListChangeListener
 import javafx.event.EventHandler
-import javafx.geometry.Point2D
-import javafx.scene.control.MenuItem
 import javafx.scene.control.ToggleButton
 
 /**
  * @author Dima Kruk
  */
 class ASApplicationGUI extends ApplicationGUI {
-
-    private ActionPlayerPopup actionPlayerPopup
 
     @Service ColtAsController coltController
     @Service ASLiveCodingManager liveCodingManager
@@ -54,9 +39,6 @@ class ASApplicationGUI extends ApplicationGUI {
         playAction.onAction.handle(null)
     } as EventHandler)
 
-
-    @FXBindable String applicationState
-
     ModelStorage model = codeOrchestra.colt.as.model.ModelStorage.instance
 
     @Override
@@ -65,8 +47,6 @@ class ASApplicationGUI extends ApplicationGUI {
         initLog(); initGoogleAnalytics()
 
         // build ui
-
-        intiActionPlayerPopup()
 
         runButton.onAction = {
             if (!runButton.selected) {
@@ -82,63 +62,14 @@ class ASApplicationGUI extends ApplicationGUI {
             settingsButton.selected = true
         } as EventHandler
 
-        root.top = ShortCodeNotification.initNotification(root.top)
-
         buildButton.onAction = {
             coltController.startProductionCompilation()//todo: handle errors?
             buildButton.selected = true
         } as EventHandler
 
-        MyContextMenu contextMenu = new MyContextMenu()
-        contextMenu.setStyle("-fx-background-color: transparent;");
-        ArrayList<MenuItem> items = ColtApplication.get().menuBar.popupMenuItems
-        contextMenu.items.addAll(items)
-
-        popupMenuButton.onAction = {
-            Point2D point = popupMenuButton.parent.localToScreen(popupMenuButton.layoutX, popupMenuButton.layoutY)
-            contextMenu.show(popupMenuButton, point.x + 5, point.y - 15 - items.size() * 25)
-        } as EventHandler
-
-        // progress monitor
-
-        ProgressIndicatorController.instance.progressIndicator = progressIndicator
-
-        sessionIndicator.visibleProperty().bind(progressIndicator.visibleProperty().not())
-        SessionIndicatorController.instance.indicator = sessionIndicator
-
         // data binding
 
-        navigationToggleGroup.selectedToggleProperty().addListener({ v, o, newValue ->
-            int index = navigationToggleGroup.toggles.indexOf(navigationToggleGroup.selectedToggle)
-            applicationState = ["Log", "Production Build", "Project Settings"][index]
-        } as ChangeListener)
-
-        logView.logMessages.addListener({ ListChangeListener.Change<? extends LogMessage> c ->
-            updateLogFilter()
-        } as ListChangeListener)
-
-        logFilterToggleGroup.selectedToggleProperty().addListener({ o ->
-            updateLogFilter()
-        } as InvalidationListener)
-
-        projectTitle.textProperty().bind(new StringBinding() {
-            {
-                super.bind(model.project.name(), applicationState())
-            }
-            @Override
-            protected String computeValue() {
-                model?.project?.name?.capitalize() + " / " + getApplicationState()
-            }
-        })
-
-        root.centerProperty().addListener({ o, old, javafx.scene.Node newValue ->
-            allFilters.each {it.visible = root.center == logView }
-            updateLogFilter()
-        } as ChangeListener)
-
-        logFiltersContainer.widthProperty().addListener({ o, old, Number newValue ->
-            updateLogFilter()
-        } as ChangeListener)
+        bindTitle(model.project.name())
 
         // start
 
@@ -155,12 +86,10 @@ class ASApplicationGUI extends ApplicationGUI {
         root.center = logView
     }
 
-    private intiActionPlayerPopup() {
-        actionPlayerPopup = new ActionPlayerPopup()
+    protected intiActionPlayerPopup() {
+        super.intiActionPlayerPopup()
 
         ActionPlayer playerControls = actionPlayerPopup.actionPlayer
-        playerControls.stylesheets.addAll(stylesheets)
-
         playerControls.play.onAction = {
             playerControls.disable = true
             coltController.startBaseCompilation(new ColtControllerCallback<CompilationResult, CompilationResult>() {
@@ -194,13 +123,14 @@ class ASApplicationGUI extends ApplicationGUI {
         } as EventHandler
     }
 
-    private static void initLog() {
+    @Override
+    protected void initLog() {
         if (LiveCodingHandlerManager.instance.currentHandler != null) {
             ((ASLiveCodingLanguageHandler) LiveCodingHandlerManager.instance.currentHandler).setLoggerService(Log.instance);
         }
     }
 
-    void initGoogleAnalytics() {
+    protected void initGoogleAnalytics() {
         GATracker.instance.trackPageView("/as/asProject.html", "asProject")
         GAController.instance.pageContainer = root.centerProperty()
         GAController.instance.registerEvent(runButton, "ActionMenu", "Run pressed")

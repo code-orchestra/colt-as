@@ -6,7 +6,7 @@ import codeOrchestra.colt.as.compiler.fcsh.make.CompilationResult
 import codeOrchestra.colt.as.controller.ColtAsController
 import codeOrchestra.colt.as.model.ModelStorage
 import codeOrchestra.colt.core.ui.components.log.Log
-import codeOrchestra.colt.as.ui.popupmenu.MyContextMenu
+import codeOrchestra.colt.core.ui.components.popupmenu.MyContextMenu
 import codeOrchestra.colt.as.ui.propertyTabPane.AsSettingsForm
 import codeOrchestra.colt.core.annotation.Service
 import codeOrchestra.colt.core.controller.ColtControllerCallback
