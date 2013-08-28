@@ -18,7 +18,7 @@ public class LinkReportReader {
   }
   
   public List<String> fetchUsedClassesFqNames() throws LinkReportException {
-    @SuppressWarnings("Convert2Diamond") List<String> result = new ArrayList<>();
+    List<String> result = new ArrayList<>();
 
       Document document = null;
       try {

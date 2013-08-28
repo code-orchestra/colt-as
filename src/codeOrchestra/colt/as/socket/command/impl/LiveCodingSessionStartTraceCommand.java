@@ -44,7 +44,7 @@ public class LiveCodingSessionStartTraceCommand implements TraceCommand {
         // can't happen
       }
       
-      @SuppressWarnings("Convert2Diamond") Map<String, String> clientInfoDictionary = new HashMap<>();
+      Map<String, String> clientInfoDictionary = new HashMap<>();
       String[] decodedSplit = decoded.split("&");
       for (int i = 0; i < decodedSplit.length; i++) {
         String keyValue = decodedSplit[i];
