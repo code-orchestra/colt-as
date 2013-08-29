@@ -87,8 +87,8 @@ class ASApplicationGUI extends ApplicationGUI {
         root.center = logView
     }
 
-    protected intiActionPlayerPopup() {
-        super.intiActionPlayerPopup()
+    protected initActionPlayerPopup() {
+        super.initActionPlayerPopup()
 
         ActionPlayer playerControls = actionPlayerPopup.actionPlayer
         playerControls.play.onAction = {
