@@ -4,13 +4,18 @@ import codeOrchestra.colt.as.air.AirBuildScriptGenerator
 import codeOrchestra.colt.as.model.beans.RunTargetModel
 import codeOrchestra.colt.as.model.beans.air.AIRModel
 import codeOrchestra.colt.core.errorhandling.ErrorHandler
+import codeOrchestra.colt.core.ui.components.inputForms.group.FormGroup
 import groovy.io.FileType
 import javafx.event.EventHandler
 import javafx.fxml.FXML
 import javafx.fxml.Initializable
+import javafx.geometry.Pos
 import javafx.scene.control.Button
 import javafx.scene.control.ListView
 import javafx.scene.layout.GridPane
+import javafx.scene.layout.HBox
+import javafx.scene.layout.Priority
+import javafx.scene.layout.VBox
 import javafx.stage.Stage
 import javafx.util.Callback
 import codeOrchestra.colt.as.model.AsProject
@@ -19,16 +24,14 @@ import codeOrchestra.colt.as.model.AsProject
 /**
  * @author Dima Kruk
  */
-abstract class AirFormController implements Initializable{
+abstract class AirFormController extends VBox{
 
-    @FXML protected GridPane optionsGP
+    protected FormGroup options
 
-    List<AirOption> optionsList = new ArrayList<AirOption>()
+    protected ListView<FileCellBean> contentList
 
-    @FXML protected ListView<FileCellBean> contentList
-
-    @FXML protected Button generateBtn
-    @FXML protected Button cancelBtn
+    protected Button generateBtn
+    protected Button cancelBtn
 
     private Stage dialogStage
     protected AIRModel model
@@ -36,8 +39,29 @@ abstract class AirFormController implements Initializable{
 
     boolean isGenerated = false
 
-    @Override
-    void initialize(URL url, ResourceBundle resourceBundle) {
+    AirFormController() {
+        options = new FormGroup(title: "Options:")
+
+        FormGroup formGroup = new FormGroup(title: "Package Contents:")
+        contentList = new ListView<>()
+        contentList.prefHeight = 200
+        setVgrow(contentList, Priority.ALWAYS)
+        formGroup.children.add(contentList)
+
+        HBox hBox = new HBox(alignment:Pos.CENTER, spacing: 10)
+        generateBtn = new Button("Generate")
+        cancelBtn = new Button("Cancel")
+        hBox.children.addAll(cancelBtn, generateBtn)
+
+        children.addAll(options, formGroup, hBox)
+
+        setAlignment(Pos.TOP_CENTER)
+        setPrefWidth(400)
+
+        initialize()
+    }
+
+    void initialize() {
         generateBtn.onAction = {
             isGenerated = runGeneration()
             close()
@@ -96,7 +120,10 @@ abstract class AirFormController implements Initializable{
     }
 
     protected void close() {
-        optionsList*.unbindProperty()
+        options.children.each {
+            if(it instanceof AirOption) {
+                (it as AirOption)?.unbindProperty()}
+            }
         dialogStage.close()
     }
 

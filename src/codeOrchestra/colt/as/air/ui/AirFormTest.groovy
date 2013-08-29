@@ -40,12 +40,7 @@ class AirFormTest extends Application {
     void showDialog(Window window) {
         AsProject project = codeOrchestra.colt.as.model.ModelStorage.instance.project
 
-
-        FXMLLoader loader = new FXMLLoader(AirFormController.class.getResource("air_form.fxml"))
-        AirFormController controller = new AndroidAirFormController()
-        loader.setController(controller)
-
-        VBox page = loader.load()
+        AirFormController page = new AndroidAirFormController()
 
         Stage dialogStage = new Stage()
         dialogStage.title = "IOS"
@@ -53,8 +48,8 @@ class AirFormTest extends Application {
         dialogStage.initOwner(window)
         dialogStage.scene = new Scene(page)
 
-        controller.setDialogStage(dialogStage)
-        controller.initViewWithModel(project.getProjectBuildSettings().runTargetModel)
+        page.setDialogStage(dialogStage)
+        page.initViewWithModel(project.getProjectBuildSettings().runTargetModel)
 
         dialogStage.showAndWait()
     }

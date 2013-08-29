@@ -89,9 +89,7 @@ class TargetFormController implements Initializable {
     }
 
     void showDialog(AirFormController controller, String title, RunTargetModel model) {
-        FXMLLoader loader = new FXMLLoader(AirFormController.class.getResource("air_form.fxml"))
-        loader.setController(controller)
-        VBox page = loader.load() as VBox
+        VBox page = controller
 
         Stage dialogStage = new Stage()
         dialogStage.title = title

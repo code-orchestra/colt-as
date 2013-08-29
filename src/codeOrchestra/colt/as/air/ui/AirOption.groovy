@@ -1,68 +1,45 @@
 package codeOrchestra.colt.as.air.ui
 
+import codeOrchestra.colt.core.ui.components.inputForms.BrowseType
+import codeOrchestra.colt.core.ui.components.inputForms.FormType
+import codeOrchestra.colt.core.ui.components.inputForms.LTBForm
 import javafx.beans.property.StringProperty
-import javafx.event.EventHandler
-import javafx.scene.control.Button
-import javafx.scene.control.Label
 import javafx.scene.control.PasswordField
-import javafx.scene.control.TextField
-import javafx.scene.layout.GridPane
-import javafx.stage.DirectoryChooser
-import javafx.stage.FileChooser
 import javafx.stage.FileChooser.ExtensionFilter
 
 /**
  * @author Dima Kruk
  */
-class AirOption {
-    AirOptionType optionType
+class AirOption extends LTBForm {
     StringProperty bindProperty
 
-    Label titleLabel
-    TextField textField
-    Button browseBtn
-
-    ExtensionFilter eFilter
-
-    AirOption(String title, StringProperty bindProperty, AirOptionType optionType, GridPane pane, int rowIndex) {
-        this.optionType = optionType
+    AirOption(String title, StringProperty bindProperty, AirOptionType optionType, ExtensionFilter extensionFilter = null) {
         this.bindProperty = bindProperty
-        titleLabel = new Label(title)
-        pane.add(titleLabel, 0, rowIndex)
+        text = title
 
-        textField = optionType == AirOptionType.PASSWORD ? new PasswordField() : new TextField()
+        if(optionType == AirOptionType.PASSWORD) {
+            PasswordField passwordField = new PasswordField()
+            passwordField.layoutY = textField.layoutY
+            passwordField.prefHeight = textField.prefHeight
+            setLeftAnchor(passwordField, getLeftAnchor(textField))
+            setRightAnchor(passwordField, getRightAnchor(textField))
+
+            children.remove(textField)
+            textField = passwordField
+            children.add(textField)
+        }
+
         textField.textProperty().bindBidirectional(bindProperty)
 
+        if (extensionFilter) {
+            extensionFilters.add(extensionFilter)
+        }
+
         if (optionType.fileType) {
-            pane.add(textField, 1, rowIndex)
-
-            browseBtn = new Button("Browse...")
-            browseBtn.maxWidth = Double.MAX_VALUE
-            pane.add(browseBtn, 2, rowIndex)
-            browseBtn.onAction = {
-                optionType == AirOptionType.FILE ? openFile() : openDir()
-            } as EventHandler
+            type = FormType.BUTTON
+            browseType = optionType == AirOptionType.FILE ? BrowseType.FILE : BrowseType.DIRECTORY
         } else {
-            pane.add(textField, 1, rowIndex, 2, 1)
-        }
-    }
-
-    void openFile() {
-        FileChooser fileChooser = new FileChooser()
-        if (eFilter) {
-            fileChooser.extensionFilters.add(eFilter)
-        }
-        File file = fileChooser.showOpenDialog(textField.scene.window)
-        if (file) {
-            textField.text = file.path
-        }
-    }
-
-    void openDir() {
-        DirectoryChooser directoryChooser = new DirectoryChooser()
-        File file = directoryChooser.showDialog(textField.scene.window)
-        if (file) {
-            textField.text = file.path
+            type = FormType.TEXT_FIELD
         }
     }
 

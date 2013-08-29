@@ -15,12 +15,10 @@ class IOSAirFormController extends AirFormController {
     protected void initOptions() {
         model = runTargetModel.iosAirModel
 
-        optionsList.add(new AirOption("AIR SDK", model.airSDKPath(), codeOrchestra.colt.as.air.ui.AirOptionType.DIRECTORY, optionsGP, 0))
-        optionsList.add(new AirOption("-provisioning-profile", model.provisionPath(), codeOrchestra.colt.as.air.ui.AirOptionType.FILE, optionsGP, 1))
-        optionsList.last().eFilter = new FileChooser.ExtensionFilter(".mobileprovision", "*.mobileprovision")
-        optionsList.add(new AirOption("-keystore", model.keystorePath(), codeOrchestra.colt.as.air.ui.AirOptionType.FILE, optionsGP, 2))
-        optionsList.last().eFilter = new FileChooser.ExtensionFilter(".p12", "*.p12")
-        optionsList.add(new AirOption("-storepass", model.storePass(), codeOrchestra.colt.as.air.ui.AirOptionType.PASSWORD, optionsGP, 3))
+        options.children.add(new AirOption("AIR SDK", model.airSDKPath(), codeOrchestra.colt.as.air.ui.AirOptionType.DIRECTORY))
+        options.children.add(new AirOption("-provisioning-profile", model.provisionPath(), codeOrchestra.colt.as.air.ui.AirOptionType.FILE, new FileChooser.ExtensionFilter(".mobileprovision", "*.mobileprovision")))
+        options.children.add(new AirOption("-keystore", model.keystorePath(), codeOrchestra.colt.as.air.ui.AirOptionType.FILE, new FileChooser.ExtensionFilter(".p12", "*.p12")))
+        options.children.add(new AirOption("-storepass", model.storePass(), codeOrchestra.colt.as.air.ui.AirOptionType.PASSWORD))
     }
 
     @Override
