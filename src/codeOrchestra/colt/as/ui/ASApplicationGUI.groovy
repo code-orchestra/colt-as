@@ -41,9 +41,11 @@ class ASApplicationGUI extends ApplicationGUI {
 
     ModelStorage model = codeOrchestra.colt.as.model.ModelStorage.instance
 
-    @Override
-    protected void initialize() {
-        super.initialize()
+    ASApplicationGUI() {
+        init()
+    }
+
+    private void init() {
 
         projectType.text = "ActionScript"
 
