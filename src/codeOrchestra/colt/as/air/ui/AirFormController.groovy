@@ -12,6 +12,7 @@ import javafx.fxml.Initializable
 import javafx.geometry.Pos
 import javafx.scene.control.Button
 import javafx.scene.control.ListView
+import javafx.scene.layout.AnchorPane
 import javafx.scene.layout.GridPane
 import javafx.scene.layout.HBox
 import javafx.scene.layout.Priority
@@ -19,6 +20,9 @@ import javafx.scene.layout.VBox
 import javafx.stage.Stage
 import javafx.util.Callback
 import codeOrchestra.colt.as.model.AsProject
+import org.controlsfx.control.ButtonBar
+import org.controlsfx.control.action.Action
+import org.controlsfx.dialog.Dialog
 
 
 /**
@@ -37,26 +41,45 @@ abstract class AirFormController extends VBox{
     protected AIRModel model
     protected RunTargetModel runTargetModel
 
+    protected ButtonBar buttonBar
+
     boolean isGenerated = false
 
     AirFormController() {
         options = new FormGroup(title: "Options:")
+        options.styleClass.remove("fieldset")
 
-        FormGroup formGroup = new FormGroup(title: "Package Contents:")
+        FormGroup packageContents = new FormGroup(title: "Package Contents:")
         contentList = new ListView<>()
+//        contentList.style = "-fx-background-insets: 0"
         contentList.prefHeight = 200
+        contentList.minHeight = 50
+        contentList.minWidth = 100
         setVgrow(contentList, Priority.ALWAYS)
-        formGroup.children.add(contentList)
+        packageContents.children.add(contentList)
 
-        HBox hBox = new HBox(alignment:Pos.CENTER, spacing: 10)
+        buttonBar = new ButtonBar()
         generateBtn = new Button("Generate")
+        generateBtn.defaultButton = true
+        ButtonBar.setType(generateBtn, ButtonBar.ButtonType.OK_DONE)
         cancelBtn = new Button("Cancel")
-        hBox.children.addAll(cancelBtn, generateBtn)
+        ButtonBar.setType(cancelBtn, ButtonBar.ButtonType.CANCEL_CLOSE)
+        buttonBar.buttons.addAll(generateBtn, cancelBtn)
 
-        children.addAll(options, formGroup, hBox)
+        AnchorPane anchorPane = new AnchorPane()
+        AnchorPane.setLeftAnchor(buttonBar, 10)
+        AnchorPane.setRightAnchor(buttonBar, 10)
+        anchorPane.children.add(buttonBar)
+
+        FormGroup actions = new FormGroup()
+        actions.styleClass.remove("fieldset")
+        actions.children.add(anchorPane)
+
+        children.addAll(options, packageContents, actions)
 
         setAlignment(Pos.TOP_CENTER)
-        setPrefWidth(400)
+        setPrefWidth(460)
+        setFillWidth(true)
 
         initialize()
     }
