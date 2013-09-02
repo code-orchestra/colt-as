@@ -39,7 +39,7 @@ public final class MessageScopeRegistry {
         scope = new MessageScope(scopeId, scopeName);
         scopeMap.put(scopeId, scope);
 
-          // TODO: implement — add a messages manager
+          // TODO: implement - add a messages manager
 //          MessagesManager.getInstance().addTab(scopeName);
       } else {
         scope.setName(scopeName);
