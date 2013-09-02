@@ -19,8 +19,8 @@ public class IndexHTMLGenerator {
     File targetSWFObjectFile = new File(project.getOutputDir(), "swfobject.js");
     FileUtils.copyFileChecked(new File(ASPathUtils.getTemplatesDir(), "swfobject.js"), targetSWFObjectFile, false);
     
-    File targetIndexFile = new File(project.getOutputDir(), "index.html");
-    FileUtils.copyFileChecked(new File(ASPathUtils.getTemplatesDir(), "index.html"), targetIndexFile, false);
+    File targetIndexFile = new File(project.getOutputDir(), "welcome-screen.html");
+    FileUtils.copyFileChecked(new File(ASPathUtils.getTemplatesDir(), "welcome-screen.html"), targetIndexFile, false);
     
     Map<String, String> replacements = new HashMap<>();
     replacements.put("{SWF_NAME}", project.getProjectBuildSettings().getOutputFilename());
