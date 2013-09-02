@@ -54,7 +54,7 @@ class ProjectImporter {
                 },
 
                 maxLoopIterations: {String s ->
-                    project.projectLiveSettings.liveSettingsModel.maxLoop = s
+                    project.projectLiveSettings.liveSettingsModel.maxLoop = s as Integer
                 },
                 liveMethods: {String s ->
                     project.projectLiveSettings.liveSettingsModel.liveType = s

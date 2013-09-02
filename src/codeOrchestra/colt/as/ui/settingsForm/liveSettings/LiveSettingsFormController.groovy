@@ -12,6 +12,8 @@ import javafx.fxml.FXML
 import javafx.fxml.Initializable
 import javafx.scene.control.Toggle
 import javafx.scene.control.ToggleGroup
+import javafx.util.StringConverter
+import javafx.util.converter.IntegerStringConverter
 
 /**
  * @author Dima Kruk
@@ -62,6 +64,6 @@ class LiveSettingsFormController implements Initializable {
 
         paused.checkBox.selectedProperty().bindBidirectional(model.startSessionPaused())
         gsLive.checkBox.selectedProperty().bindBidirectional(model.makeGSLive())
-        maxLoop.textField.textProperty().bindBidirectional(model.maxLoop())
+        axLoop.textField.textProperty().bindBidirectional(model.maxLoop(), new IntegerStringConverter() as StringConverter<Number>)
     }
 }

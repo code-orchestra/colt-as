@@ -15,7 +15,7 @@ class LiveSettingsModel implements IModelElement{
     String liveType = LiveMethods.ANNOTATED.preferenceValue
     boolean startSessionPaused = false
     boolean makeGSLive = false
-    String maxLoop = "1000"
+    int maxLoop = 10000
 
     LiveSettingsModel() {
         ChangingMonitor monitor = ChangingMonitor.instance
@@ -42,6 +42,6 @@ class LiveSettingsModel implements IModelElement{
         liveType = node.'live-type'
         startSessionPaused = node.'paused' == "true"
         makeGSLive = node.'make-gs-live' == "true"
-        maxLoop = node.'max-loop'
+        maxLoop = "" + node.'max-loop' as Integer
     }
 }

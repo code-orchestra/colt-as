@@ -66,11 +66,7 @@ class AsProjectLiveSettings extends ProjectLiveSettings<AsProject>{
     }
 
     public int getMaxIterationsCount() {
-        try {
-            return Integer.valueOf(liveSettingsModel.maxLoop)
-        } catch (Throwable t) {
-            return 1000;
-        }
+        return liveSettingsModel.maxLoop
     }
 
     @Override
