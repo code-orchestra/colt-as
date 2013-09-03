@@ -53,7 +53,7 @@ class ASApplicationGUI extends ApplicationGUI {
 
         runButton.onAction = {
             if (!runButton.selected) {
-                actionPlayerPopup.isShowing() ? actionPlayerPopup.hide() : actionPlayerPopup.show(runButton)
+                actionPlayerPopup.showing ? actionPlayerPopup.hide() : actionPlayerPopup.show(runButton)
             }
 
             root.center = logView
@@ -85,8 +85,8 @@ class ASApplicationGUI extends ApplicationGUI {
             }
         } as ChangeListener)
 
-        runButton.selected = true
-        root.center = logView
+        settingsButton.selected = true
+        root.center = settingsForm
     }
 
     protected initActionPlayerPopup() {
@@ -95,23 +95,20 @@ class ASApplicationGUI extends ApplicationGUI {
         ActionPlayer playerControls = actionPlayerPopup.actionPlayer
         playerControls.play.onAction = {
             playerControls.disable = true
-            coltController.startBaseCompilation(new ColtControllerCallback<CompilationResult, CompilationResult>() {
-                @Override
-                void onComplete(CompilationResult successResult) {
-                    Platform.runLater({
-                        playerControls.showAdd(true)
-                        playerControls.disable = false
-                    })
-                }
-
-                @Override
-                void onError(Throwable t, CompilationResult errorResult) {
-                    Platform.runLater({
-                        playerControls.stop.selected = true
-                        playerControls.disable = false
-                    })
-                }
-            }, true, true)
+            coltController.startBaseCompilation([
+                    onComplete: { CompilationResult successResult ->
+                        Platform.runLater({
+                            playerControls.showAdd(true)
+                            playerControls.disable = false
+                        })
+                    },
+                    onError: { Throwable t, CompilationResult errorResult ->
+                        Platform.runLater({
+                            playerControls.stop.selected = true
+                            playerControls.disable = false
+                        })
+                    }
+            ] as ColtControllerCallback, true, true)
         } as EventHandler
 
         playerControls.stop.onAction = {
