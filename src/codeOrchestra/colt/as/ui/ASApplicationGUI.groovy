@@ -85,8 +85,8 @@ class ASApplicationGUI extends ApplicationGUI {
             }
         } as ChangeListener)
 
-        runButton.selected = true
-        root.center = logView
+        settingsButton.selected = true
+        root.center = settingsForm
     }
 
     protected initActionPlayerPopup() {
