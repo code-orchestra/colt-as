@@ -64,6 +64,6 @@ class LiveSettingsFormController implements Initializable {
 
         paused.checkBox.selectedProperty().bindBidirectional(model.startSessionPaused())
         gsLive.checkBox.selectedProperty().bindBidirectional(model.makeGSLive())
-        axLoop.textField.textProperty().bindBidirectional(model.maxLoop(), new IntegerStringConverter() as StringConverter<Number>)
+        maxLoop.textField.textProperty().bindBidirectional(model.maxLoop(), new IntegerStringConverter() as StringConverter<Number>)
     }
 }
