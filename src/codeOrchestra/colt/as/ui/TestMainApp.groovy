@@ -16,7 +16,7 @@ class TestMainApp extends Application {
         //new groovy.ui.Console().run()
         Parent root = new ASApplicationGUI();
         primaryStage.setTitle("COLT — Code Orchestra Livecoding Tool");
-        Scene scene = new Scene(root, 506, 820)
+        Scene scene = new Scene(root, 480, 768)
         primaryStage.setScene(scene);
         ScenicView.show(scene);
         primaryStage.show();
