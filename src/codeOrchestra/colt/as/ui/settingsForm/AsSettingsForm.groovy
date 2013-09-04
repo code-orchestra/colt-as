@@ -19,6 +19,9 @@ class AsSettingsForm extends ScrollPane{
     private Button saveAndRunButton
     EventHandler saveRunAction
 
+    AdvancedSeparator separator
+    FXNode sdkSettings
+
     AsSettingsForm() {
 
         setId("settings-form")
@@ -34,7 +37,7 @@ class AsSettingsForm extends ScrollPane{
         vBox.children.add(projectPaths)
         //paths
 
-        AdvancedSeparator separator = new AdvancedSeparator()
+        separator = new AdvancedSeparator()
         vBox.children.add(separator)
 
         saveAndRunButton = separator.saveButton
@@ -65,7 +68,7 @@ class AsSettingsForm extends ScrollPane{
         //liveSettings
 
         //compilerSettings
-        FXNode sdkSettings = FXMLLoader.load(getClass().getResource("compilerSettings/sdkSettings_form.fxml"))
+        sdkSettings = FXMLLoader.load(getClass().getResource("compilerSettings/sdkSettings_form.fxml"))
         advancedVBox.children.add(sdkSettings)
 
         FXNode buildSettings = FXMLLoader.load(getClass().getResource("compilerSettings/buildSettings_form.fxml"))

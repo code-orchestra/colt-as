@@ -33,8 +33,10 @@ class SDKSettingsFormController implements Initializable {
             try {
                 manager.checkIsValidFlexSDKPath(newValue)
                 model.isValidFlexSDK = true
+                sdkPath.textField.styleClass.remove("error-input")
             } catch (FlexSDKNotPresentException ignored) {
                 model.isValidFlexSDK = false
+                sdkPath.textField.styleClass.add("error-input")
             }
         } as ChangeListener<String>)
 
