@@ -13,6 +13,6 @@
 
   <CTBForm fx:id="rsl" text="Use Framework as Runtime Shared Library (RSL)" formType="SIMPLE"/>
   <CTBForm fx:id="locale" text="Non-default locale settings" formType="TEXT_FIELD"/>
-  <CTBForm fx:id="exclude" text="Non-default locale settings" formType="SIMPLE"/>
+  <CTBForm fx:id="exclude" text="Exclude unused code from incremental compilation linking" formType="SIMPLE"/>
   <CTBForm fx:id="interrupt" text="Interrupt compilation by timeout (seconds)" formType="TEXT_FIELD"/>
 </FormGroup>
