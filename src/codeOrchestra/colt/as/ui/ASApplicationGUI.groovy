@@ -16,6 +16,7 @@ import codeOrchestra.colt.core.tracker.GATracker
 import codeOrchestra.colt.core.ui.components.log.Log
 import codeOrchestra.colt.core.ui.components.player.ActionPlayer
 import codeOrchestra.colt.core.ui.ApplicationGUI
+import codeOrchestra.colt.core.ui.dialog.ProjectDialogs
 import javafx.application.Platform
 import javafx.beans.property.BooleanProperty
 import javafx.beans.value.ChangeListener
@@ -32,8 +33,8 @@ class ASApplicationGUI extends ApplicationGUI {
     @Service ASLiveCodingManager liveCodingManager
 
     @Lazy AsSettingsForm settingsForm = new AsSettingsForm(saveRunAction:{
+        ProjectDialogs.saveProjectDialog()
         runButton.onAction.handle(null)
-
         ToggleButton playAction = actionPlayerPopup.actionPlayer.play
         playAction.selected = true
         playAction.onAction.handle(null)
