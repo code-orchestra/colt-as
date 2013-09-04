@@ -28,7 +28,7 @@ class BuildModel implements IModelElement {
     String localeSettings = ""
     boolean excludeDeadCode = false
     boolean interrupt = false
-    String interruptValue = "30"
+    int interruptValue = 30
     String compilerOptions = ""
 
     BuildModel() {
@@ -89,7 +89,7 @@ class BuildModel implements IModelElement {
         excludeDeadCode = node.'is-exclude' == "true"
 
         interrupt = node.'is-interrupt' == "true"
-        interruptValue = node.'interrupt-value'
+        interruptValue = "" + node.'interrupt-value' as Integer
 
         compilerOptions = node.'compiler-options'
     }

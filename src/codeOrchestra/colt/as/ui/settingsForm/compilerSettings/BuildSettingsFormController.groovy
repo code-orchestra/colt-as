@@ -11,6 +11,8 @@ import javafx.beans.value.ChangeListener
 import javafx.beans.value.ObservableValue
 import javafx.fxml.FXML
 import javafx.fxml.Initializable
+import javafx.util.StringConverter
+import javafx.util.converter.IntegerStringConverter
 
 /**
  * @author Dima Kruk
@@ -36,6 +38,8 @@ class BuildSettingsFormController implements Initializable {
 //        mainClass.extensionFilters.addAll(new FileChooser.ExtensionFilter("AS", "*.as"), new FileChooser.ExtensionFilter("MXML", "*.mxml"))
 
         player.errorLabel.visible = false
+
+        interrupt.numeric = true
 
         if (sdkModel.isValidFlexSDK) {
             initChoiceBox()
@@ -133,7 +137,7 @@ class BuildSettingsFormController implements Initializable {
         exclude.checkBox.selectedProperty().bindBidirectional(model.excludeDeadCode())
 
         interrupt.checkBox.selectedProperty().bindBidirectional(model.interrupt())
-        interrupt.textField.textProperty().bindBidirectional(model.interruptValue())
+        interrupt.textField.textProperty().bindBidirectional(model.interruptValue(), new IntegerStringConverter() as StringConverter<Number>)
     }
 
     private void error(boolean b) {

@@ -37,6 +37,8 @@ class LiveSettingsFormController implements Initializable {
         methods = new ToggleGroup()
         methods.toggles.addAll(all.radioButton, annotated.radioButton)
 
+        maxLoop.numeric = true
+
         bindModel()
 
         if (!model.liveType) {
