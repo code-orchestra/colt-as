@@ -2,6 +2,7 @@ package codeOrchestra.colt.as;
 
 import codeOrchestra.colt.as.compiler.fcsh.FCSHManager;
 import codeOrchestra.colt.as.controller.ColtAsController;
+import codeOrchestra.colt.as.facade.AsColtFacade;
 import codeOrchestra.colt.as.logging.transport.LoggerServerSocketThread;
 import codeOrchestra.colt.as.model.AsProject;
 import codeOrchestra.colt.as.model.ModelStorage;
@@ -15,6 +16,7 @@ import codeOrchestra.colt.core.AbstractLiveCodingLanguageHandler;
 import codeOrchestra.colt.core.LiveCodingManager;
 import codeOrchestra.colt.core.ServiceProvider;
 import codeOrchestra.colt.core.controller.ColtController;
+import codeOrchestra.colt.core.facade.ColtFacade;
 import codeOrchestra.colt.core.launch.LiveLauncher;
 import codeOrchestra.colt.core.logging.LoggerService;
 import codeOrchestra.colt.core.rpc.ColtRemoteService;
@@ -153,6 +155,11 @@ public class ASLiveCodingLanguageHandler extends AbstractLiveCodingLanguageHandl
     @Override
     public SourceFileFactory createSourceFileFactory() {
         return new ASSourceFileFactory();
+    }
+
+    @Override
+    public ColtFacade createColtFacade() {
+        return new AsColtFacade();
     }
 
 }
