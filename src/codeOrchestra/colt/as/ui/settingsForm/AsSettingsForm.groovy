@@ -74,6 +74,7 @@ class AsSettingsForm extends ScrollPane{
         //liveSettings
         TargetForm target = new TargetForm()
         validatedForms.add(target)
+        target.ownerForm = this
         advancedVBox.children.add(target)
 
 
@@ -119,11 +120,11 @@ class AsSettingsForm extends ScrollPane{
         } as EventHandler
     }
 
-    public boolean validateForms() {
+    public boolean validateForms(IFormValidated skipForm = null) {
         Parent invalidNode = null
         validatedForms.each {
             Parent node = it.validated()
-            if (node && invalidNode == null) {
+            if (it != skipForm && node && invalidNode == null) {
                 invalidNode = node
             }
         }

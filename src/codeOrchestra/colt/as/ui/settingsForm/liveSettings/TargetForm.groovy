@@ -8,6 +8,7 @@ import codeOrchestra.colt.as.model.ModelStorage
 import codeOrchestra.colt.as.model.beans.RunTargetModel
 import codeOrchestra.colt.as.run.Target
 import codeOrchestra.colt.as.run.indexhtml.IndexHTMLGenerator
+import codeOrchestra.colt.as.ui.settingsForm.AsSettingsForm
 import codeOrchestra.colt.as.ui.settingsForm.IFormValidated
 import codeOrchestra.colt.core.ui.components.inputForms.FormType
 import codeOrchestra.colt.core.ui.components.inputForms.RTBForm
@@ -29,6 +30,8 @@ import javafx.stage.Stage
  * @author Dima Kruk
  */
 class TargetForm extends FormGroup implements IFormValidated {
+
+    AsSettingsForm ownerForm
 
     private ToggleGroup target
     private RTBForm swf
@@ -72,7 +75,7 @@ class TargetForm extends FormGroup implements IFormValidated {
             if (buildSettings.outputFilename) {
                 model.httpIndex = IndexHTMLGenerator.generate(ModelStorage.instance.project)
             } else {
-                //TODO: show message
+                ownerForm.validateForms(this)
             }
         } as EventHandler
 
@@ -80,7 +83,7 @@ class TargetForm extends FormGroup implements IFormValidated {
             if(canShowDialog()) {
                 showDialog(new IOSAirFormController(), "Apple iOS: customize launch", model)
             } else {
-                //TODO: show message
+                ownerForm.validateForms(this)
             }
         } as EventHandler
 
@@ -88,7 +91,7 @@ class TargetForm extends FormGroup implements IFormValidated {
             if(canShowDialog()) {
                 showDialog(new AndroidAirFormController(), "Android: customize launch", model)
             } else {
-                //TODO: show message
+                ownerForm.validateForms(this)
             }
         } as EventHandler
     }
