@@ -29,7 +29,7 @@ class SettingsForm extends FormGroup {
     }
 
     void bindModel() {
-        clearLog.checkBox.selectedProperty().bindBidirectional(model.clearLog())
-        pingTimeout.checkBox.selectedProperty().bindBidirectional(model.disconnectOnTimeout())
+        clearLog.selected().bindBidirectional(model.clearLog())
+        pingTimeout.selected().bindBidirectional(model.disconnectOnTimeout())
     }
 }

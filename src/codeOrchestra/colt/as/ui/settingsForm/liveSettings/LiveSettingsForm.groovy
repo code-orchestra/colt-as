@@ -81,8 +81,8 @@ class LiveSettingsForm extends FormGroup {
             }
         } as ChangeListener)
 
-        paused.checkBox.selectedProperty().bindBidirectional(model.startSessionPaused())
-        gsLive.checkBox.selectedProperty().bindBidirectional(model.makeGSLive())
+        paused.selected().bindBidirectional(model.startSessionPaused())
+        gsLive.selected().bindBidirectional(model.makeGSLive())
         maxLoop.text().bindBidirectional(model.maxLoop(), new IntegerStringConverter() as StringConverter<Number>)
     }
 }
