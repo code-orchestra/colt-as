@@ -21,7 +21,7 @@ class TemplateForm extends ValidatedForm {
     private AsProjectPaths model = codeOrchestra.colt.as.model.ModelStorage.instance.project.projectPaths
 
     TemplateForm() {
-        template = new LTBForm(text: "HTML Template:", type: FormType.BUTTON, browseType: BrowseType.DIRECTORY)
+        template = new LTBForm(title: "HTML Template:", type: FormType.BUTTON, browseType: BrowseType.DIRECTORY)
 
         children.add(template)
 

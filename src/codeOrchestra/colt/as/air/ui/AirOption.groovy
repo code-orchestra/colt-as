@@ -15,7 +15,7 @@ class AirOption extends LTBForm {
 
     AirOption(String title, StringProperty bindProperty, AirOptionType optionType, ExtensionFilter extensionFilter = null) {
         this.bindProperty = bindProperty
-        text = title
+        this.title = title
 
         if(optionType == AirOptionType.PASSWORD) {
             PasswordField passwordField = new PasswordField()
@@ -29,7 +29,7 @@ class AirOption extends LTBForm {
             children.add(textField)
         }
 
-        textField.textProperty().bindBidirectional(bindProperty)
+        this.title().bindBidirectional(bindProperty)
 
         if (extensionFilter) {
             extensionFilters.add(extensionFilter)
@@ -44,6 +44,6 @@ class AirOption extends LTBForm {
     }
 
     void unbindProperty() {
-        textField.textProperty().unbindBidirectional(bindProperty)
+        title().unbindBidirectional(bindProperty)
     }
 }

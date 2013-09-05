@@ -59,9 +59,9 @@ class TargetForm extends ValidatedForm {
         target = new ToggleGroup()
         target.toggles.addAll(swf.radioButton, http.radioButton, ios.radioButton, android.radioButton)
 
-        http.changeButtonWidth(150)
-        ios.changeButtonWidth(150)
-        android.changeButtonWidth(150)
+        http.buttonWidth = 150
+        ios.buttonWidth = 150
+        android.buttonWidth = 150
 
         bindModel()
 
@@ -71,7 +71,7 @@ class TargetForm extends ValidatedForm {
             activateTarget(model.target)
         }
 
-        http.button.onAction = {
+        http.action = {
             AsProjectBuildSettings buildSettings = ModelStorage.instance.project.getProjectBuildSettings()
             if (buildSettings.outputFilename) {
                 model.httpIndex = IndexHTMLGenerator.generate(ModelStorage.instance.project)
@@ -80,7 +80,7 @@ class TargetForm extends ValidatedForm {
             }
         } as EventHandler
 
-        ios.button.onAction = {
+        ios.action = {
             if(canShowDialog()) {
                 showDialog(new IOSAirFormController(), "Apple iOS: customize launch", model)
             } else {
@@ -88,7 +88,7 @@ class TargetForm extends ValidatedForm {
             }
         } as EventHandler
 
-        android.button.onAction = {
+        android.action = {
             if(canShowDialog()) {
                 showDialog(new AndroidAirFormController(), "Android: customize launch", model)
             } else {

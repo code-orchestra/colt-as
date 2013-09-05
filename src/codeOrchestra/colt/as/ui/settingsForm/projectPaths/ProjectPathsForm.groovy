@@ -35,7 +35,7 @@ class ProjectPathsForm extends VBox implements IFormValidated {
         libraries = new FilesetInput(title: "Library Paths:", useExcludes: false)
         assets = new FilesetInput(title: "Assets Paths:", useFiles: false, useExcludes: false)
 
-        mainClass = new LTBForm(text: "Main class:", type: FormType.BUTTON)
+        mainClass = new LTBForm(title: "Main class:", type: FormType.BUTTON)
         setMargin(mainClass, new Insets(23, 0, 0, 0))
 
         children.addAll(sources, libraries, assets, mainClass)
@@ -46,7 +46,7 @@ class ProjectPathsForm extends VBox implements IFormValidated {
     public void init() {
         mainClass.extensionFilters.addAll(new FileChooser.ExtensionFilter("Class", "*.as", "*.mxml"))
 
-        mainClass.textField.textProperty().addListener({ ObservableValue<? extends String> observableValue, String t, String t1 ->
+        mainClass.text().addListener({ ObservableValue<? extends String> observableValue, String t, String t1 ->
             if (t1) {
                 File file = new File(t1)
                 if (file.exists() && file.isFile()) {
@@ -62,7 +62,7 @@ class ProjectPathsForm extends VBox implements IFormValidated {
     }
 
     void bindModel() {
-        mainClass.textField.textProperty().bindBidirectional(buildModel.mainClass())
+        mainClass.text().bindBidirectional(buildModel.mainClass())
 
         sources.files().bindBidirectional(model.sources())
         libraries.files().bindBidirectional(model.libraries())

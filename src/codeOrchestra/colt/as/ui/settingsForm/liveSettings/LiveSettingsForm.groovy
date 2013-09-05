@@ -36,14 +36,14 @@ class LiveSettingsForm extends FormGroup {
     LiveSettingsForm() {
         title = "Live Settings"
 
-        LTBForm label = new LTBForm(text: "Live Methods:", type: FormType.SIMPLE)
+        LTBForm label = new LTBForm(title: "Live Methods:", type: FormType.SIMPLE)
         annotated = new RTBForm(text: "Annotated with [Live]", type: FormType.SIMPLE)
         all = new RTBForm(text: "All the methods", type: FormType.SIMPLE)
 
         paused = new CTBForm(text: "Start Session Paused", type: FormType.SIMPLE, disable: true)
         gsLive = new CTBForm(text: "Make Getters/Setters Live", type: FormType.SIMPLE)
 
-        maxLoop = new LTBForm(text: "Max Loop Iterations:")
+        maxLoop = new LTBForm(title: "Max Loop Iterations:")
 
         children.addAll(new Pane(), label, annotated, all, new Pane(), paused, gsLive, maxLoop)
 
@@ -83,6 +83,6 @@ class LiveSettingsForm extends FormGroup {
 
         paused.checkBox.selectedProperty().bindBidirectional(model.startSessionPaused())
         gsLive.checkBox.selectedProperty().bindBidirectional(model.makeGSLive())
-        maxLoop.textField.textProperty().bindBidirectional(model.maxLoop(), new IntegerStringConverter() as StringConverter<Number>)
+        maxLoop.text().bindBidirectional(model.maxLoop(), new IntegerStringConverter() as StringConverter<Number>)
     }
 }

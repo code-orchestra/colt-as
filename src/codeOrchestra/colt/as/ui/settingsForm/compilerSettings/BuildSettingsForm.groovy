@@ -33,8 +33,8 @@ class BuildSettingsForm extends ValidatedForm {
     private SDKModel sdkModel = ModelStorage.instance.project.projectBuildSettings.sdkModel
 
     BuildSettingsForm() {
-        fileName = new LTBForm(text: "Output file name:", type: FormType.TEXT_FIELD)
-        outPath = new LTBForm(text: "Output path:", type: FormType.BUTTON, browseType: BrowseType.DIRECTORY)
+        fileName = new LTBForm(title: "Output file name:", type: FormType.TEXT_FIELD)
+        outPath = new LTBForm(title: "Output path:", type: FormType.BUTTON, browseType: BrowseType.DIRECTORY)
 
         player = new CBForm()
 
@@ -50,8 +50,6 @@ class BuildSettingsForm extends ValidatedForm {
 
     void init() {
 
-        player.errorLabel.visible = false
-
         interrupt.numeric = true
 
         if (sdkModel.isValidFlexSDK) {
@@ -66,20 +64,20 @@ class BuildSettingsForm extends ValidatedForm {
                 //fix model value
                 model.targetPlayerVersion = oldValue
             }
-            if(sdkModel.isValidFlexSDK && model.useMaxVersion && newValue != null && !player.choiceBox.items.contains(newValue)) {
+            if(sdkModel.isValidFlexSDK && model.useMaxVersion && newValue != null && !player.values.contains(newValue)) {
                 //fix model value
                 model.targetPlayerVersion = oldValue
             }
         } as ChangeListener)
 
-        player.choiceBox.valueProperty().addListener({ ObservableValue<? extends String> observableValue, String oldValue, String newValue ->
+        player.value().addListener({ ObservableValue<? extends String> observableValue, String oldValue, String newValue ->
             if(newValue != null && !newValue?.isEmpty()) {
-                if(!player.choiceBox.items.contains(newValue)) {
-                    player.choiceBox.items.add(newValue)
+                if(!player.values.contains(newValue)) {
+                    player.values.add(newValue)
                     error(true)
                 } else {
-                    if(player.errorLabel.visible) {
-                        player.choiceBox.items.remove(oldValue)
+                    if(player.errorMessage) {
+                        player.values.remove(oldValue)
                     }
                     error(false)
                 }
@@ -91,7 +89,7 @@ class BuildSettingsForm extends ValidatedForm {
 
         sdkModel.isValidFlexSDK().addListener({ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue->
             String modelValue = model.targetPlayerVersion
-            player.choiceBox.items.clear()
+            player.values.clear()
             if (newValue) {
                 List<String> versions = initChoiceBox()
                 if(!model.useMaxVersion && modelValue != null && !modelValue.isEmpty()) {
@@ -99,7 +97,7 @@ class BuildSettingsForm extends ValidatedForm {
                         model.targetPlayerVersion = modelValue
                         error(false)
                     } else {
-                        player.choiceBox.items.add(modelValue)
+                        player.values.add(modelValue)
                         model.targetPlayerVersion = modelValue
                         error(true)
                     }
@@ -108,7 +106,7 @@ class BuildSettingsForm extends ValidatedForm {
                     error(false)
                 }
             } else {
-                player.choiceBox.items.add(modelValue)
+                player.values.add(modelValue)
                 model.targetPlayerVersion = modelValue
                 error(true)
             }
@@ -126,8 +124,8 @@ class BuildSettingsForm extends ValidatedForm {
     private List<String> initChoiceBox(boolean setFirst = false) {
         FlexSDKManager manager = FlexSDKManager.instance
         List<String> versions = manager.getAvailablePlayerVersions(new File(sdkModel.flexSDKPath))
-        player.choiceBox.items.clear()
-        player.choiceBox.items.addAll(versions)
+        player.values.clear()
+        player.values.addAll(versions)
         if (setFirst) {
             model.targetPlayerVersion = versions.first()
         }
@@ -147,22 +145,25 @@ class BuildSettingsForm extends ValidatedForm {
 
         player.checkBox.selectedProperty().bindBidirectional(model.useMaxVersion())
 
-        player.choiceBox.valueProperty().bindBidirectional(model.targetPlayerVersion())
+        player.value().bindBidirectional(model.targetPlayerVersion())
 
         rsl.checkBox.selectedProperty().bindBidirectional(model.rsl())
 
         locale.checkBox.selectedProperty().bindBidirectional(model.nonDefaultLocale())
-        locale.textField.textProperty().bindBidirectional(model.localeSettings())
+        locale.text().bindBidirectional(model.localeSettings())
 
         exclude.checkBox.selectedProperty().bindBidirectional(model.excludeDeadCode())
 
         interrupt.checkBox.selectedProperty().bindBidirectional(model.interrupt())
-        interrupt.textField.textProperty().bindBidirectional(model.interruptValue(), new IntegerStringConverter() as StringConverter<Number>)
+        interrupt.text().bindBidirectional(model.interruptValue(), new IntegerStringConverter() as StringConverter<Number>)
     }
 
     private void error(boolean b) {
-        player.errorLabel.visible = b
-        player.errorLabel.text = sdkModel.isValidFlexSDK ? "Incorrect player version specified" : "Incorrect Flex SDK path specified"
+        if(b){
+            player.errorMessage = sdkModel.isValidFlexSDK ? "Incorrect player version specified" : "Incorrect Flex SDK path specified"
+        }else{
+            player.errorMessage = null
+        }
     }
 
     @Override

@@ -31,7 +31,7 @@ class SDKSettingsForm extends ValidatedForm{
     private SDKModel model = ModelStorage.instance.project.projectBuildSettings.sdkModel
 
     SDKSettingsForm() {
-        sdkPath = new LTBForm(text: "Flex SDK Path:", type: FormType.BUTTON, browseType: BrowseType.DIRECTORY)
+        sdkPath = new LTBForm(title: "Flex SDK Path:", type: FormType.BUTTON, browseType: BrowseType.DIRECTORY)
         defConf = new CTBForm(text: "Use default SDK compiler configuration file", type: FormType.SIMPLE)
         customConf = new CTBForm(text: "Use custom compiler configuration file", type: FormType.BUTTON)
 
@@ -62,7 +62,7 @@ class SDKSettingsForm extends ValidatedForm{
     }
 
     void bindModel() {
-        sdkPath.textField.textProperty().bindBidirectional(model.flexSDKPath())
+        sdkPath.text().bindBidirectional(model.flexSDKPath())
         defConf.checkBox.selectedProperty().bindBidirectional(model.useFlexConfig())
         customConf.checkBox.selectedProperty().addListener({ ObservableValue<? extends Boolean> observableValue, Boolean t, Boolean t1 ->
             validateIsFile(customConf.textField)

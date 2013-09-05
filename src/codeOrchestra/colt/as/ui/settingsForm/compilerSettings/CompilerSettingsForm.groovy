@@ -15,7 +15,7 @@ class CompilerSettingsForm extends FormGroup{
     private BuildModel model = ModelStorage.instance.project.projectBuildSettings.buildModel
 
     CompilerSettingsForm() {
-        options = new LTBForm(text: "Additional compiler options:", type: FormType.TEXT_FIELD)
+        options = new LTBForm(title: "Additional compiler options:", type: FormType.TEXT_FIELD)
 
         children.add(options)
 
@@ -27,6 +27,6 @@ class CompilerSettingsForm extends FormGroup{
     }
 
     void bindModel() {
-        options.textField.textProperty().bindBidirectional(model.compilerOptions())
+        options.text().bindBidirectional(model.compilerOptions())
     }
 }
