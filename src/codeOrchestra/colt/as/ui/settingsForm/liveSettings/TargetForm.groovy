@@ -166,10 +166,12 @@ class TargetForm extends FormGroup implements IFormValidated {
             case codeOrchestra.colt.as.run.Target.AIR_ANDROID:
                 return validateField(android.textField)
                 break
+            default:
+                return null
         }
     }
 
-    private static javafx.scene.Node validateField(TextField field) {
+    private static Parent validateField(TextField field) {
         boolean validate
 
         if (!field.text.isEmpty()) {

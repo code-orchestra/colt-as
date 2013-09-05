@@ -86,7 +86,7 @@ class LauncherForm extends FormGroup implements IFormValidated {
         return null
     }
 
-    private static javafx.scene.Node validateField(TextField field) {
+    private static Parent validateField(TextField field) {
         boolean validate
 
         if (!field.text.isEmpty()) {

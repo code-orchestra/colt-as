@@ -75,7 +75,7 @@ class SDKSettingsForm extends FormGroup implements IFormValidated {
 
     @Override
     Parent validated() {
-        FXNode result = validateField(customConf.textField)
+        Parent result = validateField(customConf.textField)
 
         if (model.isValidFlexSDK) {
             sdkPath.textField.styleClass.remove("error-input")
@@ -88,7 +88,7 @@ class SDKSettingsForm extends FormGroup implements IFormValidated {
         return result
     }
 
-    private static FXNode validateField(TextField field) {
+    private static Parent validateField(TextField field) {
         boolean validate
         field.styleClass.remove("error-input")
         if (field.disable) {

@@ -168,16 +168,16 @@ class BuildSettingsForm extends FormGroup implements IFormValidated {
 
     @Override
     Parent validated() {
-        javafx.scene.Node result = validateField(outPath.textField)
+        Parent result = validateField(outPath.textField)
 
-        javafx.scene.Node field = validateEmptyField(fileName.textField)
+        Parent field = validateEmptyField(fileName.textField)
         if (field) {
             result = field
         }
         return result
     }
 
-    private static javafx.scene.Node validateEmptyField(TextField field) {
+    private static Parent validateEmptyField(TextField field) {
         field.styleClass.remove("error-input")
         if (field.text.isEmpty()) {
             field.styleClass.add("error-input")
@@ -188,7 +188,7 @@ class BuildSettingsForm extends FormGroup implements IFormValidated {
     }
 
 
-    private static javafx.scene.Node validateField(TextField field) {
+    private static Parent validateField(TextField field) {
         boolean validate
         field.styleClass.remove("error-input")
         if (!field.text.isEmpty()) {

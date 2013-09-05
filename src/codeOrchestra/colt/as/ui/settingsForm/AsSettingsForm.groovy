@@ -113,19 +113,24 @@ class AsSettingsForm extends ScrollPane{
     void setSaveRunAction(EventHandler saveRunAction) {
         this.saveRunAction = saveRunAction
         saveAndRunButton.onAction = {
-            Parent invalidNode = null
-            validatedForms.each {
-                Parent node = it.validated()
-                if (node && invalidNode == null) {
-                    invalidNode = node
-                }
-            }
-            if (invalidNode != null) {
-                scrollTo(invalidNode)
-            } else {
+            if(validateForms()) {
                 this.saveRunAction.handle(it)
             }
         } as EventHandler
+    }
+
+    public boolean validateForms() {
+        Parent invalidNode = null
+        validatedForms.each {
+            Parent node = it.validated()
+            if (node && invalidNode == null) {
+                invalidNode = node
+            }
+        }
+        if (invalidNode != null) {
+            scrollTo(invalidNode)
+        }
+        return invalidNode == null
     }
 
     private scrollTo(Parent node) {
