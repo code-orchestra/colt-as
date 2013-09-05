@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-<?import codeOrchestra.colt.core.ui.components.inputForms.*?>
-<?import codeOrchestra.colt.core.ui.components.inputForms.group.FormGroup?>
-
-<FormGroup title="Launcher" fx:controller="codeOrchestra.colt.as.ui.settingsForm.liveSettings.LauncherFormController" xmlns:fx="http://javafx.com/fxml">
-  <RTBForm fx:id="defaultPlayer" text="System default application" formType="SIMPLE" />
-  <RTBForm fx:id="player" text="Flash Player" formType="BUTTON" />
-</FormGroup>

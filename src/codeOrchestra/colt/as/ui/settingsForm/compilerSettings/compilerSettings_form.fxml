@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-<?import codeOrchestra.colt.core.ui.components.inputForms.*?>
-<?import codeOrchestra.colt.core.ui.components.inputForms.group.FormGroup?>
-
-<FormGroup fx:controller="codeOrchestra.colt.as.ui.settingsForm.compilerSettings.CompilerSettingsFormController" xmlns:fx="http://javafx.com/fxml">
-  <LTBForm fx:id="options" text="Additional compiler options:" formType="TEXT_FIELD" />
-</FormGroup>

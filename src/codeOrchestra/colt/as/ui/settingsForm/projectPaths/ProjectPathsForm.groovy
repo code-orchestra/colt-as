@@ -1,31 +1,46 @@
 package codeOrchestra.colt.as.ui.settingsForm.projectPaths
 
-import codeOrchestra.colt.as.model.ModelStorage
 import codeOrchestra.colt.as.model.AsProjectPaths
+import codeOrchestra.colt.as.model.ModelStorage
 import codeOrchestra.colt.as.model.beans.BuildModel
-import codeOrchestra.colt.core.ui.components.inputForms.LTBForm
 import codeOrchestra.colt.core.ui.components.fileset.FilesetInput
+import codeOrchestra.colt.core.ui.components.inputForms.FormType
+import codeOrchestra.colt.core.ui.components.inputForms.LTBForm
 import javafx.beans.value.ChangeListener
 import javafx.beans.value.ObservableValue
-import javafx.fxml.FXML
-import javafx.fxml.Initializable
+import javafx.geometry.Insets
+import javafx.scene.layout.VBox
 import javafx.stage.FileChooser
 
 /**
  * @author Dima Kruk
  */
-class ProjectPathsFormController implements Initializable {
-    @FXML FilesetInput sources
-    @FXML FilesetInput libraries
-    @FXML FilesetInput assets
+class ProjectPathsForm extends VBox {
+    private FilesetInput sources
+    private FilesetInput libraries
+    private FilesetInput assets
 
-    @FXML LTBForm mainClass
+    private LTBForm mainClass
 
-    AsProjectPaths model = ModelStorage.instance.project.projectPaths
-    BuildModel buildModel = ModelStorage.instance.project.projectBuildSettings.buildModel
+    private AsProjectPaths model = ModelStorage.instance.project.projectPaths
+    private BuildModel buildModel = ModelStorage.instance.project.projectBuildSettings.buildModel
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+    ProjectPathsForm() {
+        setPadding(new Insets(3, 0, 23, 0))
+
+        sources = new FilesetInput(title: "Source Paths:", useFiles: false, useExcludes: false)
+        libraries = new FilesetInput(title: "Library Paths:", useExcludes: false)
+        assets = new FilesetInput(title: "Assets Paths:", useFiles: false, useExcludes: false)
+
+        mainClass = new LTBForm(text: "Main class:", type: FormType.BUTTON)
+        setMargin(mainClass, new Insets(23, 0, 0, 0))
+
+        children.addAll(sources, libraries, assets, mainClass)
+
+        init()
+    }
+
+    public void init() {
         mainClass.extensionFilters.addAll(new FileChooser.ExtensionFilter("Class", "*.as", "*.mxml"))
 
         mainClass.textField.textProperty().addListener({ ObservableValue<? extends String> observableValue, String t, String t1 ->

@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-<?import codeOrchestra.colt.core.ui.components.inputForms.*?>
-<?import codeOrchestra.colt.core.ui.components.inputForms.group.FormGroup?>
-
-<FormGroup title="Production build settings" fx:controller="codeOrchestra.colt.as.ui.settingsForm.compilerSettings.ProductionBuildFormController" xmlns:fx="http://javafx.com/fxml">
-  <CTBForm fx:id="compression" text="SWF compression" formType="SIMPLE" />
-  <CTBForm fx:id="optimization" text="Compiling optimization" formType="SIMPLE" />
-</FormGroup>

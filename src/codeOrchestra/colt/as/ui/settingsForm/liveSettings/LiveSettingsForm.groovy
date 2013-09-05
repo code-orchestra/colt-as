@@ -4,36 +4,53 @@ import codeOrchestra.colt.as.model.ModelStorage
 import codeOrchestra.colt.as.model.beans.LiveSettingsModel
 import codeOrchestra.colt.as.run.LiveMethods
 import codeOrchestra.colt.core.ui.components.inputForms.CTBForm
+import codeOrchestra.colt.core.ui.components.inputForms.FormType
 import codeOrchestra.colt.core.ui.components.inputForms.LTBForm
 import codeOrchestra.colt.core.ui.components.inputForms.RTBForm
+import codeOrchestra.colt.core.ui.components.inputForms.group.FormGroup
 import javafx.beans.property.StringProperty
 import javafx.beans.value.ChangeListener
-import javafx.fxml.FXML
-import javafx.fxml.Initializable
 import javafx.scene.control.Toggle
 import javafx.scene.control.ToggleGroup
+import javafx.scene.layout.Pane
 import javafx.util.StringConverter
 import javafx.util.converter.IntegerStringConverter
 
 /**
  * @author Dima Kruk
  */
-class LiveSettingsFormController implements Initializable {
+class LiveSettingsForm extends FormGroup {
 
-    ToggleGroup methods
+    private ToggleGroup methods
 
-    @FXML RTBForm annotated
-    @FXML RTBForm all
+    private  RTBForm annotated
+    private  RTBForm all
 
-    @FXML CTBForm paused
-    @FXML CTBForm gsLive
+    private  CTBForm paused
+    private  CTBForm gsLive
 
-    @FXML LTBForm maxLoop
+    private  LTBForm maxLoop
 
-    public LiveSettingsModel model = ModelStorage.instance.project.projectLiveSettings.liveSettingsModel
+    private LiveSettingsModel model = ModelStorage.instance.project.projectLiveSettings.liveSettingsModel
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+    LiveSettingsForm() {
+        title = "Live Settings"
+
+        LTBForm label = new LTBForm(text: "Live Methods:", type: FormType.SIMPLE)
+        annotated = new RTBForm(text: "Annotated with [Live]", type: FormType.SIMPLE)
+        all = new RTBForm(text: "All the methods", type: FormType.SIMPLE)
+
+        paused = new CTBForm(text: "Start Session Paused", type: FormType.SIMPLE, disable: true)
+        gsLive = new CTBForm(text: "Make Getters/Setters Live", type: FormType.SIMPLE)
+
+        maxLoop = new LTBForm(text: "Max Loop Iterations:")
+
+        children.addAll(new Pane(), label, annotated, all, new Pane(), paused, gsLive, maxLoop)
+
+        init()
+    }
+
+    public void init() {
         methods = new ToggleGroup()
         methods.toggles.addAll(all.radioButton, annotated.radioButton)
 

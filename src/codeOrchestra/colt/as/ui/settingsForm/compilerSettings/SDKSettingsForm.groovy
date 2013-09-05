@@ -4,27 +4,37 @@ import codeOrchestra.colt.as.flexsdk.FlexSDKManager
 import codeOrchestra.colt.as.flexsdk.FlexSDKNotPresentException
 import codeOrchestra.colt.as.model.ModelStorage
 import codeOrchestra.colt.as.model.beans.SDKModel
+import codeOrchestra.colt.core.ui.components.inputForms.BrowseType
 import codeOrchestra.colt.core.ui.components.inputForms.CTBForm
+import codeOrchestra.colt.core.ui.components.inputForms.FormType
 import codeOrchestra.colt.core.ui.components.inputForms.LTBForm
+import codeOrchestra.colt.core.ui.components.inputForms.group.FormGroup
 import javafx.beans.value.ChangeListener
 import javafx.beans.value.ObservableValue
-import javafx.fxml.FXML
-import javafx.fxml.Initializable
 import javafx.stage.FileChooser
 
 /**
  * @author Dima Kruk
  */
-class SDKSettingsFormController implements Initializable {
+class SDKSettingsForm extends FormGroup {
 
-    @FXML LTBForm sdkPath
-    @FXML CTBForm defConf
-    @FXML CTBForm customConf
+    private LTBForm sdkPath
+    private CTBForm defConf
+    private CTBForm customConf
 
-    public SDKModel model = ModelStorage.instance.project.projectBuildSettings.sdkModel
+    private SDKModel model = ModelStorage.instance.project.projectBuildSettings.sdkModel
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+    SDKSettingsForm() {
+        sdkPath = new LTBForm(text: "Flex SDK Path:", type: FormType.BUTTON, browseType: BrowseType.DIRECTORY)
+        defConf = new CTBForm(text: "Use default SDK compiler configuration file", type: FormType.SIMPLE)
+        customConf = new CTBForm(text: "Use custom compiler configuration file", type: FormType.BUTTON)
+
+        children.addAll(sdkPath, defConf, customConf)
+
+        init()
+    }
+
+    public void init() {
 
         customConf.extensionFilters.add(new FileChooser.ExtensionFilter("XML", "*.xml"))
 

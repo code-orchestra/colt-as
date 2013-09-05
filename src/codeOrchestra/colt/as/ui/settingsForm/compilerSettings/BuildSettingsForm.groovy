@@ -4,38 +4,48 @@ import codeOrchestra.colt.as.flexsdk.FlexSDKManager
 import codeOrchestra.colt.as.model.ModelStorage
 import codeOrchestra.colt.as.model.beans.BuildModel
 import codeOrchestra.colt.as.model.beans.SDKModel
-import codeOrchestra.colt.core.ui.components.inputForms.CBForm
-import codeOrchestra.colt.core.ui.components.inputForms.CTBForm
-import codeOrchestra.colt.core.ui.components.inputForms.LTBForm
+import codeOrchestra.colt.core.ui.components.inputForms.*
+import codeOrchestra.colt.core.ui.components.inputForms.group.FormGroup
 import javafx.beans.value.ChangeListener
 import javafx.beans.value.ObservableValue
-import javafx.fxml.FXML
-import javafx.fxml.Initializable
 import javafx.util.StringConverter
 import javafx.util.converter.IntegerStringConverter
 
 /**
  * @author Dima Kruk
  */
-class BuildSettingsFormController implements Initializable {
+class BuildSettingsForm extends FormGroup {
 
-//    @FXML LTBForm mainClass
-    @FXML LTBForm fileName
-    @FXML LTBForm outPath
+    private LTBForm fileName
+    private LTBForm outPath
 
-    @FXML CBForm player
+    private CBForm player
 
-    @FXML CTBForm rsl
-    @FXML CTBForm locale
-    @FXML CTBForm exclude
-    @FXML CTBForm interrupt
+    private CTBForm rsl
+    private CTBForm locale
+    private CTBForm exclude
+    private CTBForm interrupt
 
-    BuildModel model = ModelStorage.instance.project.projectBuildSettings.buildModel
-    SDKModel sdkModel = ModelStorage.instance.project.projectBuildSettings.sdkModel
+    private BuildModel model = ModelStorage.instance.project.projectBuildSettings.buildModel
+    private SDKModel sdkModel = ModelStorage.instance.project.projectBuildSettings.sdkModel
 
-    @Override
-    void initialize(URL url, ResourceBundle resourceBundle) {
-//        mainClass.extensionFilters.addAll(new FileChooser.ExtensionFilter("AS", "*.as"), new FileChooser.ExtensionFilter("MXML", "*.mxml"))
+    BuildSettingsForm() {
+        fileName = new LTBForm(text: "Output file name:", type: FormType.TEXT_FIELD)
+        outPath = new LTBForm(text: "Output path:", type: FormType.BUTTON, browseType: BrowseType.DIRECTORY)
+
+        player = new CBForm()
+
+        rsl = new CTBForm(text: "Use Framework as Runtime Shared Library (RSL)", type: FormType.SIMPLE)
+        locale = new CTBForm(text: "Non-default locale settings", type: FormType.TEXT_FIELD)
+        exclude = new CTBForm(text: "Exclude unused code from incremental compilation linking", type: FormType.SIMPLE)
+        interrupt = new CTBForm(text: "Interrupt compilation by timeout (seconds)", type: FormType.TEXT_FIELD)
+
+        children.addAll(fileName, outPath, player, rsl, locale, exclude, interrupt)
+
+        init()
+    }
+
+    void init() {
 
         player.errorLabel.visible = false
 
@@ -122,7 +132,6 @@ class BuildSettingsFormController implements Initializable {
     }
 
     void bindModel() {
-//        mainClass.textField.textProperty().bindBidirectional(model.mainClass())
         fileName.textField.textProperty().bindBidirectional(model.outputFileName())
         outPath.textField.textProperty().bindBidirectional(model.outputPath())
         player.checkBox.selectedProperty().bindBidirectional(model.useMaxVersion())

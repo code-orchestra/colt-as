@@ -2,17 +2,11 @@ package codeOrchestra.colt.as.ui.settingsForm
 
 import codeOrchestra.colt.as.model.ModelStorage
 import javafx.animation.KeyFrame
-import javafx.animation.KeyValue
 import javafx.animation.Timeline
-import javafx.application.Platform
-import javafx.beans.InvalidationListener
-import javafx.beans.value.ChangeListener
-import javafx.beans.value.ObservableValue
 import javafx.event.EventHandler
 import javafx.geometry.Bounds
 import javafx.scene.Node as FXNode
 import javafx.scene.control.ScrollPane
-import javafx.scene.layout.VBox
 import javafx.util.Duration
 
 /**
@@ -27,10 +21,9 @@ class AsSettingsFormValidator {
     }
 
     void validateForSDKPath() {
-        scrollTo(form.sdkSettings)
-//        if (!ModelStorage.instance.project.projectBuildSettings.sdkModel.isValidFlexSDK) {
-//            scrollTo(form.sdkSettings)
-//        }
+        if (!ModelStorage.instance.project.projectBuildSettings.sdkModel.isValidFlexSDK) {
+            scrollTo(form.sdkSettings)
+        }
     }
 
     private scrollTo(FXNode node) {

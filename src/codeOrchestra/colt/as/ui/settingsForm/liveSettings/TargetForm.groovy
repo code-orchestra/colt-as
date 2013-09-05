@@ -7,36 +7,47 @@ import codeOrchestra.colt.as.model.AsProjectBuildSettings
 import codeOrchestra.colt.as.model.ModelStorage
 import codeOrchestra.colt.as.model.beans.RunTargetModel
 import codeOrchestra.colt.as.run.Target
+import codeOrchestra.colt.as.run.indexhtml.IndexHTMLGenerator
+import codeOrchestra.colt.core.ui.components.inputForms.FormType
 import codeOrchestra.colt.core.ui.components.inputForms.RTBForm
+import codeOrchestra.colt.core.ui.components.inputForms.group.FormGroup
 import javafx.beans.property.StringProperty
 import javafx.beans.value.ChangeListener
 import javafx.event.EventHandler
-import javafx.fxml.FXML
-import javafx.fxml.FXMLLoader
-import javafx.fxml.Initializable
 import javafx.scene.Scene
 import javafx.scene.control.Toggle
 import javafx.scene.control.ToggleGroup
 import javafx.scene.layout.VBox
 import javafx.stage.Modality
 import javafx.stage.Stage
-import codeOrchestra.colt.as.run.indexhtml.IndexHTMLGenerator
 
 /**
  * @author Dima Kruk
  */
-class TargetFormController implements Initializable {
+class TargetForm extends FormGroup {
 
-    ToggleGroup target
-    @FXML RTBForm swf
-    @FXML RTBForm http
-    @FXML RTBForm ios
-    @FXML RTBForm android
+    private ToggleGroup target
+    private RTBForm swf
+    private RTBForm http
+    private RTBForm ios
+    private RTBForm android
 
     private RunTargetModel model = ModelStorage.instance.project.projectBuildSettings.runTargetModel
 
-    @Override
-    void initialize(URL url, ResourceBundle resourceBundle) {
+    TargetForm() {
+        title = "Target"
+
+        swf = new RTBForm(text: "Compiled SWF")
+        http = new RTBForm(text: "HTTP-shared to local network:", type: FormType.BUTTON, buttonText: "Generate index.html")
+        ios = new RTBForm(text: "AIR (iOS):", type: FormType.BUTTON, buttonText: "Generate script")
+        android = new RTBForm(text: "AIR (Android):", type: FormType.BUTTON, buttonText: "Generate script")
+
+        children.addAll(swf, http, ios, android)
+
+        init()
+    }
+
+    void init() {
         target = new ToggleGroup()
         target.toggles.addAll(swf.radioButton, http.radioButton, ios.radioButton, android.radioButton)
 

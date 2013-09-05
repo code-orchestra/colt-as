@@ -1,12 +1,20 @@
 package codeOrchestra.colt.as.ui.settingsForm
 
+import codeOrchestra.colt.as.ui.settingsForm.compilerSettings.BuildSettingsForm
+import codeOrchestra.colt.as.ui.settingsForm.compilerSettings.CompilerSettingsForm
+import codeOrchestra.colt.as.ui.settingsForm.compilerSettings.ProductionBuildForm
+import codeOrchestra.colt.as.ui.settingsForm.compilerSettings.SDKSettingsForm
+import codeOrchestra.colt.as.ui.settingsForm.liveSettings.LauncherForm
+import codeOrchestra.colt.as.ui.settingsForm.liveSettings.LiveSettingsForm
+import codeOrchestra.colt.as.ui.settingsForm.liveSettings.SettingsForm
+import codeOrchestra.colt.as.ui.settingsForm.liveSettings.TargetForm
+import codeOrchestra.colt.as.ui.settingsForm.projectPaths.ProjectPathsForm
+import codeOrchestra.colt.as.ui.settingsForm.projectPaths.TemplateForm
 import codeOrchestra.colt.core.tracker.GAController
 import codeOrchestra.colt.core.ui.components.advancedSeparator.AdvancedSeparator
 import javafx.event.EventHandler
-import javafx.fxml.FXMLLoader
 import javafx.geometry.Insets
 import javafx.geometry.Pos
-import javafx.scene.Node as FXNode
 import javafx.scene.control.Button
 import javafx.scene.control.ScrollPane
 import javafx.scene.layout.VBox
@@ -20,7 +28,7 @@ class AsSettingsForm extends ScrollPane{
     EventHandler saveRunAction
 
     AdvancedSeparator separator
-    FXNode sdkSettings
+    SDKSettingsForm sdkSettings
 
     AsSettingsForm() {
 
@@ -32,7 +40,7 @@ class AsSettingsForm extends ScrollPane{
         vBox.alignment = Pos.TOP_CENTER
 
         //paths
-        VBox projectPaths = FXMLLoader.load(getClass().getResource("projectPaths/projectPaths_form.fxml"))
+        ProjectPathsForm projectPaths = new ProjectPathsForm()
         projectPaths.maxWidth = 640.0
         vBox.children.add(projectPaths)
         //paths
@@ -49,35 +57,35 @@ class AsSettingsForm extends ScrollPane{
         separator.content = advancedVBox
         vBox.children.add(advancedVBox)
 
-        FXNode template = FXMLLoader.load(getClass().getResource("projectPaths/template_form.fxml"))
+        TemplateForm template = new TemplateForm()
         template.styleClass.remove("fieldset")
         advancedVBox.children.add(template)
         //liveSettings
-        FXNode target = FXMLLoader.load(getClass().getResource("liveSettings/target_form.fxml"))
+        TargetForm target = new TargetForm()
         advancedVBox.children.add(target)
 
 
-        FXNode launcher = FXMLLoader.load(getClass().getResource("liveSettings/launcher_form.fxml"))
+        LauncherForm launcher = new LauncherForm()
         advancedVBox.children.add(launcher)
 
-        FXNode liveSettings = FXMLLoader.load(getClass().getResource("liveSettings/liveSettings_form.fxml"))
+        LiveSettingsForm liveSettings = new LiveSettingsForm()
         advancedVBox.children.add(liveSettings)
 
-        FXNode lSettings = FXMLLoader.load(getClass().getResource("liveSettings/settings_form.fxml"))
+        SettingsForm lSettings = new SettingsForm()
         advancedVBox.children.add(lSettings)
         //liveSettings
 
         //compilerSettings
-        sdkSettings = FXMLLoader.load(getClass().getResource("compilerSettings/sdkSettings_form.fxml"))
+        sdkSettings = new SDKSettingsForm()
         advancedVBox.children.add(sdkSettings)
 
-        FXNode buildSettings = FXMLLoader.load(getClass().getResource("compilerSettings/buildSettings_form.fxml"))
+        BuildSettingsForm buildSettings = new BuildSettingsForm()
         advancedVBox.children.add(buildSettings)
 
-        FXNode productionBuild = FXMLLoader.load(getClass().getResource("compilerSettings/productionBuild_form.fxml"))
+        ProductionBuildForm productionBuild = new ProductionBuildForm()
         advancedVBox.children.add(productionBuild)
 
-        FXNode compilerSettings = FXMLLoader.load(getClass().getResource("compilerSettings/compilerSettings_form.fxml"))
+        CompilerSettingsForm compilerSettings = new CompilerSettingsForm()
         advancedVBox.children.add(compilerSettings)
         //compilerSettings
 

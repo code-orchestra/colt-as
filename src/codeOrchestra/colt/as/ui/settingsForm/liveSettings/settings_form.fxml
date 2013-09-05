@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-<?import codeOrchestra.colt.core.ui.components.inputForms.*?>
-<?import codeOrchestra.colt.core.ui.components.inputForms.group.FormGroup?>
-
-<FormGroup fx:controller="codeOrchestra.colt.as.ui.settingsForm.liveSettings.SettingsFormController" xmlns:fx="http://javafx.com/fxml">
-  <CTBForm fx:id="clearLog" text="Clear Messages Log on Session Start" formType="SIMPLE" />
-  <CTBForm fx:id="pingTimeout" text="Disconnect on ping timeout" formType="SIMPLE" />
-</FormGroup>
