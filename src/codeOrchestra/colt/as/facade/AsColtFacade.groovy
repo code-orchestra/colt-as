@@ -1,5 +1,8 @@
 package codeOrchestra.colt.as.facade
 
+import codeOrchestra.colt.as.ASLiveCodingManager
+import codeOrchestra.colt.as.controller.ColtAsController
+import codeOrchestra.colt.core.annotation.Service
 import codeOrchestra.colt.core.facade.ColtFacade
 
 /**
@@ -7,14 +10,20 @@ import codeOrchestra.colt.core.facade.ColtFacade
  */
 class AsColtFacade implements ColtFacade {
 
+    @Service
+    ColtAsController controller
+
+    @Service
+    ASLiveCodingManager liveCodingManager
+
     @Override
     void runSession() {
-        // TODO: implement
+        controller.startBaseCompilation()
     }
 
     @Override
     void stopSession() {
-        // TODO: implement
+        liveCodingManager.getCurrentConnections().each { liveCodingManager.stopSession(it) }
     }
 
     @Override
@@ -24,22 +33,23 @@ class AsColtFacade implements ColtFacade {
 
     @Override
     void restartSession() {
-        // TODO: implement
+        stopSession()
+        runSession()
     }
 
     @Override
     void openNewConnection() {
-        // TODO: implement
+        controller.launch()
     }
 
     @Override
     void closeAllConnections() {
-        // TODO: implement
+        stopSession()
     }
 
     @Override
     void runProductionBuild() {
-        // TODO: implement
+        controller.startProductionCompilation()
     }
 
     @Override
