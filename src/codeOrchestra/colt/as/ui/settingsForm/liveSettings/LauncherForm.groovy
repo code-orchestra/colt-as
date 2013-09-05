@@ -4,6 +4,7 @@ import codeOrchestra.colt.as.model.ModelStorage
 import codeOrchestra.colt.as.model.beans.LauncherModel
 import codeOrchestra.colt.as.run.LauncherType
 import codeOrchestra.colt.as.ui.settingsForm.IFormValidated
+import codeOrchestra.colt.as.ui.settingsForm.ValidatedForm
 import codeOrchestra.colt.core.ui.components.inputForms.FormType
 import codeOrchestra.colt.core.ui.components.inputForms.RTBForm
 import codeOrchestra.colt.core.ui.components.inputForms.group.FormGroup
@@ -19,7 +20,7 @@ import javafx.stage.FileChooser
 /**
  * @author Dima Kruk
  */
-class LauncherForm extends FormGroup implements IFormValidated {
+class LauncherForm extends ValidatedForm {
 
     private ToggleGroup launcher
 
@@ -79,28 +80,6 @@ class LauncherForm extends FormGroup implements IFormValidated {
 
     @Override
     Parent validated() {
-        player.textField.styleClass.remove("error-input")
-        if(player.radioButton.selected) {
-            return validateField(player.textField)
-        }
-        return null
-    }
-
-    private static Parent validateField(TextField field) {
-        boolean validate
-
-        if (!field.text.isEmpty()) {
-            File file = new File(field.text)
-            validate = file.exists() && file.isDirectory()
-        } else {
-            validate = true
-        }
-
-        if (!validate) {
-            field.styleClass.add("error-input")
-            return field
-        }
-
-        return null
+        return validateIsDirectory(player.textField)
     }
 }

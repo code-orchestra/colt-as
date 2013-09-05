@@ -10,6 +10,7 @@ import codeOrchestra.colt.as.run.Target
 import codeOrchestra.colt.as.run.indexhtml.IndexHTMLGenerator
 import codeOrchestra.colt.as.ui.settingsForm.AsSettingsForm
 import codeOrchestra.colt.as.ui.settingsForm.IFormValidated
+import codeOrchestra.colt.as.ui.settingsForm.ValidatedForm
 import codeOrchestra.colt.core.ui.components.inputForms.FormType
 import codeOrchestra.colt.core.ui.components.inputForms.RTBForm
 import codeOrchestra.colt.core.ui.components.inputForms.group.FormGroup
@@ -29,7 +30,7 @@ import javafx.stage.Stage
 /**
  * @author Dima Kruk
  */
-class TargetForm extends FormGroup implements IFormValidated {
+class TargetForm extends ValidatedForm {
 
     AsSettingsForm ownerForm
 
@@ -161,34 +162,16 @@ class TargetForm extends FormGroup implements IFormValidated {
         Target targetType = Target.valueOf(model.target)
         switch (targetType){
             case codeOrchestra.colt.as.run.Target.WEB_ADDRESS:
-                return validateField(http.textField)
+                return validateIsFile(http.textField)
                 break
             case codeOrchestra.colt.as.run.Target.AIR_IOS:
-                return validateField(ios.textField)
+                return validateIsFile(ios.textField)
                 break
             case codeOrchestra.colt.as.run.Target.AIR_ANDROID:
-                return validateField(android.textField)
+                return validateIsFile(android.textField)
                 break
             default:
                 return null
         }
-    }
-
-    private static Parent validateField(TextField field) {
-        boolean validate
-
-        if (!field.text.isEmpty()) {
-            File file = new File(field.text)
-            validate = file.exists() && file.isFile()
-        } else {
-            validate = true
-        }
-
-        if (!validate) {
-            field.styleClass.add("error-input")
-            return field
-        }
-
-        return null
     }
 }

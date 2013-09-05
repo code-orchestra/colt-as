@@ -5,6 +5,7 @@ import codeOrchestra.colt.as.flexsdk.FlexSDKNotPresentException
 import codeOrchestra.colt.as.model.ModelStorage
 import codeOrchestra.colt.as.model.beans.SDKModel
 import codeOrchestra.colt.as.ui.settingsForm.IFormValidated
+import codeOrchestra.colt.as.ui.settingsForm.ValidatedForm
 import codeOrchestra.colt.core.ui.components.inputForms.BrowseType
 import codeOrchestra.colt.core.ui.components.inputForms.CTBForm
 import codeOrchestra.colt.core.ui.components.inputForms.FormType
@@ -21,7 +22,7 @@ import javafx.stage.FileChooser
 /**
  * @author Dima Kruk
  */
-class SDKSettingsForm extends FormGroup implements IFormValidated {
+class SDKSettingsForm extends ValidatedForm{
 
     private LTBForm sdkPath
     private CTBForm defConf
@@ -64,18 +65,18 @@ class SDKSettingsForm extends FormGroup implements IFormValidated {
         sdkPath.textField.textProperty().bindBidirectional(model.flexSDKPath())
         defConf.checkBox.selectedProperty().bindBidirectional(model.useFlexConfig())
         customConf.checkBox.selectedProperty().addListener({ ObservableValue<? extends Boolean> observableValue, Boolean t, Boolean t1 ->
-            validateField(customConf.textField)
+            validateIsFile(customConf.textField)
         } as ChangeListener)
         customConf.checkBox.selectedProperty().bindBidirectional(model.useCustomConfig())
         customConf.textField.textProperty().addListener({ javafx.beans.Observable observable ->
-            validateField(customConf.textField)
+            validateIsFile(customConf.textField)
         } as InvalidationListener)
         customConf.textField.textProperty().bindBidirectional(model.customConfigPath())
     }
 
     @Override
     Parent validated() {
-        Parent result = validateField(customConf.textField)
+        Parent result = validateIsFile(customConf.textField)
 
         if (model.isValidFlexSDK) {
             sdkPath.textField.styleClass.remove("error-input")
@@ -86,26 +87,5 @@ class SDKSettingsForm extends FormGroup implements IFormValidated {
             result = sdkPath.textField
         }
         return result
-    }
-
-    private static Parent validateField(TextField field) {
-        boolean validate
-        field.styleClass.remove("error-input")
-        if (field.disable) {
-            return null
-        }
-        if (!field.text.isEmpty()) {
-            File file = new File(field.text)
-            validate = file.exists() && file.isFile()
-        } else {
-            validate = true
-        }
-
-        if (!validate) {
-            field.styleClass.add("error-input")
-            return field
-        }
-
-        return null
     }
 }

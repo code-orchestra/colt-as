@@ -4,9 +4,8 @@ import codeOrchestra.colt.as.flexsdk.FlexSDKManager
 import codeOrchestra.colt.as.model.ModelStorage
 import codeOrchestra.colt.as.model.beans.BuildModel
 import codeOrchestra.colt.as.model.beans.SDKModel
-import codeOrchestra.colt.as.ui.settingsForm.IFormValidated
+import codeOrchestra.colt.as.ui.settingsForm.ValidatedForm
 import codeOrchestra.colt.core.ui.components.inputForms.*
-import codeOrchestra.colt.core.ui.components.inputForms.group.FormGroup
 import javafx.beans.InvalidationListener
 import javafx.beans.value.ChangeListener
 import javafx.beans.value.ObservableValue
@@ -18,7 +17,7 @@ import javafx.util.converter.IntegerStringConverter
 /**
  * @author Dima Kruk
  */
-class BuildSettingsForm extends FormGroup implements IFormValidated {
+class BuildSettingsForm extends ValidatedForm {
 
     private LTBForm fileName
     private LTBForm outPath
@@ -137,12 +136,12 @@ class BuildSettingsForm extends FormGroup implements IFormValidated {
 
     void bindModel() {
         fileName.textField.textProperty().addListener({ javafx.beans.Observable observable ->
-            validateEmptyField(fileName.textField)
+            validateIsNotEmpty(fileName.textField)
         } as InvalidationListener)
         fileName.textField.textProperty().bindBidirectional(model.outputFileName())
 
         outPath.textField.textProperty().addListener({ javafx.beans.Observable observable ->
-            validateField(outPath.textField)
+            validateIsDirectory(outPath.textField)
         } as InvalidationListener)
         outPath.textField.textProperty().bindBidirectional(model.outputPath())
 
@@ -168,41 +167,12 @@ class BuildSettingsForm extends FormGroup implements IFormValidated {
 
     @Override
     Parent validated() {
-        Parent result = validateField(outPath.textField)
+        Parent result = validateIsDirectory(outPath.textField)
 
-        Parent field = validateEmptyField(fileName.textField)
+        Parent field = validateIsNotEmpty(fileName.textField)
         if (field) {
             result = field
         }
         return result
-    }
-
-    private static Parent validateEmptyField(TextField field) {
-        field.styleClass.remove("error-input")
-        if (field.text.isEmpty()) {
-            field.styleClass.add("error-input")
-            return field
-        }
-
-        return null
-    }
-
-
-    private static Parent validateField(TextField field) {
-        boolean validate
-        field.styleClass.remove("error-input")
-        if (!field.text.isEmpty()) {
-            File file = new File(field.text)
-            validate = file.exists() && file.isDirectory()
-        } else {
-            validate = true
-        }
-
-        if (!validate) {
-            field.styleClass.add("error-input")
-            return field
-        }
-
-        return null
     }
 }
