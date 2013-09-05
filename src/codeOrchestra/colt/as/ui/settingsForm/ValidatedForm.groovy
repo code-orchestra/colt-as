@@ -11,7 +11,7 @@ abstract class ValidatedForm extends FormGroup implements IFormValidated {
 
     protected static Parent validateIsNotEmpty(TextField field) {
         field.styleClass.remove("error-input")
-        if (field.text.isEmpty()) {
+        if (field.text != null && field.text?.isEmpty()) {
             field.styleClass.add("error-input")
             return field
         }
@@ -21,7 +21,7 @@ abstract class ValidatedForm extends FormGroup implements IFormValidated {
     protected static Parent validateIsFile(TextField field) {
         boolean validate
         field.styleClass.remove("error-input")
-        if (!field.disable && !field.text.isEmpty()) {
+        if (!field.disable && field.text != null && !field.text?.isEmpty()) {
             File file = new File(field.text)
             validate = file.exists() && file.isFile()
         } else {
@@ -39,7 +39,7 @@ abstract class ValidatedForm extends FormGroup implements IFormValidated {
     protected static Parent validateIsDirectory(TextField field) {
         boolean validate
         field.styleClass.remove("error-input")
-        if (!field.disable && !field.text.isEmpty()) {
+        if (!field.disable && field.text != null && !field.text.isEmpty()) {
             File file = new File(field.text)
             validate = file.exists() && file.isDirectory()
         } else {
