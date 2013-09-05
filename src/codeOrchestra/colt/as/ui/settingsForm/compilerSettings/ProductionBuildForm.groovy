@@ -18,8 +18,8 @@ class ProductionBuildForm extends FormGroup {
     ProductionBuildForm() {
         title = "Production build settings"
 
-        compression = new CTBForm(text: "SWF compression")
-        optimization = new CTBForm(text: "Compiling optimization")
+        compression = new CTBForm(title: "SWF compression")
+        optimization = new CTBForm(title: "Compiling optimization")
 
         children.addAll(compression, optimization)
 

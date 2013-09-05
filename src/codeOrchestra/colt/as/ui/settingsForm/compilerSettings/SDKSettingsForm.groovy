@@ -32,8 +32,8 @@ class SDKSettingsForm extends ValidatedForm{
 
     SDKSettingsForm() {
         sdkPath = new LTBForm(title: "Flex SDK Path:", type: FormType.BUTTON, browseType: BrowseType.DIRECTORY)
-        defConf = new CTBForm(text: "Use default SDK compiler configuration file", type: FormType.SIMPLE)
-        customConf = new CTBForm(text: "Use custom compiler configuration file", type: FormType.BUTTON)
+        defConf = new CTBForm(title: "Use default SDK compiler configuration file", type: FormType.SIMPLE)
+        customConf = new CTBForm(title: "Use custom compiler configuration file", type: FormType.BUTTON)
 
         children.addAll(sdkPath, defConf, customConf)
 

@@ -45,10 +45,10 @@ class TargetForm extends ValidatedForm {
     TargetForm() {
         title = "Target"
 
-        swf = new RTBForm(text: "Compiled SWF")
-        http = new RTBForm(text: "HTTP-shared to local network:", type: FormType.BUTTON, buttonText: "Generate index.html")
-        ios = new RTBForm(text: "AIR (iOS):", type: FormType.BUTTON, buttonText: "Generate script")
-        android = new RTBForm(text: "AIR (Android):", type: FormType.BUTTON, buttonText: "Generate script")
+        swf = new RTBForm(title: "Compiled SWF")
+        http = new RTBForm(title: "HTTP-shared to local network:", type: FormType.BUTTON, buttonText: "Generate index.html")
+        ios = new RTBForm(title: "AIR (iOS):", type: FormType.BUTTON, buttonText: "Generate script")
+        android = new RTBForm(title: "AIR (Android):", type: FormType.BUTTON, buttonText: "Generate script")
 
         children.addAll(swf, http, ios, android)
 

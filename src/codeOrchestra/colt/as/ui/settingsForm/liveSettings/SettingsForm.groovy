@@ -16,8 +16,8 @@ class SettingsForm extends FormGroup {
     private SettingsModel model = ModelStorage.instance.project.projectLiveSettings.settingsModel;
 
     SettingsForm() {
-        clearLog = new CTBForm(text: "Clear Messages Log on Session Start")
-        pingTimeout = new CTBForm(text: "Disconnect on ping timeout")
+        clearLog = new CTBForm(title: "Clear Messages Log on Session Start")
+        pingTimeout = new CTBForm(title: "Disconnect on ping timeout")
 
         children.addAll(clearLog, pingTimeout)
 

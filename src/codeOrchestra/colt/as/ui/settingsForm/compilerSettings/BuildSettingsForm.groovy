@@ -38,10 +38,10 @@ class BuildSettingsForm extends ValidatedForm {
 
         player = new CBForm()
 
-        rsl = new CTBForm(text: "Use Framework as Runtime Shared Library (RSL)", type: FormType.SIMPLE)
-        locale = new CTBForm(text: "Non-default locale settings", type: FormType.TEXT_FIELD)
-        exclude = new CTBForm(text: "Exclude unused code from incremental compilation linking", type: FormType.SIMPLE)
-        interrupt = new CTBForm(text: "Interrupt compilation by timeout (seconds)", type: FormType.TEXT_FIELD)
+        rsl = new CTBForm(title: "Use Framework as Runtime Shared Library (RSL)", type: FormType.SIMPLE)
+        locale = new CTBForm(title: "Non-default locale settings", type: FormType.TEXT_FIELD)
+        exclude = new CTBForm(title: "Exclude unused code from incremental compilation linking", type: FormType.SIMPLE)
+        interrupt = new CTBForm(title: "Interrupt compilation by timeout (seconds)", type: FormType.TEXT_FIELD)
 
         children.addAll(fileName, outPath, player, rsl, locale, exclude, interrupt)
 

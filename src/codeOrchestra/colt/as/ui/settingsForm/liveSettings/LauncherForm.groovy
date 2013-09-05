@@ -32,8 +32,8 @@ class LauncherForm extends ValidatedForm {
     LauncherForm() {
         title = "Launcher"
 
-        defaultPlayer = new RTBForm(text: "System default application", type: FormType.SIMPLE)
-        player = new RTBForm(text: "Flash Player", type: FormType.BUTTON)
+        defaultPlayer = new RTBForm(title: "System default application", type: FormType.SIMPLE)
+        player = new RTBForm(title: "Flash Player", type: FormType.BUTTON)
 
         children.addAll(defaultPlayer, player)
 

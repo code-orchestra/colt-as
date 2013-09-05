@@ -37,11 +37,11 @@ class LiveSettingsForm extends FormGroup {
         title = "Live Settings"
 
         LTBForm label = new LTBForm(title: "Live Methods:", type: FormType.SIMPLE)
-        annotated = new RTBForm(text: "Annotated with [Live]", type: FormType.SIMPLE)
-        all = new RTBForm(text: "All the methods", type: FormType.SIMPLE)
+        annotated = new RTBForm(title: "Annotated with [Live]", type: FormType.SIMPLE)
+        all = new RTBForm(title: "All the methods", type: FormType.SIMPLE)
 
-        paused = new CTBForm(text: "Start Session Paused", type: FormType.SIMPLE, disable: true)
-        gsLive = new CTBForm(text: "Make Getters/Setters Live", type: FormType.SIMPLE)
+        paused = new CTBForm(title: "Start Session Paused", type: FormType.SIMPLE, disable: true)
+        gsLive = new CTBForm(title: "Make Getters/Setters Live", type: FormType.SIMPLE)
 
         maxLoop = new LTBForm(title: "Max Loop Iterations:")
 
