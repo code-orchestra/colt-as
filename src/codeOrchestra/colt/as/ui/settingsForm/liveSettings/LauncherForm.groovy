@@ -72,10 +72,10 @@ class LauncherForm extends ValidatedForm {
             }
         } as ChangeListener)
 
-        player.textField.textProperty().addListener({ javafx.beans.Observable observable ->
+        player.text().addListener({ javafx.beans.Observable observable ->
             validated()
         } as InvalidationListener)
-        player.textField.textProperty().bindBidirectional(model.flashPlayerPath())
+        player.text().bindBidirectional(model.flashPlayerPath())
     }
 
     @Override

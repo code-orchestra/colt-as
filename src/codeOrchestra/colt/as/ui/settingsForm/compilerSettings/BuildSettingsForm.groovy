@@ -133,15 +133,15 @@ class BuildSettingsForm extends ValidatedForm {
     }
 
     void bindModel() {
-        fileName.textField.textProperty().addListener({ javafx.beans.Observable observable ->
+        fileName.text().addListener({ javafx.beans.Observable observable ->
             validateIsNotEmpty(fileName.textField)
         } as InvalidationListener)
-        fileName.textField.textProperty().bindBidirectional(model.outputFileName())
+        fileName.text().bindBidirectional(model.outputFileName())
 
-        outPath.textField.textProperty().addListener({ javafx.beans.Observable observable ->
+        outPath.text().addListener({ javafx.beans.Observable observable ->
             validateIsDirectory(outPath.textField)
         } as InvalidationListener)
-        outPath.textField.textProperty().bindBidirectional(model.outputPath())
+        outPath.text().bindBidirectional(model.outputPath())
 
         player.checkBox.selectedProperty().bindBidirectional(model.useMaxVersion())
 

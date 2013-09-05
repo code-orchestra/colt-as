@@ -29,10 +29,10 @@ class TemplateForm extends ValidatedForm {
     }
 
     void init() {
-        template.textField.textProperty().addListener({ ObservableValue<? extends String> observableValue, String t, String t1 ->
+        template.text().addListener({ ObservableValue<? extends String> observableValue, String t, String t1 ->
             validated()
         } as ChangeListener)
-        template.textField.textProperty().bindBidirectional(model.htmlTemplatePath())
+        template.text().bindBidirectional(model.htmlTemplatePath())
     }
 
     @Override

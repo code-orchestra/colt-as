@@ -68,10 +68,10 @@ class SDKSettingsForm extends ValidatedForm{
             validateIsFile(customConf.textField)
         } as ChangeListener)
         customConf.checkBox.selectedProperty().bindBidirectional(model.useCustomConfig())
-        customConf.textField.textProperty().addListener({ javafx.beans.Observable observable ->
+        customConf.text().addListener({ javafx.beans.Observable observable ->
             validateIsFile(customConf.textField)
         } as InvalidationListener)
-        customConf.textField.textProperty().bindBidirectional(model.customConfigPath())
+        customConf.text().bindBidirectional(model.customConfigPath())
     }
 
     @Override

@@ -73,19 +73,16 @@ class ProjectPathsForm extends VBox implements IFormValidated {
     Parent validated() {
         boolean validate = false
 
-        TextField field = mainClass.textField
-        if (field.text) {
-            File file = new File(field.text)
+        if (mainClass.text) {
+            File file = new File(mainClass.text)
             validate = file.exists() && file.isFile()
         }
         if (validate) {
-            field.styleClass.remove("error-input")
+            mainClass.error = false
             return null
         } else {
-            if (!field.styleClass.contains("error-input")) {
-                field.styleClass.add("error-input")
-            }
-            return field
+            mainClass.error = true
+            return mainClass
         }
     }
 }

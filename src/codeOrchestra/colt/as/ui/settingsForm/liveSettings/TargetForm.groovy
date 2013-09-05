@@ -136,20 +136,20 @@ class TargetForm extends ValidatedForm {
             }
         } as ChangeListener)
 
-        http.textField.textProperty().addListener({ javafx.beans.Observable observable ->
+        http.text().addListener({ javafx.beans.Observable observable ->
             validated()
         } as InvalidationListener)
-        http.textField.textProperty().bindBidirectional(model.httpIndex())
+        http.text().bindBidirectional(model.httpIndex())
 
-        ios.textField.textProperty().addListener({ javafx.beans.Observable observable ->
+        ios.text().addListener({ javafx.beans.Observable observable ->
             validated()
         } as InvalidationListener)
-        ios.textField.textProperty().bindBidirectional(model.iosScript())
+        ios.text().bindBidirectional(model.iosScript())
 
-        android.textField.textProperty().addListener({ javafx.beans.Observable observable ->
+        android.text().addListener({ javafx.beans.Observable observable ->
             validated()
         } as InvalidationListener)
-        android.textField.textProperty().bindBidirectional(model.androidScript())
+        android.text().bindBidirectional(model.androidScript())
 
     }
 
