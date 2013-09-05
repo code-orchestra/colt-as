@@ -31,7 +31,7 @@ class ProductionBuildForm extends FormGroup {
     }
 
     void bindModel() {
-        compression.checkBox.selectedProperty().bindBidirectional(model.compression())
-        optimization.checkBox.selectedProperty().bindBidirectional(model.optimization())
+        compression.selected().bindBidirectional(model.compression())
+        optimization.selected().bindBidirectional(model.optimization())
     }
 }

@@ -63,11 +63,11 @@ class SDKSettingsForm extends ValidatedForm{
 
     void bindModel() {
         sdkPath.text().bindBidirectional(model.flexSDKPath())
-        defConf.checkBox.selectedProperty().bindBidirectional(model.useFlexConfig())
-        customConf.checkBox.selectedProperty().addListener({ ObservableValue<? extends Boolean> observableValue, Boolean t, Boolean t1 ->
+        defConf.selected().bindBidirectional(model.useFlexConfig())
+        customConf.selected().addListener({ ObservableValue<? extends Boolean> observableValue, Boolean t, Boolean t1 ->
             validateIsFile(customConf.textField)
         } as ChangeListener)
-        customConf.checkBox.selectedProperty().bindBidirectional(model.useCustomConfig())
+        customConf.selected().bindBidirectional(model.useCustomConfig())
         customConf.text().addListener({ javafx.beans.Observable observable ->
             validateIsFile(customConf.textField)
         } as InvalidationListener)

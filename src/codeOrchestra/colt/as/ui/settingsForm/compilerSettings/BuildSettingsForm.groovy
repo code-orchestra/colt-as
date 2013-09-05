@@ -143,18 +143,18 @@ class BuildSettingsForm extends ValidatedForm {
         } as InvalidationListener)
         outPath.text().bindBidirectional(model.outputPath())
 
-        player.checkBox.selectedProperty().bindBidirectional(model.useMaxVersion())
+        player.selected().bindBidirectional(model.useMaxVersion())
 
         player.value().bindBidirectional(model.targetPlayerVersion())
 
-        rsl.checkBox.selectedProperty().bindBidirectional(model.rsl())
+        rsl.selected().bindBidirectional(model.rsl())
 
-        locale.checkBox.selectedProperty().bindBidirectional(model.nonDefaultLocale())
+        locale.selected().bindBidirectional(model.nonDefaultLocale())
         locale.text().bindBidirectional(model.localeSettings())
 
-        exclude.checkBox.selectedProperty().bindBidirectional(model.excludeDeadCode())
+        exclude.selected().bindBidirectional(model.excludeDeadCode())
 
-        interrupt.checkBox.selectedProperty().bindBidirectional(model.interrupt())
+        interrupt.selected().bindBidirectional(model.interrupt())
         interrupt.text().bindBidirectional(model.interruptValue(), new IntegerStringConverter() as StringConverter<Number>)
     }
 
