@@ -12,12 +12,18 @@ import codeOrchestra.colt.as.ui.settingsForm.projectPaths.ProjectPathsForm
 import codeOrchestra.colt.as.ui.settingsForm.projectPaths.TemplateForm
 import codeOrchestra.colt.core.tracker.GAController
 import codeOrchestra.colt.core.ui.components.advancedSeparator.AdvancedSeparator
+import javafx.animation.KeyFrame
+import javafx.animation.Timeline
 import javafx.event.EventHandler
+import javafx.geometry.Bounds
 import javafx.geometry.Insets
 import javafx.geometry.Pos
+import javafx.scene.Parent
 import javafx.scene.control.Button
 import javafx.scene.control.ScrollPane
+import javafx.scene.layout.Region
 import javafx.scene.layout.VBox
+import javafx.util.Duration
 
 /**
  * @author Dima Kruk
@@ -28,7 +34,8 @@ class AsSettingsForm extends ScrollPane{
     EventHandler saveRunAction
 
     AdvancedSeparator separator
-    SDKSettingsForm sdkSettings
+
+    List<IFormValidated> validatedForms
 
     AsSettingsForm() {
 
@@ -36,12 +43,15 @@ class AsSettingsForm extends ScrollPane{
 
         styleClass.add("scroll-pane-settings")
 
+        validatedForms = new ArrayList<>()
+
         VBox vBox = new VBox()
         vBox.alignment = Pos.TOP_CENTER
 
         //paths
         ProjectPathsForm projectPaths = new ProjectPathsForm()
         projectPaths.maxWidth = 640.0
+        validatedForms.add(projectPaths)
         vBox.children.add(projectPaths)
         //paths
 
@@ -59,13 +69,16 @@ class AsSettingsForm extends ScrollPane{
 
         TemplateForm template = new TemplateForm()
         template.styleClass.remove("fieldset")
+        validatedForms.add(template)
         advancedVBox.children.add(template)
         //liveSettings
         TargetForm target = new TargetForm()
+        validatedForms.add(target)
         advancedVBox.children.add(target)
 
 
         LauncherForm launcher = new LauncherForm()
+        validatedForms.add(launcher)
         advancedVBox.children.add(launcher)
 
         LiveSettingsForm liveSettings = new LiveSettingsForm()
@@ -76,10 +89,12 @@ class AsSettingsForm extends ScrollPane{
         //liveSettings
 
         //compilerSettings
-        sdkSettings = new SDKSettingsForm()
+        SDKSettingsForm sdkSettings = new SDKSettingsForm()
+        validatedForms.add(sdkSettings)
         advancedVBox.children.add(sdkSettings)
 
         BuildSettingsForm buildSettings = new BuildSettingsForm()
+        validatedForms.add(buildSettings)
         advancedVBox.children.add(buildSettings)
 
         ProductionBuildForm productionBuild = new ProductionBuildForm()
@@ -97,6 +112,38 @@ class AsSettingsForm extends ScrollPane{
 
     void setSaveRunAction(EventHandler saveRunAction) {
         this.saveRunAction = saveRunAction
-        saveAndRunButton.onAction = saveRunAction
+        saveAndRunButton.onAction = {
+            Parent invalidNode = null
+            validatedForms.each {
+                Parent node = it.validated()
+                if (node && invalidNode == null) {
+                    invalidNode = node
+                }
+            }
+            if (invalidNode != null) {
+                scrollTo(invalidNode)
+            } else {
+                this.saveRunAction.handle(it)
+            }
+        } as EventHandler
+    }
+
+    private scrollTo(Parent node) {
+        if (separator.close) {
+            separator.close = false
+            Timeline timeline = new Timeline(new KeyFrame(new Duration(50), {
+                scrollToNode(node)
+            } as EventHandler));
+            timeline.play();
+        } else {
+            scrollToNode(node)
+        }
+    }
+
+    private scrollToNode(Parent node) {
+        Bounds bounds = content.boundsInLocal
+        Bounds nodeBounds = content.sceneToLocal(node.localToScene(node.layoutBounds))
+
+        setVvalue(nodeBounds.minY/bounds.height)
     }
 }

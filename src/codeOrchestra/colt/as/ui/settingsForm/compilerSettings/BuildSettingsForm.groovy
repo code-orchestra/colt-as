@@ -4,17 +4,21 @@ import codeOrchestra.colt.as.flexsdk.FlexSDKManager
 import codeOrchestra.colt.as.model.ModelStorage
 import codeOrchestra.colt.as.model.beans.BuildModel
 import codeOrchestra.colt.as.model.beans.SDKModel
+import codeOrchestra.colt.as.ui.settingsForm.IFormValidated
 import codeOrchestra.colt.core.ui.components.inputForms.*
 import codeOrchestra.colt.core.ui.components.inputForms.group.FormGroup
+import javafx.beans.InvalidationListener
 import javafx.beans.value.ChangeListener
 import javafx.beans.value.ObservableValue
+import javafx.scene.Parent
+import javafx.scene.control.TextField
 import javafx.util.StringConverter
 import javafx.util.converter.IntegerStringConverter
 
 /**
  * @author Dima Kruk
  */
-class BuildSettingsForm extends FormGroup {
+class BuildSettingsForm extends FormGroup implements IFormValidated {
 
     private LTBForm fileName
     private LTBForm outPath
@@ -132,8 +136,16 @@ class BuildSettingsForm extends FormGroup {
     }
 
     void bindModel() {
+        fileName.textField.textProperty().addListener({ javafx.beans.Observable observable ->
+            validateEmptyField(fileName.textField)
+        } as InvalidationListener)
         fileName.textField.textProperty().bindBidirectional(model.outputFileName())
+
+        outPath.textField.textProperty().addListener({ javafx.beans.Observable observable ->
+            validateField(outPath.textField)
+        } as InvalidationListener)
         outPath.textField.textProperty().bindBidirectional(model.outputPath())
+
         player.checkBox.selectedProperty().bindBidirectional(model.useMaxVersion())
 
         player.choiceBox.valueProperty().bindBidirectional(model.targetPlayerVersion())
@@ -152,5 +164,45 @@ class BuildSettingsForm extends FormGroup {
     private void error(boolean b) {
         player.errorLabel.visible = b
         player.errorLabel.text = sdkModel.isValidFlexSDK ? "Incorrect player version specified" : "Incorrect Flex SDK path specified"
+    }
+
+    @Override
+    Parent validated() {
+        javafx.scene.Node result = validateField(outPath.textField)
+
+        javafx.scene.Node field = validateEmptyField(fileName.textField)
+        if (field) {
+            result = field
+        }
+        return result
+    }
+
+    private static javafx.scene.Node validateEmptyField(TextField field) {
+        field.styleClass.remove("error-input")
+        if (field.text.isEmpty()) {
+            field.styleClass.add("error-input")
+            return field
+        }
+
+        return null
+    }
+
+
+    private static javafx.scene.Node validateField(TextField field) {
+        boolean validate
+        field.styleClass.remove("error-input")
+        if (!field.text.isEmpty()) {
+            File file = new File(field.text)
+            validate = file.exists() && file.isDirectory()
+        } else {
+            validate = true
+        }
+
+        if (!validate) {
+            field.styleClass.add("error-input")
+            return field
+        }
+
+        return null
     }
 }

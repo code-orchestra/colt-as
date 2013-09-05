@@ -3,19 +3,22 @@ package codeOrchestra.colt.as.ui.settingsForm.projectPaths
 import codeOrchestra.colt.as.model.AsProjectPaths
 import codeOrchestra.colt.as.model.ModelStorage
 import codeOrchestra.colt.as.model.beans.BuildModel
+import codeOrchestra.colt.as.ui.settingsForm.IFormValidated
 import codeOrchestra.colt.core.ui.components.fileset.FilesetInput
 import codeOrchestra.colt.core.ui.components.inputForms.FormType
 import codeOrchestra.colt.core.ui.components.inputForms.LTBForm
 import javafx.beans.value.ChangeListener
 import javafx.beans.value.ObservableValue
 import javafx.geometry.Insets
+import javafx.scene.Parent
+import javafx.scene.control.TextField
 import javafx.scene.layout.VBox
 import javafx.stage.FileChooser
 
 /**
  * @author Dima Kruk
  */
-class ProjectPathsForm extends VBox {
+class ProjectPathsForm extends VBox implements IFormValidated {
     private FilesetInput sources
     private FilesetInput libraries
     private FilesetInput assets
@@ -52,6 +55,7 @@ class ProjectPathsForm extends VBox {
                     }
                 }
             }
+            validated()
         } as ChangeListener)
 
         bindModel()
@@ -63,5 +67,25 @@ class ProjectPathsForm extends VBox {
         sources.files().bindBidirectional(model.sources())
         libraries.files().bindBidirectional(model.libraries())
         assets.files().bindBidirectional(model.assets())
+    }
+
+    @Override
+    Parent validated() {
+        boolean validate = false
+
+        TextField field = mainClass.textField
+        if (field.text) {
+            File file = new File(field.text)
+            validate = file.exists() && file.isFile()
+        }
+        if (validate) {
+            field.styleClass.remove("error-input")
+            return null
+        } else {
+            if (!field.styleClass.contains("error-input")) {
+                field.styleClass.add("error-input")
+            }
+            return field
+        }
     }
 }

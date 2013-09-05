@@ -8,13 +8,17 @@ import codeOrchestra.colt.as.model.ModelStorage
 import codeOrchestra.colt.as.model.beans.RunTargetModel
 import codeOrchestra.colt.as.run.Target
 import codeOrchestra.colt.as.run.indexhtml.IndexHTMLGenerator
+import codeOrchestra.colt.as.ui.settingsForm.IFormValidated
 import codeOrchestra.colt.core.ui.components.inputForms.FormType
 import codeOrchestra.colt.core.ui.components.inputForms.RTBForm
 import codeOrchestra.colt.core.ui.components.inputForms.group.FormGroup
+import javafx.beans.InvalidationListener
 import javafx.beans.property.StringProperty
 import javafx.beans.value.ChangeListener
 import javafx.event.EventHandler
+import javafx.scene.Parent
 import javafx.scene.Scene
+import javafx.scene.control.TextField
 import javafx.scene.control.Toggle
 import javafx.scene.control.ToggleGroup
 import javafx.scene.layout.VBox
@@ -24,7 +28,7 @@ import javafx.stage.Stage
 /**
  * @author Dima Kruk
  */
-class TargetForm extends FormGroup {
+class TargetForm extends FormGroup implements IFormValidated {
 
     private ToggleGroup target
     private RTBForm swf
@@ -92,6 +96,7 @@ class TargetForm extends FormGroup {
     void activateTarget(String newVal) {
         Target targetType = Target.valueOf("" + newVal)
         target.toggles[targetType.ordinal()].selected = true
+        validated()
     }
 
     static boolean canShowDialog() {
@@ -127,8 +132,58 @@ class TargetForm extends FormGroup {
             }
         } as ChangeListener)
 
+        http.textField.textProperty().addListener({ javafx.beans.Observable observable ->
+            validated()
+        } as InvalidationListener)
         http.textField.textProperty().bindBidirectional(model.httpIndex())
+
+        ios.textField.textProperty().addListener({ javafx.beans.Observable observable ->
+            validated()
+        } as InvalidationListener)
         ios.textField.textProperty().bindBidirectional(model.iosScript())
+
+        android.textField.textProperty().addListener({ javafx.beans.Observable observable ->
+            validated()
+        } as InvalidationListener)
         android.textField.textProperty().bindBidirectional(model.androidScript())
+
+    }
+
+    @Override
+    Parent validated() {
+        http.textField.styleClass.remove("error-input")
+        ios.textField.styleClass.remove("error-input")
+        android.textField.styleClass.remove("error-input")
+
+        Target targetType = Target.valueOf(model.target)
+        switch (targetType){
+            case codeOrchestra.colt.as.run.Target.WEB_ADDRESS:
+                return validateField(http.textField)
+                break
+            case codeOrchestra.colt.as.run.Target.AIR_IOS:
+                return validateField(ios.textField)
+                break
+            case codeOrchestra.colt.as.run.Target.AIR_ANDROID:
+                return validateField(android.textField)
+                break
+        }
+    }
+
+    private static javafx.scene.Node validateField(TextField field) {
+        boolean validate
+
+        if (!field.text.isEmpty()) {
+            File file = new File(field.text)
+            validate = file.exists() && file.isFile()
+        } else {
+            validate = true
+        }
+
+        if (!validate) {
+            field.styleClass.add("error-input")
+            return field
+        }
+
+        return null
     }
 }
