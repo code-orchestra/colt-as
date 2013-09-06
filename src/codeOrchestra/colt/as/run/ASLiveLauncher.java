@@ -8,6 +8,7 @@ import codeOrchestra.colt.core.execution.ExecutionException;
 import codeOrchestra.colt.core.execution.ProcessHandlerWrapper;
 import codeOrchestra.colt.core.launch.LiveLauncher;
 import codeOrchestra.util.BrowserUtil;
+import codeOrchestra.util.StringUtils;
 import codeOrchestra.util.SystemInfo;
 import codeOrchestra.util.process.ProcessHandlerBuilder;
 
@@ -30,11 +31,17 @@ public class ASLiveLauncher implements LiveLauncher<AsProject> {
 
         if (launchTarget == Target.AIR_IOS) {
             String scriptPath = compilerSettings.getAirIosScript();
+            if (StringUtils.isEmpty(scriptPath) || !new File(scriptPath).exists()) {
+                throw new ExecutionException("Invalid iOS AIR run script path");
+            }
             return new ProcessHandlerWrapper(new ProcessHandlerBuilder().append(protect(scriptPath)).build(project.getOutputDir()), true);
         }
 
         if (launchTarget == Target.AIR_ANDROID) {
             String scriptPath = compilerSettings.getAirAndroidScript();
+            if (StringUtils.isEmpty(scriptPath) || !new File(scriptPath).exists()) {
+                throw new ExecutionException("Invalid Android AIR run script path");
+            }
             return new ProcessHandlerWrapper(new ProcessHandlerBuilder().append(protect(scriptPath)).build(project.getOutputDir()), true);
         }
 
