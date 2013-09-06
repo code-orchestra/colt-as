@@ -4,6 +4,7 @@ import codeOrchestra.colt.as.compiler.fcsh.FSCHCompilerKind
 import codeOrchestra.colt.as.flexsdk.FlexSDKManager
 import codeOrchestra.colt.core.ColtProjectManager
 import codeOrchestra.colt.core.model.Project
+import codeOrchestra.colt.core.storage.ProjectStorageManager
 import codeOrchestra.util.StringUtils
 
 /**
@@ -58,7 +59,7 @@ class AsProject extends Project {
     }
 
     public File getOrCreateIncrementalSourcesDir() {
-        File incrementalSourcesDir = new File(getBaseDir(), "incremental")
+        File incrementalSourcesDir = new File(ProjectStorageManager.getOrCreateProjectStorageDir(), "incremental")
         if (!incrementalSourcesDir.exists()) {
             incrementalSourcesDir.mkdir()
         }
@@ -78,15 +79,15 @@ class AsProject extends Project {
     }
 
     public File getDefaultOutputDir() {
-        return new File(getBaseDir(), "colt_output")
+        return new File(ProjectStorageManager.getOrCreateProjectStorageDir(), "colt_output")
     }
 
     public File getDigestsDir() {
-        return new File(getBaseDir(), "digests")
+        return new File(ProjectStorageManager.getOrCreateProjectStorageDir(), "digests")
     }
 
     public File getIncrementalOutputDir() {
-        new File(getOutputDir(), "livecoding")
+        new File(ProjectStorageManager.getOrCreateProjectStorageDir(), "livecoding")
     }
 
     public void initPaths() {
