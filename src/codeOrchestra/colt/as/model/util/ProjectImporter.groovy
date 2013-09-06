@@ -107,15 +107,15 @@ class ProjectImporter {
                 },
 
                 sourcePaths: {String s ->
-                    List<File> paths = s.split(/\\:/).collect{new File(it)}
+                    List<File> paths = s.split(/\\:/).collect{ new File(PathUtils.makeAbsolute(it)) }
                     project.projectPaths.sources = FilesetInput.createFilesetString(paths)
                 },
                 libraryPaths: {String s ->
-                    List<File> paths = s.split(/\\:/).collect{new File(it)}
+                    List<File> paths = s.split(/\\:/).collect{ new File(PathUtils.makeAbsolute(it)) }
                     project.projectPaths.libraries = FilesetInput.createFilesetString(paths)
                 },
                 asssetPaths: {String s ->
-                    List<File> paths = s.split(/\\:/).collect{new File(it)}
+                    List<File> paths = s.split(/\\:/).collect{ new File(PathUtils.makeAbsolute(it)) }
                     project.projectPaths.assets = FilesetInput.createFilesetString(paths)
                 },
                 htmlTemplatePath: {String s ->
