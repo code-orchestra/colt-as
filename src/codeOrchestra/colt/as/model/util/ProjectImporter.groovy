@@ -12,7 +12,6 @@ class ProjectImporter {
 
     static AsProject importProject(File file) {
         AsProject project = ModelStorage.instance.project
-        project.clear()
 
         project.path = file.path
         Map<String, Closure> map = [
