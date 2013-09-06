@@ -11,7 +11,6 @@ import javafx.beans.value.ChangeListener
 import javafx.beans.value.ObservableValue
 import javafx.geometry.Insets
 import javafx.scene.Parent
-import javafx.scene.control.TextField
 import javafx.scene.layout.VBox
 import javafx.stage.FileChooser
 
@@ -55,8 +54,9 @@ class ProjectPathsForm extends VBox implements IFormValidated {
                     }
                 }
             }
-            validated()
         } as ChangeListener)
+
+        mainClass.activateValidation()
 
         bindModel()
     }
@@ -71,18 +71,6 @@ class ProjectPathsForm extends VBox implements IFormValidated {
 
     @Override
     Parent validated() {
-        boolean validate = false
-
-        if (mainClass.text) {
-            File file = new File(mainClass.text)
-            validate = file.exists() && file.isFile()
-        }
-        if (validate) {
-            mainClass.error = false
-            return null
-        } else {
-            mainClass.error = true
-            return mainClass
-        }
+        return mainClass.validateValue() ? mainClass : null
     }
 }

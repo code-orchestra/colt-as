@@ -5,7 +5,7 @@ import codeOrchestra.colt.as.flexsdk.FlexSDKNotPresentException
 import codeOrchestra.colt.as.model.ModelStorage
 import codeOrchestra.colt.as.model.beans.SDKModel
 import codeOrchestra.colt.as.ui.settingsForm.IFormValidated
-import codeOrchestra.colt.as.ui.settingsForm.ValidatedForm
+
 import codeOrchestra.colt.core.ui.components.inputForms.BrowseType
 import codeOrchestra.colt.core.ui.components.inputForms.CTBForm
 import codeOrchestra.colt.core.ui.components.inputForms.FormType
@@ -14,15 +14,13 @@ import codeOrchestra.colt.core.ui.components.inputForms.group.FormGroup
 import javafx.beans.InvalidationListener
 import javafx.beans.value.ChangeListener
 import javafx.beans.value.ObservableValue
-import javafx.scene.Node as FXNode
 import javafx.scene.Parent
-import javafx.scene.control.TextField
 import javafx.stage.FileChooser
 
 /**
  * @author Dima Kruk
  */
-class SDKSettingsForm extends ValidatedForm{
+class SDKSettingsForm extends FormGroup implements IFormValidated{
 
     private LTBForm sdkPath
     private CTBForm defConf
@@ -64,27 +62,20 @@ class SDKSettingsForm extends ValidatedForm{
     void bindModel() {
         sdkPath.text().bindBidirectional(model.flexSDKPath())
         defConf.selected().bindBidirectional(model.useFlexConfig())
-        customConf.selected().addListener({ ObservableValue<? extends Boolean> observableValue, Boolean t, Boolean t1 ->
-            validateIsFile(customConf.textField)
-        } as ChangeListener)
         customConf.selected().bindBidirectional(model.useCustomConfig())
-        customConf.text().addListener({ javafx.beans.Observable observable ->
-            validateIsFile(customConf.textField)
-        } as InvalidationListener)
+        customConf.activateValidation()
         customConf.text().bindBidirectional(model.customConfigPath())
     }
 
     @Override
     Parent validated() {
-        Parent result = validateIsFile(customConf.textField)
+        Parent result = customConf.validateValue() ? customConf : null
 
         if (model.isValidFlexSDK) {
-            sdkPath.textField.styleClass.remove("error-input")
+            sdkPath.error = false
         } else {
-            if (!sdkPath.textField.styleClass.contains("error-input")){
-                sdkPath.textField.styleClass.add("error-input")
-            }
-            result = sdkPath.textField
+            sdkPath.error = true
+            result = sdkPath
         }
         return result
     }

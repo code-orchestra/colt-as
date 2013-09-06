@@ -4,20 +4,20 @@ import codeOrchestra.colt.as.flexsdk.FlexSDKManager
 import codeOrchestra.colt.as.model.ModelStorage
 import codeOrchestra.colt.as.model.beans.BuildModel
 import codeOrchestra.colt.as.model.beans.SDKModel
-import codeOrchestra.colt.as.ui.settingsForm.ValidatedForm
+import codeOrchestra.colt.as.ui.settingsForm.IFormValidated
 import codeOrchestra.colt.core.ui.components.inputForms.*
+import codeOrchestra.colt.core.ui.components.inputForms.group.FormGroup
 import javafx.beans.InvalidationListener
 import javafx.beans.value.ChangeListener
 import javafx.beans.value.ObservableValue
 import javafx.scene.Parent
-import javafx.scene.control.TextField
 import javafx.util.StringConverter
 import javafx.util.converter.IntegerStringConverter
 
 /**
  * @author Dima Kruk
  */
-class BuildSettingsForm extends ValidatedForm {
+class BuildSettingsForm extends FormGroup implements IFormValidated {
 
     private LTBForm fileName
     private LTBForm outPath
@@ -133,14 +133,10 @@ class BuildSettingsForm extends ValidatedForm {
     }
 
     void bindModel() {
-        fileName.text().addListener({ javafx.beans.Observable observable ->
-            validateIsNotEmpty(fileName.textField)
-        } as InvalidationListener)
+        fileName.activateValidation()
         fileName.text().bindBidirectional(model.outputFileName())
 
-        outPath.text().addListener({ javafx.beans.Observable observable ->
-            validateIsDirectory(outPath.textField)
-        } as InvalidationListener)
+        outPath.activateValidation()
         outPath.text().bindBidirectional(model.outputPath())
 
         player.selected().bindBidirectional(model.useMaxVersion())
@@ -168,11 +164,12 @@ class BuildSettingsForm extends ValidatedForm {
 
     @Override
     Parent validated() {
-        Parent result = validateIsDirectory(outPath.textField)
-
-        Parent field = validateIsNotEmpty(fileName.textField)
-        if (field) {
-            result = field
+        Parent result = null
+        if (outPath.validateValue()) {
+            result = outPath
+        }
+        if (fileName.validateValue()) {
+            result = fileName
         }
         return result
     }

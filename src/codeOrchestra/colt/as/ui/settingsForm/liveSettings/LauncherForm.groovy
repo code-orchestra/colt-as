@@ -4,15 +4,13 @@ import codeOrchestra.colt.as.model.ModelStorage
 import codeOrchestra.colt.as.model.beans.LauncherModel
 import codeOrchestra.colt.as.run.LauncherType
 import codeOrchestra.colt.as.ui.settingsForm.IFormValidated
-import codeOrchestra.colt.as.ui.settingsForm.ValidatedForm
+
 import codeOrchestra.colt.core.ui.components.inputForms.FormType
 import codeOrchestra.colt.core.ui.components.inputForms.RTBForm
 import codeOrchestra.colt.core.ui.components.inputForms.group.FormGroup
-import javafx.beans.InvalidationListener
 import javafx.beans.property.StringProperty
 import javafx.beans.value.ChangeListener
 import javafx.scene.Parent
-import javafx.scene.control.TextField
 import javafx.scene.control.Toggle
 import javafx.scene.control.ToggleGroup
 import javafx.stage.FileChooser
@@ -20,7 +18,7 @@ import javafx.stage.FileChooser
 /**
  * @author Dima Kruk
  */
-class LauncherForm extends ValidatedForm {
+class LauncherForm extends FormGroup implements IFormValidated {
 
     private ToggleGroup launcher
 
@@ -58,7 +56,6 @@ class LauncherForm extends ValidatedForm {
     void activateLauncher(String newVal) {
         LauncherType launcherType = LauncherType.valueOf("" + newVal)
         launcher.toggles[launcherType.ordinal()].selected = true
-        validated()
     }
 
     void bindModel() {
@@ -72,14 +69,12 @@ class LauncherForm extends ValidatedForm {
             }
         } as ChangeListener)
 
-        player.text().addListener({ javafx.beans.Observable observable ->
-            validated()
-        } as InvalidationListener)
+        player.activateValidation()
         player.text().bindBidirectional(model.flashPlayerPath())
     }
 
     @Override
     Parent validated() {
-        return validateIsDirectory(player.textField)
+        return player.validateValue() ? player : null
     }
 }
