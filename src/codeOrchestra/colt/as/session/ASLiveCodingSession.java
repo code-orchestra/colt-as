@@ -77,7 +77,9 @@ public class ASLiveCodingSession implements LiveCodingSession<SocketWriter> {
         socketWriter.writeToSocket(wrappedMessage);
 
         ASLiveCodingManager liveCodingManager = (ASLiveCodingManager) ServiceProvider.get(LiveCodingManager.class);
-        liveCodingManager.addDeliveryMessageToHistory(broadcastId, wrappedMessage);
+        if (addToHistory) {
+            liveCodingManager.addDeliveryMessageToHistory(broadcastId, wrappedMessage);
+        }
     }
 
     @Override
