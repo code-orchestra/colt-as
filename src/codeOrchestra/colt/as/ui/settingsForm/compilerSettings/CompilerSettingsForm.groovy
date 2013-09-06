@@ -2,13 +2,13 @@ package codeOrchestra.colt.as.ui.settingsForm.compilerSettings
 
 import codeOrchestra.colt.as.model.ModelStorage
 import codeOrchestra.colt.as.model.beans.BuildModel
-import codeOrchestra.colt.core.ui.components.inputForms.group.FormGroup
-import codeOrchestra.colt.core.ui.components.inputFormsNew.LabeledTitledInput
+import codeOrchestra.colt.core.ui.components.inputForms.LabeledTitledInput
+import codeOrchestra.colt.core.ui.components.inputForms.group.FormGroupNew
 
 /**
  * @author Dima Kruk
  */
-class CompilerSettingsForm extends FormGroup{
+class CompilerSettingsForm extends FormGroupNew{
     private LabeledTitledInput options
 
     private BuildModel model = ModelStorage.instance.project.projectBuildSettings.buildModel

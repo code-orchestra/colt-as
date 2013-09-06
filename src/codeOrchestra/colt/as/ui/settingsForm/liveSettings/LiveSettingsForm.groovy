@@ -3,10 +3,10 @@ package codeOrchestra.colt.as.ui.settingsForm.liveSettings
 import codeOrchestra.colt.as.model.ModelStorage
 import codeOrchestra.colt.as.model.beans.LiveSettingsModel
 import codeOrchestra.colt.as.run.LiveMethods
-import codeOrchestra.colt.core.ui.components.inputFormsNew.LabeledTitledInput
-import codeOrchestra.colt.core.ui.components.inputFormsNew.LabeledInput
-import codeOrchestra.colt.core.ui.components.inputFormsNew.RadioButtonInput
-import codeOrchestra.colt.core.ui.components.inputFormsNew.group.FormGroupNew
+import codeOrchestra.colt.core.ui.components.inputForms.LabeledTitledInput
+import codeOrchestra.colt.core.ui.components.inputForms.LabeledInput
+import codeOrchestra.colt.core.ui.components.inputForms.RadioButtonInput
+import codeOrchestra.colt.core.ui.components.inputForms.group.FormGroupNew
 import javafx.beans.property.StringProperty
 import javafx.beans.value.ChangeListener
 import javafx.scene.control.Toggle

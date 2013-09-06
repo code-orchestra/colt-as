@@ -6,11 +6,12 @@ import codeOrchestra.colt.as.model.beans.BuildModel
 import codeOrchestra.colt.as.model.beans.SDKModel
 import codeOrchestra.colt.as.ui.settingsForm.IFormValidated
 import codeOrchestra.colt.core.ui.components.inputForms.*
-import codeOrchestra.colt.core.ui.components.inputForms.group.FormGroup
-import codeOrchestra.colt.core.ui.components.inputFormsNew.CheckBoxInput
-import codeOrchestra.colt.core.ui.components.inputFormsNew.CheckBoxWithTextInput
-import codeOrchestra.colt.core.ui.components.inputFormsNew.LabeledActionInput
-import codeOrchestra.colt.core.ui.components.inputFormsNew.LabeledTitledInput
+import codeOrchestra.colt.core.ui.components.inputForms.CheckBoxInput
+import codeOrchestra.colt.core.ui.components.inputForms.CheckBoxWithTextInput
+import codeOrchestra.colt.core.ui.components.inputForms.LabeledActionInput
+import codeOrchestra.colt.core.ui.components.inputForms.LabeledTitledInput
+import codeOrchestra.colt.core.ui.components.inputForms.base.BrowseType
+import codeOrchestra.colt.core.ui.components.inputForms.group.FormGroupNew
 import javafx.beans.value.ChangeListener
 import javafx.beans.value.ObservableValue
 import javafx.scene.Parent
@@ -20,7 +21,7 @@ import javafx.util.converter.IntegerStringConverter
 /**
  * @author Dima Kruk
  */
-class BuildSettingsForm extends FormGroup implements IFormValidated {
+class BuildSettingsForm extends FormGroupNew implements IFormValidated {
 
     private LabeledTitledInput fileName
     private LabeledActionInput outPath

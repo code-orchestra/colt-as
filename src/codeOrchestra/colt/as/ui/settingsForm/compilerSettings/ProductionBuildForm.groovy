@@ -2,13 +2,13 @@ package codeOrchestra.colt.as.ui.settingsForm.compilerSettings
 
 import codeOrchestra.colt.as.model.ModelStorage
 import codeOrchestra.colt.as.model.beans.ProductionBuildModel
-import codeOrchestra.colt.core.ui.components.inputForms.group.FormGroup
-import codeOrchestra.colt.core.ui.components.inputFormsNew.CheckBoxInput
+import codeOrchestra.colt.core.ui.components.inputForms.CheckBoxInput
+import codeOrchestra.colt.core.ui.components.inputForms.group.FormGroupNew
 
 /**
  * @author Dima Kruk
  */
-class ProductionBuildForm extends FormGroup {
+class ProductionBuildForm extends FormGroupNew {
 
     private CheckBoxInput compression
     private CheckBoxInput optimization

@@ -3,9 +3,9 @@ package codeOrchestra.colt.as.ui.settingsForm.projectPaths
 import codeOrchestra.colt.as.model.AsProjectPaths
 import codeOrchestra.colt.as.ui.settingsForm.IFormValidated
 
-import codeOrchestra.colt.core.ui.components.inputForms.BrowseType
-import codeOrchestra.colt.core.ui.components.inputFormsNew.LabeledActionInput
-import codeOrchestra.colt.core.ui.components.inputFormsNew.group.FormGroupNew
+import codeOrchestra.colt.core.ui.components.inputForms.base.BrowseType
+import codeOrchestra.colt.core.ui.components.inputForms.LabeledActionInput
+import codeOrchestra.colt.core.ui.components.inputForms.group.FormGroupNew
 import javafx.scene.Parent
 
 /**

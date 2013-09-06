@@ -2,8 +2,8 @@ package codeOrchestra.colt.as.ui.settingsForm.liveSettings
 
 import codeOrchestra.colt.as.model.ModelStorage
 import codeOrchestra.colt.as.model.beans.SettingsModel
-import codeOrchestra.colt.core.ui.components.inputFormsNew.CheckBoxInput
-import codeOrchestra.colt.core.ui.components.inputFormsNew.group.FormGroupNew
+import codeOrchestra.colt.core.ui.components.inputForms.CheckBoxInput
+import codeOrchestra.colt.core.ui.components.inputForms.group.FormGroupNew
 
 /**
  * @author Dima Kruk

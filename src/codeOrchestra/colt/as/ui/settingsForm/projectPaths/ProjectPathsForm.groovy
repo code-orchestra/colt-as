@@ -5,8 +5,8 @@ import codeOrchestra.colt.as.model.ModelStorage
 import codeOrchestra.colt.as.model.beans.BuildModel
 import codeOrchestra.colt.as.ui.settingsForm.IFormValidated
 import codeOrchestra.colt.core.ui.components.fileset.FilesetInput
-import codeOrchestra.colt.core.ui.components.inputFormsNew.LabeledActionInput
-import codeOrchestra.colt.core.ui.components.inputFormsNew.group.FormGroupNew
+import codeOrchestra.colt.core.ui.components.inputForms.LabeledActionInput
+import codeOrchestra.colt.core.ui.components.inputForms.group.FormGroupNew
 import javafx.beans.value.ChangeListener
 import javafx.beans.value.ObservableValue
 import javafx.scene.Parent

@@ -4,25 +4,19 @@ import codeOrchestra.colt.as.air.AirBuildScriptGenerator
 import codeOrchestra.colt.as.model.beans.RunTargetModel
 import codeOrchestra.colt.as.model.beans.air.AIRModel
 import codeOrchestra.colt.core.errorhandling.ErrorHandler
-import codeOrchestra.colt.core.ui.components.inputForms.group.FormGroup
+import codeOrchestra.colt.core.ui.components.inputForms.group.FormGroupNew
 import groovy.io.FileType
 import javafx.event.EventHandler
-import javafx.fxml.FXML
-import javafx.fxml.Initializable
 import javafx.geometry.Pos
 import javafx.scene.control.Button
 import javafx.scene.control.ListView
 import javafx.scene.layout.AnchorPane
-import javafx.scene.layout.GridPane
-import javafx.scene.layout.HBox
 import javafx.scene.layout.Priority
 import javafx.scene.layout.VBox
 import javafx.stage.Stage
 import javafx.util.Callback
 import codeOrchestra.colt.as.model.AsProject
 import org.controlsfx.control.ButtonBar
-import org.controlsfx.control.action.Action
-import org.controlsfx.dialog.Dialog
 
 
 /**
@@ -30,7 +24,7 @@ import org.controlsfx.dialog.Dialog
  */
 abstract class AirFormController extends VBox{
 
-    protected FormGroup options
+    protected FormGroupNew options
 
     protected ListView<FileCellBean> contentList
 
@@ -46,10 +40,10 @@ abstract class AirFormController extends VBox{
     boolean isGenerated = false
 
     AirFormController() {
-        options = new FormGroup(title: "Options:")
+        options = new FormGroupNew(title: "Options:")
         options.styleClass.remove("fieldset")
 
-        FormGroup packageContents = new FormGroup(title: "Package Contents:")
+        FormGroupNew packageContents = new FormGroupNew(title: "Package Contents:")
         contentList = new ListView<>()
 //        contentList.style = "-fx-background-insets: 0"
         contentList.prefHeight = 200
@@ -71,8 +65,8 @@ abstract class AirFormController extends VBox{
         AnchorPane.setRightAnchor(buttonBar, 10)
         anchorPane.children.add(buttonBar)
 
-        FormGroup actions = new FormGroup()
-        actions.styleClass.remove("fieldset")
+        FormGroupNew actions = new FormGroupNew()
+        actions.first = true
         actions.children.add(anchorPane)
 
         children.addAll(options, packageContents, actions)
@@ -142,11 +136,10 @@ abstract class AirFormController extends VBox{
         return true
     }
 
+    abstract void unbindProperty()
+
     protected void close() {
-        options.children.each {
-            if(it instanceof AirOption) {
-                (it as AirOption)?.unbindProperty()}
-            }
+        unbindProperty()
         dialogStage.close()
     }
 

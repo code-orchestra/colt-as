@@ -4,9 +4,9 @@ import codeOrchestra.colt.as.model.ModelStorage
 import codeOrchestra.colt.as.model.beans.LauncherModel
 import codeOrchestra.colt.as.run.LauncherType
 import codeOrchestra.colt.as.ui.settingsForm.IFormValidated
-import codeOrchestra.colt.core.ui.components.inputForms.group.FormGroup
-import codeOrchestra.colt.core.ui.components.inputFormsNew.RadioButtonActionInput
-import codeOrchestra.colt.core.ui.components.inputFormsNew.RadioButtonInput
+import codeOrchestra.colt.core.ui.components.inputForms.RadioButtonActionInput
+import codeOrchestra.colt.core.ui.components.inputForms.RadioButtonInput
+import codeOrchestra.colt.core.ui.components.inputForms.group.FormGroupNew
 import javafx.beans.property.StringProperty
 import javafx.beans.value.ChangeListener
 import javafx.scene.Parent
@@ -17,7 +17,7 @@ import javafx.stage.FileChooser
 /**
  * @author Dima Kruk
  */
-class LauncherForm extends FormGroup implements IFormValidated {
+class LauncherForm extends FormGroupNew implements IFormValidated {
 
     private ToggleGroup launcher
 

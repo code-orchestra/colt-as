@@ -10,9 +10,9 @@ import codeOrchestra.colt.as.run.Target
 import codeOrchestra.colt.as.run.indexhtml.IndexHTMLGenerator
 import codeOrchestra.colt.as.ui.settingsForm.AsSettingsForm
 import codeOrchestra.colt.as.ui.settingsForm.IFormValidated
-import codeOrchestra.colt.core.ui.components.inputFormsNew.RadioButtonActionInput
-import codeOrchestra.colt.core.ui.components.inputFormsNew.RadioButtonInput
-import codeOrchestra.colt.core.ui.components.inputFormsNew.group.FormGroupNew
+import codeOrchestra.colt.core.ui.components.inputForms.RadioButtonActionInput
+import codeOrchestra.colt.core.ui.components.inputForms.RadioButtonInput
+import codeOrchestra.colt.core.ui.components.inputForms.group.FormGroupNew
 import javafx.beans.property.StringProperty
 import javafx.beans.value.ChangeListener
 import javafx.event.EventHandler

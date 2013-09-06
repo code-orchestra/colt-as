@@ -6,11 +6,11 @@ import codeOrchestra.colt.as.model.ModelStorage
 import codeOrchestra.colt.as.model.beans.SDKModel
 import codeOrchestra.colt.as.ui.settingsForm.IFormValidated
 
-import codeOrchestra.colt.core.ui.components.inputForms.BrowseType
-import codeOrchestra.colt.core.ui.components.inputForms.group.FormGroup
-import codeOrchestra.colt.core.ui.components.inputFormsNew.CheckBoxActionInput
-import codeOrchestra.colt.core.ui.components.inputFormsNew.CheckBoxInput
-import codeOrchestra.colt.core.ui.components.inputFormsNew.LabeledActionInput
+import codeOrchestra.colt.core.ui.components.inputForms.base.BrowseType
+import codeOrchestra.colt.core.ui.components.inputForms.CheckBoxActionInput
+import codeOrchestra.colt.core.ui.components.inputForms.CheckBoxInput
+import codeOrchestra.colt.core.ui.components.inputForms.LabeledActionInput
+import codeOrchestra.colt.core.ui.components.inputForms.group.FormGroupNew
 import javafx.beans.InvalidationListener
 import javafx.beans.value.ChangeListener
 import javafx.beans.value.ObservableValue
@@ -20,7 +20,7 @@ import javafx.stage.FileChooser
 /**
  * @author Dima Kruk
  */
-class SDKSettingsForm extends FormGroup implements IFormValidated{
+class SDKSettingsForm extends FormGroupNew implements IFormValidated{
 
     private LabeledActionInput sdkPath
     private CheckBoxInput defConf
