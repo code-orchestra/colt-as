@@ -1,5 +1,7 @@
 package codeOrchestra.colt.as.digest;
 
+import java.io.File;
+
 /**
  * @author Alexander Eliseyev
  */
@@ -13,6 +15,10 @@ public class EmbedDigest {
     this.source = source;
     this.mimeType = mimeType;
     this.fullPath = fullPath;
+  }
+
+  public File getFile() {
+    return new File(fullPath);
   }
 
   public String getSource() {
