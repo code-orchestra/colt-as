@@ -21,7 +21,6 @@ import javafx.geometry.Pos
 import javafx.scene.Parent
 import javafx.scene.control.Button
 import javafx.scene.control.ScrollPane
-import javafx.scene.layout.Region
 import javafx.scene.layout.VBox
 import javafx.util.Duration
 
@@ -50,7 +49,7 @@ class AsSettingsForm extends ScrollPane{
 
         //paths
         ProjectPathsForm projectPaths = new ProjectPathsForm()
-        projectPaths.styleClass.remove("fieldset")
+        projectPaths.first = true
         validatedForms.add(projectPaths)
         vBox.children.add(projectPaths)
         //paths
@@ -68,7 +67,7 @@ class AsSettingsForm extends ScrollPane{
         vBox.children.add(advancedVBox)
 
         TemplateForm template = new TemplateForm()
-        template.styleClass.remove("fieldset")
+        template.first = true
         validatedForms.add(template)
         advancedVBox.children.add(template)
         //liveSettings
