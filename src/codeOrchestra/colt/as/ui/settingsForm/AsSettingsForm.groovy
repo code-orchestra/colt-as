@@ -50,7 +50,7 @@ class AsSettingsForm extends ScrollPane{
 
         //paths
         ProjectPathsForm projectPaths = new ProjectPathsForm()
-        projectPaths.maxWidth = 640.0
+        projectPaths.styleClass.remove("fieldset")
         validatedForms.add(projectPaths)
         vBox.children.add(projectPaths)
         //paths
