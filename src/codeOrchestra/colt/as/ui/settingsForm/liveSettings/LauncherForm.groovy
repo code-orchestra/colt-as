@@ -4,12 +4,9 @@ import codeOrchestra.colt.as.model.ModelStorage
 import codeOrchestra.colt.as.model.beans.LauncherModel
 import codeOrchestra.colt.as.run.LauncherType
 import codeOrchestra.colt.as.ui.settingsForm.IFormValidated
-
-import codeOrchestra.colt.core.ui.components.inputForms.FormType
-import codeOrchestra.colt.core.ui.components.inputForms.RTBForm
 import codeOrchestra.colt.core.ui.components.inputForms.group.FormGroup
-import codeOrchestra.colt.core.ui.components.inputFormsNew.RActionFrom
-import codeOrchestra.colt.core.ui.components.inputFormsNew.RadioButtonForm
+import codeOrchestra.colt.core.ui.components.inputFormsNew.RadioButtonActionInput
+import codeOrchestra.colt.core.ui.components.inputFormsNew.RadioButtonInput
 import javafx.beans.property.StringProperty
 import javafx.beans.value.ChangeListener
 import javafx.scene.Parent
@@ -24,16 +21,16 @@ class LauncherForm extends FormGroup implements IFormValidated {
 
     private ToggleGroup launcher
 
-    private RadioButtonForm defaultPlayer
-    private RActionFrom player
+    private RadioButtonInput defaultPlayer
+    private RadioButtonActionInput player
 
     private LauncherModel model = ModelStorage.instance.project.projectLiveSettings.launcherModel
 
     LauncherForm() {
         title = "Launcher"
 
-        defaultPlayer = new RadioButtonForm(title: "System default application")
-        player = new RActionFrom(title: "Flash Player")
+        defaultPlayer = new RadioButtonInput(title: "System default application")
+        player = new RadioButtonActionInput(title: "Flash Player")
 
         children.addAll(defaultPlayer, player)
 

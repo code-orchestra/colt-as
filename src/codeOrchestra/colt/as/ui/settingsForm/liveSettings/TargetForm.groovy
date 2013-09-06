@@ -10,12 +10,8 @@ import codeOrchestra.colt.as.run.Target
 import codeOrchestra.colt.as.run.indexhtml.IndexHTMLGenerator
 import codeOrchestra.colt.as.ui.settingsForm.AsSettingsForm
 import codeOrchestra.colt.as.ui.settingsForm.IFormValidated
-
-import codeOrchestra.colt.core.ui.components.inputForms.FormType
-import codeOrchestra.colt.core.ui.components.inputForms.RTBForm
-import codeOrchestra.colt.core.ui.components.inputForms.group.FormGroup
-import codeOrchestra.colt.core.ui.components.inputFormsNew.RActionFrom
-import codeOrchestra.colt.core.ui.components.inputFormsNew.RadioButtonForm
+import codeOrchestra.colt.core.ui.components.inputFormsNew.RadioButtonActionInput
+import codeOrchestra.colt.core.ui.components.inputFormsNew.RadioButtonInput
 import codeOrchestra.colt.core.ui.components.inputFormsNew.group.FormGroupNew
 import javafx.beans.property.StringProperty
 import javafx.beans.value.ChangeListener
@@ -36,20 +32,20 @@ class TargetForm extends FormGroupNew implements IFormValidated {
     AsSettingsForm ownerForm
 
     private ToggleGroup target
-    private RadioButtonForm swf
-    private RActionFrom http
-    private RActionFrom ios
-    private RActionFrom android
+    private RadioButtonInput swf
+    private RadioButtonActionInput http
+    private RadioButtonActionInput ios
+    private RadioButtonActionInput android
 
     private RunTargetModel model = ModelStorage.instance.project.projectBuildSettings.runTargetModel
 
     TargetForm() {
         title = "Target"
 
-        swf = new RadioButtonForm(title: "Compiled SWF")
-        http = new RActionFrom(title: "HTTP-shared to local network:", buttonText: "Generate index.html")
-        ios = new RActionFrom(title: "AIR (iOS):", buttonText: "Generate script")
-        android = new RActionFrom(title: "AIR (Android):", buttonText: "Generate script")
+        swf = new RadioButtonInput(title: "Compiled SWF")
+        http = new RadioButtonActionInput(title: "HTTP-shared to local network:", buttonText: "Generate index.html")
+        ios = new RadioButtonActionInput(title: "AIR (iOS):", buttonText: "Generate script")
+        android = new RadioButtonActionInput(title: "AIR (Android):", buttonText: "Generate script")
 
         children.addAll(swf, http, ios, android)
 

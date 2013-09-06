@@ -7,13 +7,10 @@ import codeOrchestra.colt.as.model.beans.SDKModel
 import codeOrchestra.colt.as.ui.settingsForm.IFormValidated
 
 import codeOrchestra.colt.core.ui.components.inputForms.BrowseType
-import codeOrchestra.colt.core.ui.components.inputForms.CTBForm
-import codeOrchestra.colt.core.ui.components.inputForms.FormType
-import codeOrchestra.colt.core.ui.components.inputForms.LTBForm
 import codeOrchestra.colt.core.ui.components.inputForms.group.FormGroup
-import codeOrchestra.colt.core.ui.components.inputFormsNew.CActionFrom
-import codeOrchestra.colt.core.ui.components.inputFormsNew.CheckBoxForm
-import codeOrchestra.colt.core.ui.components.inputFormsNew.LActionFrom
+import codeOrchestra.colt.core.ui.components.inputFormsNew.CheckBoxActionInput
+import codeOrchestra.colt.core.ui.components.inputFormsNew.CheckBoxInput
+import codeOrchestra.colt.core.ui.components.inputFormsNew.LabeledActionInput
 import javafx.beans.InvalidationListener
 import javafx.beans.value.ChangeListener
 import javafx.beans.value.ObservableValue
@@ -25,16 +22,16 @@ import javafx.stage.FileChooser
  */
 class SDKSettingsForm extends FormGroup implements IFormValidated{
 
-    private LActionFrom sdkPath
-    private CheckBoxForm defConf
-    private CActionFrom customConf
+    private LabeledActionInput sdkPath
+    private CheckBoxInput defConf
+    private CheckBoxActionInput customConf
 
     private SDKModel model = ModelStorage.instance.project.projectBuildSettings.sdkModel
 
     SDKSettingsForm() {
-        sdkPath = new LActionFrom(title: "Flex SDK Path:", browseType: BrowseType.DIRECTORY)
-        defConf = new CheckBoxForm(title: "Use default SDK compiler configuration file")
-        customConf = new CActionFrom(title: "Use custom compiler configuration file")
+        sdkPath = new LabeledActionInput(title: "Flex SDK Path:", browseType: BrowseType.DIRECTORY)
+        defConf = new CheckBoxInput(title: "Use default SDK compiler configuration file")
+        customConf = new CheckBoxActionInput(title: "Use custom compiler configuration file")
 
         children.addAll(sdkPath, defConf, customConf)
 

@@ -7,11 +7,10 @@ import codeOrchestra.colt.as.model.beans.SDKModel
 import codeOrchestra.colt.as.ui.settingsForm.IFormValidated
 import codeOrchestra.colt.core.ui.components.inputForms.*
 import codeOrchestra.colt.core.ui.components.inputForms.group.FormGroup
-import codeOrchestra.colt.core.ui.components.inputFormsNew.CInputForm
-import codeOrchestra.colt.core.ui.components.inputFormsNew.CheckBoxForm
-import codeOrchestra.colt.core.ui.components.inputFormsNew.LActionFrom
-import codeOrchestra.colt.core.ui.components.inputFormsNew.LInputForm
-import javafx.beans.InvalidationListener
+import codeOrchestra.colt.core.ui.components.inputFormsNew.CheckBoxInput
+import codeOrchestra.colt.core.ui.components.inputFormsNew.CheckBoxWithTextInput
+import codeOrchestra.colt.core.ui.components.inputFormsNew.LabeledActionInput
+import codeOrchestra.colt.core.ui.components.inputFormsNew.LabeledTitledInput
 import javafx.beans.value.ChangeListener
 import javafx.beans.value.ObservableValue
 import javafx.scene.Parent
@@ -23,29 +22,29 @@ import javafx.util.converter.IntegerStringConverter
  */
 class BuildSettingsForm extends FormGroup implements IFormValidated {
 
-    private LInputForm fileName
-    private LActionFrom outPath
+    private LabeledTitledInput fileName
+    private LabeledActionInput outPath
 
     private CBForm player
 
-    private CheckBoxForm rsl
-    private CInputForm locale
-    private CheckBoxForm exclude
-    private CInputForm interrupt
+    private CheckBoxInput rsl
+    private CheckBoxWithTextInput locale
+    private CheckBoxInput exclude
+    private CheckBoxWithTextInput interrupt
 
     private BuildModel model = ModelStorage.instance.project.projectBuildSettings.buildModel
     private SDKModel sdkModel = ModelStorage.instance.project.projectBuildSettings.sdkModel
 
     BuildSettingsForm() {
-        fileName = new LInputForm(title: "Output file name:")
-        outPath = new LActionFrom(title: "Output path:", browseType: BrowseType.DIRECTORY)
+        fileName = new LabeledTitledInput(title: "Output file name:")
+        outPath = new LabeledActionInput(title: "Output path:", browseType: BrowseType.DIRECTORY)
 
         player = new CBForm()
 
-        rsl = new CheckBoxForm(title: "Use Framework as Runtime Shared Library (RSL)")
-        locale = new CInputForm(title: "Non-default locale settings")
-        exclude = new CheckBoxForm(title: "Exclude unused code from incremental compilation linking")
-        interrupt = new CInputForm(title: "Interrupt compilation by timeout (seconds)")
+        rsl = new CheckBoxInput(title: "Use Framework as Runtime Shared Library (RSL)")
+        locale = new CheckBoxWithTextInput(title: "Non-default locale settings")
+        exclude = new CheckBoxInput(title: "Exclude unused code from incremental compilation linking")
+        interrupt = new CheckBoxWithTextInput(title: "Interrupt compilation by timeout (seconds)")
 
         children.addAll(fileName, outPath, player, rsl, locale, exclude, interrupt)
 
