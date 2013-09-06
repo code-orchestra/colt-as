@@ -58,7 +58,7 @@ class AsProject extends Project {
         return (AsProject) ColtProjectManager.instance.currentProject
     }
 
-    public File getOrCreateIncrementalSourcesDir() {
+    File getOrCreateIncrementalSourcesDir() {
         File incrementalSourcesDir = new File(ProjectStorageManager.getOrCreateProjectStorageDir(), "incremental")
         if (!incrementalSourcesDir.exists()) {
             incrementalSourcesDir.mkdir()
@@ -66,11 +66,11 @@ class AsProject extends Project {
         return incrementalSourcesDir
     }
 
-    public File getLinkReportFile() {
+    File getLinkReportFile() {
         return new File(getOutputDir(), "link-report.xml")
     }
 
-    public File getOutputDir() {
+    File getOutputDir() {
         String outputPath = buildSettings.getOutputPath()
         if (StringUtils.isEmpty(outputPath)) {
             return getDefaultOutputDir()
@@ -78,19 +78,19 @@ class AsProject extends Project {
         return new File(outputPath);
     }
 
-    public File getDefaultOutputDir() {
+    File getDefaultOutputDir() {
         return new File(ProjectStorageManager.getOrCreateProjectStorageDir(), "colt_output")
     }
 
-    public File getDigestsDir() {
+    File getDigestsDir() {
         return new File(ProjectStorageManager.getOrCreateProjectStorageDir(), "digests")
     }
 
-    public File getIncrementalOutputDir() {
+    File getIncrementalOutputDir() {
         new File(ProjectStorageManager.getOrCreateProjectStorageDir(), "livecoding")
     }
 
-    public void initPaths() {
+    void initPaths() {
         File outputDir = getOutputDir();
         if (!outputDir.exists()) {
             outputDir.mkdirs();
@@ -107,12 +107,11 @@ class AsProject extends Project {
         }
     }
 
-    public String getFlexConfigPath(FSCHCompilerKind compilerKind) {
-        return new File(getBaseDir(), getName() + "_" + compilerKind.getCommandName() + "_flex_config.xml").getPath()
+    String getFlexConfigPath(FSCHCompilerKind compilerKind) {
+        return new File(ProjectStorageManager.getOrCreateProjectStorageDir(), getName() + "_" + compilerKind.getCommandName() + "_flex_config.xml").getPath()
     }
 
-
-    public void initDefaultValues() {
+    void initDefaultValues() {
         buildSettings.flexSDKPath = codeOrchestra.colt.as.util.ASPathUtils.flexSDKPath
         buildSettings.setUseDefaultSDKConfiguration(true);
         FlexSDKManager manager = FlexSDKManager.instance
