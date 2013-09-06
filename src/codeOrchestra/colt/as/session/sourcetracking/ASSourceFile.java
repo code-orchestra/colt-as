@@ -1,5 +1,8 @@
 package codeOrchestra.colt.as.session.sourcetracking;
 
+import codeOrchestra.colt.as.ASLiveCodingManager;
+import codeOrchestra.colt.core.LiveCodingManager;
+import codeOrchestra.colt.core.ServiceProvider;
 import codeOrchestra.colt.core.session.sourcetracking.SourceFile;
 import codeOrchestra.util.FileUtils;
 import codeOrchestra.util.NameUtil;
@@ -69,6 +72,12 @@ public class ASSourceFile implements SourceFile {
 
     public boolean isAsset() {
         for (String extension : assetExtensions) {
+            if (relativePath.toLowerCase().endsWith("." + extension)) {
+                return true;
+            }
+        }
+        ASLiveCodingManager liveCodingManager = (ASLiveCodingManager) ServiceProvider.get(LiveCodingManager.class);
+        for (String extension : liveCodingManager.getUsedEmbedExtensions()) {
             if (relativePath.toLowerCase().endsWith("." + extension)) {
                 return true;
             }

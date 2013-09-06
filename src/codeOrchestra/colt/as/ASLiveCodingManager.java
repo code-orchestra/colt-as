@@ -54,6 +54,7 @@ public class ASLiveCodingManager extends AbstractLiveCodingManager<AsProject, So
 
     // full path -> list of embeds
     private Map<String, List<EmbedDigest>> embedDigests = new HashMap<>();
+    private Set<String> usedEmbedExtensions = new HashSet<>();
 
     private SourcesTrackerCallback sourcesTrackerCallback = new SourcesTrackerCallback() {
         @Override
@@ -340,6 +341,8 @@ public class ASLiveCodingManager extends AbstractLiveCodingManager<AsProject, So
 
     public void resetEmbeds(List<EmbedDigest> embeds) {
         embedDigests.clear();
+        usedEmbedExtensions.clear();
+
         for (EmbedDigest embedDigest : embeds) {
             List<EmbedDigest> storedEmbeds = getEmbedDigests(embedDigest.getFullPath());
             if (storedEmbeds == null) {
@@ -348,7 +351,16 @@ public class ASLiveCodingManager extends AbstractLiveCodingManager<AsProject, So
             }
 
             storedEmbeds.add(embedDigest);
+
+            String extension = FileUtils.getFileExtension(embedDigest.getFile());
+            if (extension != null) {
+                usedEmbedExtensions.add(extension);
+            }
         }
+    }
+
+    public Set<String> getUsedEmbedExtensions() {
+        return usedEmbedExtensions;
     }
 
     private List<EmbedDigest> getEmbedDigests(String fullPath) {
