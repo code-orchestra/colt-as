@@ -14,6 +14,9 @@ import codeOrchestra.colt.as.ui.settingsForm.IFormValidated
 import codeOrchestra.colt.core.ui.components.inputForms.FormType
 import codeOrchestra.colt.core.ui.components.inputForms.RTBForm
 import codeOrchestra.colt.core.ui.components.inputForms.group.FormGroup
+import codeOrchestra.colt.core.ui.components.inputFormsNew.RActionFrom
+import codeOrchestra.colt.core.ui.components.inputFormsNew.RadioButtonForm
+import codeOrchestra.colt.core.ui.components.inputFormsNew.group.FormGroupNew
 import javafx.beans.property.StringProperty
 import javafx.beans.value.ChangeListener
 import javafx.event.EventHandler
@@ -28,25 +31,25 @@ import javafx.stage.Stage
 /**
  * @author Dima Kruk
  */
-class TargetForm extends FormGroup implements IFormValidated {
+class TargetForm extends FormGroupNew implements IFormValidated {
 
     AsSettingsForm ownerForm
 
     private ToggleGroup target
-    private RTBForm swf
-    private RTBForm http
-    private RTBForm ios
-    private RTBForm android
+    private RadioButtonForm swf
+    private RActionFrom http
+    private RActionFrom ios
+    private RActionFrom android
 
     private RunTargetModel model = ModelStorage.instance.project.projectBuildSettings.runTargetModel
 
     TargetForm() {
         title = "Target"
 
-        swf = new RTBForm(title: "Compiled SWF")
-        http = new RTBForm(title: "HTTP-shared to local network:", type: FormType.BUTTON, buttonText: "Generate index.html")
-        ios = new RTBForm(title: "AIR (iOS):", type: FormType.BUTTON, buttonText: "Generate script")
-        android = new RTBForm(title: "AIR (Android):", type: FormType.BUTTON, buttonText: "Generate script")
+        swf = new RadioButtonForm(title: "Compiled SWF")
+        http = new RActionFrom(title: "HTTP-shared to local network:", buttonText: "Generate index.html")
+        ios = new RActionFrom(title: "AIR (iOS):", buttonText: "Generate script")
+        android = new RActionFrom(title: "AIR (Android):", buttonText: "Generate script")
 
         children.addAll(swf, http, ios, android)
 

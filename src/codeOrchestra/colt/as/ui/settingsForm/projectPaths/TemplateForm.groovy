@@ -7,18 +7,20 @@ import codeOrchestra.colt.core.ui.components.inputForms.BrowseType
 import codeOrchestra.colt.core.ui.components.inputForms.FormType
 import codeOrchestra.colt.core.ui.components.inputForms.LTBForm
 import codeOrchestra.colt.core.ui.components.inputForms.group.FormGroup
+import codeOrchestra.colt.core.ui.components.inputFormsNew.LActionFrom
+import codeOrchestra.colt.core.ui.components.inputFormsNew.group.FormGroupNew
 import javafx.scene.Parent
 
 /**
  * @author Dima Kruk
  */
-class TemplateForm extends FormGroup implements IFormValidated {
-    private LTBForm template
+class TemplateForm extends FormGroupNew implements IFormValidated {
+    private LActionFrom template
 
     private AsProjectPaths model = codeOrchestra.colt.as.model.ModelStorage.instance.project.projectPaths
 
     TemplateForm() {
-        template = new LTBForm(title: "HTML Template:", type: FormType.BUTTON, browseType: BrowseType.DIRECTORY)
+        template = new LActionFrom(title: "HTML Template:", browseType: BrowseType.DIRECTORY)
 
         children.add(template)
 

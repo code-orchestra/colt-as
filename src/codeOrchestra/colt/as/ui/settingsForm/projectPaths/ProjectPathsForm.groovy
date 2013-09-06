@@ -8,6 +8,8 @@ import codeOrchestra.colt.core.ui.components.fileset.FilesetInput
 import codeOrchestra.colt.core.ui.components.inputForms.FormType
 import codeOrchestra.colt.core.ui.components.inputForms.LTBForm
 import codeOrchestra.colt.core.ui.components.inputForms.group.FormGroup
+import codeOrchestra.colt.core.ui.components.inputFormsNew.LActionFrom
+import codeOrchestra.colt.core.ui.components.inputFormsNew.group.FormGroupNew
 import javafx.beans.value.ChangeListener
 import javafx.beans.value.ObservableValue
 import javafx.geometry.Insets
@@ -17,12 +19,12 @@ import javafx.stage.FileChooser
 /**
  * @author Dima Kruk
  */
-class ProjectPathsForm extends FormGroup implements IFormValidated {
+class ProjectPathsForm extends FormGroupNew implements IFormValidated {
     private FilesetInput sources
     private FilesetInput libraries
     private FilesetInput assets
 
-    private LTBForm mainClass
+    private LActionFrom mainClass
 
     private AsProjectPaths model = ModelStorage.instance.project.projectPaths
     private BuildModel buildModel = ModelStorage.instance.project.projectBuildSettings.buildModel
@@ -32,7 +34,7 @@ class ProjectPathsForm extends FormGroup implements IFormValidated {
         libraries = new FilesetInput(title: "Library Paths:", useExcludes: false)
         assets = new FilesetInput(title: "Assets Paths:", useFiles: false, useExcludes: false)
 
-        mainClass = new LTBForm(title: "Main class:", type: FormType.BUTTON)
+        mainClass = new LActionFrom(title: "Main class:")
 
         children.addAll(sources, libraries, assets, mainClass)
 

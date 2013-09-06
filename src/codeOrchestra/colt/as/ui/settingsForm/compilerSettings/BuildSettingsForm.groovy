@@ -7,6 +7,10 @@ import codeOrchestra.colt.as.model.beans.SDKModel
 import codeOrchestra.colt.as.ui.settingsForm.IFormValidated
 import codeOrchestra.colt.core.ui.components.inputForms.*
 import codeOrchestra.colt.core.ui.components.inputForms.group.FormGroup
+import codeOrchestra.colt.core.ui.components.inputFormsNew.CInputForm
+import codeOrchestra.colt.core.ui.components.inputFormsNew.CheckBoxForm
+import codeOrchestra.colt.core.ui.components.inputFormsNew.LActionFrom
+import codeOrchestra.colt.core.ui.components.inputFormsNew.LInputForm
 import javafx.beans.InvalidationListener
 import javafx.beans.value.ChangeListener
 import javafx.beans.value.ObservableValue
@@ -19,29 +23,29 @@ import javafx.util.converter.IntegerStringConverter
  */
 class BuildSettingsForm extends FormGroup implements IFormValidated {
 
-    private LTBForm fileName
-    private LTBForm outPath
+    private LInputForm fileName
+    private LActionFrom outPath
 
     private CBForm player
 
-    private CTBForm rsl
-    private CTBForm locale
-    private CTBForm exclude
-    private CTBForm interrupt
+    private CheckBoxForm rsl
+    private CInputForm locale
+    private CheckBoxForm exclude
+    private CInputForm interrupt
 
     private BuildModel model = ModelStorage.instance.project.projectBuildSettings.buildModel
     private SDKModel sdkModel = ModelStorage.instance.project.projectBuildSettings.sdkModel
 
     BuildSettingsForm() {
-        fileName = new LTBForm(title: "Output file name:", type: FormType.TEXT_FIELD)
-        outPath = new LTBForm(title: "Output path:", type: FormType.BUTTON, browseType: BrowseType.DIRECTORY)
+        fileName = new LInputForm(title: "Output file name:")
+        outPath = new LActionFrom(title: "Output path:", browseType: BrowseType.DIRECTORY)
 
         player = new CBForm()
 
-        rsl = new CTBForm(title: "Use Framework as Runtime Shared Library (RSL)", type: FormType.SIMPLE)
-        locale = new CTBForm(title: "Non-default locale settings", type: FormType.TEXT_FIELD)
-        exclude = new CTBForm(title: "Exclude unused code from incremental compilation linking", type: FormType.SIMPLE)
-        interrupt = new CTBForm(title: "Interrupt compilation by timeout (seconds)", type: FormType.TEXT_FIELD)
+        rsl = new CheckBoxForm(title: "Use Framework as Runtime Shared Library (RSL)")
+        locale = new CInputForm(title: "Non-default locale settings")
+        exclude = new CheckBoxForm(title: "Exclude unused code from incremental compilation linking")
+        interrupt = new CInputForm(title: "Interrupt compilation by timeout (seconds)")
 
         children.addAll(fileName, outPath, player, rsl, locale, exclude, interrupt)
 

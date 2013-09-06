@@ -11,6 +11,9 @@ import codeOrchestra.colt.core.ui.components.inputForms.CTBForm
 import codeOrchestra.colt.core.ui.components.inputForms.FormType
 import codeOrchestra.colt.core.ui.components.inputForms.LTBForm
 import codeOrchestra.colt.core.ui.components.inputForms.group.FormGroup
+import codeOrchestra.colt.core.ui.components.inputFormsNew.CActionFrom
+import codeOrchestra.colt.core.ui.components.inputFormsNew.CheckBoxForm
+import codeOrchestra.colt.core.ui.components.inputFormsNew.LActionFrom
 import javafx.beans.InvalidationListener
 import javafx.beans.value.ChangeListener
 import javafx.beans.value.ObservableValue
@@ -22,16 +25,16 @@ import javafx.stage.FileChooser
  */
 class SDKSettingsForm extends FormGroup implements IFormValidated{
 
-    private LTBForm sdkPath
-    private CTBForm defConf
-    private CTBForm customConf
+    private LActionFrom sdkPath
+    private CheckBoxForm defConf
+    private CActionFrom customConf
 
     private SDKModel model = ModelStorage.instance.project.projectBuildSettings.sdkModel
 
     SDKSettingsForm() {
-        sdkPath = new LTBForm(title: "Flex SDK Path:", type: FormType.BUTTON, browseType: BrowseType.DIRECTORY)
-        defConf = new CTBForm(title: "Use default SDK compiler configuration file", type: FormType.SIMPLE)
-        customConf = new CTBForm(title: "Use custom compiler configuration file", type: FormType.BUTTON)
+        sdkPath = new LActionFrom(title: "Flex SDK Path:", browseType: BrowseType.DIRECTORY)
+        defConf = new CheckBoxForm(title: "Use default SDK compiler configuration file")
+        customConf = new CActionFrom(title: "Use custom compiler configuration file")
 
         children.addAll(sdkPath, defConf, customConf)
 
