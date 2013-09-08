@@ -12,7 +12,7 @@ import codeOrchestra.colt.as.ui.settingsForm.AsSettingsForm
 import codeOrchestra.colt.as.ui.settingsForm.IFormValidated
 import codeOrchestra.colt.core.ui.components.inputForms.RadioButtonActionInput
 import codeOrchestra.colt.core.ui.components.inputForms.RadioButtonInput
-import codeOrchestra.colt.core.ui.components.inputForms.group.FormGroupNew
+import codeOrchestra.colt.core.ui.components.inputForms.group.FormGroup
 import javafx.beans.property.StringProperty
 import javafx.beans.value.ChangeListener
 import javafx.event.EventHandler
@@ -27,7 +27,7 @@ import javafx.stage.Stage
 /**
  * @author Dima Kruk
  */
-class TargetForm extends FormGroupNew implements IFormValidated {
+class TargetForm extends FormGroup implements IFormValidated {
 
     AsSettingsForm ownerForm
 

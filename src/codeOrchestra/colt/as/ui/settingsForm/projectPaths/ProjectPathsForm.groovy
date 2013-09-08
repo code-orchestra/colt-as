@@ -6,7 +6,7 @@ import codeOrchestra.colt.as.model.beans.BuildModel
 import codeOrchestra.colt.as.ui.settingsForm.IFormValidated
 import codeOrchestra.colt.core.ui.components.fileset.FilesetInput
 import codeOrchestra.colt.core.ui.components.inputForms.LabeledActionInput
-import codeOrchestra.colt.core.ui.components.inputForms.group.FormGroupNew
+import codeOrchestra.colt.core.ui.components.inputForms.group.FormGroup
 import javafx.beans.value.ChangeListener
 import javafx.beans.value.ObservableValue
 import javafx.scene.Parent
@@ -15,7 +15,7 @@ import javafx.stage.FileChooser
 /**
  * @author Dima Kruk
  */
-class ProjectPathsForm extends FormGroupNew implements IFormValidated {
+class ProjectPathsForm extends FormGroup implements IFormValidated {
     private FilesetInput sources
     private FilesetInput libraries
     private FilesetInput assets

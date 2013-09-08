@@ -4,7 +4,7 @@ import codeOrchestra.colt.as.air.AirBuildScriptGenerator
 import codeOrchestra.colt.as.model.beans.RunTargetModel
 import codeOrchestra.colt.as.model.beans.air.AIRModel
 import codeOrchestra.colt.core.errorhandling.ErrorHandler
-import codeOrchestra.colt.core.ui.components.inputForms.group.FormGroupNew
+import codeOrchestra.colt.core.ui.components.inputForms.group.FormGroup
 import groovy.io.FileType
 import javafx.event.EventHandler
 import javafx.geometry.Pos
@@ -24,7 +24,7 @@ import org.controlsfx.control.ButtonBar
  */
 abstract class AirFormController extends VBox{
 
-    protected FormGroupNew options
+    protected FormGroup options
 
     protected ListView<FileCellBean> contentList
 
@@ -40,10 +40,10 @@ abstract class AirFormController extends VBox{
     boolean isGenerated = false
 
     AirFormController() {
-        options = new FormGroupNew(title: "Options:")
+        options = new FormGroup(title: "Options:")
         options.styleClass.remove("fieldset")
 
-        FormGroupNew packageContents = new FormGroupNew(title: "Package Contents:")
+        FormGroup packageContents = new FormGroup(title: "Package Contents:")
         contentList = new ListView<>()
 //        contentList.style = "-fx-background-insets: 0"
         contentList.prefHeight = 200
@@ -65,7 +65,7 @@ abstract class AirFormController extends VBox{
         AnchorPane.setRightAnchor(buttonBar, 10)
         anchorPane.children.add(buttonBar)
 
-        FormGroupNew actions = new FormGroupNew()
+        FormGroup actions = new FormGroup()
         actions.first = true
         actions.children.add(anchorPane)
 

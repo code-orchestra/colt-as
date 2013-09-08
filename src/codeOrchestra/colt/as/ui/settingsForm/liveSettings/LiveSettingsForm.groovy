@@ -6,7 +6,7 @@ import codeOrchestra.colt.as.run.LiveMethods
 import codeOrchestra.colt.core.ui.components.inputForms.LabeledTitledInput
 import codeOrchestra.colt.core.ui.components.inputForms.LabeledInput
 import codeOrchestra.colt.core.ui.components.inputForms.RadioButtonInput
-import codeOrchestra.colt.core.ui.components.inputForms.group.FormGroupNew
+import codeOrchestra.colt.core.ui.components.inputForms.group.FormGroup
 import javafx.beans.property.StringProperty
 import javafx.beans.value.ChangeListener
 import javafx.scene.control.Toggle
@@ -18,7 +18,7 @@ import javafx.util.converter.IntegerStringConverter
 /**
  * @author Dima Kruk
  */
-class LiveSettingsForm extends FormGroupNew {
+class LiveSettingsForm extends FormGroup {
 
     private ToggleGroup methods
 

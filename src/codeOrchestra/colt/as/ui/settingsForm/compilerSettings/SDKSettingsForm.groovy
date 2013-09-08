@@ -10,7 +10,7 @@ import codeOrchestra.colt.core.ui.components.inputForms.base.BrowseType
 import codeOrchestra.colt.core.ui.components.inputForms.CheckBoxActionInput
 import codeOrchestra.colt.core.ui.components.inputForms.CheckBoxInput
 import codeOrchestra.colt.core.ui.components.inputForms.LabeledActionInput
-import codeOrchestra.colt.core.ui.components.inputForms.group.FormGroupNew
+import codeOrchestra.colt.core.ui.components.inputForms.group.FormGroup
 import javafx.beans.InvalidationListener
 import javafx.beans.value.ChangeListener
 import javafx.beans.value.ObservableValue
@@ -20,7 +20,7 @@ import javafx.stage.FileChooser
 /**
  * @author Dima Kruk
  */
-class SDKSettingsForm extends FormGroupNew implements IFormValidated{
+class SDKSettingsForm extends FormGroup implements IFormValidated{
 
     private LabeledActionInput sdkPath
     private CheckBoxInput defConf

@@ -3,12 +3,12 @@ package codeOrchestra.colt.as.ui.settingsForm.liveSettings
 import codeOrchestra.colt.as.model.ModelStorage
 import codeOrchestra.colt.as.model.beans.SettingsModel
 import codeOrchestra.colt.core.ui.components.inputForms.CheckBoxInput
-import codeOrchestra.colt.core.ui.components.inputForms.group.FormGroupNew
+import codeOrchestra.colt.core.ui.components.inputForms.group.FormGroup
 
 /**
  * @author Dima Kruk
  */
-class SettingsForm extends FormGroupNew {
+class SettingsForm extends FormGroup {
 
     private CheckBoxInput clearLog;
     private CheckBoxInput pingTimeout;

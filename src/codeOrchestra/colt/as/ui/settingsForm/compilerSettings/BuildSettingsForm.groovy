@@ -11,7 +11,7 @@ import codeOrchestra.colt.core.ui.components.inputForms.CheckBoxWithTextInput
 import codeOrchestra.colt.core.ui.components.inputForms.LabeledActionInput
 import codeOrchestra.colt.core.ui.components.inputForms.LabeledTitledInput
 import codeOrchestra.colt.core.ui.components.inputForms.base.BrowseType
-import codeOrchestra.colt.core.ui.components.inputForms.group.FormGroupNew
+import codeOrchestra.colt.core.ui.components.inputForms.group.FormGroup
 import javafx.beans.value.ChangeListener
 import javafx.beans.value.ObservableValue
 import javafx.scene.Parent
@@ -21,7 +21,7 @@ import javafx.util.converter.IntegerStringConverter
 /**
  * @author Dima Kruk
  */
-class BuildSettingsForm extends FormGroupNew implements IFormValidated {
+class BuildSettingsForm extends FormGroup implements IFormValidated {
 
     private LabeledTitledInput fileName
     private LabeledActionInput outPath
