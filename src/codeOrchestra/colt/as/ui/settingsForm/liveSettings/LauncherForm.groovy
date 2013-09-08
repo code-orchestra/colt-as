@@ -68,7 +68,6 @@ class LauncherForm extends FormGroupNew implements IFormValidated {
             }
         } as ChangeListener)
 
-        player.activateValidation()
         player.text().bindBidirectional(model.flashPlayerPath())
     }
 

@@ -134,7 +134,11 @@ class AsSettingsForm extends ScrollPane{
     }
 
     private scrollTo(Parent node) {
-        if (separator.close) {
+        Bounds separatorBounds = content.sceneToLocal(separator.localToScene(separator.layoutBounds))
+        Bounds nodeBounds = content.sceneToLocal(node.localToScene(node.layoutBounds))
+        if (nodeBounds.minY < separatorBounds.minY) {
+            scrollToNode(node)
+        } else if (separator.close) {
             separator.close = false
             Timeline timeline = new Timeline(new KeyFrame(new Duration(50), {
                 scrollToNode(node)

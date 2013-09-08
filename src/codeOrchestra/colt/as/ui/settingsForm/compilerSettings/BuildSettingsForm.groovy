@@ -137,10 +137,8 @@ class BuildSettingsForm extends FormGroupNew implements IFormValidated {
     }
 
     void bindModel() {
-        fileName.activateValidation()
         fileName.text().bindBidirectional(model.outputFileName())
 
-        outPath.activateValidation()
         outPath.text().bindBidirectional(model.outputPath())
 
         player.selected().bindBidirectional(model.useMaxVersion())

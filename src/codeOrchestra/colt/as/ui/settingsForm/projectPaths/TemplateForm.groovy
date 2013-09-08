@@ -18,6 +18,7 @@ class TemplateForm extends FormGroupNew implements IFormValidated {
 
     TemplateForm() {
         template = new LabeledActionInput(title: "HTML Template:", browseType: BrowseType.DIRECTORY)
+        template.canBeEmpty = true
 
         children.add(template)
 
@@ -25,7 +26,6 @@ class TemplateForm extends FormGroupNew implements IFormValidated {
     }
 
     void init() {
-        template.activateValidation(true)
         template.text().bindBidirectional(model.htmlTemplatePath())
     }
 

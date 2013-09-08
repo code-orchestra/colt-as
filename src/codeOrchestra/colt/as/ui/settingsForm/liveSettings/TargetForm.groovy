@@ -132,13 +132,10 @@ class TargetForm extends FormGroupNew implements IFormValidated {
             }
         } as ChangeListener)
 
-        http.activateValidation()
         http.text().bindBidirectional(model.httpIndex())
 
-        ios.activateValidation()
         ios.text().bindBidirectional(model.iosScript())
 
-        android.activateValidation()
         android.text().bindBidirectional(model.androidScript())
 
     }

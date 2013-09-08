@@ -63,7 +63,6 @@ class SDKSettingsForm extends FormGroupNew implements IFormValidated{
         sdkPath.text().bindBidirectional(model.flexSDKPath())
         defConf.selected().bindBidirectional(model.useFlexConfig())
         customConf.selected().bindBidirectional(model.useCustomConfig())
-        customConf.activateValidation()
         customConf.text().bindBidirectional(model.customConfigPath())
     }
 

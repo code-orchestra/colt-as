@@ -51,8 +51,6 @@ class ProjectPathsForm extends FormGroupNew implements IFormValidated {
             }
         } as ChangeListener)
 
-        mainClass.activateValidation()
-
         bindModel()
     }
 
