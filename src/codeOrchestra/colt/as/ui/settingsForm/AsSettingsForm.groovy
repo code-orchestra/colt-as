@@ -142,8 +142,8 @@ class AsSettingsForm extends ScrollPane{
             separator.close = false
             Timeline timeline = new Timeline(new KeyFrame(new Duration(50), {
                 scrollToNode(node)
-            } as EventHandler));
-            timeline.play();
+            } as EventHandler))
+            timeline.play()
         } else {
             scrollToNode(node)
         }
