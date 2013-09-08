@@ -95,21 +95,28 @@ class ASApplicationGUI extends ApplicationGUI {
 
         ActionPlayer playerControls = actionPlayerPopup.actionPlayer
         playerControls.play.onAction = {
-            playerControls.disable = true
-            coltController.startBaseCompilation([
-                    onComplete: { CompilationResult successResult ->
-                        Platform.runLater({
-                            playerControls.showAdd(true)
-                            playerControls.disable = false
-                        })
-                    },
-                    onError: { Throwable t, CompilationResult errorResult ->
-                        Platform.runLater({
-                            playerControls.stop.selected = true
-                            playerControls.disable = false
-                        })
-                    }
-            ] as ColtControllerCallback, true, true)
+            if(settingsForm.validateForms()) {
+                playerControls.disable = true
+                coltController.startBaseCompilation([
+                        onComplete: { CompilationResult successResult ->
+                            Platform.runLater({
+                                playerControls.showAdd(true)
+                                playerControls.disable = false
+                            })
+                        },
+                        onError: { Throwable t, CompilationResult errorResult ->
+                            Platform.runLater({
+                                playerControls.stop.selected = true
+                                playerControls.disable = false
+                            })
+                        }
+                ] as ColtControllerCallback, true, true)
+            } else {
+                playerControls.stop.selected = true
+                playerControls.disable = false
+                actionPlayerPopup.hide()
+                settingsButton.onAction.handle(null)
+            }
         } as EventHandler
 
         playerControls.stop.onAction = {

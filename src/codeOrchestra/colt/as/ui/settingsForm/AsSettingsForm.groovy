@@ -34,7 +34,7 @@ class AsSettingsForm extends ScrollPane{
 
     AdvancedSeparator separator
 
-    List<IFormValidated> validatedForms
+    private List<IFormValidated> validatedForms
 
     AsSettingsForm() {
 
