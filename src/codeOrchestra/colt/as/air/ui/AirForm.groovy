@@ -83,8 +83,10 @@ abstract class AirForm extends VBox{
 
     void initialize() {
         generateBtn.onAction = {
-            isGenerated = runGeneration()
-            close()
+            if (validate()) {
+                isGenerated = runGeneration()
+                close()
+            }
         } as EventHandler
 
         cancelBtn.onAction = {
@@ -136,6 +138,8 @@ abstract class AirForm extends VBox{
     }
 
     abstract void unbindProperty()
+
+    abstract boolean validate()
 
     protected void close() {
         unbindProperty()

@@ -50,4 +50,9 @@ class AndroidAirForm extends AirForm  {
         keystore.text().unbindBidirectional(model.keystorePath())
         storepass.text().unbindBidirectional(model.storePass())
     }
+
+    @Override
+    boolean validate() {
+        return !(sdk.validateValue() || keystore.validateValue() || storepass.validateValue())
+    }
 }

@@ -56,4 +56,9 @@ class IOSAirForm extends AirForm {
         keystore.text().unbindBidirectional(model.keystorePath())
         storepass.text().unbindBidirectional(model.storePass())
     }
+
+    @Override
+    boolean validate() {
+        return !(sdk.validateValue() || profile.validateValue() || keystore.validateValue() || storepass.validateValue())
+    }
 }
