@@ -22,7 +22,7 @@ import org.controlsfx.control.ButtonBar
 /**
  * @author Dima Kruk
  */
-abstract class AirFormController extends VBox{
+abstract class AirForm extends VBox{
 
     protected FormGroup options
 
@@ -39,17 +39,20 @@ abstract class AirFormController extends VBox{
 
     boolean isGenerated = false
 
-    AirFormController() {
+    AirForm() {
         options = new FormGroup(title: "Options:")
         options.styleClass.remove("fieldset")
 
         FormGroup packageContents = new FormGroup(title: "Package Contents:")
         contentList = new ListView<>()
-//        contentList.style = "-fx-background-insets: 0"
+        contentList.styleClass.add("list-view-simplified")
         contentList.prefHeight = 200
         contentList.minHeight = 50
         contentList.minWidth = 100
         setVgrow(contentList, Priority.ALWAYS)
+        contentList.cellFactory = { ListView<FileCellBean> p ->
+            return new FileCell()
+        } as Callback
         packageContents.children.add(contentList)
 
         buttonBar = new ButtonBar()
@@ -87,10 +90,6 @@ abstract class AirFormController extends VBox{
         cancelBtn.onAction = {
             close()
         } as EventHandler
-
-        contentList.cellFactory = { ListView<FileCellBean> p ->
-            return new FileCell()
-        } as Callback
 
         AsProject project = codeOrchestra.colt.as.model.ModelStorage.instance.project
         File dir = project.outputDir

@@ -1,8 +1,8 @@
 package codeOrchestra.colt.as.ui.settingsForm.liveSettings
 
-import codeOrchestra.colt.as.air.ui.AirFormController
-import codeOrchestra.colt.as.air.ui.android.AndroidAirFormController
-import codeOrchestra.colt.as.air.ui.ios.IOSAirFormController
+import codeOrchestra.colt.as.air.ui.AirForm
+import codeOrchestra.colt.as.air.ui.android.AndroidAirForm
+import codeOrchestra.colt.as.air.ui.ios.IOSAirForm
 import codeOrchestra.colt.as.model.AsProjectBuildSettings
 import codeOrchestra.colt.as.model.ModelStorage
 import codeOrchestra.colt.as.model.beans.RunTargetModel
@@ -79,7 +79,7 @@ class TargetForm extends FormGroup implements IFormValidated {
 
         ios.action = {
             if(canShowDialog()) {
-                showDialog(new IOSAirFormController(), "Apple iOS: customize launch", model)
+                showDialog(new IOSAirForm(), "Apple iOS: customize launch", model)
             } else {
                 ownerForm.validateForms(this)
             }
@@ -87,7 +87,7 @@ class TargetForm extends FormGroup implements IFormValidated {
 
         android.action = {
             if(canShowDialog()) {
-                showDialog(new AndroidAirFormController(), "Android: customize launch", model)
+                showDialog(new AndroidAirForm(), "Android: customize launch", model)
             } else {
                 ownerForm.validateForms(this)
             }
@@ -104,7 +104,7 @@ class TargetForm extends FormGroup implements IFormValidated {
         return buildSettings.outputPath && buildSettings.outputFilename
     }
 
-    void showDialog(AirFormController controller, String title, RunTargetModel model) {
+    void showDialog(AirForm controller, String title, RunTargetModel model) {
         VBox page = controller
 
         Stage dialogStage = new Stage()
