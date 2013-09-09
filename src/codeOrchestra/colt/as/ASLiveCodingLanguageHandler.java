@@ -70,8 +70,8 @@ public class ASLiveCodingLanguageHandler extends AbstractLiveCodingLanguageHandl
     }
 
     @Override
-    public AsProject createProject(String pName, File pFile) {
-        AsProject project = ModelStorage.getInstance().getProject();
+    public AsProject createProject(String pName, File pFile, boolean load) {
+        AsProject project = load ? ModelStorage.getInstance().getProject() : new AsProject();
 
         project.setName(pName);
         project.setPath(pFile.getPath());
