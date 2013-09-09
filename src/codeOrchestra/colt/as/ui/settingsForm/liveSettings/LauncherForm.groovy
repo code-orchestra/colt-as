@@ -6,7 +6,9 @@ import codeOrchestra.colt.as.run.LauncherType
 import codeOrchestra.colt.as.ui.settingsForm.IFormValidated
 import codeOrchestra.colt.core.ui.components.inputForms.RadioButtonActionInput
 import codeOrchestra.colt.core.ui.components.inputForms.RadioButtonInput
+import codeOrchestra.colt.core.ui.components.inputForms.base.BrowseType
 import codeOrchestra.colt.core.ui.components.inputForms.group.FormGroup
+import codeOrchestra.util.SystemInfo
 import javafx.beans.property.StringProperty
 import javafx.beans.value.ChangeListener
 import javafx.scene.Parent
@@ -30,7 +32,7 @@ class LauncherForm extends FormGroup implements IFormValidated {
         title = "Launcher"
 
         defaultPlayer = new RadioButtonInput(title: "System default application")
-        player = new RadioButtonActionInput(title: "Flash Player")
+        player = new RadioButtonActionInput(title: "Flash Player", browseType: SystemInfo.isMac ? BrowseType.DIRECTORY : BrowseType.FILE)
 
         children.addAll(defaultPlayer, player)
 
