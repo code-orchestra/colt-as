@@ -25,8 +25,8 @@ public class LoggerTraceCommand implements TraceCommand {
   @Override
   public void execute(final LoggerMessage loggerMessage, ClientSocketHandler clientSocketHandler) {
     // Get the logger by the root name
-    String rootSimpleName = loggerMessage.getRootSimpleName();
-    Logger asLogger = Logger.getLogger(rootSimpleName != null ? rootSimpleName : "trace");
+    String source = loggerMessage.getRootFQName();
+    Logger asLogger = Logger.getLogger(source != null ? source : "trace");
 
     // Severity
     Level severity = loggerMessage.getSeverity();
