@@ -43,6 +43,7 @@ class ASApplicationGUI extends ApplicationGUI {
     ModelStorage model = codeOrchestra.colt.as.model.ModelStorage.instance
 
     ASApplicationGUI() {
+        println "application gui constructor"
         init()
     }
 
