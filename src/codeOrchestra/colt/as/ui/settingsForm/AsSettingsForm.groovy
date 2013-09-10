@@ -14,6 +14,7 @@ import codeOrchestra.colt.core.tracker.GAController
 import codeOrchestra.colt.core.ui.components.advancedSeparator.AdvancedSeparator
 import javafx.animation.KeyFrame
 import javafx.animation.Timeline
+import javafx.beans.InvalidationListener
 import javafx.event.EventHandler
 import javafx.geometry.Bounds
 import javafx.geometry.Insets
@@ -64,6 +65,9 @@ class AsSettingsForm extends ScrollPane{
         VBox.setMargin(advancedVBox, new Insets(0, 0, 72, 0))
         advancedVBox.padding = new Insets(0, 0, 18, 0)
         separator.content = advancedVBox
+        advancedVBox.visibleProperty().addListener({ javafx.beans.Observable observable ->
+            layoutChildren()
+        } as InvalidationListener)
         vBox.children.add(advancedVBox)
 
         TemplateForm template = new TemplateForm()
