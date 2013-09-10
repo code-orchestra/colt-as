@@ -28,7 +28,12 @@ class AsColtFacade implements ColtFacade {
 
     @Override
     void pauseSession() {
-        // TODO: implement
+        liveCodingManager.pause()
+    }
+
+    @Override
+    void resumeSession() {
+        liveCodingManager.flush()
     }
 
     @Override

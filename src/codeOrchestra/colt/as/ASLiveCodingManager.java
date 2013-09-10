@@ -21,11 +21,8 @@ import codeOrchestra.colt.core.logging.Logger;
 import codeOrchestra.colt.core.session.LiveCodingSession;
 import codeOrchestra.colt.core.session.SocketWriter;
 import codeOrchestra.colt.core.session.listener.LiveCodingAdapter;
-import codeOrchestra.colt.core.session.listener.LiveCodingListener;
-import codeOrchestra.colt.core.session.sourcetracking.SourceFile;
 import codeOrchestra.colt.core.session.sourcetracking.SourcesTrackerCallback;
 import codeOrchestra.colt.core.session.sourcetracking.SourcesTrackerThread;
-import codeOrchestra.colt.core.socket.ClientSocketHandler;
 import codeOrchestra.util.*;
 import codeOrchestra.util.templates.TemplateCopyUtil;
 
@@ -56,19 +53,38 @@ public class ASLiveCodingManager extends AbstractLiveCodingManager<AsProject, So
     private Map<String, List<EmbedDigest>> embedDigests = new HashMap<>();
     private Set<String> usedEmbedExtensions = new HashSet<>();
 
-    private SourcesTrackerCallback sourcesTrackerCallback = new SourcesTrackerCallback() {
-        @Override
-        public void sourceFileChanged(SourceFile sourceFile) {
-            if (sourceFile instanceof ASSourceFile) {
-                reportChangedFile((ASSourceFile) sourceFile);
-            }
-        }
-    };
+    private List<ASSourceFile> changesBuffer = new ArrayList<>();
+    private Object changesBufferMonitor = new Object();
 
     private int packageId = 1;
 
+    private SourcesTrackerCallback sourcesTrackerCallback = sourceFile -> {
+        if (sourceFile instanceof ASSourceFile) {
+            if (isPaused()) {
+                synchronized (changesBufferMonitor) {
+                    changesBuffer.add((ASSourceFile) sourceFile);
+                }
+                return;
+            }
+
+            reportChangedFile((ASSourceFile) sourceFile);
+        }
+    };
+
     public ASLiveCodingManager() {
         addListener(finisherThreadLiveCodingListener);
+    }
+
+    @Override
+    protected void doFlush() {
+        synchronized (changesBufferMonitor) {
+            for (ASSourceFile sourceFile : changesBuffer) {
+                reportChangedFile(sourceFile);
+                ThreadUtils.sleep(100);
+            }
+
+            changesBuffer.clear();
+        }
     }
 
     private CompilationResult compileProject(boolean production) {
@@ -209,16 +225,12 @@ public class ASLiveCodingManager extends AbstractLiveCodingManager<AsProject, So
             }
 
             return;
+        } else if (sourceFile.isCompilable()) {
+            synchronized (runMonitor) {
+                changedFiles.add(sourceFile);
+            }
+            tryRunIncrementalCompilation();
         }
-        if (!sourceFile.isCompilable()) {
-            return;
-        }
-
-        synchronized (runMonitor) {
-            changedFiles.add(sourceFile);
-        }
-
-        tryRunIncrementalCompilation();
     }
 
     private synchronized void tryUpdateAsset(ASSourceFile assetFile, String mimeType, List<String> sourceAttributes) {
@@ -367,8 +379,10 @@ public class ASLiveCodingManager extends AbstractLiveCodingManager<AsProject, So
         return embedDigests.get(fullPath);
     }
 
-    public void resetPackageId() {
+    public void resetSession() {
         packageId = 1;
+        paused = false;
+        changedFiles.clear();
     }
 
     @Override
@@ -395,7 +409,7 @@ public class ASLiveCodingManager extends AbstractLiveCodingManager<AsProject, So
         currentSessions.put(clientId, newSession);
 
         if (noSessionsWereActive) {
-            resetPackageId();
+            resetSession();
             startListeningForSourcesChanges();
         }
 
@@ -461,7 +475,7 @@ public class ASLiveCodingManager extends AbstractLiveCodingManager<AsProject, So
         currentSessions.remove(liveCodingSession.getClientId());
 
         if (currentSessions.isEmpty()) {
-            resetPackageId();
+            resetSession();
             stopListeningForSourcesChanges();
         }
 
