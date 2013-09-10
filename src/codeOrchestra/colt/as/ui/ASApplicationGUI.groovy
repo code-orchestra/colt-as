@@ -11,12 +11,11 @@ import codeOrchestra.colt.core.controller.ColtControllerCallback
 import codeOrchestra.colt.core.loading.LiveCodingHandlerManager
 import codeOrchestra.colt.core.session.LiveCodingSession
 import codeOrchestra.colt.core.session.SocketWriter
-import codeOrchestra.colt.core.session.listener.LiveCodingListener
 import codeOrchestra.colt.core.tracker.GAController
 import codeOrchestra.colt.core.tracker.GATracker
+import codeOrchestra.colt.core.ui.ApplicationGUI
 import codeOrchestra.colt.core.ui.components.log.Log
 import codeOrchestra.colt.core.ui.components.player.ActionPlayer
-import codeOrchestra.colt.core.ui.ApplicationGUI
 import codeOrchestra.colt.core.ui.dialog.ProjectDialogs
 import javafx.application.Platform
 import javafx.beans.property.BooleanProperty
@@ -91,39 +90,6 @@ class ASApplicationGUI extends ApplicationGUI {
         root.center = settingsForm
     }
 
-    private LiveCodingListener liveCodingListener = new LiveCodingListener() {
-        @Override
-        void onSessionStart(LiveCodingSession session) {
-            //To change body of implemented methods use File | Settings | File Templates.
-        }
-
-        @Override
-        void onSessionEnd(LiveCodingSession session) {
-            if (liveCodingManager.currentConnections.size() == 0) {
-                Platform.runLater({
-                    actionPlayerPopup.actionPlayer.stop.selected = true
-                    actionPlayerPopup.actionPlayer.disable = false
-                })
-                liveCodingManager.removeListener(this)
-            }
-        }
-
-        @Override
-        void onSessionPause() {
-            //To change body of implemented methods use File | Settings | File Templates.
-        }
-
-        @Override
-        void onSessionResume() {
-            //To change body of implemented methods use File | Settings | File Templates.
-        }
-
-        @Override
-        void onAutoPausedSessionResume() {
-            //To change body of implemented methods use File | Settings | File Templates.
-        }
-    }
-
     protected initActionPlayerPopup() {
         super.initActionPlayerPopup()
 
@@ -137,7 +103,6 @@ class ASApplicationGUI extends ApplicationGUI {
                                 playerControls.showAdd(true)
                                 playerControls.disable = false
                             })
-                            liveCodingManager.addListener(liveCodingListener)
                         },
                         onError: { Throwable t, CompilationResult errorResult ->
                             Platform.runLater({
@@ -155,7 +120,6 @@ class ASApplicationGUI extends ApplicationGUI {
         } as EventHandler
 
         playerControls.stop.onAction = {
-            liveCodingManager.removeListener(liveCodingListener)
             List<LiveCodingSession<SocketWriter>> connections = liveCodingManager.currentConnections
             connections.each {
                 liveCodingManager.stopSession(it)
