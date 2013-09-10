@@ -65,9 +65,11 @@ class AsSettingsForm extends ScrollPane{
         VBox.setMargin(advancedVBox, new Insets(0, 0, 72, 0))
         advancedVBox.padding = new Insets(0, 0, 18, 0)
         separator.content = advancedVBox
+        //hac for windows
         advancedVBox.visibleProperty().addListener({ javafx.beans.Observable observable ->
             layoutChildren()
         } as InvalidationListener)
+        //end hac for windows
         vBox.children.add(advancedVBox)
 
         TemplateForm template = new TemplateForm()
