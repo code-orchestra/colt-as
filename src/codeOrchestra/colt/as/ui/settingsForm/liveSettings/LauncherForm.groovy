@@ -32,7 +32,8 @@ class LauncherForm extends FormGroup implements IFormValidated {
         title = "Launcher"
 
         defaultPlayer = new RadioButtonInput(title: "System default application")
-        player = new RadioButtonActionInput(title: "Flash Player", browseType: SystemInfo.isMac ? BrowseType.DIRECTORY : BrowseType.FILE)
+        player = new RadioButtonActionInput(title: "Flash Player", browseType: BrowseType.APPLICATION)
+        player.extensionFilters.add(SystemInfo.isMac ? new FileChooser.ExtensionFilter("Application", "*.app") : new FileChooser.ExtensionFilter("Application", "*.exe"))
 
         children.addAll(defaultPlayer, player)
 
@@ -42,8 +43,6 @@ class LauncherForm extends FormGroup implements IFormValidated {
     void init() {
         launcher = new ToggleGroup()
         launcher.toggles.addAll(defaultPlayer.radioButton, player.radioButton)
-
-        player.extensionFilters.add(new FileChooser.ExtensionFilter("APP", "*.app"))
 
         bindModel()
 
