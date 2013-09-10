@@ -1,6 +1,7 @@
 package codeOrchestra.colt.as.model.beans
 
 import codeOrchestra.colt.core.model.IModelElement
+import codeOrchestra.colt.core.model.Project
 import codeOrchestra.groovyfx.FXBindable
 import codeOrchestra.util.PathUtils
 import groovy.transform.Canonical
@@ -53,11 +54,11 @@ class BuildModel implements IModelElement {
     }
 
     @Override
-    Closure buildXml() {
+    Closure buildXml(Project project) {
         return {
-            'main-class'(PathUtils.makeRelative(mainClass))
+            'main-class'(PathUtils.makeRelative(mainClass, project))
             'output-name'(outputFileName)
-            'output-path'(PathUtils.makeRelative(outputPath))
+            'output-path'(PathUtils.makeRelative(outputPath, project))
             'use-max-version'(useMaxVersion)
             'player-version'(targetPlayerVersion)
             'is-rsl'(rsl)

@@ -36,16 +36,14 @@ class AsProject extends Project {
         return "AS";
     }
 
-    @Override
     Closure buildXml() {
         return {
-            paths(projectPaths.buildXml())
-            build(buildSettings.buildXml())
-            live(liveSettings.buildXml())
+            paths(projectPaths.buildXml(this))
+            build(buildSettings.buildXml(this))
+            live(liveSettings.buildXml(this))
         }
     }
 
-    @Override
     void buildModel(Object node) {
         super.buildModel(node)
 

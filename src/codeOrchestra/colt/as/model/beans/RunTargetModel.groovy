@@ -1,5 +1,6 @@
 package codeOrchestra.colt.as.model.beans
 
+import codeOrchestra.colt.core.model.Project
 import codeOrchestra.colt.core.model.monitor.ChangingMonitor
 import codeOrchestra.colt.as.model.beans.air.AIRModel
 import codeOrchestra.colt.core.model.IModelElement
@@ -32,12 +33,12 @@ class RunTargetModel implements IModelElement{
     }
 
     @Override
-    Closure buildXml() {
+    Closure buildXml(Project project) {
         return {
             'run-target'(target)
             'http-index'(httpIndex)
-            'ios-script'(path:PathUtils.makeRelative(iosScript), iosAirModel.buildXml())
-            'android-script'(path:PathUtils.makeRelative(androidScript), androidAirModel.buildXml())
+            'ios-script'(path:PathUtils.makeRelative(iosScript, project), iosAirModel.buildXml(project))
+            'android-script'(path:PathUtils.makeRelative(androidScript, project), androidAirModel.buildXml(project))
         }
     }
 

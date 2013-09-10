@@ -1,5 +1,6 @@
 package codeOrchestra.colt.as.model
 
+import codeOrchestra.colt.core.model.Project
 import codeOrchestra.colt.core.model.ProjectPaths
 import codeOrchestra.colt.core.model.monitor.ChangingMonitor
 import codeOrchestra.groovyfx.FXBindable
@@ -51,24 +52,24 @@ class AsProjectPaths_ extends ProjectPaths<AsProject> {
     }
 
     @Override
-    Closure buildXml() {
+    Closure buildXml(Project project) {
         return {
             'sources-list' {
                 for (s in sources) {
-                    item(PathUtils.makeRelative(s))
+                    item(PathUtils.makeRelative(s, project))
                 }
             }
             'libraries-list' {
                 for (s in libraries) {
-                    item(PathUtils.makeRelative(s))
+                    item(PathUtils.makeRelative(s, project))
                 }
             }
             'assets-list' {
                 for (s in assets) {
-                    item(PathUtils.makeRelative(s))
+                    item(PathUtils.makeRelative(s, project))
                 }
             }
-            'html-template'(PathUtils.makeRelative(htmlTemplatePath))
+            'html-template'(PathUtils.makeRelative(htmlTemplatePath, project))
         }
     }
 

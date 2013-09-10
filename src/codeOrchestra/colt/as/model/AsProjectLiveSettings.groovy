@@ -5,6 +5,7 @@ import codeOrchestra.colt.as.model.beans.LiveSettingsModel
 import codeOrchestra.colt.as.model.beans.SettingsModel
 import codeOrchestra.colt.as.run.LauncherType
 import codeOrchestra.colt.as.run.LiveMethods
+import codeOrchestra.colt.core.model.Project
 import codeOrchestra.colt.core.model.ProjectLiveSettings
 
 /**
@@ -70,11 +71,11 @@ class AsProjectLiveSettings extends ProjectLiveSettings<AsProject>{
     }
 
     @Override
-    Closure buildXml() {
+    Closure buildXml(Project project) {
         return {
-            settings(settingsModel.buildXml())
-            launch(launcherModel.buildXml())
-            live(liveSettingsModel.buildXml())
+            settings(settingsModel.buildXml(project))
+            launch(launcherModel.buildXml(project))
+            live(liveSettingsModel.buildXml(project))
         }
     }
 

@@ -2,12 +2,12 @@ package codeOrchestra.colt.as.model.beans
 
 import codeOrchestra.colt.as.flexsdk.FlexSDKManager
 import codeOrchestra.colt.as.flexsdk.FlexSDKNotPresentException
+import codeOrchestra.colt.core.model.Project
 import codeOrchestra.colt.core.model.monitor.ChangingMonitor
 import codeOrchestra.colt.core.model.IModelElement
 import codeOrchestra.groovyfx.FXBindable
 import codeOrchestra.util.PathUtils
 import groovy.transform.Canonical
-import javafx.beans.property.StringProperty
 
 /**
  * @author Dima Kruk
@@ -34,12 +34,12 @@ class SDKModel implements IModelElement{
     }
 
     @Override
-    Closure buildXml() {
+    Closure buildXml(Project project) {
         return {
-            'sdk-path'(PathUtils.makeRelative(flexSDKPath))
+            'sdk-path'(PathUtils.makeRelative(flexSDKPath, project))
             'use-flex'(useFlexConfig)
             'use-custom'(useCustomConfig)
-            'custom-config'(PathUtils.makeRelative(customConfigPath))
+            'custom-config'(PathUtils.makeRelative(customConfigPath, project))
         }
     }
 

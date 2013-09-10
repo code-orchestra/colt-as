@@ -5,6 +5,7 @@ import codeOrchestra.colt.as.model.beans.ProductionBuildModel
 import codeOrchestra.colt.as.model.beans.RunTargetModel
 import codeOrchestra.colt.as.model.beans.SDKModel
 import codeOrchestra.colt.as.run.Target
+import codeOrchestra.colt.core.model.Project
 import codeOrchestra.colt.core.model.ProjectBuildSettings
 
 /**
@@ -107,12 +108,12 @@ class AsProjectBuildSettings extends ProjectBuildSettings<AsProject> {
     }
 
     @Override
-    Closure buildXml() {
+    Closure buildXml(Project project) {
         return {
-            sdk(sdkModel.buildXml())
-            build(buildModel.buildXml())
-            production(productionBuildModel.buildXml())
-            'run-target'(runTargetModel.buildXml())
+            sdk(sdkModel.buildXml(project))
+            build(buildModel.buildXml(project))
+            production(productionBuildModel.buildXml(project))
+            'run-target'(runTargetModel.buildXml(project))
         }
     }
 

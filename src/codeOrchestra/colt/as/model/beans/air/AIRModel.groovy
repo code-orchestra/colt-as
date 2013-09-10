@@ -1,5 +1,6 @@
 package codeOrchestra.colt.as.model.beans.air
 
+import codeOrchestra.colt.core.model.Project
 import codeOrchestra.colt.core.model.monitor.ChangingMonitor
 import codeOrchestra.colt.core.model.IModelElement
 import codeOrchestra.groovyfx.FXBindable
@@ -27,7 +28,7 @@ class AIRModel implements IModelElement {
     }
 
     @Override
-    Closure buildXml() {
+    Closure buildXml(Project project) {
         return {
             'sdk-path'(airSDKPath)
             'provision-path'(provisionPath)

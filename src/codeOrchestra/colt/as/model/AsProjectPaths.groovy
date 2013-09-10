@@ -1,5 +1,6 @@
 package codeOrchestra.colt.as.model
 
+import codeOrchestra.colt.core.model.Project
 import codeOrchestra.colt.core.model.ProjectPaths
 import codeOrchestra.colt.core.model.monitor.ChangingMonitor
 import codeOrchestra.colt.core.ui.components.fileset.FilesetInput
@@ -56,12 +57,12 @@ class AsProjectPaths extends ProjectPaths<AsProject> {
     }
 
     @Override
-    Closure buildXml() {
+    Closure buildXml(Project project) {
         return {
             'sources-set' (sources)
             'libraries-set' (libraries)
             'assets-set' (assets)
-            'html-template'(PathUtils.makeRelative(htmlTemplatePath))
+            'html-template'(PathUtils.makeRelative(htmlTemplatePath, project))
         }
     }
 

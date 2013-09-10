@@ -1,5 +1,6 @@
 package codeOrchestra.colt.as.model.beans
 
+import codeOrchestra.colt.core.model.Project
 import codeOrchestra.colt.core.model.monitor.ChangingMonitor
 import codeOrchestra.colt.core.model.IModelElement
 import codeOrchestra.colt.as.run.LiveMethods
@@ -28,7 +29,7 @@ class LiveSettingsModel implements IModelElement{
     }
 
     @Override
-    Closure buildXml() {
+    Closure buildXml(Project project) {
         return {
             'live-type'(liveType)
             'paused'(startSessionPaused)
