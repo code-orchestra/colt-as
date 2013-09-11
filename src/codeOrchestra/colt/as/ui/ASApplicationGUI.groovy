@@ -100,15 +100,12 @@ class ASApplicationGUI extends ApplicationGUI {
                 playerControls.disable = true
                 coltController.startBaseCompilation([
                         onComplete: { CompilationResult successResult ->
-                            println "onComplete"
-                            println "successResult = $successResult"
                             Platform.runLater({
                                 playerControls.showAdd(true)
                                 playerControls.disable = false
                             })
                         },
                         onError: { Throwable t, CompilationResult errorResult ->
-                            println "onError"
                             Platform.runLater({
                                 playerControls.stop.selected = true
                                 playerControls.disable = false
