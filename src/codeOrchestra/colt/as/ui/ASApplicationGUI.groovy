@@ -17,12 +17,14 @@ import codeOrchestra.colt.core.ui.ApplicationGUI
 import codeOrchestra.colt.core.ui.components.log.Log
 import codeOrchestra.colt.core.ui.components.player.ActionPlayer
 import codeOrchestra.colt.core.ui.dialog.ProjectDialogs
+import codeOrchestra.util.ThreadUtils
 import javafx.application.Platform
 import javafx.beans.property.BooleanProperty
 import javafx.beans.value.ChangeListener
 import javafx.beans.value.ObservableValue
 import javafx.event.EventHandler
 import javafx.scene.control.ToggleButton
+import org.testng.internal.thread.ThreadUtil
 
 /**
  * @author Dima Kruk
@@ -100,10 +102,18 @@ class ASApplicationGUI extends ApplicationGUI {
                 playerControls.disable = true
                 coltController.startBaseCompilation([
                         onComplete: { CompilationResult successResult ->
-                            Platform.runLater({
-                                playerControls.showAdd(true)
-                                playerControls.disable = false
-                            })
+                            new Thread() {
+                                @Override
+                                void run() {
+                                    ThreadUtils.sleep(3000)
+                                    if (liveCodingManager.currentConnections.isEmpty()) {
+                                        Platform.runLater({
+                                            playerControls.stop.selected = true
+                                            playerControls.disable = false
+                                        })
+                                    }
+                                }
+                            }.start()
                         },
                         onError: { Throwable t, CompilationResult errorResult ->
                             Platform.runLater({
