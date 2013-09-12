@@ -91,30 +91,9 @@ class BuildSettingsForm extends FormGroup implements IFormValidated {
 
         } as ChangeListener)
 
-        sdkModel.isValidFlexSDK().addListener({ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue->
-            String modelValue = model.targetPlayerVersion
-            player.values.clear()
-            if (newValue) {
-                List<String> versions = initChoiceBox()
-                if(!model.useMaxVersion && modelValue != null && !modelValue.isEmpty()) {
-                    if (versions.contains(modelValue)) {
-                        model.targetPlayerVersion = modelValue
-                        error(false)
-                    } else {
-                        player.values.add(modelValue)
-                        model.targetPlayerVersion = modelValue
-                        error(true)
-                    }
-                } else {
-                    model.targetPlayerVersion = versions.first()
-                    error(false)
-                }
-            } else {
-                player.values.add(modelValue)
-                model.targetPlayerVersion = modelValue
-                error(true)
-            }
-        } as ChangeListener<Boolean>)
+        sdkModel.flexSDKPath().addListener({ ObservableValue<? extends String> observableValue, String t, String newValue ->
+            updatePlayerVersion(sdkModel.isValidFlexSDK)
+        } as ChangeListener)
 
         model.useMaxVersion().addListener({ ObservableValue<? extends Boolean> observableValue, Boolean oldValue, Boolean newValue ->
             if (newValue && sdkModel.isValidFlexSDK) {
@@ -123,6 +102,31 @@ class BuildSettingsForm extends FormGroup implements IFormValidated {
         } as ChangeListener)
 
         bindModel()
+    }
+
+    private updatePlayerVersion(boolean isValidSDK) {
+        String modelValue = model.targetPlayerVersion
+        player.values.clear()
+        if (isValidSDK) {
+            List<String> versions = initChoiceBox()
+            if(!model.useMaxVersion && modelValue != null && !modelValue.isEmpty()) {
+                if (versions.contains(modelValue)) {
+                    model.targetPlayerVersion = modelValue
+                    error(false)
+                } else {
+                    player.values.add(modelValue)
+                    model.targetPlayerVersion = modelValue
+                    error(true)
+                }
+            } else {
+                model.targetPlayerVersion = versions.first()
+                error(false)
+            }
+        } else {
+            player.values.add(modelValue)
+            model.targetPlayerVersion = modelValue
+            error(true)
+        }
     }
 
     private List<String> initChoiceBox(boolean setFirst = false) {
