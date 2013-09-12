@@ -24,7 +24,7 @@ public class ASLiveLauncher implements LiveLauncher<AsProject> {
 
     private List<ProcessHandlerWrapper> processHandlerWrappers = new ArrayList<>();
 
-    public ProcessHandlerWrapper launch(AsProject project) throws ExecutionException {
+    public ProcessHandlerWrapper launch(AsProject project, boolean multiple) throws ExecutionException {
         AsProjectLiveSettings liveCodingSettings = project.getProjectLiveSettings();
         AsProjectBuildSettings compilerSettings = project.getProjectBuildSettings();
         Target launchTarget = compilerSettings.getLaunchTarget();
@@ -57,7 +57,7 @@ public class ASLiveLauncher implements LiveLauncher<AsProject> {
 
         switch (launcherType) {
             case DEFAULT:
-                processHandlerWrapper = new ProcessHandlerWrapper(new ProcessHandlerBuilder().append(getCommand(BrowserUtil.launchBrowser(target, null))).build(), false);
+                processHandlerWrapper = new ProcessHandlerWrapper(new ProcessHandlerBuilder().append(getCommand(BrowserUtil.launchBrowser(target, multiple))).build(), false);
                 break;
             case FLASH_PLAYER:
                 processHandlerWrapper = new ProcessHandlerWrapper(new ProcessHandlerBuilder().append(completeFlashPlayerPath(liveCodingSettings.getFlashPlayerPath())).append(protect(target)).build(), false);
