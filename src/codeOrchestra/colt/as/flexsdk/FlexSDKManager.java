@@ -91,7 +91,7 @@ public class FlexSDKManager {
     
     for (File playerDir : playerDirs) {
       String playerVersion = playerDir.getName();
-      if (playerVersion.indexOf(".") == -1) {
+      if (!playerVersion.contains(".")) {
         continue;
       }
       
@@ -101,11 +101,22 @@ public class FlexSDKManager {
         
       result.add(playerVersion);
     }
-    
-    Collections.reverse(result);
+      result.sort((o1, o2) -> getPlayerVersion(o2) - getPlayerVersion(o1));
     
     return result;
   }
+    private static int getPlayerVersion(String version) {
+        int power = 3;
+        String[] versionSpited = version.split("\\.");
+        int versionInt = 0;
+
+        for (String str : versionSpited) {
+            versionInt += (Integer.valueOf(str) * (Math.pow(10, power)));
+            power--;
+        }
+
+        return versionInt;
+    }
   
   public static void main(String[] args) throws FlexSDKNotPresentException {
     FlexSDKManager manager = new FlexSDKManager();
