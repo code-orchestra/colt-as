@@ -42,9 +42,9 @@ public class ColtAsController extends AbstractColtController<AsProject> {
                 progressIndicator.setText("Launching");
 
                 ASLiveLauncher liveLauncher = (ASLiveLauncher) ServiceProvider.get(LiveLauncher.class);
-                ProcessHandlerWrapper processHandlerWrapper = null;
+                ProcessHandlerWrapper processHandlerWrapper;
                 try {
-                    processHandlerWrapper = liveLauncher.launch(currentProject);
+                    processHandlerWrapper = liveLauncher.launch(currentProject, true);
                 } catch (ExecutionException e) {
                     ErrorHandler.handle(e, "Error while launching build artifact");
                     return null;
@@ -105,7 +105,7 @@ public class ColtAsController extends AbstractColtController<AsProject> {
                     progressIndicator.setText("Launching");
                     try {
                         ASLiveLauncher liveLauncher = (ASLiveLauncher) ServiceProvider.get(LiveLauncher.class);
-                        ProcessHandlerWrapper processHandlerWrapper = liveLauncher.launch(currentProject);
+                        ProcessHandlerWrapper processHandlerWrapper = liveLauncher.launch(currentProject, false);
                         ProcessHandler processHandler = processHandlerWrapper.getProcessHandler();
                         processHandler.addProcessListener(new LoggingProcessListener("Launch"));
                         processHandler.startNotify();
@@ -223,7 +223,7 @@ public class ColtAsController extends AbstractColtController<AsProject> {
                         progressIndicator.setText("Launching");
                         try {
                             ASLiveLauncher liveLauncher = (ASLiveLauncher) ServiceProvider.get(LiveLauncher.class);
-                            ProcessHandlerWrapper processHandlerWrapper = liveLauncher.launch(currentProject);
+                            ProcessHandlerWrapper processHandlerWrapper = liveLauncher.launch(currentProject, false);
                             ProcessHandler processHandler = processHandlerWrapper.getProcessHandler();
                             processHandler.addProcessListener(new LoggingProcessListener("Launch"));
                             processHandler.startNotify();
