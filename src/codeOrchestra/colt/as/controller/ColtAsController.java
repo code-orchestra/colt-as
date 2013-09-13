@@ -29,6 +29,9 @@ import codeOrchestra.colt.core.tasks.TasksManager;
 import codeOrchestra.colt.core.ui.components.IProgressIndicator;
 import codeOrchestra.util.ProjectHelper;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author Alexander Eliseyev
  */

@@ -17,6 +17,7 @@ import codeOrchestra.colt.core.LiveCodingManager;
 import codeOrchestra.colt.core.ServiceProvider;
 import codeOrchestra.colt.core.controller.ColtController;
 import codeOrchestra.colt.core.facade.ColtFacade;
+import codeOrchestra.colt.core.gradle.GradleTaskManager;
 import codeOrchestra.colt.core.launch.LiveLauncher;
 import codeOrchestra.colt.core.logging.LoggerService;
 import codeOrchestra.colt.core.rpc.ColtRemoteService;
@@ -162,4 +163,8 @@ public class ASLiveCodingLanguageHandler extends AbstractLiveCodingLanguageHandl
         return new AsColtFacade();
     }
 
+    @Override
+    public GradleTaskManager<AsProject> createGradleTaskManager() {
+        throw new UnsupportedOperationException();
+    }
 }
