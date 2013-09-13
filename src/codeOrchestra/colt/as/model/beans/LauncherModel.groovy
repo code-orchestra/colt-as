@@ -15,7 +15,6 @@ import codeOrchestra.colt.as.run.LauncherType
 class LauncherModel  implements IModelElement{
     String launcherType = LauncherType.DEFAULT.toString()
     String flashPlayerPath = ""
-    String webAddress = ""
 
     LauncherModel() {
         ChangingMonitor monitor = ChangingMonitor.instance
@@ -27,7 +26,6 @@ class LauncherModel  implements IModelElement{
         return {
             'launcher'(launcherType)
             'player-path'(flashPlayerPath)
-            'web-address'(webAddress)
         }
     }
 
@@ -35,6 +33,5 @@ class LauncherModel  implements IModelElement{
     void buildModel(Object node) {
         launcherType = node.'launcher'
         flashPlayerPath = node.'player-path'
-        webAddress = node.'web-address'
     }
 }

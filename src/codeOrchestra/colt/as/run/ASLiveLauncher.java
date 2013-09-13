@@ -51,7 +51,7 @@ public class ASLiveLauncher implements LiveLauncher<AsProject> {
             TrustedLocations.getInstance().addTrustedLocation(swfPath);
         }
 
-        String target = launchTarget == Target.WEB_ADDRESS ? liveCodingSettings.getWebAddress() : swfPath;
+        String target = launchTarget == Target.WEB_ADDRESS ? compilerSettings.getWebAddress() : swfPath;
 
         ProcessHandlerWrapper processHandlerWrapper;
 

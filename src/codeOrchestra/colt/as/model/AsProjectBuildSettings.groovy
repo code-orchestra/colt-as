@@ -18,6 +18,14 @@ class AsProjectBuildSettings extends ProjectBuildSettings<AsProject> {
     public final ProductionBuildModel productionBuildModel = new ProductionBuildModel()
     public final RunTargetModel runTargetModel = new RunTargetModel()
 
+    String getWebAddress() {
+        return runTargetModel.httpIndex
+    }
+
+    void setWebAddress(String webAddress) {
+        runTargetModel.httpIndex = webAddress
+    }
+
     public boolean allowCompression() {
         return productionBuildModel.compression
     }

@@ -37,10 +37,6 @@ class AsProjectLiveSettings extends ProjectLiveSettings<AsProject>{
         launcherModel.flashPlayerPath = flashPlayerPath;
     }
 
-    public String getWebAddress() {
-        return launcherModel.webAddress;
-    }
-
     public LiveMethods getLiveMethods() {
         return LiveMethods.parseValue(liveSettingsModel.liveType);
     }
