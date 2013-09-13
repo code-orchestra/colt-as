@@ -31,7 +31,7 @@ class ProjectImporter {
                     project.projectBuildSettings.buildModel.mainClass = PathUtils.makeAbsolute(s)
                 },
                 compilationTimeoutValue: { String s ->
-                    project.projectBuildSettings.buildModel.interruptValue = s
+                    project.projectBuildSettings.buildModel.interruptValue = s as Integer
                 },
                 compilationTimeout: { String s ->
                     project.projectBuildSettings.buildModel.interrupt = s
