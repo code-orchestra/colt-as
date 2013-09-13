@@ -71,7 +71,8 @@ class TargetForm extends FormGroup implements IFormValidated {
         http.action = {
             AsProjectBuildSettings buildSettings = ModelStorage.instance.project.getProjectBuildSettings()
             if (buildSettings.outputFilename) {
-                model.httpIndex = IndexHTMLGenerator.generate(ModelStorage.instance.project)
+                IndexHTMLGenerator.generate(ModelStorage.instance.project)
+                model.httpIndex = codeOrchestra.colt.as.model.AsProject.currentProject.webOutputPath + "/index.html"
             } else {
                 ownerForm.validateForms(this)
             }
@@ -145,7 +146,7 @@ class TargetForm extends FormGroup implements IFormValidated {
         Target targetType = Target.valueOf(model.target)
         switch (targetType){
             case codeOrchestra.colt.as.run.Target.WEB_ADDRESS:
-                return http.validateValue() ? http : null
+                return http.validateIsEmpty() ? http : null
                 break
             case codeOrchestra.colt.as.run.Target.AIR_IOS:
                 return ios.validateValue() ? ios : null
