@@ -38,8 +38,7 @@ class AsProjectLiveSettings extends ProjectLiveSettings<AsProject>{
     }
 
     public String getWebAddress() {
-        // TODO: implement
-        return null;
+        return launcherModel.webAddress;
     }
 
     public LiveMethods getLiveMethods() {
