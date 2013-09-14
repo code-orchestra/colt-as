@@ -24,7 +24,7 @@ public class ASLiveLauncher implements LiveLauncher<AsProject> {
 
     private List<ProcessHandlerWrapper> processHandlerWrappers = new ArrayList<>();
 
-    public ProcessHandlerWrapper launch(AsProject project, boolean multiple) throws ExecutionException {
+    public ProcessHandlerWrapper launch(AsProject project, boolean multiple, boolean production) throws ExecutionException {
         AsProjectLiveSettings liveCodingSettings = project.getProjectLiveSettings();
         AsProjectBuildSettings compilerSettings = project.getProjectBuildSettings();
         Target launchTarget = compilerSettings.getLaunchTarget();
@@ -46,7 +46,7 @@ public class ASLiveLauncher implements LiveLauncher<AsProject> {
         }
 
         LauncherType launcherType = liveCodingSettings.getLauncherType();
-        String swfPath = project.getOutputDir().getPath() + File.separator + compilerSettings.getOutputFilename();
+        String swfPath = (production ? compilerSettings.productionBuildModel.getOutputPath() : project.getOutputDir().getPath()) + File.separator + compilerSettings.getOutputFilename();
         if (launchTarget == Target.SWF) {
             TrustedLocations.getInstance().addTrustedLocation(swfPath);
         }
