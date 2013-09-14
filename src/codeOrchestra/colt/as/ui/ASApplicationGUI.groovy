@@ -44,9 +44,13 @@ class ASApplicationGUI extends ApplicationGUI {
     } as EventHandler)
 
     @Lazy AsProductionBuildForm productionBuildForm = new AsProductionBuildForm(saveBuildAction: {
-        coltController.startProductionCompilation()
-        root.center = logView
-        runButton.selected = true
+        if(settingsForm.validateForms()) {
+            coltController.startProductionCompilation()
+            root.center = logView
+            runButton.selected = true
+        } else {
+            settingsButton.onAction.handle(null)
+        }
     } as EventHandler)
 
     ModelStorage model = codeOrchestra.colt.as.model.ModelStorage.instance
