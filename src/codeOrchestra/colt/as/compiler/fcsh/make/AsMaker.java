@@ -78,6 +78,9 @@ public class AsMaker {
         if (productionMode) {
             flexConfig.setAllowCompression(compilerSettings.allowCompression());
             flexConfig.setAllowOptimization(compilerSettings.allowOptimization());
+
+            String swfFileName = new File(flexConfig.getOutputPath()).getName();
+            flexConfig.setOutputPath(new File(currentProject.getProjectBuildSettings().productionBuildModel.getOutputPath(), swfFileName).getPath());
         }
 
         try {
