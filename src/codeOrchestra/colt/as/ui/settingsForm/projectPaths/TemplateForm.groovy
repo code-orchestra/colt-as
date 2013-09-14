@@ -18,8 +18,7 @@ class TemplateForm extends FormGroup implements IFormValidated {
     private AsProjectPaths model = ModelStorage.instance.project.projectPaths
 
     TemplateForm() {
-        template = new LabeledActionInput(title: "HTML Template:", browseType: BrowseType.DIRECTORY, shortPathForProject: ModelStorage.instance.project)
-        template.canBeEmpty = true
+        template = new LabeledActionInput(title: "HTML Template:", browseType: BrowseType.DIRECTORY, canBeEmpty: true, shortPathForProject: ModelStorage.instance.project)
 
         children.add(template)
 

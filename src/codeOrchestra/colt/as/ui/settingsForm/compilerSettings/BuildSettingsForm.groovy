@@ -38,7 +38,7 @@ class BuildSettingsForm extends FormGroup implements IFormValidated {
 
     BuildSettingsForm() {
         fileName = new LabeledTitledInput(title: "Output file name:")
-        outPath = new LabeledActionInput(title: "Output path:", browseType: BrowseType.DIRECTORY, shortPathForProject: ModelStorage.instance.project)
+        outPath = new LabeledActionInput(title: "Output path:", browseType: BrowseType.DIRECTORY, canBeEmpty: true, shortPathForProject: ModelStorage.instance.project)
 
         player = new CBForm()
 
