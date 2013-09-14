@@ -7,6 +7,7 @@ import codeOrchestra.colt.core.ui.components.inputForms.base.BrowseType
 import codeOrchestra.colt.core.ui.components.inputForms.LabeledActionInput
 import codeOrchestra.colt.core.ui.components.inputForms.group.FormGroup
 import javafx.scene.Parent
+import codeOrchestra.colt.as.model.ModelStorage
 
 /**
  * @author Dima Kruk
@@ -14,10 +15,10 @@ import javafx.scene.Parent
 class TemplateForm extends FormGroup implements IFormValidated {
     private LabeledActionInput template
 
-    private AsProjectPaths model = codeOrchestra.colt.as.model.ModelStorage.instance.project.projectPaths
+    private AsProjectPaths model = ModelStorage.instance.project.projectPaths
 
     TemplateForm() {
-        template = new LabeledActionInput(title: "HTML Template:", browseType: BrowseType.DIRECTORY)
+        template = new LabeledActionInput(title: "HTML Template:", browseType: BrowseType.DIRECTORY, shortPathForProject: ModelStorage.instance.project)
         template.canBeEmpty = true
 
         children.add(template)

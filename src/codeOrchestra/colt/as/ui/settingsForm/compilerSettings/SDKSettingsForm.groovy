@@ -31,7 +31,7 @@ class SDKSettingsForm extends FormGroup implements IFormValidated{
     SDKSettingsForm() {
         sdkPath = new LabeledActionInput(title: "Flex SDK Path:", browseType: BrowseType.DIRECTORY)
         defConf = new CheckBoxInput(title: "Use default SDK compiler configuration file")
-        customConf = new CheckBoxActionInput(title: "Use custom compiler configuration file")
+        customConf = new CheckBoxActionInput(title: "Use custom compiler configuration file", shortPathForProject: ModelStorage.instance.project)
 
         children.addAll(sdkPath, defConf, customConf)
 

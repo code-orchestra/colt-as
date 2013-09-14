@@ -30,7 +30,7 @@ class ProjectPathsForm extends FormGroup implements IFormValidated {
         libraries = new FilesetInput(title: "Library Paths:", useExcludes: false)
         assets = new FilesetInput(title: "Assets Paths:", useFiles: false, useExcludes: false)
 
-        mainClass = new LabeledActionInput(title: "Main class:")
+        mainClass = new LabeledActionInput(title: "Main class:", shortPathForProject: ModelStorage.instance.project)
 
         children.addAll(sources, libraries, assets, mainClass)
 
