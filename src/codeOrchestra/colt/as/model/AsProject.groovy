@@ -33,7 +33,7 @@ class AsProject extends Project {
 
     @Override
     String getProjectType() {
-        return "AS";
+        return "AS"
     }
 
     Closure buildXml() {
