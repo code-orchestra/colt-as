@@ -102,7 +102,7 @@ class TargetForm extends FormGroup implements IFormValidated {
 
     static boolean canShowDialog() {
         AsProjectBuildSettings buildSettings = ModelStorage.instance.project.getProjectBuildSettings()
-        return buildSettings.outputPath && buildSettings.outputFilename
+        return buildSettings.outputFilename && ModelStorage.instance.project.getOutputDir().exists()
     }
 
     void showDialog(AirForm controller, String title, RunTargetModel model) {
