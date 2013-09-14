@@ -16,6 +16,8 @@ class AsProductionBuildForm extends ScrollPane{
     private Button saveAndBuildButton
     EventHandler saveBuildAction
 
+    ProductionBuildForm productionBuild
+
     AsProductionBuildForm() {
         setId("settings-form")
         styleClass.add("scroll-pane-settings")
@@ -25,7 +27,7 @@ class AsProductionBuildForm extends ScrollPane{
         vBox.alignment = Pos.TOP_CENTER
         this.content = vBox
 
-        ProductionBuildForm productionBuild = new ProductionBuildForm()
+        productionBuild = new ProductionBuildForm()
         productionBuild.first = true
         vBox.children.add(productionBuild)
 
@@ -41,7 +43,14 @@ class AsProductionBuildForm extends ScrollPane{
     void setSaveBuildAction(EventHandler saveBuildAction) {
         this.saveBuildAction = saveBuildAction
         saveAndBuildButton.onAction = {
-            this.saveBuildAction.handle(it)
+            if(validateForms()) {
+                this.saveBuildAction.handle(it)
+            }
         } as EventHandler
     }
+
+    public boolean validateForms() {
+        return productionBuild.validated() == null
+    }
+
 }
