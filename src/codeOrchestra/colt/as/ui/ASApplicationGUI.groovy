@@ -33,7 +33,7 @@ import org.testng.internal.thread.ThreadUtil
 class ASApplicationGUI extends ApplicationGUI {
 
     @Service ColtAsController coltController
-    @Service ASLiveCodingManager liveCodingManager
+    private @Service ASLiveCodingManager liveCodingManager
 
     @Lazy AsSettingsForm settingsForm = new AsSettingsForm(saveRunAction:{
         ProjectDialogs.saveProjectDialog()
