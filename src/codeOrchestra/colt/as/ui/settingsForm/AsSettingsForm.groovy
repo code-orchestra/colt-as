@@ -1,5 +1,6 @@
 package codeOrchestra.colt.as.ui.settingsForm
 
+import codeOrchestra.colt.as.model.AsProject
 import codeOrchestra.colt.as.ui.settingsForm.compilerSettings.BuildSettingsForm
 import codeOrchestra.colt.as.ui.settingsForm.compilerSettings.CompilerSettingsForm
 import codeOrchestra.colt.as.ui.settingsForm.compilerSettings.ProductionBuildForm
@@ -15,6 +16,8 @@ import codeOrchestra.colt.core.ui.components.advancedSeparator.AdvancedSeparator
 import javafx.animation.KeyFrame
 import javafx.animation.Timeline
 import javafx.beans.InvalidationListener
+import javafx.beans.value.ChangeListener
+import javafx.beans.value.ObservableValue
 import javafx.event.EventHandler
 import javafx.geometry.Bounds
 import javafx.geometry.Insets
@@ -24,6 +27,7 @@ import javafx.scene.control.Button
 import javafx.scene.control.ScrollPane
 import javafx.scene.layout.VBox
 import javafx.util.Duration
+import codeOrchestra.colt.as.model.ModelStorage
 
 /**
  * @author Dima Kruk
@@ -36,6 +40,8 @@ class AsSettingsForm extends ScrollPane{
     AdvancedSeparator separator
 
     private List<IFormValidated> validatedForms
+
+    AsProject project = ModelStorage.instance.project
 
     AsSettingsForm() {
 
@@ -84,6 +90,9 @@ class AsSettingsForm extends ScrollPane{
 
 
         LauncherForm launcher = new LauncherForm()
+        project.projectBuildSettings.runTargetModel.target().addListener({ ObservableValue<? extends String> observableValue, String t, String newValue ->
+            launcher.disable = newValue != codeOrchestra.colt.as.run.Target.SWF.name()
+        } as ChangeListener)
         validatedForms.add(launcher)
         advancedVBox.children.add(launcher)
 
