@@ -76,6 +76,20 @@ class AsProject extends Project {
         return new File(outputPath);
     }
 
+    File getProductionOutputDir() {
+        File result
+        String outputPath = buildSettings.productionBuildModel.outputPath
+        if (outputPath.isEmpty()) {
+            result = new File(getBaseDir(), "out/production")
+            if (!result.exists()) {
+                result.mkdirs()
+            }
+        } else {
+            result = new File(outputPath)
+        }
+        return result
+    }
+
     File getDefaultOutputDir() {
         return new File(ProjectStorageManager.getOrCreateProjectStorageDir(), "colt_output")
     }
@@ -121,5 +135,7 @@ class AsProject extends Project {
         liveSettings.liveMethods = codeOrchestra.colt.as.run.LiveMethods.ANNOTATED;
 
         buildSettings.buildModel.outputPath = getDefaultOutputDir().path
+
+        buildSettings.productionBuildModel.outputPath = getProductionOutputDir().path
     }
 }

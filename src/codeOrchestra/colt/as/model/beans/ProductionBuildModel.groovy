@@ -4,6 +4,7 @@ import codeOrchestra.colt.core.model.Project
 import codeOrchestra.colt.core.model.monitor.ChangingMonitor
 import codeOrchestra.colt.core.model.IModelElement
 import codeOrchestra.groovyfx.FXBindable
+import codeOrchestra.util.PathUtils
 import groovy.transform.Canonical
 
 /**
@@ -12,12 +13,14 @@ import groovy.transform.Canonical
 @Canonical
 @FXBindable
 class ProductionBuildModel implements IModelElement {
+    String outputPath = ""
     boolean compression = false
     boolean optimization = false
 
     ProductionBuildModel() {
         ChangingMonitor monitor = ChangingMonitor.instance
         monitor.addAll(
+                outputPath(),
                 compression(),
                 optimization()
         )
@@ -26,6 +29,7 @@ class ProductionBuildModel implements IModelElement {
     @Override
     Closure buildXml(Project project) {
         return {
+            'output-path'(PathUtils.makeRelative(outputPath, project))
             compress(compression)
             optimize(optimization)
         }
@@ -33,6 +37,7 @@ class ProductionBuildModel implements IModelElement {
 
     @Override
     void buildModel(Object node) {
+        outputPath = PathUtils.makeAbsolute(node.'output-path'?.toString())
         compression = node.compress == "true"
         optimization = node.optimize == "true"
     }

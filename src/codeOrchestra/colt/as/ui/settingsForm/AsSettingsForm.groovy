@@ -112,9 +112,6 @@ class AsSettingsForm extends ScrollPane{
         validatedForms.add(buildSettings)
         advancedVBox.children.add(buildSettings)
 
-        ProductionBuildForm productionBuild = new ProductionBuildForm()
-        advancedVBox.children.add(productionBuild)
-
         CompilerSettingsForm compilerSettings = new CompilerSettingsForm()
         advancedVBox.children.add(compilerSettings)
         //compilerSettings

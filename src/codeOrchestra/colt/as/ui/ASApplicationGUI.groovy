@@ -5,6 +5,7 @@ import codeOrchestra.colt.as.ASLiveCodingManager
 import codeOrchestra.colt.as.compiler.fcsh.make.CompilationResult
 import codeOrchestra.colt.as.controller.ColtAsController
 import codeOrchestra.colt.as.model.ModelStorage
+import codeOrchestra.colt.as.ui.productionBuildForm.AsProductionBuildForm
 import codeOrchestra.colt.as.ui.settingsForm.AsSettingsForm
 import codeOrchestra.colt.core.annotation.Service
 import codeOrchestra.colt.core.controller.ColtControllerCallback
@@ -42,6 +43,12 @@ class ASApplicationGUI extends ApplicationGUI {
         playAction.onAction.handle(null)
     } as EventHandler)
 
+    @Lazy AsProductionBuildForm productionBuildForm = new AsProductionBuildForm(saveBuildAction: {
+        coltController.startProductionCompilation()
+        root.center = logView
+        runButton.selected = true
+    } as EventHandler)
+
     ModelStorage model = codeOrchestra.colt.as.model.ModelStorage.instance
 
     ASApplicationGUI() {
@@ -70,7 +77,7 @@ class ASApplicationGUI extends ApplicationGUI {
         } as EventHandler
 
         buildButton.onAction = {
-            coltController.startProductionCompilation()//todo: handle errors?
+            root.center = productionBuildForm
             buildButton.selected = true
         } as EventHandler
 
