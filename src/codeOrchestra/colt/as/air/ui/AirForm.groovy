@@ -94,8 +94,12 @@ abstract class AirForm extends VBox{
         } as EventHandler
 
         AsProject project = codeOrchestra.colt.as.model.ModelStorage.instance.project
-        File dir = project.outputDir
+        File dir = project.getOutputDir()
         String outName = project.getProjectBuildSettings().outputFilename
+        File projectFile = new File(dir, outName)
+        if (!projectFile.exists()) {
+            contentList.items.add(new FileCellBean(projectFile, true))
+        }
         dir.eachFileRecurse (FileType.FILES) { file ->
             contentList.items.add(new FileCellBean(file, file.name.endsWith(outName)))
         }
