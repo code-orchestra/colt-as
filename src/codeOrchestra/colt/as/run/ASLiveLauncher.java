@@ -7,6 +7,7 @@ import codeOrchestra.colt.as.security.TrustedLocations;
 import codeOrchestra.colt.core.execution.ExecutionException;
 import codeOrchestra.colt.core.execution.ProcessHandlerWrapper;
 import codeOrchestra.colt.core.launch.LiveLauncher;
+import codeOrchestra.colt.core.ui.ApplicationGUI;
 import codeOrchestra.util.BrowserUtil;
 import codeOrchestra.util.StringUtils;
 import codeOrchestra.util.SystemInfo;
@@ -44,6 +45,8 @@ public class ASLiveLauncher implements LiveLauncher<AsProject> {
             }
             return new ProcessHandlerWrapper(new ProcessHandlerBuilder().append(protect(scriptPath)).build(project.getOutputDir()), true);
         }
+
+        ApplicationGUI.CAN_SHOW_ADD = true;
 
         LauncherType launcherType = liveCodingSettings.getLauncherType();
         String swfPath = (production ? compilerSettings.productionBuildModel.getOutputPath() : project.getOutputDir().getPath()) + File.separator + compilerSettings.getOutputFilename();
