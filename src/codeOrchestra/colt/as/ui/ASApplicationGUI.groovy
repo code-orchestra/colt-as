@@ -163,8 +163,9 @@ class ASApplicationGUI extends ApplicationGUI {
     protected void initGoogleAnalytics() {
         GATracker.instance.trackPageView("/as/asProject.html", "asProject")
         GAController.instance.pageContainer = root.centerProperty()
-        GAController.instance.registerEvent(runButton, "ActionMenu", "Run pressed")
-        GAController.instance.registerEvent(settingsButton, "ActionMenu", "Settings pressed")
+        GAController.instance.registerEvent(runButton, "asActionMenu", "Run pressed")
+        GAController.instance.registerEvent(buildButton, "asActionMenu", "Build pressed")
+        GAController.instance.registerEvent(settingsButton, "asActionMenu", "Settings pressed")
     }
 
 }
