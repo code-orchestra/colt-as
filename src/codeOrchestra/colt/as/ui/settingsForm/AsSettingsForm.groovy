@@ -3,7 +3,6 @@ package codeOrchestra.colt.as.ui.settingsForm
 import codeOrchestra.colt.as.model.AsProject
 import codeOrchestra.colt.as.ui.settingsForm.compilerSettings.BuildSettingsForm
 import codeOrchestra.colt.as.ui.settingsForm.compilerSettings.CompilerSettingsForm
-import codeOrchestra.colt.as.ui.settingsForm.compilerSettings.ProductionBuildForm
 import codeOrchestra.colt.as.ui.settingsForm.compilerSettings.SDKSettingsForm
 import codeOrchestra.colt.as.ui.settingsForm.liveSettings.LauncherForm
 import codeOrchestra.colt.as.ui.settingsForm.liveSettings.LiveSettingsForm
@@ -12,6 +11,7 @@ import codeOrchestra.colt.as.ui.settingsForm.liveSettings.TargetForm
 import codeOrchestra.colt.as.ui.settingsForm.projectPaths.ProjectPathsForm
 import codeOrchestra.colt.as.ui.settingsForm.projectPaths.TemplateForm
 import codeOrchestra.colt.core.tracker.GAController
+import codeOrchestra.colt.core.ui.components.scrollpane.SettingsScrollPane
 import codeOrchestra.colt.core.ui.components.advancedSeparator.AdvancedSeparator
 import javafx.animation.KeyFrame
 import javafx.animation.Timeline
@@ -21,10 +21,8 @@ import javafx.beans.value.ObservableValue
 import javafx.event.EventHandler
 import javafx.geometry.Bounds
 import javafx.geometry.Insets
-import javafx.geometry.Pos
 import javafx.scene.Parent
 import javafx.scene.control.Button
-import javafx.scene.control.ScrollPane
 import javafx.scene.layout.VBox
 import javafx.util.Duration
 import codeOrchestra.colt.as.model.ModelStorage
@@ -32,7 +30,7 @@ import codeOrchestra.colt.as.model.ModelStorage
 /**
  * @author Dima Kruk
  */
-class AsSettingsForm extends ScrollPane{
+class AsSettingsForm extends SettingsScrollPane{
 
     private Button saveAndRunButton
     EventHandler saveRunAction
@@ -45,24 +43,17 @@ class AsSettingsForm extends ScrollPane{
 
     AsSettingsForm() {
 
-        setId("settings-form")
-
-        styleClass.add("scroll-pane-settings")
-
         validatedForms = new ArrayList<>()
-
-        VBox vBox = new VBox()
-        vBox.alignment = Pos.TOP_CENTER
 
         //paths
         ProjectPathsForm projectPaths = new ProjectPathsForm()
         projectPaths.first = true
         validatedForms.add(projectPaths)
-        vBox.children.add(projectPaths)
+        mainContainer.children.add(projectPaths)
         //paths
 
         separator = new AdvancedSeparator()
-        vBox.children.add(separator)
+        mainContainer.children.add(separator)
 
         saveAndRunButton = separator.saveButton
         saveAndRunButton.onAction = saveRunAction
@@ -71,12 +62,7 @@ class AsSettingsForm extends ScrollPane{
         VBox.setMargin(advancedVBox, new Insets(0, 0, 72, 0))
         advancedVBox.padding = new Insets(0, 0, 18, 0)
         separator.content = advancedVBox
-        //hac for windows
-        advancedVBox.visibleProperty().addListener({ javafx.beans.Observable observable ->
-            layoutChildren()
-        } as InvalidationListener)
-        //end hac for windows
-        vBox.children.add(advancedVBox)
+        mainContainer.children.add(advancedVBox)
 
         TemplateForm template = new TemplateForm()
         template.first = true
@@ -115,9 +101,6 @@ class AsSettingsForm extends ScrollPane{
         CompilerSettingsForm compilerSettings = new CompilerSettingsForm()
         advancedVBox.children.add(compilerSettings)
         //compilerSettings
-
-        this.content = vBox
-        this.fitToWidth = true
 
         GAController.instance.registerPage(this, "/as/asSettings.html", "asSettings")
     }
@@ -159,12 +142,5 @@ class AsSettingsForm extends ScrollPane{
         } else {
             scrollToNode(node)
         }
-    }
-
-    private scrollToNode(Parent node) {
-        Bounds bounds = content.boundsInLocal
-        Bounds nodeBounds = content.sceneToLocal(node.localToScene(node.layoutBounds))
-
-        setVvalue(nodeBounds.minY/bounds.height)
     }
 }
