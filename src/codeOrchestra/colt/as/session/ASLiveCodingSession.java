@@ -13,8 +13,6 @@ import java.util.Map;
  */
 public class ASLiveCodingSession implements LiveCodingSession<SocketWriter> {
 
-    private static int counter = 1;
-
     private boolean disposed;
     private long startTimestamp;
     private SocketWriter socketWriter;
@@ -23,13 +21,13 @@ public class ASLiveCodingSession implements LiveCodingSession<SocketWriter> {
     private Map<String, String> clientInfo;
     private int sessionNumber;
 
-    public ASLiveCodingSession(String broadcastId, String clientId, Map<String, String> clientInfo, long startTimestamp, SocketWriter socketWriter) {
+    public ASLiveCodingSession(String broadcastId, String clientId, Map<String, String> clientInfo, long startTimestamp, SocketWriter socketWriter, int sessionNumber) {
         this.clientId = clientId;
         this.broadcastId = broadcastId;
         this.clientInfo = clientInfo;
         this.startTimestamp = startTimestamp;
         this.socketWriter = socketWriter;
-        this.sessionNumber = counter++;
+        this.sessionNumber = sessionNumber;
     }
 
     @Override

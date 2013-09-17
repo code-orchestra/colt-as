@@ -9,6 +9,7 @@ import codeOrchestra.colt.as.digest.DigestException;
 import codeOrchestra.colt.as.digest.ProjectDigestHelper;
 import codeOrchestra.colt.as.model.AsProject;
 import codeOrchestra.colt.as.run.ASLiveLauncher;
+import codeOrchestra.colt.as.run.Target;
 import codeOrchestra.colt.core.ColtException;
 import codeOrchestra.colt.core.ColtProjectManager;
 import codeOrchestra.colt.core.LiveCodingManager;
@@ -23,6 +24,7 @@ import codeOrchestra.colt.core.execution.ProcessHandlerWrapper;
 import codeOrchestra.colt.core.launch.LiveLauncher;
 import codeOrchestra.colt.core.loading.LiveCodingHandlerManager;
 import codeOrchestra.colt.core.logging.Level;
+import codeOrchestra.colt.core.logging.Logger;
 import codeOrchestra.colt.core.logging.LoggerService;
 import codeOrchestra.colt.core.tasks.ColtTaskWithProgress;
 import codeOrchestra.colt.core.tasks.TasksManager;
@@ -34,7 +36,12 @@ import codeOrchestra.util.ProjectHelper;
  */
 public class ColtAsController extends AbstractColtController<AsProject> {
 
+    private static final Logger LOG = Logger.getLogger(ColtAsController.class);
+
     public void launch() {
+        final AsProject currentProject = ProjectHelper.getCurrentProject();
+        LOG.info("Launching new application instance (" + getProjectTarget(currentProject).getDescription() + ")");
+
         TasksManager.getInstance().scheduleBackgroundTask(new ColtTaskWithProgress<Void>() {
             @Override
             protected Void call(IProgressIndicator progressIndicator) {
@@ -51,7 +58,7 @@ public class ColtAsController extends AbstractColtController<AsProject> {
                 }
 
                 ProcessHandler processHandler = processHandlerWrapper.getProcessHandler();
-                processHandler.addProcessListener(new LoggingProcessListener("Launch"));
+                processHandler.addProcessListener(new LoggingProcessListener("Launch", Level.LIVE));
                 processHandler.startNotify();
 
                 return null;
@@ -77,12 +84,14 @@ public class ColtAsController extends AbstractColtController<AsProject> {
     }
 
     public void startProductionCompilation(final ColtControllerCallback<CompilationResult, CompilationResult> callback, final boolean run, boolean sync) {
+        final AsProject currentProject = ProjectHelper.getCurrentProject();
+        LOG.info("Starting production build (" + getProjectTarget(currentProject).getDescription() + ")");
+
         try {
             ColtProjectManager.getInstance().save();
         } catch (ColtException e) {
             callback.onError(e, null);
         }
-
 
         TasksManager.getInstance().scheduleBackgroundTask(new ColtTaskWithProgress<Void>() {
             @Override
@@ -92,8 +101,6 @@ public class ColtAsController extends AbstractColtController<AsProject> {
 
             @Override
             protected Void call(IProgressIndicator progressIndicator) {
-                AsProject currentProject = ProjectHelper.getCurrentProject();
-
                 // Base compilation
                 progressIndicator.setText("Compiling");
                 ASLiveCodingManager liveCodingManager = (ASLiveCodingManager) ServiceProvider.get(LiveCodingManager.class);
@@ -107,7 +114,7 @@ public class ColtAsController extends AbstractColtController<AsProject> {
                         ASLiveLauncher liveLauncher = (ASLiveLauncher) ServiceProvider.get(LiveLauncher.class);
                         ProcessHandlerWrapper processHandlerWrapper = liveLauncher.launch(currentProject, false, true);
                         ProcessHandler processHandler = processHandlerWrapper.getProcessHandler();
-                        processHandler.addProcessListener(new LoggingProcessListener("Launch"));
+                        processHandler.addProcessListener(new LoggingProcessListener("Launch", Level.LIVE));
                         processHandler.startNotify();
 
                         if (processHandlerWrapper.mustWaitForExecutionEnd()) {
@@ -131,6 +138,10 @@ public class ColtAsController extends AbstractColtController<AsProject> {
         });
     }
 
+    private Target getProjectTarget(AsProject currentProject) {
+        return Target.parse(currentProject.getProjectBuildSettings().runTargetModel.getTarget());
+    }
+
     public void startBaseCompilation() {
         startBaseCompilation(new ColtControllerCallback<CompilationResult, CompilationResult>() {
             @Override
@@ -150,6 +161,9 @@ public class ColtAsController extends AbstractColtController<AsProject> {
             callback.onError(e, null);
         }
 
+        final AsProject currentProject = ProjectHelper.getCurrentProject();
+        LOG.info("Starting new livecoding session (" + getProjectTarget(currentProject) + ")");
+
         LoggerService loggerService = LiveCodingHandlerManager.getInstance().getCurrentHandler().getLoggerService();
         loggerService.clear(Level.COMPILATION);
 
@@ -161,8 +175,6 @@ public class ColtAsController extends AbstractColtController<AsProject> {
 
             @Override
             protected Void call(IProgressIndicator progressIndicator) {
-                AsProject currentProject = ProjectHelper.getCurrentProject();
-
                 // Building digests
                 progressIndicator.setText("Building digests");
                 ProjectDigestHelper projectDigestHelper = new ProjectDigestHelper(currentProject);
@@ -225,7 +237,7 @@ public class ColtAsController extends AbstractColtController<AsProject> {
                             ASLiveLauncher liveLauncher = (ASLiveLauncher) ServiceProvider.get(LiveLauncher.class);
                             ProcessHandlerWrapper processHandlerWrapper = liveLauncher.launch(currentProject, false, false);
                             ProcessHandler processHandler = processHandlerWrapper.getProcessHandler();
-                            processHandler.addProcessListener(new LoggingProcessListener("Launch"));
+                            processHandler.addProcessListener(new LoggingProcessListener("Launch", Level.LIVE));
                             processHandler.startNotify();
 
                             if (processHandlerWrapper.mustWaitForExecutionEnd()) {

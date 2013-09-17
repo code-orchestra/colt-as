@@ -44,7 +44,7 @@ public class ASLiveCodingManager extends AbstractLiveCodingManager<AsProject, So
 
     private SessionHandleListener finisherThreadLiveCodingListener = new SessionHandleListener();
 
-    private Object runMonitor = new Object();
+    private final Object runMonitor = new Object();
 
     private List<String> deliveryMessages = new ArrayList<>();
     private Map<String, List<String>> deliveryMessagesHistory = new HashMap<>();
@@ -223,8 +223,6 @@ public class ASLiveCodingManager extends AbstractLiveCodingManager<AsProject, So
             for (String mimeType : mimeTypeToSourceAttributes.keySet()) {
                 tryUpdateAsset(sourceFile, mimeType, mimeTypeToSourceAttributes.get(mimeType));
             }
-
-            return;
         } else if (sourceFile.isCompilable()) {
             synchronized (runMonitor) {
                 changedFiles.add(sourceFile);
@@ -405,7 +403,9 @@ public class ASLiveCodingManager extends AbstractLiveCodingManager<AsProject, So
     public void startSession(String broadcastId, String clientId, Map<String, String> clientInfo, SocketWriter socketWriter) {
         boolean noSessionsWereActive = currentSessions.isEmpty();
 
-        LiveCodingSession newSession = new ASLiveCodingSession(broadcastId, clientId, clientInfo, System.currentTimeMillis(), socketWriter);
+        int sessionNumber = currentSessions.size() + 1;
+
+        LiveCodingSession newSession = new ASLiveCodingSession(broadcastId, clientId, clientInfo, System.currentTimeMillis(), socketWriter, sessionNumber);
         currentSessions.put(clientId, newSession);
 
         if (noSessionsWereActive) {
@@ -506,7 +506,7 @@ public class ASLiveCodingManager extends AbstractLiveCodingManager<AsProject, So
 
             restoreSessionState(session);
 
-            LOG.info("Established a connection: broadcast ID: " + session.getBroadcastId() + ", cliend ID: " + clientId + ", client: " + session.getBasicClientInfo());
+            LOG.info("Established connection #" + session.getSessionNumber() + " with client: " + session.getBasicClientInfo());
         }
 
         public SessionFinisher getSessionFinisherThread(String clientId) {
@@ -519,6 +519,8 @@ public class ASLiveCodingManager extends AbstractLiveCodingManager<AsProject, So
             if (sessionFinisherThread != null) {
                 sessionFinisherThread.stopRightThere();
             }
+
+            LOG.info("Closed connection #" + session.getSessionNumber());
         }
 
         public void dispose() {
