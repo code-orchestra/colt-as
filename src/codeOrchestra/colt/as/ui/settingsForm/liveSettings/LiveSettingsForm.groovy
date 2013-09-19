@@ -3,6 +3,7 @@ package codeOrchestra.colt.as.ui.settingsForm.liveSettings
 import codeOrchestra.colt.as.model.ModelStorage
 import codeOrchestra.colt.as.model.beans.LiveSettingsModel
 import codeOrchestra.colt.as.run.LiveMethods
+import codeOrchestra.colt.core.ui.components.inputForms.CheckBoxInput
 import codeOrchestra.colt.core.ui.components.inputForms.LabeledTitledInput
 import codeOrchestra.colt.core.ui.components.inputForms.LabeledInput
 import codeOrchestra.colt.core.ui.components.inputForms.RadioButtonInput
@@ -25,8 +26,8 @@ class LiveSettingsForm extends FormGroup {
     private  RadioButtonInput annotated
     private  RadioButtonInput all
 
-    private  RadioButtonInput paused
-    private  RadioButtonInput gsLive
+    private  CheckBoxInput paused
+    private  CheckBoxInput gsLive
 
     private  LabeledTitledInput maxLoop
 
@@ -39,8 +40,8 @@ class LiveSettingsForm extends FormGroup {
         annotated = new RadioButtonInput(title: "Annotated with [Live]")
         all = new RadioButtonInput(title: "All the methods")
 
-        paused = new RadioButtonInput(title: "Start Session Paused", disable: true)
-        gsLive = new RadioButtonInput(title: "Make Getters/Setters Live")
+        paused = new CheckBoxInput(title: "Start Session Paused", disable: true)
+        gsLive = new CheckBoxInput(title: "Make Getters/Setters Live")
 
         maxLoop = new LabeledTitledInput(title: "Max Loop Iterations:")
 
