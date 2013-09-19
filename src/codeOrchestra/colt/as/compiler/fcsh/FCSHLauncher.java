@@ -3,12 +3,15 @@ package codeOrchestra.colt.as.compiler.fcsh;
 import codeOrchestra.colt.as.flex.FlexSDKSettings;
 import codeOrchestra.colt.as.logging.transport.LoggerServerSocketThread;
 import codeOrchestra.colt.as.model.AsProject;
+import codeOrchestra.colt.as.model.AsProjectBuildSettings;
 import codeOrchestra.colt.as.model.AsProjectLiveSettings;
+import codeOrchestra.colt.as.run.Target;
 import codeOrchestra.util.LocalhostUtil;
 import codeOrchestra.util.ProjectHelper;
 import codeOrchestra.util.process.JavaLauncher;
 
 import java.io.File;
+import java.util.EnumSet;
 
 /**
  * @author Alexander Eliseyev
@@ -25,17 +28,23 @@ public class FCSHLauncher extends JavaLauncher implements IFCSHLauncher {
         StringBuilder programParameters = new StringBuilder();
 
         String applicationHome;
-        AsProject currentProject = ProjectHelper.<AsProject>getCurrentProject();
+        AsProject currentProject = ProjectHelper.getCurrentProject();
         if (currentProject != null) {
-            applicationHome = currentProject.getProjectBuildSettings().getFlexSDKPath();
+            AsProjectBuildSettings projectBuildSettings = currentProject.getProjectBuildSettings();
+            boolean airCompile = EnumSet.of(Target.AIR_ANDROID, Target.AIR_IOS).contains(projectBuildSettings.runTargetModel.getRunTarget());
+
+            if (airCompile) {
+                applicationHome = projectBuildSettings.runTargetModel.getCurrentAIRModel().getAirSDKPath();
+            } else {
+                applicationHome = projectBuildSettings.getFlexSDKPath();
+            }
+
             if (!new File(applicationHome).exists()) {
                 applicationHome = FlexSDKSettings.getDefaultFlexSDKPath();
             }
         } else {
             applicationHome = FlexSDKSettings.getDefaultFlexSDKPath();
         }
-
-        // TODO: AIR
 
         programParameters.append(protect("-Dapplication.home=" + applicationHome));
         programParameters.append(" -Duser.language=en");
