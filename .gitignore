@@ -12,6 +12,7 @@ out/*
 *.min.css
 *.sublime-*
 flex_sdk
+flex_sdk_tmp
 
 /colt-as.iml
 .idea

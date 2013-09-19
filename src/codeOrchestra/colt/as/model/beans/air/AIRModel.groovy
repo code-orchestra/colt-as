@@ -12,7 +12,7 @@ import groovy.transform.Canonical
 @Canonical
 @FXBindable
 class AIRModel implements IModelElement {
-    String airSDKPath = ""
+    String airSDKPath = codeOrchestra.colt.as.util.ASPathUtils.getFlexSDKPath()
     String provisionPath = ""
     String keystorePath = ""
     String storePass = ""

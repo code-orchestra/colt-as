@@ -7,11 +7,13 @@ import codeOrchestra.colt.as.flex.config.FlexConfig;
 import codeOrchestra.colt.as.flex.config.FlexConfigBuilder;
 import codeOrchestra.colt.as.model.AsProject;
 import codeOrchestra.colt.as.model.AsProjectBuildSettings;
+import codeOrchestra.colt.as.run.Target;
 import codeOrchestra.colt.as.session.sourcetracking.ASSourceFile;
 import codeOrchestra.colt.core.build.BuildException;
 import codeOrchestra.colt.core.logging.Logger;
 
 import java.io.File;
+import java.util.EnumSet;
 import java.util.List;
 
 /**
@@ -63,6 +65,8 @@ public class AsMaker {
 
         AsProject currentProject = AsProject.getCurrentProject();
         AsProjectBuildSettings compilerSettings = currentProject.getProjectBuildSettings();
+
+        boolean airCompile = EnumSet.of(Target.AIR_ANDROID, Target.AIR_IOS).contains(compilerSettings.runTargetModel.getRunTarget());
 
         // Generate & save Flex config
         FlexConfigBuilder flexConfigBuilder = new FlexConfigBuilder(currentProject, isIncremental, changedFiles, assetMode);
@@ -123,7 +127,7 @@ public class AsMaker {
         }
 
         // Base/incremental compilation first phase
-        FCSHFlexSDKRunner flexSDKRunner = getFlexSDKRunner(flexConfigFile, compilerKind);
+        FCSHFlexSDKRunner flexSDKRunner = new FCSHFlexSDKRunner(flexConfigFile, compilerKind, airCompile);
         CompilationResult compilationResult = doCompile(flexSDKRunner, compilerKind != FSCHCompilerKind.BASE_MXMLC);
         if (!compilationResult.isOk()) {
             return compilationResult;
@@ -150,7 +154,7 @@ public class AsMaker {
                 throw new MakeException("Can't save a flex config", e);
             }
 
-            flexSDKRunner = getFlexSDKRunner(flexConfigFile, compilerKind);
+            flexSDKRunner = new FCSHFlexSDKRunner(flexConfigFile, compilerKind, airCompile);
             compilationResult = doCompile(flexSDKRunner, true);
             if (!compilationResult.isOk()) {
                 return compilationResult;
@@ -181,10 +185,6 @@ public class AsMaker {
             LOG.info("Compilation is completed successfully");
         }
         return compilationResult;
-    }
-
-    private FCSHFlexSDKRunner getFlexSDKRunner(File flexConfigFile, FSCHCompilerKind compilerKind) {
-        return new FCSHFlexSDKRunner(flexConfigFile, compilerKind);
     }
 
 }

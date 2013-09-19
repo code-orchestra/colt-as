@@ -15,62 +15,64 @@ import java.io.File;
  */
 public class FCSHLauncher extends JavaLauncher implements IFCSHLauncher {
 
-  public static final boolean PROFILING_ON = System.getProperty("colt.profiling.on") != null;
-  
-  public static final boolean NATIVE_FCSH = true;
-  
-  public FCSHLauncher() {
-    super(null);
+    public static final boolean PROFILING_ON = System.getProperty("colt.profiling.on") != null;
 
-    StringBuilder programParameters = new StringBuilder();
+    public static final boolean NATIVE_FCSH = true;
 
-    String applicationHome;
-    AsProject currentProject = ProjectHelper.<AsProject>getCurrentProject();
-    if (currentProject != null) {
-      applicationHome = currentProject.getProjectBuildSettings().getFlexSDKPath();
-      if (!new File(applicationHome).exists()) {
-        applicationHome = FlexSDKSettings.getDefaultFlexSDKPath();
-      }
-    } else {
-      applicationHome = FlexSDKSettings.getDefaultFlexSDKPath();
+    public FCSHLauncher() {
+        super(null);
+
+        StringBuilder programParameters = new StringBuilder();
+
+        String applicationHome;
+        AsProject currentProject = ProjectHelper.<AsProject>getCurrentProject();
+        if (currentProject != null) {
+            applicationHome = currentProject.getProjectBuildSettings().getFlexSDKPath();
+            if (!new File(applicationHome).exists()) {
+                applicationHome = FlexSDKSettings.getDefaultFlexSDKPath();
+            }
+        } else {
+            applicationHome = FlexSDKSettings.getDefaultFlexSDKPath();
+        }
+
+        // TODO: AIR
+
+        programParameters.append(protect("-Dapplication.home=" + applicationHome));
+        programParameters.append(" -Duser.language=en");
+        programParameters.append(" -Duser.country=US");
+        programParameters.append(" -Djava.awt.headless=true");
+
+        // Tracing parameters
+        programParameters.append(" -DcodeOrchestra.trace.host=" + LocalhostUtil.getLocalhostIp());
+        programParameters.append(" -DcodeOrchestra.trace.port=" + LoggerServerSocketThread.LOGGING_PORT);
+
+        // Livecoding parameters
+        if (currentProject != null) {
+            AsProjectLiveSettings liveCodingSettings = currentProject.getProjectLiveSettings();
+            programParameters.append(" -DcodeOrchestra.live.liveMethods=" + liveCodingSettings.getLiveMethods().getPreferenceValue());
+            programParameters.append(" -DcodeOrchestra.live.gettersSetters=" + liveCodingSettings.makeGettersSettersLive());
+            programParameters.append(" -DcodeOrchestra.live.maxLoops=" + liveCodingSettings.getMaxIterationsCount());
+            programParameters.append(" -DcodeOrchestra.digestsDir=" + protect(currentProject.getDigestsDir().getPath()));
+        }
+
+        programParameters.append(" -jar ");
+        programParameters.append(protect(FlexSDKSettings.getDefaultFlexSDKPath() + "/liblc/fcsh.jar"));
+
+        setProgramParameter(programParameters.toString());
+
+        StringBuilder jvmParameters = new StringBuilder();
+        jvmParameters.append("-Xms1000m -Xmx1000m -Dsun.io.useCanonCaches=false ");
+
+
+        if (PROFILING_ON) {
+            jvmParameters.append("-agentpath:libyjpagent.jnilib ");
+        }
+        setWorkingDirectory(new File(FlexSDKSettings.getDefaultFlexSDKPath(), "bin"));
+        setVirtualMachineParameter(jvmParameters.toString());
     }
 
-    programParameters.append(protect("-Dapplication.home=" + applicationHome));
-    programParameters.append(" -Duser.language=en");
-    programParameters.append(" -Duser.country=US");
-    programParameters.append(" -Djava.awt.headless=true");
-    
-    // Tracing parameters
-    programParameters.append(" -DcodeOrchestra.trace.host=" + LocalhostUtil.getLocalhostIp());
-    programParameters.append(" -DcodeOrchestra.trace.port=" + LoggerServerSocketThread.LOGGING_PORT);
-    
-    // Livecoding parameters
-    if (currentProject != null) {
-      AsProjectLiveSettings liveCodingSettings = currentProject.getProjectLiveSettings();
-      programParameters.append(" -DcodeOrchestra.live.liveMethods=" + liveCodingSettings.getLiveMethods().getPreferenceValue());
-      programParameters.append(" -DcodeOrchestra.live.gettersSetters=" + liveCodingSettings.makeGettersSettersLive());
-      programParameters.append(" -DcodeOrchestra.live.maxLoops=" + liveCodingSettings.getMaxIterationsCount());
-      programParameters.append(" -DcodeOrchestra.digestsDir=" + protect(currentProject.getDigestsDir().getPath()));
+    @Override
+    public void runBeforeStart() {
     }
-
-    programParameters.append(" -jar ");
-    programParameters.append(protect(FlexSDKSettings.getDefaultFlexSDKPath() + "/liblc/fcsh.jar"));
-
-    setProgramParameter(programParameters.toString());
-    
-    StringBuilder jvmParameters = new StringBuilder();
-    jvmParameters.append("-Xms1000m -Xmx1000m -Dsun.io.useCanonCaches=false ");
-
-    
-    if (PROFILING_ON) {
-       jvmParameters.append("-agentpath:libyjpagent.jnilib ");
-    }
-    setWorkingDirectory(new File(FlexSDKSettings.getDefaultFlexSDKPath(), "bin"));
-    setVirtualMachineParameter(jvmParameters.toString());
-  }
-
-  @Override
-  public void runBeforeStart() {	
-  }
 
 }

@@ -30,6 +30,8 @@ public class FCSHNativeLauncher implements IFCSHLauncher {
             applicationHome = FlexSDKSettings.getDefaultFlexSDKPath();
         }
 
+        // TODO: AIR
+
         programParameters.append(protect("-Dapplication.home=" + applicationHome));
         programParameters.append(" -Duser.language=en");
         programParameters.append(" -Duser.country=US");

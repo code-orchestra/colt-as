@@ -51,4 +51,22 @@ class RunTargetModel implements IModelElement{
         androidScript = PathUtils.makeAbsolute(node.'android-script'.@path?.toString())
         androidAirModel.buildModel(node.'android-script')
     }
+
+    Target getRunTarget() {
+        return Target.parse(target)
+    }
+
+    AIRModel getCurrentAIRModel() {
+        switch (getRunTarget()) {
+            case Target.AIR_IOS:
+                return iosAirModel
+                break
+            case Target.AIR_ANDROID:
+                return androidAirModel
+                break
+            default:
+                return null
+        }
+    }
+
 }
