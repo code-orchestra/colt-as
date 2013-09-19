@@ -38,15 +38,15 @@ class FCSHFlexSDKRunner extends AbstractFlexSDKRunner {
 
         try {
             switch (compilerKind) {
-                case MXMLC:
+                case FSCHCompilerKind.MXMLC:
                     return fcshManager.mxmlc(getCommandArguments());
-                case COMPC:
+                case FSCHCompilerKind.COMPC:
                     return fcshManager.compc(getCommandArguments());
-                case BASE_MXMLC:
+                case FSCHCompilerKind.BASE_MXMLC:
                     return fcshManager.baseMXMLC(getCommandArguments());
-                case BASE_COMPC:
+                case FSCHCompilerKind.BASE_COMPC:
                     return fcshManager.baseCOMPC(getCommandArguments());
-                case INCREMENTAL_COMPC:
+                case FSCHCompilerKind.INCREMENTAL_COMPC:
                     return fcshManager.incrementalCOMPC(getCommandArguments());
             }
         } catch (FCSHException e) {
@@ -124,7 +124,8 @@ class FCSHFlexSDKRunner extends AbstractFlexSDKRunner {
                 }
 
                 (flexConfig.'**'.'path-element').each(cl)
-                (flexConfig.'**'.'filename').each.(cl)
+                (flexConfig.'**'.'filename').each(cl)
+                (flexConfig.'**'.'manifest').each(cl)
             }
 
             FileUtils.write(configFileTarget, XmlUtil.serialize(flexConfig))
