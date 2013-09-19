@@ -5,6 +5,7 @@ import codeOrchestra.colt.as.ui.settingsForm.compilerSettings.BuildSettingsForm
 import codeOrchestra.colt.as.ui.settingsForm.compilerSettings.CompilerSettingsForm
 import codeOrchestra.colt.as.ui.settingsForm.compilerSettings.SDKSettingsForm
 import codeOrchestra.colt.as.ui.settingsForm.liveSettings.LauncherForm
+import codeOrchestra.colt.as.ui.settingsForm.liveSettings.AirLauncherForm
 import codeOrchestra.colt.as.ui.settingsForm.liveSettings.LiveSettingsForm
 import codeOrchestra.colt.as.ui.settingsForm.liveSettings.SettingsForm
 import codeOrchestra.colt.as.ui.settingsForm.liveSettings.TargetForm
@@ -15,7 +16,6 @@ import codeOrchestra.colt.core.ui.components.scrollpane.SettingsScrollPane
 import codeOrchestra.colt.core.ui.components.advancedSeparator.AdvancedSeparator
 import javafx.animation.KeyFrame
 import javafx.animation.Timeline
-import javafx.beans.InvalidationListener
 import javafx.beans.value.ChangeListener
 import javafx.beans.value.ObservableValue
 import javafx.event.EventHandler
@@ -26,6 +26,7 @@ import javafx.scene.control.Button
 import javafx.scene.layout.VBox
 import javafx.util.Duration
 import codeOrchestra.colt.as.model.ModelStorage
+import codeOrchestra.colt.as.run.Target
 
 /**
  * @author Dima Kruk
@@ -76,11 +77,30 @@ class AsSettingsForm extends SettingsScrollPane{
 
 
         LauncherForm launcher = new LauncherForm()
-        project.projectBuildSettings.runTargetModel.target().addListener({ ObservableValue<? extends String> observableValue, String t, String newValue ->
-            launcher.disable = newValue != codeOrchestra.colt.as.run.Target.SWF.name()
-        } as ChangeListener)
         validatedForms.add(launcher)
         advancedVBox.children.add(launcher)
+
+        AirLauncherForm airLauncherForm = new AirLauncherForm()
+        validatedForms.add(airLauncherForm)
+        advancedVBox.children.add(airLauncherForm)
+
+        project.projectBuildSettings.runTargetModel.target().addListener({ ObservableValue<? extends String> observableValue, String t, String newValue ->
+            switch (newValue){
+                case Target.SWF.name():
+                    launcher.visible = launcher.managed = true
+                    airLauncherForm.visible = airLauncherForm.managed = false
+                    break
+                case Target.WEB_ADDRESS.name():
+                    launcher.visible = launcher.managed = false
+                    airLauncherForm.visible = airLauncherForm.managed = false
+                    break
+                case Target.AIR_ANDROID.name():
+                case Target.AIR_IOS.name():
+                    launcher.visible = launcher.managed = false
+                    airLauncherForm.visible = airLauncherForm.managed = true
+                    break
+            }
+        } as ChangeListener)
 
         LiveSettingsForm liveSettings = new LiveSettingsForm()
         advancedVBox.children.add(liveSettings)
