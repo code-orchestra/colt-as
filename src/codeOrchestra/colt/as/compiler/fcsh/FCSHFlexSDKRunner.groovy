@@ -65,8 +65,7 @@ class FCSHFlexSDKRunner extends AbstractFlexSDKRunner {
             if (compilerSettings.useCustomSDKConfiguration()) {
                 airConfigPath = compilerSettings.getCustomConfigPath();
             } else {
-                AIRModel airModel = compilerSettings.runTargetModel.getCurrentAIRModel();
-                airConfigPath = new File(airModel.getAirSDKPath(), "frameworks/airmobile-config.xml").getPath();
+                airConfigPath = new File(compilerSettings.runTargetModel.getAirSDKPath(), "frameworks/airmobile-config.xml").getPath();
             }
             airConfigPath = copyConfigToTempDir(airConfigPath, true);
             commandArguments.add("-load-config=" + airConfigPath);

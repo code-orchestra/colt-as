@@ -56,17 +56,8 @@ class RunTargetModel implements IModelElement{
         return Target.parse(target)
     }
 
-    AIRModel getCurrentAIRModel() {
-        switch (getRunTarget()) {
-            case Target.AIR_IOS:
-                return iosAirModel
-                break
-            case Target.AIR_ANDROID:
-                return androidAirModel
-                break
-            default:
-                return null
-        }
+    String getAirSDKPath() {
+        return codeOrchestra.colt.as.model.ModelStorage.instance.project.projectBuildSettings.sdkModel.flexSDKPath
     }
 
 }

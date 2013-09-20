@@ -29,7 +29,7 @@ public class FCSHNativeLauncher implements IFCSHLauncher {
             boolean airCompile = EnumSet.of(Target.AIR_ANDROID, Target.AIR_IOS).contains(projectBuildSettings.runTargetModel.getRunTarget());
 
             if (airCompile) {
-                applicationHome = projectBuildSettings.runTargetModel.getCurrentAIRModel().getAirSDKPath();
+                applicationHome = projectBuildSettings.runTargetModel.getAirSDKPath();
             } else {
                 applicationHome = projectBuildSettings.getFlexSDKPath();
             }
