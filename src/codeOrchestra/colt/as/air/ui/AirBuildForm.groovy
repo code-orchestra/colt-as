@@ -1,10 +1,8 @@
 package codeOrchestra.colt.as.air.ui
 
-import codeOrchestra.colt.as.air.AirBuildScriptGenerator
 import codeOrchestra.colt.as.air.ui.descriptor.ApplicationDescriptorForm
 import codeOrchestra.colt.as.model.AsProject
 import codeOrchestra.colt.as.model.beans.RunTargetModel
-import codeOrchestra.colt.as.model.beans.air.AIRModel
 import codeOrchestra.colt.core.errorhandling.ErrorHandler
 import codeOrchestra.colt.core.ui.components.inputForms.group.FormGroup
 import groovy.io.FileType
@@ -35,7 +33,6 @@ abstract class AirBuildForm extends VBox{
 
     private Stage dialogStage
 
-    protected AIRModel model
     protected RunTargetModel runTargetModel
 
     boolean isGenerated = false
@@ -59,7 +56,7 @@ abstract class AirBuildForm extends VBox{
         packageContents.children.add(contentList)
 
         buttonBar = new ButtonBar()
-        generateBtn = new Button("Generate")
+        generateBtn = new Button("Ok")
         generateBtn.defaultButton = true
         ButtonBar.setType(generateBtn, ButtonBar.ButtonType.OK_DONE)
         cancelBtn = new Button("Cancel")
@@ -120,9 +117,9 @@ abstract class AirBuildForm extends VBox{
 
     protected abstract void initOptions();
 
-    protected abstract AirBuildScriptGenerator createBuildScriptGenerator(AsProject project)
-
     protected abstract void updateScriptPathValue(String scriptPath)
+
+    protected abstract String generate(AsProject project)
 
     protected boolean runGeneration() {
         // 1 - save
@@ -132,7 +129,7 @@ abstract class AirBuildForm extends VBox{
         // 2 - generate
         String scriptPath = null
         try {
-            scriptPath = createBuildScriptGenerator(project).generate(model, getCheckedFiles());
+            scriptPath = generate(project);
         } catch (IOException e) {
             ErrorHandler.handle(e, "Error while generating AIR build script");
             return false

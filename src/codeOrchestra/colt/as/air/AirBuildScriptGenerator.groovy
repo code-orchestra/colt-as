@@ -1,7 +1,6 @@
 package codeOrchestra.colt.as.air
 
 import codeOrchestra.colt.as.model.AsProject
-import codeOrchestra.colt.as.model.beans.air.AIRModel
 
 /**
  * @author Dima Kruk
@@ -25,5 +24,5 @@ abstract class AirBuildScriptGenerator {
 
     protected abstract String getScriptFileName()
 
-    abstract String generate(AIRModel aioParent, List<File> packagedFiles) throws IOException
+    abstract String generate(Object airModel, List<File> packagedFiles) throws IOException
 }

@@ -4,7 +4,6 @@ import codeOrchestra.colt.as.compiler.fcsh.make.CompilationResult
 import codeOrchestra.colt.as.compiler.fcsh.make.MakeException
 import codeOrchestra.colt.as.compiler.fcsh.make.process.AbstractFlexSDKRunner
 import codeOrchestra.colt.as.model.AsProject
-import codeOrchestra.colt.as.model.beans.air.AIRModel
 import codeOrchestra.util.FileUtils
 import codeOrchestra.util.ProjectHelper
 import codeOrchestra.util.StringUtils

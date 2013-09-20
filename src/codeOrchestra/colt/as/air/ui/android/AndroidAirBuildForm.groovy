@@ -5,6 +5,7 @@ import codeOrchestra.colt.as.air.AirBuildScriptGenerator
 import codeOrchestra.colt.as.air.ui.AirBuildForm
 import codeOrchestra.colt.as.air.ui.PasswordInput
 import codeOrchestra.colt.as.model.AsProject
+import codeOrchestra.colt.as.model.beans.air.AndroidAirModel
 import codeOrchestra.colt.core.ui.components.inputForms.LabeledActionInput
 import codeOrchestra.colt.core.ui.components.inputForms.base.BrowseType
 import javafx.stage.FileChooser
@@ -15,6 +16,8 @@ import javafx.stage.FileChooser
 class AndroidAirBuildForm extends AirBuildForm {
     LabeledActionInput keystore
     PasswordInput storepass
+
+    AndroidAirModel model
 
     @Override
     protected void initOptions() {
@@ -31,13 +34,13 @@ class AndroidAirBuildForm extends AirBuildForm {
     }
 
     @Override
-    protected AirBuildScriptGenerator createBuildScriptGenerator(AsProject project) {
-        return new AirAndroidApkBuildScriptGenerator(project)
+    protected void updateScriptPathValue(String scriptPath) {
+        runTargetModel.androidScript = scriptPath
     }
 
     @Override
-    protected void updateScriptPathValue(String scriptPath) {
-        runTargetModel.androidScript = scriptPath
+    protected String generate(AsProject project) {
+        return new AirAndroidApkBuildScriptGenerator(project).generate(model, checkedFiles)
     }
 
     @Override

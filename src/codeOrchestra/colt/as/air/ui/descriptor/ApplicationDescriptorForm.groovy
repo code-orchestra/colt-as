@@ -4,7 +4,6 @@ import codeOrchestra.colt.core.ui.components.inputForms.RadioButtonActionInput
 import codeOrchestra.colt.core.ui.components.inputForms.RadioButtonInput
 import codeOrchestra.colt.core.ui.components.inputForms.group.FormGroup
 import javafx.event.EventHandler
-import javafx.geometry.Pos
 import javafx.scene.control.ToggleGroup
 
 /**

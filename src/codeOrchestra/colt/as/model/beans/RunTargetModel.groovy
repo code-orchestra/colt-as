@@ -1,8 +1,9 @@
 package codeOrchestra.colt.as.model.beans
 
+import codeOrchestra.colt.as.model.beans.air.AndroidAirModel
+import codeOrchestra.colt.as.model.beans.air.IOSAirModel
 import codeOrchestra.colt.core.model.Project
 import codeOrchestra.colt.core.model.monitor.ChangingMonitor
-import codeOrchestra.colt.as.model.beans.air.AIRModel
 import codeOrchestra.colt.core.model.IModelElement
 import codeOrchestra.groovyfx.FXBindable
 import codeOrchestra.util.PathUtils
@@ -18,9 +19,9 @@ class RunTargetModel implements IModelElement{
     String target = Target.SWF.name()
     String httpIndex = ""
     String iosScript = ""
-    AIRModel iosAirModel = new AIRModel()
+    IOSAirModel iosAirModel = new IOSAirModel()
     String androidScript = ""
-    AIRModel androidAirModel = new AIRModel()
+    AndroidAirModel androidAirModel = new AndroidAirModel()
 
     RunTargetModel() {
         ChangingMonitor monitor = ChangingMonitor.instance

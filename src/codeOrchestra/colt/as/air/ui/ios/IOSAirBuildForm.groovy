@@ -5,6 +5,7 @@ import codeOrchestra.colt.as.air.AirIosIpaBuildScriptGenerator
 import codeOrchestra.colt.as.air.ui.AirBuildForm
 import codeOrchestra.colt.as.air.ui.PasswordInput
 import codeOrchestra.colt.as.model.AsProject
+import codeOrchestra.colt.as.model.beans.air.IOSAirModel
 import codeOrchestra.colt.core.ui.components.inputForms.LabeledActionInput
 import codeOrchestra.colt.core.ui.components.inputForms.base.BrowseType
 import javafx.stage.FileChooser
@@ -16,6 +17,8 @@ class IOSAirBuildForm extends AirBuildForm {
     LabeledActionInput profile
     LabeledActionInput keystore
     PasswordInput storepass
+
+    IOSAirModel model
 
     @Override
     protected void initOptions() {
@@ -36,13 +39,13 @@ class IOSAirBuildForm extends AirBuildForm {
     }
 
     @Override
-    protected AirBuildScriptGenerator createBuildScriptGenerator(AsProject project) {
-        return new AirIosIpaBuildScriptGenerator(project)
+    protected void updateScriptPathValue(String scriptPath) {
+        runTargetModel.iosScript = scriptPath
     }
 
     @Override
-    protected void updateScriptPathValue(String scriptPath) {
-        runTargetModel.iosScript = scriptPath
+    protected String generate(AsProject project) {
+        return new AirIosIpaBuildScriptGenerator(project).generate(model, checkedFiles)
     }
 
     @Override

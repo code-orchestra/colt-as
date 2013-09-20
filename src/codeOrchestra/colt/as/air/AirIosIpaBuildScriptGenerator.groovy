@@ -1,10 +1,10 @@
 package codeOrchestra.colt.as.air
 
 import codeOrchestra.colt.as.model.AsProject
-import codeOrchestra.colt.as.model.beans.air.AIRModel
 import codeOrchestra.util.PathUtils
 import codeOrchestra.util.SystemInfo
 import codeOrchestra.util.templates.TemplateCopyUtil
+import codeOrchestra.colt.as.model.beans.air.IOSAirModel
 
 /**
  * @author Dima Kruk
@@ -21,23 +21,16 @@ class AirIosIpaBuildScriptGenerator extends AirBuildScriptGenerator {
     }
 
     @Override
-    String generate(AIRModel aioParent, List<File> packagedFiles) throws IOException {
+    String generate(Object airModel, List<File> packagedFiles) throws IOException {
+        IOSAirModel model = airModel as IOSAirModel
         File targetScriptFile = getScriptPath(project)
         File templateFile = new File(PathUtils.getTemplatesDir(), getScriptFileName())
-        //for test
-        //File templateFile = new File("/Users/dimakruk/IdeaProjects/colt-as/templates", getScriptFileName())
-
-        File targetDescScriptFile = getDescScriptPath(project)
-        File templateDescFile = new File(PathUtils.getTemplatesDir(), "AppName-app.xml")
-        //for test
-        //File templateDescFile = new File("/Users/dimakruk/IdeaProjects/colt-as/templates", "AppName-app.xml")
 
         Map<String, String> replacements = new HashMap<>()
-        replacements.put("{AIR_SDK}", aioParent.airSDKPath)
+        replacements.put("{AIR_SDK}", project.projectBuildSettings.flexSDKPath)
         replacements.put("{APPNAME}", appName)
         replacements.put("{PROJECT_DIR}", project.getBaseDir().getAbsolutePath())
-        //for test
-        //replacements.put("{PROJECT_DIR}", project.getOutputDir().parentFile.getAbsolutePath())
+
         String outputDirPath = project.getOutputDir().getAbsolutePath()
         if (SystemInfo.isWindows && !outputDirPath.endsWith(File.separator)) {
             outputDirPath += File.separator
@@ -48,9 +41,9 @@ class AirIosIpaBuildScriptGenerator extends AirBuildScriptGenerator {
         replacements.put("{IPA_FILE}", appName + ".ipa")
         replacements.put("{DESCRIPTOR_FILE}", appName + "-app.xml")
 
-        replacements.put("{provisioning-profile}", aioParent.provisionPath)
-        replacements.put("{keystore}", aioParent.keystorePath)
-        replacements.put("{storepass}", aioParent.storePass)
+        replacements.put("{provisioning-profile}", model.provisionPath)
+        replacements.put("{keystore}", model.keystorePath)
+        replacements.put("{storepass}", model.storePass)
 
         String packaged = ""
 
@@ -69,8 +62,6 @@ class AirIosIpaBuildScriptGenerator extends AirBuildScriptGenerator {
         descReplacements.put("{APPNAME}", appName)
 
         descReplacements.put("{OUTPUT_FILE}", project.getProjectBuildSettings().outputFilename)
-
-        TemplateCopyUtil.copy(templateDescFile, targetDescScriptFile, descReplacements)
 
         return targetScriptFile.getPath()
     }

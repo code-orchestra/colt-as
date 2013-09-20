@@ -12,8 +12,8 @@ import groovy.transform.Canonical
  */
 @Canonical
 @FXBindable
-class IOSAirModel implements IModelElement {
-    String provisionPath = ""
+class AndroidAirModel implements IModelElement {
+    boolean useTemporary = true
     String keystorePath = ""
     String storePass = ""
 
@@ -26,7 +26,7 @@ class IOSAirModel implements IModelElement {
     @Override
     Closure buildXml(Project project) {
         return {
-            'provision-path'(provisionPath)
+            'use-temporary'(useTemporary)
             'keystore-path'(keystorePath)
             'pass'(storePass)
             'use-custom-template'(useCustomTemplate)
@@ -38,7 +38,7 @@ class IOSAirModel implements IModelElement {
 
     @Override
     void buildModel(Object node) {
-        provisionPath = node.'provision-path'
+        useTemporary = node.'use-temporary' == true
         keystorePath = node.'keystore-path'
         storePass = node.'pass'
         useCustomTemplate = node.'use-custom-template' == true
