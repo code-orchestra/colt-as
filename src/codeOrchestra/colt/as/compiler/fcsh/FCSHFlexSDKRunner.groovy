@@ -1,24 +1,24 @@
-package codeOrchestra.colt.as.compiler.fcsh;
+package codeOrchestra.colt.as.compiler.fcsh
 
-import codeOrchestra.colt.as.compiler.fcsh.make.CompilationResult;
-import codeOrchestra.colt.as.compiler.fcsh.make.MakeException;
-import codeOrchestra.colt.as.compiler.fcsh.make.process.AbstractFlexSDKRunner;
-import codeOrchestra.colt.as.model.AsProject;
-import codeOrchestra.colt.as.model.beans.air.AIRModel;
-import codeOrchestra.util.FileUtils;
-import codeOrchestra.util.ProjectHelper;
-import codeOrchestra.util.StringUtils;
-import org.apache.tools.ant.types.Commandline;
-
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import codeOrchestra.colt.as.compiler.fcsh.make.CompilationResult
+import codeOrchestra.colt.as.compiler.fcsh.make.MakeException
+import codeOrchestra.colt.as.compiler.fcsh.make.process.AbstractFlexSDKRunner
+import codeOrchestra.colt.as.model.AsProject
+import codeOrchestra.colt.as.model.beans.air.AIRModel
+import codeOrchestra.util.FileUtils
+import codeOrchestra.util.ProjectHelper
+import codeOrchestra.util.StringUtils
+import groovy.xml.DOMBuilder
+import groovy.xml.XmlUtil
+import groovy.xml.dom.DOMCategory
+import org.apache.tools.ant.types.Commandline
+import org.w3c.dom.Document
+import org.w3c.dom.Element
 
 /**
  * @author Alexander Eliseyev
  */
-public class FCSHFlexSDKRunner extends AbstractFlexSDKRunner {
+class FCSHFlexSDKRunner extends AbstractFlexSDKRunner {
 
     private static final String COMPILE_ERRORS_LOG_FILE_NAME = "compile_errors.log";
 
@@ -26,27 +26,27 @@ public class FCSHFlexSDKRunner extends AbstractFlexSDKRunner {
 
     private boolean air;
 
-    public FCSHFlexSDKRunner(File configFile, FSCHCompilerKind compilerKind, boolean air) {
+    FCSHFlexSDKRunner(File configFile, FSCHCompilerKind compilerKind, boolean air) {
         super(configFile);
         this.compilerKind = compilerKind;
         this.air = air;
     }
 
     @Override
-    public CompilationResult run() throws MakeException, MaximumCompilationsCountReachedException {
+    CompilationResult run() throws MakeException, MaximumCompilationsCountReachedException {
         FCSHManager fcshManager = FCSHManager.instance();
 
         try {
             switch (compilerKind) {
-                case MXMLC:
+                case FSCHCompilerKind.MXMLC:
                     return fcshManager.mxmlc(getCommandArguments());
-                case COMPC:
+                case FSCHCompilerKind.COMPC:
                     return fcshManager.compc(getCommandArguments());
-                case BASE_MXMLC:
+                case FSCHCompilerKind.BASE_MXMLC:
                     return fcshManager.baseMXMLC(getCommandArguments());
-                case BASE_COMPC:
+                case FSCHCompilerKind.BASE_COMPC:
                     return fcshManager.baseCOMPC(getCommandArguments());
-                case INCREMENTAL_COMPC:
+                case FSCHCompilerKind.INCREMENTAL_COMPC:
                     return fcshManager.incrementalCOMPC(getCommandArguments());
             }
         } catch (FCSHException e) {
@@ -68,6 +68,7 @@ public class FCSHFlexSDKRunner extends AbstractFlexSDKRunner {
                 AIRModel airModel = compilerSettings.runTargetModel.getCurrentAIRModel();
                 airConfigPath = new File(airModel.getAirSDKPath(), "frameworks/airmobile-config.xml").getPath();
             }
+            airConfigPath = copyConfigToTempDir(airConfigPath, true);
             commandArguments.add("-load-config=" + airConfigPath);
         } else {
             // Custom configuration file
@@ -95,7 +96,7 @@ public class FCSHFlexSDKRunner extends AbstractFlexSDKRunner {
         return commandArguments;
     }
 
-    private String copyConfigToTempDir(String configPath) {
+    private static String copyConfigToTempDir(String configPath, boolean transformRelativePaths = false) {
         File tempConfigDir = new File(FileUtils.getTempDir(), "flexConfigs");
 
         File configFile = new File(configPath);
@@ -110,11 +111,31 @@ public class FCSHFlexSDKRunner extends AbstractFlexSDKRunner {
         } catch (IOException e) {
             throw new RuntimeException("Can't copy config to " + configFileTarget);
         }
+
+        if (transformRelativePaths) {
+            File configDir = configFile.getParentFile()
+
+            String fileContent = FileUtils.read(configFileTarget)
+            Document document = DOMBuilder.parse(new StringReader(fileContent))
+            Element flexConfig = document.documentElement
+            use(DOMCategory) {
+                Closure<Void> cl = {
+                    it.value = new File(configDir, it.text()).path
+                }
+
+                (flexConfig.'**'.'path-element').each(cl)
+                (flexConfig.'**'.'filename').each(cl)
+                (flexConfig.'**'.'manifest').each(cl)
+            }
+
+            FileUtils.write(configFileTarget, XmlUtil.serialize(flexConfig))
+        }
+
         return configFileTarget.getPath();
     }
 
     @Override
-    public String getErrorLogFilePath() {
+    String getErrorLogFilePath() {
         return new File(ProjectHelper.<AsProject>getCurrentProject().getBaseDir(), COMPILE_ERRORS_LOG_FILE_NAME).getPath();
     }
 
