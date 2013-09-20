@@ -1,5 +1,7 @@
 package codeOrchestra.colt.as.air.ui.descriptor
 
+import codeOrchestra.colt.as.model.beans.air.AirModel
+import codeOrchestra.colt.as.model.beans.air.descriptor.DescriptorModel
 import codeOrchestra.colt.core.ui.components.inputForms.CheckBoxInput
 import codeOrchestra.colt.core.ui.components.inputForms.LabeledActionInput
 import codeOrchestra.colt.core.ui.components.inputForms.LabeledInput
@@ -25,8 +27,12 @@ class DescriptorGenerationForm extends Stage {
     protected ButtonBar buttonBar
     protected Button generateBtn
     protected Button cancelBtn
+    protected FormGroup options
 
-    DescriptorGenerationForm() {
+    private DescriptorModel descriptorModel
+
+    DescriptorGenerationForm(AirModel model) {
+        descriptorModel = model.descriptorModel
         setTitle("Create AIR Descriptor Template")
         initModality(Modality.WINDOW_MODAL)
 
@@ -34,26 +40,21 @@ class DescriptorGenerationForm extends Stage {
         scene = new Scene(root)
 
         FormGroup descriptor = new FormGroup(title: "AIR application descriptor", newChildren: [
-                new LabeledTitledInput(title: "File name:"),
-                new LabeledActionInput(title: "Folder:", browseType: BrowseType.DIRECTORY)
+                new LabeledTitledInput(title: "File name:", bindProperty: descriptorModel.fileName()),
+                new LabeledActionInput(title: "Folder:", bindProperty: descriptorModel.outputPath(), browseType: BrowseType.DIRECTORY)
         ])
         descriptor.first = true
 
 
         FormGroup properties = new FormGroup(title: "Application properties", newChildren: [
-                new LabeledTitledInput(title: "ID:"),
-                new LabeledTitledInput(title: "Name:"),
-                new LabeledTitledInput(title: "Version:")
+                new LabeledTitledInput(title: "ID:", bindProperty: descriptorModel.id()),
+                new LabeledTitledInput(title: "Name:", bindProperty: descriptorModel.name()),
+                new LabeledTitledInput(title: "Version:", bindProperty: descriptorModel.version())
         ])
 
-        FormGroup options = new FormGroup(title: "Mobile options", newChildren: [
-                new CheckBoxInput(title: "auto-orient"),
-                new CheckBoxInput(title: "full screen"),
-                new LabeledInput(title: "Devices:"),
-                new RadioButtonInput(title: "All"),
-                new RadioButtonInput(title: "iPhone/iPod touch"),
-                new RadioButtonInput(title: "iPad"),
-                new CheckBoxInput(title: "High resolution")
+        options = new FormGroup(title: "Mobile options", newChildren: [
+                new CheckBoxInput(title: "auto-orient", bindProperty: descriptorModel.autoOrient()),
+                new CheckBoxInput(title: "full screen", bindProperty: descriptorModel.fullScreen())
         ])
 
         root.children.addAll(descriptor, properties, options)

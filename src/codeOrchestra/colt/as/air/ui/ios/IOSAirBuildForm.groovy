@@ -4,6 +4,7 @@ import codeOrchestra.colt.as.air.AirBuildScriptGenerator
 import codeOrchestra.colt.as.air.AirIosIpaBuildScriptGenerator
 import codeOrchestra.colt.as.air.ui.AirBuildForm
 import codeOrchestra.colt.as.air.ui.PasswordInput
+import codeOrchestra.colt.as.air.ui.descriptor.IOSDescriptorGenerationForm
 import codeOrchestra.colt.as.model.AsProject
 import codeOrchestra.colt.as.model.beans.air.IOSAirModel
 import codeOrchestra.colt.core.ui.components.inputForms.LabeledActionInput
@@ -23,6 +24,9 @@ class IOSAirBuildForm extends AirBuildForm {
     @Override
     protected void initOptions() {
         model = runTargetModel.iosAirModel
+
+        descriptor.initModel(model)
+        descriptor.initGenerationForm(new IOSDescriptorGenerationForm(model))
 
         profile = new LabeledActionInput(title: "Provisioning profile:", browseType: BrowseType.FILE)
         profile.extensionFilters.add(new FileChooser.ExtensionFilter(".mobileprovision", "*.mobileprovision"))

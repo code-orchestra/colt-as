@@ -11,6 +11,7 @@ import groovy.transform.Canonical
 @Canonical
 @FXBindable
 class DescriptorModel implements IModelElement {
+    String outputPath
     String id
     String fileName
     String name
@@ -22,6 +23,7 @@ class DescriptorModel implements IModelElement {
     @Override
     Closure buildXml(Project project) {
         return {
+            'output-path'(outputPath)
             'id-value'(id)
             'file-name'(fileName)
             'name-value'(name)
@@ -33,6 +35,7 @@ class DescriptorModel implements IModelElement {
 
     @Override
     void buildModel(Object node) {
+        outputPath = node.'output-path'
         id = node.'id-value'
         fileName = node.'file-name'
         name = node.'name-value'

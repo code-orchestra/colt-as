@@ -4,6 +4,7 @@ import codeOrchestra.colt.core.model.IModelElement
 import codeOrchestra.colt.core.model.Project
 import codeOrchestra.groovyfx.FXBindable
 import groovy.transform.Canonical
+import codeOrchestra.colt.as.air.ui.descriptor.Devices
 
 /**
  * @author Dima Kruk
@@ -12,7 +13,7 @@ import groovy.transform.Canonical
 @FXBindable
 class IOSDescriptorModel implements IModelElement {
     boolean highResolution = true
-    String devices = "all"
+    String devices = Devices.ALL.name()
 
     @Override
     Closure buildXml(Project project) {

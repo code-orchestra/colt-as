@@ -1,6 +1,5 @@
 package codeOrchestra.colt.as.model.beans.air
 
-import codeOrchestra.colt.as.model.beans.air.descriptor.DescriptorModel
 import codeOrchestra.colt.as.model.beans.air.descriptor.IOSDescriptorModel
 import codeOrchestra.colt.core.model.IModelElement
 import codeOrchestra.colt.core.model.Project
@@ -12,15 +11,9 @@ import groovy.transform.Canonical
  */
 @Canonical
 @FXBindable
-class IOSAirModel implements IModelElement {
+class IOSAirModel extends AirModel implements IModelElement {
     String provisionPath = ""
-    String keystorePath = ""
-    String storePass = ""
 
-    boolean useCustomTemplate
-    String templatePath = ""
-
-    DescriptorModel descriptorModel = new DescriptorModel()
     IOSDescriptorModel additionalDescriptorModel = new IOSDescriptorModel()
 
     @Override
