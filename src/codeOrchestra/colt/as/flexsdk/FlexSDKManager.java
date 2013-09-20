@@ -40,6 +40,36 @@ public class FlexSDKManager {
         return FlexSDKLib.get(namespace) != null;
     }
 
+    public boolean isAirPresent(String flexSDKPath) {
+        return new File(getAdlExecutablePath(flexSDKPath)).exists() && new File(getAdtExecutablePath(flexSDKPath)).exists();
+    }
+
+    public String getAdtExecutablePath(String flexSDKPath) {
+        String result = new File(flexSDKPath, "bin" + File.separator + "adt").getPath();
+
+        String osName = System.getProperty("os.name");
+        if (osName.startsWith("Mac OS")) {
+            return result;
+        } else if (osName.startsWith("Windows")) {
+            return result + ".exe";
+        }
+
+        return result;
+    }
+
+    public String getAdlExecutablePath(String flexSDKPath) {
+        String result = new File(flexSDKPath, "bin" + File.separator + "adl").getPath();
+
+        String osName = System.getProperty("os.name");
+        if (osName.startsWith("Mac OS")) {
+            return result;
+        } else if (osName.startsWith("Windows")) {
+            return result + ".exe";
+        }
+
+        return result;
+    }
+
     private String getLibPath(String flexSDKPath, String namespace) throws FlexSDKNotPresentException {
         if (flexSDKPath == null) {
             throw new FlexSDKNotPresentException("Flex SDK path not specified");
