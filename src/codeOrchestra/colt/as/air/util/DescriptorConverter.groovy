@@ -1,6 +1,6 @@
 package codeOrchestra.colt.as.air.util
 
-import codeOrchestra.colt.as.model.beans.air.DescriptorModel
+import codeOrchestra.colt.as.model.beans.air.descriptor.DescriptorModel
 import codeOrchestra.util.FileUtils
 import groovy.xml.DOMBuilder
 import groovy.xml.XmlUtil
