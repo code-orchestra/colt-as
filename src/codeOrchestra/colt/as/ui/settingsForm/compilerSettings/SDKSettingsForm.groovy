@@ -3,6 +3,8 @@ package codeOrchestra.colt.as.ui.settingsForm.compilerSettings
 import codeOrchestra.colt.as.flexsdk.FlexSDKManager
 import codeOrchestra.colt.as.flexsdk.FlexSDKNotPresentException
 import codeOrchestra.colt.as.model.ModelStorage
+import codeOrchestra.colt.as.model.beans.RunTargetModel
+import codeOrchestra.colt.as.run.Target
 import codeOrchestra.colt.as.model.beans.SDKModel
 import codeOrchestra.colt.as.ui.settingsForm.IFormValidated
 
@@ -27,6 +29,7 @@ class SDKSettingsForm extends FormGroup implements IFormValidated{
     private CheckBoxActionInput customConf
 
     private SDKModel model = ModelStorage.instance.project.projectBuildSettings.sdkModel
+    private RunTargetModel targetModel = ModelStorage.instance.project.projectBuildSettings.runTargetModel
 
     SDKSettingsForm() {
         sdkPath = new LabeledActionInput(title: "Flex SDK Path:", browseType: BrowseType.DIRECTORY)
@@ -38,19 +41,31 @@ class SDKSettingsForm extends FormGroup implements IFormValidated{
         init()
     }
 
+    private void validateSDK(String path) {
+        FlexSDKManager manager = FlexSDKManager.instance
+        try {
+            manager.checkIsValidFlexSDKPath(path)
+            if (targetModel.runTarget == Target.AIR_ANDROID || targetModel.runTarget == Target.AIR_IOS || targetModel.runTarget == Target.AIR_DESKTOP) {
+                model.isValidFlexSDK = manager.isAirPresent(path)
+            } else {
+                model.isValidFlexSDK = true
+            }
+        } catch (FlexSDKNotPresentException ignored) {
+            model.isValidFlexSDK = false
+        }
+    }
+
     public void init() {
 
         customConf.extensionFilters.add(new FileChooser.ExtensionFilter("XML", "*.xml"))
 
         model.flexSDKPath().addListener({ ObservableValue<? extends String> observable, String oldValue, String newValue ->
-            FlexSDKManager manager = FlexSDKManager.instance
-            try {
-                manager.checkIsValidFlexSDKPath(newValue)
-                model.isValidFlexSDK = true
-            } catch (FlexSDKNotPresentException ignored) {
-                model.isValidFlexSDK = false
-            }
+            validateSDK(newValue)
         } as ChangeListener<String>)
+
+        targetModel.target().addListener({ javafx.beans.Observable observable ->
+            validateSDK(model.flexSDKPath)
+        } as InvalidationListener)
 
         model.isValidFlexSDK().addListener({ javafx.beans.Observable observable ->
             validated()

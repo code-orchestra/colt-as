@@ -12,6 +12,7 @@ import codeOrchestra.colt.core.ui.components.inputForms.LabeledActionInput
 import codeOrchestra.colt.core.ui.components.inputForms.LabeledTitledInput
 import codeOrchestra.colt.core.ui.components.inputForms.base.BrowseType
 import codeOrchestra.colt.core.ui.components.inputForms.group.FormGroup
+import javafx.beans.InvalidationListener
 import javafx.beans.value.ChangeListener
 import javafx.beans.value.ObservableValue
 import javafx.scene.Parent
@@ -90,10 +91,9 @@ class BuildSettingsForm extends FormGroup implements IFormValidated {
             }
 
         } as ChangeListener)
-
-        sdkModel.flexSDKPath().addListener({ ObservableValue<? extends String> observableValue, String t, String newValue ->
+        sdkModel.isValidFlexSDK().addListener({ javafx.beans.Observable observable ->
             updatePlayerVersion(sdkModel.isValidFlexSDK)
-        } as ChangeListener)
+        } as InvalidationListener)
 
         model.useMaxVersion().addListener({ ObservableValue<? extends Boolean> observableValue, Boolean oldValue, Boolean newValue ->
             if (newValue && sdkModel.isValidFlexSDK) {
