@@ -1,8 +1,11 @@
 package codeOrchestra.colt.as.run;
 
+import codeOrchestra.colt.as.air.util.DescriptorConverter;
 import codeOrchestra.colt.as.model.AsProject;
 import codeOrchestra.colt.as.model.AsProjectBuildSettings;
 import codeOrchestra.colt.as.model.AsProjectLiveSettings;
+import codeOrchestra.colt.as.model.beans.air.AndroidAirModel;
+import codeOrchestra.colt.as.model.beans.air.IOSAirModel;
 import codeOrchestra.colt.as.security.TrustedLocations;
 import codeOrchestra.colt.core.execution.ExecutionException;
 import codeOrchestra.colt.core.execution.ProcessHandlerWrapper;
@@ -31,7 +34,17 @@ public class ASLiveLauncher implements LiveLauncher<AsProject> {
         AsProjectBuildSettings compilerSettings = project.getProjectBuildSettings();
         Target launchTarget = compilerSettings.getLaunchTarget();
 
+        File swfFile = new File(production ? compilerSettings.productionBuildModel.getOutputPath() : project.getOutputDir().getPath(), compilerSettings.getOutputFilename());
+        String swfPath = swfFile.getPath();
+        File descriptionFile = new File(swfFile.getParent(), project.getName() + "-app.xml");
+
         if (launchTarget == Target.AIR_IOS) {
+            IOSAirModel iosAirModel = compilerSettings.runTargetModel.getIosAirModel();
+            if (iosAirModel.getUseCustomTemplate()) {
+                DescriptorConverter.afterCompileReplace(new File(iosAirModel.getTemplatePath()), descriptionFile, swfFile.getName());
+            } else {
+                DescriptorConverter.afterCompileReplace(iosAirModel.getDescriptorModel(), iosAirModel.getAdditionalDescriptorModel(),descriptionFile, swfFile.getName());
+            }
             String scriptPath = compilerSettings.getAirIosScript();
             if (StringUtils.isEmpty(scriptPath) || !new File(scriptPath).exists()) {
                 throw new ExecutionException("Invalid iOS AIR run script path");
@@ -40,6 +53,12 @@ public class ASLiveLauncher implements LiveLauncher<AsProject> {
         }
 
         if (launchTarget == Target.AIR_ANDROID) {
+            AndroidAirModel androidAirModel = compilerSettings.runTargetModel.getAndroidAirModel();
+            if (androidAirModel.getUseCustomTemplate()) {
+                DescriptorConverter.afterCompileReplace(new File(androidAirModel.getTemplatePath()), descriptionFile, swfFile.getName());
+            } else {
+                DescriptorConverter.afterCompileReplace(androidAirModel.getDescriptorModel(), androidAirModel.getAdditionalDescriptorModel(),descriptionFile, swfFile.getName());
+            }
             String scriptPath = compilerSettings.getAirAndroidScript();
             if (StringUtils.isEmpty(scriptPath) || !new File(scriptPath).exists()) {
                 throw new ExecutionException("Invalid Android AIR run script path");
@@ -50,7 +69,6 @@ public class ASLiveLauncher implements LiveLauncher<AsProject> {
         ApplicationGUI.CAN_SHOW_ADD = true;
 
         LauncherType launcherType = liveCodingSettings.getLauncherType();
-        String swfPath = new File(production ? compilerSettings.productionBuildModel.getOutputPath() : project.getOutputDir().getPath(), compilerSettings.getOutputFilename()).getPath();
         if (launchTarget == Target.SWF) {
             TrustedLocations.getInstance().addTrustedLocation(swfPath);
         }
