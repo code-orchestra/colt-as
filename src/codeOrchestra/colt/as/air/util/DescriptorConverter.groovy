@@ -16,8 +16,11 @@ import codeOrchestra.colt.as.util.ASPathUtils
  * @author Dima Kruk
  */
 class DescriptorConverter {
+    static File getBaseTemplate() {
+        return new File(ASPathUtils.flexSDKPath, "templates/air/descriptor-template.xml")
+    }
     static void makeTemplate(DescriptorModel model, File outFile ) {
-        File file = new File(ASPathUtils.flexSDKPath, "templates/air/descriptor-template.xml")
+        File file = getBaseTemplate()
         String fileContent = FileUtils.read(file)
 
         String out = replaceBase(fileContent, model)
@@ -30,7 +33,7 @@ class DescriptorConverter {
     }
 
     static void makeTemplateForIOS(DescriptorModel model, IOSDescriptorModel iosModel, File outFile) {
-        File file = new File(ASPathUtils.flexSDKPath, "templates/air/descriptor-template.xml")
+        File file = getBaseTemplate()
         String fileContent = FileUtils.read(file)
 
         String out = replaceBase(fileContent, model)
@@ -44,7 +47,7 @@ class DescriptorConverter {
     }
 
     static void makeTemplateForAndroid(DescriptorModel model, AndroidDescriptorModel androidModel, File outFile) {
-        File file = new File(ASPathUtils.flexSDKPath, "templates/air/descriptor-template.xml")
+        File file = getBaseTemplate()
         String fileContent = FileUtils.read(file)
 
         String out = replaceBase(fileContent, model)
@@ -182,7 +185,7 @@ class DescriptorConverter {
     }
 
     static void afterCompileReplace(DescriptorModel model, IOSDescriptorModel iosModel, File outFile, String swf) {
-        File file = new File(ASPathUtils.flexSDKPath, "templates/air/descriptor-template.xml")
+        File file = getBaseTemplate()
         String fileContent = FileUtils.read(file)
 
         String out = replaceBase(fileContent, model)
@@ -197,7 +200,7 @@ class DescriptorConverter {
     }
 
     static void afterCompileReplace(DescriptorModel model, AndroidDescriptorModel andriondModel, File outFile, String swf) {
-        File file = new File(ASPathUtils.flexSDKPath, "templates/air/descriptor-template.xml")
+        File file = getBaseTemplate()
         String fileContent = FileUtils.read(file)
 
         String out = replaceBase(fileContent, model)
