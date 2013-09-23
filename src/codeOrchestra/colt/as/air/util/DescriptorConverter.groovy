@@ -105,4 +105,20 @@ class DescriptorConverter {
 
         return result
     }
+
+    static void precompileReplace(File template, File outFile, String swf) {
+        String fileContent = FileUtils.read(template)
+
+        Document document = DOMBuilder.parse(new StringReader(fileContent))
+        def application = document.documentElement
+        use(DOMCategory) {
+            application.'**'.content.each {it.value = swf}
+        }
+
+        StringWriter writer = new StringWriter()
+        writer.write(XmlUtil.serialize(application))
+        FileWriter fileWriter = new FileWriter(outFile)
+        fileWriter.write(writer.toString())
+        fileWriter.close()
+    }
 }
