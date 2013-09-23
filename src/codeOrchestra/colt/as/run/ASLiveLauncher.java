@@ -5,6 +5,7 @@ import codeOrchestra.colt.as.model.AsProject;
 import codeOrchestra.colt.as.model.AsProjectBuildSettings;
 import codeOrchestra.colt.as.model.AsProjectLiveSettings;
 import codeOrchestra.colt.as.model.beans.air.AndroidAirModel;
+import codeOrchestra.colt.as.model.beans.air.DesktopAirModel;
 import codeOrchestra.colt.as.model.beans.air.IOSAirModel;
 import codeOrchestra.colt.as.security.TrustedLocations;
 import codeOrchestra.colt.core.execution.ExecutionException;
@@ -64,6 +65,17 @@ public class ASLiveLauncher implements LiveLauncher<AsProject> {
                 throw new ExecutionException("Invalid Android AIR run script path");
             }
             return new ProcessHandlerWrapper(new ProcessHandlerBuilder().append(protect(scriptPath)).build(project.getOutputDir()), true);
+        }
+
+        if (launchTarget == Target.AIR_DESKTOP) {
+            DesktopAirModel desktopAirModel = compilerSettings.runTargetModel.getDesktopAirModel();
+            if (desktopAirModel.getUseCustomTemplate()) {
+                DescriptorConverter.afterCompileReplace(new File(desktopAirModel.getTemplatePath()), descriptionFile, swfFile.getName());
+            } else {
+                DescriptorConverter.afterCompileReplace(desktopAirModel.getDescriptorModel(), descriptionFile, swfFile.getName());
+            }
+            //todo: implement run with ADL
+            throw new ExecutionException("todo: implement run with ADL");
         }
 
         ApplicationGUI.CAN_SHOW_ADD = true;

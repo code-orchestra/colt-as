@@ -25,7 +25,7 @@ class DescriptorConverter {
 
         String out = replaceBase(fileContent, model)
 
-        def writer = new StringWriter()
+        StringWriter writer = new StringWriter()
         writer.write(out)
         FileWriter fileWriter = new FileWriter(outFile)
         fileWriter.write(writer.toString())
@@ -60,10 +60,27 @@ class DescriptorConverter {
         fileWriter.close()
     }
 
-    static String replaceBase(String source, DescriptorModel model) {
+    static void makeTemplateForDesktop(DescriptorModel model, File outFile) {
+        File file = getBaseTemplate()
+        String fileContent = FileUtils.read(file)
+
+        String out = replaceBase(fileContent, model, true)
+
+        StringWriter writer = new StringWriter()
+        writer.write(out)
+        FileWriter fileWriter = new FileWriter(outFile)
+        fileWriter.write(writer.toString())
+        fileWriter.close()
+    }
+
+    static String replaceBase(String source, DescriptorModel model, boolean forDesktop = false) {
         String result = source.replaceAll("\n\t\t<!-- Note: In Flash Builder, the SWF reference is set automatically. -->", "")
-        result = result.replaceAll("<!-- <autoOrients></autoOrients> -->", "<autoOrients></autoOrients>")
-        result = result.replaceAll("<!-- <fullScreen></fullScreen> -->", "<fullScreen></fullScreen>")
+        if (!forDesktop) {
+            result = result.replaceAll("<!-- <autoOrients></autoOrients> -->", "<autoOrients></autoOrients>")
+            result = result.replaceAll("<!-- <fullScreen></fullScreen> -->", "<fullScreen></fullScreen>")
+        } else {
+            result = result.replaceAll("<!-- <visible></visible> -->", "<visible>true</visible>")
+        }
 
         Document document = DOMBuilder.parse(new StringReader(result))
         def application = document.documentElement
@@ -87,10 +104,14 @@ class DescriptorConverter {
                         it.value = "SWF file name is set automatically at compile time"
                         break
                     case "autoOrients":
-                        it.value = model.autoOrient
+                        if (!forDesktop) {
+                            it.value = model.autoOrient
+                        }
                         break
                     case "fullScreen":
-                        it.value = model.fullScreen
+                        if (!forDesktop) {
+                            it.value = model.fullScreen
+                        }
                         break
                 }
             }
@@ -176,6 +197,20 @@ class DescriptorConverter {
         String fileContent = FileUtils.read(template)
 
         String out = replaceAfterCompile(fileContent, swf)
+
+        StringWriter writer = new StringWriter()
+        writer.write(out)
+        FileWriter fileWriter = new FileWriter(outFile)
+        fileWriter.write(writer.toString())
+        fileWriter.close()
+    }
+
+    static void afterCompileReplace(DescriptorModel model, File outFile, String swf) {
+        File file = getBaseTemplate()
+        String fileContent = FileUtils.read(file)
+
+        String out = replaceBase(fileContent, model, true)
+        out = replaceAfterCompile(out, swf)
 
         StringWriter writer = new StringWriter()
         writer.write(out)
