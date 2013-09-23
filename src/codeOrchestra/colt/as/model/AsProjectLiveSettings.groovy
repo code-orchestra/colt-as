@@ -3,6 +3,8 @@ package codeOrchestra.colt.as.model
 import codeOrchestra.colt.as.model.beans.LauncherModel
 import codeOrchestra.colt.as.model.beans.LiveSettingsModel
 import codeOrchestra.colt.as.model.beans.SettingsModel
+import codeOrchestra.colt.as.model.beans.air.AirLauncherModel
+import codeOrchestra.colt.as.run.AirLauncherType
 import codeOrchestra.colt.as.run.LauncherType
 import codeOrchestra.colt.as.run.LiveMethods
 import codeOrchestra.colt.core.model.Project
@@ -15,6 +17,7 @@ class AsProjectLiveSettings extends ProjectLiveSettings<AsProject>{
 
     public final SettingsModel settingsModel = new SettingsModel()
     public final LauncherModel launcherModel = new LauncherModel()
+    public final AirLauncherModel airLauncherModel = new AirLauncherModel()
     public final LiveSettingsModel liveSettingsModel = new LiveSettingsModel()
 
     public LauncherType getLauncherType() {
@@ -22,6 +25,14 @@ class AsProjectLiveSettings extends ProjectLiveSettings<AsProject>{
             return LauncherType.valueOf(launcherModel.launcherType);
         } catch (IllegalArgumentException e) {
             return LauncherType.DEFAULT;
+        }
+    }
+
+    public AirLauncherType getAirLauncherType() {
+        try {
+            return AirLauncherType.valueOf(airLauncherModel.launcherType);
+        } catch (IllegalArgumentException e) {
+            return AirLauncherType.DEVICE;
         }
     }
 
@@ -70,6 +81,7 @@ class AsProjectLiveSettings extends ProjectLiveSettings<AsProject>{
         return {
             settings(settingsModel.buildXml(project))
             launch(launcherModel.buildXml(project))
+            'air-launch'(airLauncherModel.buildXml(project))
             live(liveSettingsModel.buildXml(project))
         }
     }
@@ -78,6 +90,7 @@ class AsProjectLiveSettings extends ProjectLiveSettings<AsProject>{
     void buildModel(Object node) {
         settingsModel.buildModel(node.settings)
         launcherModel.buildModel(node.launch)
+        airLauncherModel.buildModel(node.'air-launch')
         liveSettingsModel.buildModel(node.live)
     }
 }
