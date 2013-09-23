@@ -115,6 +115,11 @@ public class ASLiveCodingLanguageHandler extends AbstractLiveCodingLanguageHandl
     }
 
     @Override
+    public int getDemoModeMaxUpdatesCount() {
+        return 10;
+    }
+
+    @Override
     public LoggerService getLoggerService() {
         return loggerService;
     }
