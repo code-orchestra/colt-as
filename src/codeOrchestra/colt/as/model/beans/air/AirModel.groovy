@@ -13,7 +13,7 @@ abstract class AirModel {
     String keystorePath = ""
     String storePass = ""
 
-    boolean useCustomTemplate = true
+    boolean useCustomTemplate = false
     String templatePath = ""
 
     DescriptorModel descriptorModel = new DescriptorModel()

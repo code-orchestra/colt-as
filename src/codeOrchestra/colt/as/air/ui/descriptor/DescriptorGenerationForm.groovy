@@ -41,7 +41,7 @@ abstract class DescriptorGenerationForm extends Stage {
         scene = new Scene(root)
 
         FormGroup descriptor = new FormGroup(title: "AIR application descriptor", newChildren: [
-                new LabeledTitledInput(title: "File name:", bindProperty: descriptorModel.fileName()),
+                new LabeledTitledInput(title: "File name:", bindProperty: descriptorModel.outputFileName()),
                 new LabeledActionInput(title: "Folder:", bindProperty: descriptorModel.outputPath(), browseType: BrowseType.DIRECTORY)
         ])
         descriptor.first = true
@@ -65,7 +65,7 @@ abstract class DescriptorGenerationForm extends Stage {
         generateBtn.defaultButton = true
         ButtonBar.setType(generateBtn, ButtonBar.ButtonType.OK_DONE)
         generateBtn.onAction = {
-            templatePath = generateTemplate(new File(descriptorModel.outputPath, descriptorModel.fileName))
+            templatePath = generateTemplate(new File(descriptorModel.outputPath, descriptorModel.outputFileName))
             hide()
         } as EventHandler
         cancelBtn = new Button("Cancel")

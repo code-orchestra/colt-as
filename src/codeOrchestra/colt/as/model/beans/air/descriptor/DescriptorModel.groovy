@@ -12,10 +12,11 @@ import groovy.transform.Canonical
 @FXBindable
 class DescriptorModel implements IModelElement {
     String outputPath
+    String outputFileName
     String id
     String fileName
     String name
-    String version
+    String version = "1.0.0"
 
     boolean autoOrient = true
     boolean fullScreen = true
@@ -24,6 +25,7 @@ class DescriptorModel implements IModelElement {
     Closure buildXml(Project project) {
         return {
             'output-path'(outputPath)
+            'output-file-name'(outputFileName)
             'id-value'(id)
             'file-name'(fileName)
             'name-value'(name)
@@ -36,6 +38,7 @@ class DescriptorModel implements IModelElement {
     @Override
     void buildModel(Object node) {
         outputPath = node.'output-path'
+        outputFileName = node.'output-file-name'
         id = node.'id-value'
         fileName = node.'file-name'
         name = node.'name-value'

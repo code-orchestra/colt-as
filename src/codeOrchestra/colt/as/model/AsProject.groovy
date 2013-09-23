@@ -119,5 +119,16 @@ class AsProject extends Project {
 
         liveSettings.launcherType = codeOrchestra.colt.as.run.LauncherType.DEFAULT;
         liveSettings.liveMethods = codeOrchestra.colt.as.run.LiveMethods.ANNOTATED;
+
+        buildSettings.runTargetModel.iosAirModel.descriptorModel.outputPath = new File(path).parent + File.separator + "template"
+        buildSettings.runTargetModel.iosAirModel.descriptorModel.outputFileName = name + "-app.xml"
+        buildSettings.runTargetModel.iosAirModel.descriptorModel.name = name
+        buildSettings.runTargetModel.iosAirModel.descriptorModel.id = "com." + name
+
+        buildSettings.runTargetModel.androidAirModel.descriptorModel.outputPath = new File(path).parent + File.separator + "template"
+        buildSettings.runTargetModel.androidAirModel.descriptorModel.outputFileName = name + "-app.xml"
+        buildSettings.runTargetModel.androidAirModel.descriptorModel.name = name
+        buildSettings.runTargetModel.androidAirModel.descriptorModel.id = "com." + name
+
     }
 }
