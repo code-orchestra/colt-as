@@ -4,11 +4,10 @@ import codeOrchestra.colt.as.model.beans.air.AirModel
 import codeOrchestra.colt.as.model.beans.air.descriptor.DescriptorModel
 import codeOrchestra.colt.core.ui.components.inputForms.CheckBoxInput
 import codeOrchestra.colt.core.ui.components.inputForms.LabeledActionInput
-import codeOrchestra.colt.core.ui.components.inputForms.LabeledInput
 import codeOrchestra.colt.core.ui.components.inputForms.LabeledTitledInput
-import codeOrchestra.colt.core.ui.components.inputForms.RadioButtonInput
 import codeOrchestra.colt.core.ui.components.inputForms.base.BrowseType
 import codeOrchestra.colt.core.ui.components.inputForms.group.FormGroup
+import javafx.event.EventHandler
 import javafx.geometry.Pos
 import javafx.scene.Scene
 import javafx.scene.control.Button
@@ -21,7 +20,7 @@ import org.controlsfx.control.ButtonBar
 /**
  * @author Dima Kruk
  */
-class DescriptorGenerationForm extends Stage {
+abstract class DescriptorGenerationForm extends Stage {
     VBox root
 
     protected ButtonBar buttonBar
@@ -29,7 +28,9 @@ class DescriptorGenerationForm extends Stage {
     protected Button cancelBtn
     protected FormGroup options
 
-    private DescriptorModel descriptorModel
+    protected DescriptorModel descriptorModel
+
+    String templatePath
 
     DescriptorGenerationForm(AirModel model) {
         descriptorModel = model.descriptorModel
@@ -63,8 +64,15 @@ class DescriptorGenerationForm extends Stage {
         generateBtn = new Button("Create")
         generateBtn.defaultButton = true
         ButtonBar.setType(generateBtn, ButtonBar.ButtonType.OK_DONE)
+        generateBtn.onAction = {
+            templatePath = generateTemplate(new File(descriptorModel.outputPath, descriptorModel.fileName))
+            hide()
+        } as EventHandler
         cancelBtn = new Button("Cancel")
         ButtonBar.setType(cancelBtn, ButtonBar.ButtonType.CANCEL_CLOSE)
+        cancelBtn.onAction = {
+            hide()
+        } as EventHandler
         buttonBar.buttons.addAll(generateBtn, cancelBtn)
 
         AnchorPane anchorPane = new AnchorPane()
@@ -82,4 +90,6 @@ class DescriptorGenerationForm extends Stage {
         root.setPrefWidth(460)
         root.setFillWidth(true)
     }
+
+    abstract protected String generateTemplate(File outFile)
 }

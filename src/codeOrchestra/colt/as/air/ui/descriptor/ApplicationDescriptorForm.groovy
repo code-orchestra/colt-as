@@ -26,8 +26,11 @@ class ApplicationDescriptorForm extends FormGroup{
         generated.selected = true
         custom = new RadioButtonActionInput(title: "Custom template:", buttonText: "Create")
         custom.action = {
-            generationForm.initOwner(this.scene.window)
+            if (generationForm.owner != this.scene.window) {
+                generationForm.initOwner(this.scene.window)
+            }
             generationForm.showAndWait()
+            custom.text = generationForm.templatePath
         } as EventHandler
 
         descriptor = new ToggleGroup()

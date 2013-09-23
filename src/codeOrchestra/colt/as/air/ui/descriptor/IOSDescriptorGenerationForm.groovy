@@ -10,6 +10,7 @@ import javafx.beans.value.ChangeListener
 import javafx.beans.value.ObservableValue
 import javafx.scene.control.Toggle
 import javafx.scene.control.ToggleGroup
+import codeOrchestra.colt.as.air.util.DescriptorConverter
 
 /**
  * @author Dima Kruk
@@ -43,6 +44,12 @@ class IOSDescriptorGenerationForm extends DescriptorGenerationForm {
         } as ChangeListener)
 
         activateDevices(iosDescriptorModel.devices)
+    }
+
+    @Override
+    protected String generateTemplate(File outFile) {
+        DescriptorConverter.makeTemplateForIOS(descriptorModel, iosDescriptorModel, outFile)
+        return outFile.path
     }
 
     void activateDevices(String newVal) {
