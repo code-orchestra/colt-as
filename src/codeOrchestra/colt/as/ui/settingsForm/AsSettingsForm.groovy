@@ -4,6 +4,7 @@ import codeOrchestra.colt.as.model.AsProject
 import codeOrchestra.colt.as.ui.settingsForm.compilerSettings.BuildSettingsForm
 import codeOrchestra.colt.as.ui.settingsForm.compilerSettings.CompilerSettingsForm
 import codeOrchestra.colt.as.ui.settingsForm.compilerSettings.SDKSettingsForm
+import codeOrchestra.colt.as.ui.settingsForm.liveSettings.AirDesktopLauncherForm
 import codeOrchestra.colt.as.ui.settingsForm.liveSettings.LauncherForm
 import codeOrchestra.colt.as.ui.settingsForm.liveSettings.AirLauncherForm
 import codeOrchestra.colt.as.ui.settingsForm.liveSettings.LiveSettingsForm
@@ -70,10 +71,10 @@ class AsSettingsForm extends SettingsScrollPane{
         validatedForms.add(template)
         advancedVBox.children.add(template)
         //liveSettings
-        TargetForm target = new TargetForm()
-        validatedForms.add(target)
-        target.ownerForm = this
-        advancedVBox.children.add(target)
+        TargetForm targetForm = new TargetForm()
+        validatedForms.add(targetForm)
+        targetForm.ownerForm = this
+        advancedVBox.children.add(targetForm)
 
 
         LauncherForm launcher = new LauncherForm()
@@ -81,25 +82,16 @@ class AsSettingsForm extends SettingsScrollPane{
         advancedVBox.children.add(launcher)
 
         AirLauncherForm airLauncherForm = new AirLauncherForm()
-        validatedForms.add(airLauncherForm)
         advancedVBox.children.add(airLauncherForm)
 
+        AirDesktopLauncherForm airDesktopLauncherForm = new AirDesktopLauncherForm()
+        advancedVBox.children.add(airDesktopLauncherForm)
+
         project.projectBuildSettings.runTargetModel.target().addListener({ ObservableValue<? extends String> observableValue, String t, String newValue ->
-            switch (newValue){
-                case Target.SWF.name():
-                    launcher.visible = launcher.managed = true
-                    airLauncherForm.visible = airLauncherForm.managed = false
-                    break
-                case Target.WEB_ADDRESS.name():
-                    launcher.visible = launcher.managed = false
-                    airLauncherForm.visible = airLauncherForm.managed = false
-                    break
-                case Target.AIR_ANDROID.name():
-                case Target.AIR_IOS.name():
-                    launcher.visible = launcher.managed = false
-                    airLauncherForm.visible = airLauncherForm.managed = true
-                    break
-            }
+            Target target = Target.valueOf(newValue)
+            launcher.visible = launcher.managed = (target == Target.SWF)
+            airLauncherForm.visible = airLauncherForm.managed = (target == Target.AIR_ANDROID || target == Target.AIR_IOS)
+            airDesktopLauncherForm.visible = airDesktopLauncherForm.managed = (target == Target.AIR_DESKTOP)
         } as ChangeListener)
 
         LiveSettingsForm liveSettings = new LiveSettingsForm()

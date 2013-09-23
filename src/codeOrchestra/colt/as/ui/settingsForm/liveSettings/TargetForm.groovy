@@ -2,6 +2,10 @@ package codeOrchestra.colt.as.ui.settingsForm.liveSettings
 
 import codeOrchestra.colt.as.air.ui.AirBuildForm
 import codeOrchestra.colt.as.air.ui.android.AndroidAirBuildForm
+import codeOrchestra.colt.as.air.ui.descriptor.AndroidDescriptorGenerationForm
+import codeOrchestra.colt.as.air.ui.descriptor.ApplicationDescriptorForm
+import codeOrchestra.colt.as.air.ui.descriptor.DesktopDescriptorGenerationForm
+import codeOrchestra.colt.as.air.ui.descriptor.IOSDescriptorGenerationForm
 import codeOrchestra.colt.as.air.ui.ios.IOSAirBuildForm
 import codeOrchestra.colt.as.model.AsProjectBuildSettings
 import codeOrchestra.colt.as.model.ModelStorage
@@ -15,6 +19,7 @@ import codeOrchestra.colt.core.ui.components.inputForms.RadioButtonInput
 import codeOrchestra.colt.core.ui.components.inputForms.group.FormGroup
 import javafx.beans.property.StringProperty
 import javafx.beans.value.ChangeListener
+import javafx.beans.value.ObservableValue
 import javafx.event.EventHandler
 import javafx.scene.Parent
 import javafx.scene.Scene
@@ -35,7 +40,11 @@ class TargetForm extends FormGroup implements IFormValidated {
     private RadioButtonInput swf
     private RadioButtonActionInput http
     private RadioButtonActionInput ios
+    private ApplicationDescriptorForm iosDescriptorForm
     private RadioButtonActionInput android
+    private ApplicationDescriptorForm androidDescriptorForm
+    private RadioButtonInput desktop
+    private ApplicationDescriptorForm desktopDescriptorForm
 
     private RunTargetModel model = ModelStorage.instance.project.projectBuildSettings.runTargetModel
 
@@ -45,16 +54,37 @@ class TargetForm extends FormGroup implements IFormValidated {
         swf = new RadioButtonInput(title: "Compiled SWF")
         http = new RadioButtonActionInput(title: "HTTP-shared to local network:", buttonText: "Generate index.html")
         ios = new RadioButtonActionInput(title: "AIR (iOS):", buttonText: "Generate script")
-        android = new RadioButtonActionInput(title: "AIR (Android):", buttonText: "Generate script")
+        iosDescriptorForm = new ApplicationDescriptorForm(first: true, visible:false, managed: false)
+        iosDescriptorForm.initModel(model.iosAirModel)
+        iosDescriptorForm.initGenerationForm(new IOSDescriptorGenerationForm(model.iosAirModel))
+        ios.selected().addListener({ ObservableValue<? extends Boolean> observableValue, Boolean t, Boolean t1 ->
+            iosDescriptorForm.visible = iosDescriptorForm.managed = t1
+        } as ChangeListener)
 
-        children.addAll(swf, http, ios, android)
+        android = new RadioButtonActionInput(title: "AIR (Android):", buttonText: "Generate script")
+        androidDescriptorForm = new ApplicationDescriptorForm(first: true, visible:false, managed: false)
+        androidDescriptorForm.initModel(model.androidAirModel)
+        androidDescriptorForm.initGenerationForm(new AndroidDescriptorGenerationForm(model.androidAirModel))
+        android.selected().addListener({ ObservableValue<? extends Boolean> observableValue, Boolean t, Boolean t1 ->
+            androidDescriptorForm.visible = androidDescriptorForm.managed = t1
+        } as ChangeListener)
+
+        desktop = new RadioButtonInput(title: "AIR (Desktop):")
+        desktopDescriptorForm = new ApplicationDescriptorForm(first: true, visible:false, managed: false)
+        desktopDescriptorForm.initModel(model.desktopAirModel)
+        desktopDescriptorForm.initGenerationForm(new DesktopDescriptorGenerationForm(model.desktopAirModel))
+        desktop.selected().addListener({ ObservableValue<? extends Boolean> observableValue, Boolean t, Boolean t1 ->
+            desktopDescriptorForm.visible = desktopDescriptorForm.managed = t1
+        } as ChangeListener)
+
+        children.addAll(swf, http, ios, iosDescriptorForm, android, androidDescriptorForm, desktop, desktopDescriptorForm)
 
         init()
     }
 
     void init() {
         target = new ToggleGroup()
-        target.toggles.addAll(swf.radioButton, http.radioButton, ios.radioButton, android.radioButton)
+        target.toggles.addAll(swf.radioButton, http.radioButton, ios.radioButton, android.radioButton, desktop.radioButton)
 
         http.buttonWidth = 150
         ios.buttonWidth = 150

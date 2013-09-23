@@ -23,8 +23,6 @@ import org.controlsfx.control.ButtonBar
 abstract class AirBuildForm extends VBox{
     protected FormGroup options
 
-    protected ApplicationDescriptorForm descriptor
-
     protected ListView<FileCellBean> contentList
 
     protected ButtonBar buttonBar
@@ -38,10 +36,9 @@ abstract class AirBuildForm extends VBox{
     boolean isGenerated = false
 
     AirBuildForm() {
-        descriptor = new ApplicationDescriptorForm()
-        descriptor.first = true
 
         options = new FormGroup(title: "Options:")
+        options.first = true
 
         FormGroup packageContents = new FormGroup(title: "Package Contents:")
         contentList = new ListView<>()
@@ -56,7 +53,7 @@ abstract class AirBuildForm extends VBox{
         packageContents.children.add(contentList)
 
         buttonBar = new ButtonBar()
-        generateBtn = new Button("Ok")
+        generateBtn = new Button("Generate")
         generateBtn.defaultButton = true
         ButtonBar.setType(generateBtn, ButtonBar.ButtonType.OK_DONE)
         cancelBtn = new Button("Cancel")
@@ -72,7 +69,7 @@ abstract class AirBuildForm extends VBox{
         actions.first = true
         actions.children.add(anchorPane)
 
-        children.addAll(descriptor, packageContents, options, actions)
+        children.addAll(options, packageContents, actions)
 
         setAlignment(Pos.TOP_CENTER)
         setPrefWidth(460)

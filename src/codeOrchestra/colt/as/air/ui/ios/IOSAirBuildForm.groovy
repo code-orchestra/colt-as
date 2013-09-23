@@ -25,9 +25,6 @@ class IOSAirBuildForm extends AirBuildForm {
     protected void initOptions() {
         model = runTargetModel.iosAirModel
 
-        descriptor.initModel(model)
-        descriptor.initGenerationForm(new IOSDescriptorGenerationForm(model))
-
         profile = new LabeledActionInput(title: "Provisioning profile:", browseType: BrowseType.FILE)
         profile.extensionFilters.add(new FileChooser.ExtensionFilter(".mobileprovision", "*.mobileprovision"))
         profile.text().bindBidirectional(model.provisionPath())

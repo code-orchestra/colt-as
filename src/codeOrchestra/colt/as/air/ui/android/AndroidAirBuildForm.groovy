@@ -24,9 +24,6 @@ class AndroidAirBuildForm extends AirBuildForm {
     protected void initOptions() {
         model = runTargetModel.androidAirModel
 
-        descriptor.initModel(model)
-        descriptor.initGenerationForm(new AndroidDescriptorGenerationForm(model))
-
         keystore = new LabeledActionInput(title: "Keystore:", browseType: BrowseType.FILE)
         keystore.extensionFilters.add(new FileChooser.ExtensionFilter("p12", "*.p12"))
         keystore.text().bindBidirectional(model.keystorePath())

@@ -3,6 +3,7 @@ package codeOrchestra.colt.as.model
 import codeOrchestra.colt.as.model.beans.LauncherModel
 import codeOrchestra.colt.as.model.beans.LiveSettingsModel
 import codeOrchestra.colt.as.model.beans.SettingsModel
+import codeOrchestra.colt.as.model.beans.air.AirDesktopLauncherModel
 import codeOrchestra.colt.as.model.beans.air.AirLauncherModel
 import codeOrchestra.colt.as.run.AirLauncherType
 import codeOrchestra.colt.as.run.LauncherType
@@ -18,6 +19,7 @@ class AsProjectLiveSettings extends ProjectLiveSettings<AsProject>{
     public final SettingsModel settingsModel = new SettingsModel()
     public final LauncherModel launcherModel = new LauncherModel()
     public final AirLauncherModel airLauncherModel = new AirLauncherModel()
+    public final AirDesktopLauncherModel airDesktopLauncherModel = new AirDesktopLauncherModel()
     public final LiveSettingsModel liveSettingsModel = new LiveSettingsModel()
 
     public LauncherType getLauncherType() {
@@ -82,6 +84,7 @@ class AsProjectLiveSettings extends ProjectLiveSettings<AsProject>{
             settings(settingsModel.buildXml(project))
             launch(launcherModel.buildXml(project))
             'air-launch'(airLauncherModel.buildXml(project))
+            'air-desktop-launch'(airDesktopLauncherModel.buildXml(project))
             live(liveSettingsModel.buildXml(project))
         }
     }
@@ -91,6 +94,7 @@ class AsProjectLiveSettings extends ProjectLiveSettings<AsProject>{
         settingsModel.buildModel(node.settings)
         launcherModel.buildModel(node.launch)
         airLauncherModel.buildModel(node.'air-launch')
+        airDesktopLauncherModel.buildModel(node.'air-desktop-launch')
         liveSettingsModel.buildModel(node.live)
     }
 }

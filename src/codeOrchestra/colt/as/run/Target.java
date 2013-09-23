@@ -8,7 +8,8 @@ public enum Target {
     SWF("Local SWF"),
     WEB_ADDRESS("via HTTP"),
     AIR_IOS("AIR for iOS"),
-    AIR_ANDROID("AIR for Android");
+    AIR_ANDROID("AIR for Android"),
+    AIR_DESKTOP("AIR for desktop");
 
     private String description;
 

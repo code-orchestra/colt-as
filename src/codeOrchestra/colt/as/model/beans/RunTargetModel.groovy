@@ -1,6 +1,7 @@
 package codeOrchestra.colt.as.model.beans
 
 import codeOrchestra.colt.as.model.beans.air.AndroidAirModel
+import codeOrchestra.colt.as.model.beans.air.DesktopAirModel
 import codeOrchestra.colt.as.model.beans.air.IOSAirModel
 import codeOrchestra.colt.core.model.Project
 import codeOrchestra.colt.core.model.monitor.ChangingMonitor
@@ -22,6 +23,7 @@ class RunTargetModel implements IModelElement{
     IOSAirModel iosAirModel = new IOSAirModel()
     String androidScript = ""
     AndroidAirModel androidAirModel = new AndroidAirModel()
+    DesktopAirModel desktopAirModel = new DesktopAirModel()
 
     RunTargetModel() {
         ChangingMonitor monitor = ChangingMonitor.instance
@@ -40,6 +42,7 @@ class RunTargetModel implements IModelElement{
             'http-index'(httpIndex)
             'ios-script'(path:PathUtils.makeRelative(iosScript, project), iosAirModel.buildXml(project))
             'android-script'(path:PathUtils.makeRelative(androidScript, project), androidAirModel.buildXml(project))
+            'desktop-air-model'(desktopAirModel.buildXml(project))
         }
     }
 
@@ -51,6 +54,7 @@ class RunTargetModel implements IModelElement{
         iosAirModel.buildModel(node.'ios-script')
         androidScript = PathUtils.makeAbsolute(node.'android-script'.@path?.toString())
         androidAirModel.buildModel(node.'android-script')
+        desktopAirModel.buildModel(node.'desktop-air-model')
     }
 
     Target getRunTarget() {
