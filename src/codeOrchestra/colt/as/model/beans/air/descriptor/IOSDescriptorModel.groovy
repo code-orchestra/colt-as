@@ -4,6 +4,7 @@ import codeOrchestra.colt.core.model.IModelElement
 import codeOrchestra.colt.core.model.Project
 import codeOrchestra.colt.core.model.monitor.ChangingMonitor
 import codeOrchestra.groovyfx.FXBindable
+import codeOrchestra.util.StringUtils
 import groovy.transform.Canonical
 import codeOrchestra.colt.as.air.ui.descriptor.Devices
 
@@ -34,5 +35,8 @@ class IOSDescriptorModel implements IModelElement {
     void buildModel(Object node) {
         highResolution = node.'high-resolution' == "true"
         devices = node.'devices-value'
+        if (StringUtils.isEmpty(devices)) {
+            devices = Devices.ALL.name()
+        }
     }
 }

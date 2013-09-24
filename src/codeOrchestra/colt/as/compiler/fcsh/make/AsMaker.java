@@ -66,7 +66,7 @@ public class AsMaker {
         AsProject currentProject = AsProject.getCurrentProject();
         AsProjectBuildSettings compilerSettings = currentProject.getProjectBuildSettings();
 
-        boolean airCompile = EnumSet.of(Target.AIR_ANDROID, Target.AIR_IOS).contains(compilerSettings.runTargetModel.getRunTarget());
+        boolean airCompile = EnumSet.of(Target.AIR_ANDROID, Target.AIR_IOS, Target.AIR_DESKTOP).contains(compilerSettings.runTargetModel.getRunTarget());
 
         // Generate & save Flex config
         FlexConfigBuilder flexConfigBuilder = new FlexConfigBuilder(currentProject, isIncremental, changedFiles, assetMode);

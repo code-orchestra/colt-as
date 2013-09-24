@@ -1,6 +1,7 @@
 package codeOrchestra.colt.as.run;
 
 import codeOrchestra.colt.as.air.util.DescriptorConverter;
+import codeOrchestra.colt.as.flexsdk.FlexSDKManager;
 import codeOrchestra.colt.as.model.AsProject;
 import codeOrchestra.colt.as.model.AsProjectBuildSettings;
 import codeOrchestra.colt.as.model.AsProjectLiveSettings;
@@ -44,13 +45,25 @@ public class ASLiveLauncher implements LiveLauncher<AsProject> {
             if (iosAirModel.getUseCustomTemplate()) {
                 DescriptorConverter.afterCompileReplace(new File(iosAirModel.getTemplatePath()), descriptionFile, swfFile.getName());
             } else {
-                DescriptorConverter.afterCompileReplace(iosAirModel.getDescriptorModel(), iosAirModel.getAdditionalDescriptorModel(),descriptionFile, swfFile.getName());
+                DescriptorConverter.afterCompileReplace(iosAirModel.getDescriptorModel(), iosAirModel.getAdditionalDescriptorModel(), descriptionFile, swfFile.getName());
             }
-            String scriptPath = compilerSettings.getAirIosScript();
-            if (StringUtils.isEmpty(scriptPath) || !new File(scriptPath).exists()) {
-                throw new ExecutionException("Invalid iOS AIR run script path");
+
+            AirLauncherType launcherType = liveCodingSettings.airLauncherModel.getType();
+            if (launcherType == AirLauncherType.DEVICE) {
+                String scriptPath = compilerSettings.getAirIosScript();
+                if (StringUtils.isEmpty(scriptPath) || !new File(scriptPath).exists()) {
+                    throw new ExecutionException("Invalid iOS AIR run script path");
+                }
+                return new ProcessHandlerWrapper(new ProcessHandlerBuilder().append(protect(scriptPath)).build(project.getOutputDir()), true);
+            } else if (launcherType == AirLauncherType.EMULATOR) {
+                String adlExecutablePath = FlexSDKManager.getInstance().getAdlExecutablePath(compilerSettings.getFlexSDKPath());
+                return new ProcessHandlerWrapper(new ProcessHandlerBuilder()
+                        .append(protect(adlExecutablePath))
+                        .append(protect(descriptionFile.getPath()))
+                        .append(liveCodingSettings.airLauncherModel.getEmulatorValue()).build(), true);
+            } else {
+                throw new IllegalStateException("Unknown AIR launcher type: " + launcherType);
             }
-            return new ProcessHandlerWrapper(new ProcessHandlerBuilder().append(protect(scriptPath)).build(project.getOutputDir()), true);
         }
 
         if (launchTarget == Target.AIR_ANDROID) {
@@ -58,13 +71,25 @@ public class ASLiveLauncher implements LiveLauncher<AsProject> {
             if (androidAirModel.getUseCustomTemplate()) {
                 DescriptorConverter.afterCompileReplace(new File(androidAirModel.getTemplatePath()), descriptionFile, swfFile.getName());
             } else {
-                DescriptorConverter.afterCompileReplace(androidAirModel.getDescriptorModel(), androidAirModel.getAdditionalDescriptorModel(),descriptionFile, swfFile.getName());
+                DescriptorConverter.afterCompileReplace(androidAirModel.getDescriptorModel(), androidAirModel.getAdditionalDescriptorModel(), descriptionFile, swfFile.getName());
             }
-            String scriptPath = compilerSettings.getAirAndroidScript();
-            if (StringUtils.isEmpty(scriptPath) || !new File(scriptPath).exists()) {
-                throw new ExecutionException("Invalid Android AIR run script path");
+
+            AirLauncherType launcherType = liveCodingSettings.airLauncherModel.getType();
+            if (launcherType == AirLauncherType.DEVICE) {
+                String scriptPath = compilerSettings.getAirAndroidScript();
+                if (StringUtils.isEmpty(scriptPath) || !new File(scriptPath).exists()) {
+                    throw new ExecutionException("Invalid Android AIR run script path");
+                }
+                return new ProcessHandlerWrapper(new ProcessHandlerBuilder().append(protect(scriptPath)).build(project.getOutputDir()), true);
+            } else if (launcherType == AirLauncherType.EMULATOR) {
+                String adlExecutablePath = FlexSDKManager.getInstance().getAdlExecutablePath(compilerSettings.getFlexSDKPath());
+                return new ProcessHandlerWrapper(new ProcessHandlerBuilder()
+                        .append(protect(adlExecutablePath))
+                        .append(protect(descriptionFile.getPath()))
+                        .append(liveCodingSettings.airLauncherModel.getEmulatorValue()).build(), true);
+            } else {
+                throw new IllegalStateException("Unknown AIR launcher type: " + launcherType);
             }
-            return new ProcessHandlerWrapper(new ProcessHandlerBuilder().append(protect(scriptPath)).build(project.getOutputDir()), true);
         }
 
         if (launchTarget == Target.AIR_DESKTOP) {
@@ -74,8 +99,17 @@ public class ASLiveLauncher implements LiveLauncher<AsProject> {
             } else {
                 DescriptorConverter.afterCompileReplace(desktopAirModel.getDescriptorModel(), descriptionFile, swfFile.getName());
             }
-            //todo: implement run with ADL
-            throw new ExecutionException("todo: implement run with ADL");
+
+            String adlExecutablePath = FlexSDKManager.getInstance().getAdlExecutablePath(compilerSettings.getFlexSDKPath());
+            ProcessHandlerBuilder builder = new ProcessHandlerBuilder()
+                    .append(protect(adlExecutablePath))
+                    .append(protect(descriptionFile.getPath()));
+
+            if (StringUtils.isNotEmpty(liveCodingSettings.airDesktopLauncherModel.getAdlOptions())) {
+                builder = builder.append(liveCodingSettings.airDesktopLauncherModel.getAdlOptions());
+            }
+
+            return new ProcessHandlerWrapper(builder.build(), true);
         }
 
         ApplicationGUI.CAN_SHOW_ADD = true;

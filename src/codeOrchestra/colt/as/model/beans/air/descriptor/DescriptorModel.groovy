@@ -4,6 +4,7 @@ import codeOrchestra.colt.core.model.IModelElement
 import codeOrchestra.colt.core.model.Project
 import codeOrchestra.colt.core.model.monitor.ChangingMonitor
 import codeOrchestra.groovyfx.FXBindable
+import codeOrchestra.util.StringUtils
 import groovy.transform.Canonical
 
 /**

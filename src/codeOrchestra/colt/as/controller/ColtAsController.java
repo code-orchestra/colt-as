@@ -162,7 +162,7 @@ public class ColtAsController extends AbstractColtController<AsProject> {
         }
 
         final AsProject currentProject = ProjectHelper.getCurrentProject();
-        LOG.info("Starting new livecoding session (" + getProjectTarget(currentProject) + ")");
+        LOG.info("Starting new livecoding session (" + getProjectTarget(currentProject).getDescription() + ")");
 
         LoggerService loggerService = LiveCodingHandlerManager.getInstance().getCurrentHandler().getLoggerService();
         loggerService.clear(Level.COMPILATION);

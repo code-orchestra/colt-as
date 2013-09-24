@@ -1,9 +1,11 @@
 package codeOrchestra.colt.as.model.beans.air
 
+import codeOrchestra.colt.as.run.AirLauncherType
 import codeOrchestra.colt.core.model.IModelElement
 import codeOrchestra.colt.core.model.Project
 import codeOrchestra.colt.core.model.monitor.ChangingMonitor
 import codeOrchestra.groovyfx.FXBindable
+import codeOrchestra.util.StringUtils
 import groovy.transform.Canonical
 
 /**
@@ -12,7 +14,7 @@ import groovy.transform.Canonical
 @Canonical
 @FXBindable
 class AirLauncherModel implements IModelElement {
-    String launcherType = codeOrchestra.colt.as.run.AirLauncherType.DEVICE.name()
+    String launcherType = AirLauncherType.DEVICE.name()
     String emulatorValue = "iPhone5Retina"
 
     AirLauncherModel() {
@@ -34,8 +36,16 @@ class AirLauncherModel implements IModelElement {
     void buildModel(Object node) {
         launcherType = node.'launcher-type'
         emulatorValue = node.'emulator-value'
-        if (emulatorValue.isEmpty()) {
+        if (StringUtils.isEmpty(emulatorValue)) {
             emulatorValue = "iPhone5Retina"
         }
     }
+
+    AirLauncherType getType() {
+        if (StringUtils.isEmpty(launcherType)) {
+            return AirLauncherType.DEVICE
+        }
+        return AirLauncherType.valueOf(launcherType)
+    }
+
 }
