@@ -61,8 +61,4 @@ class RunTargetModel implements IModelElement{
         return Target.parse(target)
     }
 
-    String getAirSDKPath() {
-        return codeOrchestra.colt.as.model.ModelStorage.instance.project.projectBuildSettings.sdkModel.flexSDKPath
-    }
-
 }
