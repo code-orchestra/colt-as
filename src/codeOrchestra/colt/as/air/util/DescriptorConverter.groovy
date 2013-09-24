@@ -178,7 +178,7 @@ class DescriptorConverter {
                 "\t\t\t\t</application>-->\n" +
                 "            </manifest>")
         result = result.replaceAll("</manifestAdditions> -->", "</manifestAdditions>")
-        result = result.replaceAll("<!-- </android> -->", "<android>")
+        result = result.replaceAll("<!-- </android> -->", "</android>")
 
         return result
     }
