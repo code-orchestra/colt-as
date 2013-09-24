@@ -2,6 +2,7 @@ package codeOrchestra.colt.as.model.beans.air.descriptor
 
 import codeOrchestra.colt.core.model.IModelElement
 import codeOrchestra.colt.core.model.Project
+import codeOrchestra.colt.core.model.monitor.ChangingMonitor
 import codeOrchestra.groovyfx.FXBindable
 import groovy.transform.Canonical
 
@@ -20,6 +21,16 @@ class DescriptorModel implements IModelElement {
 
     boolean autoOrient = true
     boolean fullScreen = true
+
+    DescriptorModel() {
+        ChangingMonitor monitor = ChangingMonitor.instance
+        monitor.addAll(outputPath(),
+                outputFileName(),
+                id(),
+                fileName(),
+                name(),
+                version())
+    }
 
     @Override
     Closure buildXml(Project project) {
