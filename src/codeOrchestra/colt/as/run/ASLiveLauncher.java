@@ -59,8 +59,12 @@ public class ASLiveLauncher implements LiveLauncher<AsProject> {
                 String adlExecutablePath = FlexSDKManager.getInstance().getAdlExecutablePath(compilerSettings.getFlexSDKPath());
                 return new ProcessHandlerWrapper(new ProcessHandlerBuilder()
                         .append(protect(adlExecutablePath))
+                        .append("-profile")
+                        .append("mobileDevice")
+                        .append("-screensize")
+                        .append(liveCodingSettings.airLauncherModel.getEmulatorValue())
                         .append(protect(descriptionFile.getPath()))
-                        .append(liveCodingSettings.airLauncherModel.getEmulatorValue()).build(), true);
+                        .build(), false);
             } else {
                 throw new IllegalStateException("Unknown AIR launcher type: " + launcherType);
             }
@@ -85,8 +89,12 @@ public class ASLiveLauncher implements LiveLauncher<AsProject> {
                 String adlExecutablePath = FlexSDKManager.getInstance().getAdlExecutablePath(compilerSettings.getFlexSDKPath());
                 return new ProcessHandlerWrapper(new ProcessHandlerBuilder()
                         .append(protect(adlExecutablePath))
+                        .append("-profile")
+                        .append("mobileDevice")
+                        .append("-screensize")
+                        .append(liveCodingSettings.airLauncherModel.getEmulatorValue())
                         .append(protect(descriptionFile.getPath()))
-                        .append(liveCodingSettings.airLauncherModel.getEmulatorValue()).build(), true);
+                        .build(), false);
             } else {
                 throw new IllegalStateException("Unknown AIR launcher type: " + launcherType);
             }
@@ -109,7 +117,7 @@ public class ASLiveLauncher implements LiveLauncher<AsProject> {
                 builder = builder.append(liveCodingSettings.airDesktopLauncherModel.getAdlOptions());
             }
 
-            return new ProcessHandlerWrapper(builder.build(), true);
+            return new ProcessHandlerWrapper(builder.build(), false);
         }
 
         ApplicationGUI.CAN_SHOW_ADD = true;
