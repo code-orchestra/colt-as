@@ -26,13 +26,7 @@ public class FCSHNativeLauncher implements IFCSHLauncher {
         AsProject currentProject = AsProject.getCurrentProject();
         if (currentProject != null) {
             AsProjectBuildSettings projectBuildSettings = currentProject.getProjectBuildSettings();
-            boolean airCompile = EnumSet.of(Target.AIR_ANDROID, Target.AIR_IOS).contains(projectBuildSettings.runTargetModel.getRunTarget());
-
-            if (airCompile) {
-                applicationHome = projectBuildSettings.runTargetModel.getAirSDKPath();
-            } else {
-                applicationHome = projectBuildSettings.getFlexSDKPath();
-            }
+            applicationHome = projectBuildSettings.getFlexSDKPath();
 
             if (!new File(applicationHome).exists()) {
                 applicationHome = FlexSDKSettings.getDefaultFlexSDKPath();
