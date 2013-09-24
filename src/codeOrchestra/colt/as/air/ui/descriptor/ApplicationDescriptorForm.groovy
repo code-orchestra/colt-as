@@ -1,16 +1,18 @@
 package codeOrchestra.colt.as.air.ui.descriptor
 
 import codeOrchestra.colt.as.model.beans.air.AirModel
+import codeOrchestra.colt.as.ui.settingsForm.IFormValidated
 import codeOrchestra.colt.core.ui.components.inputForms.RadioButtonActionInput
 import codeOrchestra.colt.core.ui.components.inputForms.RadioButtonInput
 import codeOrchestra.colt.core.ui.components.inputForms.group.FormGroup
 import javafx.event.EventHandler
+import javafx.scene.Parent
 import javafx.scene.control.ToggleGroup
 
 /**
  * @author Dima Kruk
  */
-class ApplicationDescriptorForm extends FormGroup{
+class ApplicationDescriptorForm extends FormGroup implements IFormValidated{
     private ToggleGroup descriptor
     private RadioButtonInput generated
     private RadioButtonActionInput custom
@@ -47,5 +49,10 @@ class ApplicationDescriptorForm extends FormGroup{
         this.model = model
         custom.selected().bindBidirectional(model.useCustomTemplate())
         custom.bindProperty = model.templatePath()
+    }
+
+    @Override
+    Parent validated() {
+        return custom.validateValue() ? custom : null
     }
 }

@@ -53,7 +53,6 @@ class AirLauncherForm extends FormGroup implements IFormValidated {
     }
 
     void activateLauncher(String newVal) {
-        println "newVal = $newVal"
         AirLauncherType launcherType = AirLauncherType.valueOf("" + newVal)
         launcher.toggles[launcherType.ordinal()].selected = true
     }

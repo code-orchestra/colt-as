@@ -31,6 +31,10 @@ abstract class DescriptorGenerationForm extends Stage {
     protected DescriptorModel descriptorModel
 
     String templatePath
+    private FormGroup descriptor
+    private FormGroup properties
+
+    ArrayList<FormGroup> forms = new ArrayList<>()
 
     DescriptorGenerationForm(AirModel model) {
         descriptorModel = model.descriptorModel
@@ -40,23 +44,26 @@ abstract class DescriptorGenerationForm extends Stage {
         root = new VBox()
         scene = new Scene(root)
 
-        FormGroup descriptor = new FormGroup(title: "AIR application descriptor", newChildren: [
+        descriptor = new FormGroup(title: "AIR application descriptor", newChildren: [
                 new LabeledTitledInput(title: "File name:", bindProperty: descriptorModel.outputFileName()),
                 new LabeledActionInput(title: "Folder:", bindProperty: descriptorModel.outputPath(), browseType: BrowseType.DIRECTORY)
         ])
         descriptor.first = true
+        forms.add(descriptor)
 
 
-        FormGroup properties = new FormGroup(title: "Application properties", newChildren: [
+        properties = new FormGroup(title: "Application properties", newChildren: [
                 new LabeledTitledInput(title: "ID:", bindProperty: descriptorModel.id()),
                 new LabeledTitledInput(title: "Name:", bindProperty: descriptorModel.name()),
                 new LabeledTitledInput(title: "Version:", bindProperty: descriptorModel.version())
         ])
+        forms.add(properties)
 
         options = new FormGroup(title: "Mobile options", newChildren: [
                 new CheckBoxInput(title: "auto-orient", bindProperty: descriptorModel.autoOrient()),
                 new CheckBoxInput(title: "full screen", bindProperty: descriptorModel.fullScreen())
         ])
+        forms.add(options)
 
         root.children.addAll(descriptor, properties, options)
 
@@ -65,8 +72,10 @@ abstract class DescriptorGenerationForm extends Stage {
         generateBtn.defaultButton = true
         ButtonBar.setType(generateBtn, ButtonBar.ButtonType.OK_DONE)
         generateBtn.onAction = {
-            templatePath = generateTemplate(new File(descriptorModel.outputPath, descriptorModel.outputFileName))
-            hide()
+            if (validate()) {
+                templatePath = generateTemplate(new File(descriptorModel.outputPath, descriptorModel.outputFileName))
+                hide()
+            }
         } as EventHandler
         cancelBtn = new Button("Cancel")
         ButtonBar.setType(cancelBtn, ButtonBar.ButtonType.CANCEL_CLOSE)
@@ -92,4 +101,12 @@ abstract class DescriptorGenerationForm extends Stage {
     }
 
     abstract protected String generateTemplate(File outFile)
+
+    protected boolean validate() {
+        boolean result = true
+        forms.each {
+            result = it.validateForm() && result
+        }
+        return result
+    }
 }

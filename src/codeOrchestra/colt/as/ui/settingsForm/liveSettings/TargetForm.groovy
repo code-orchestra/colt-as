@@ -174,18 +174,27 @@ class TargetForm extends FormGroup implements IFormValidated {
     @Override
     Parent validated() {
         Target targetType = Target.valueOf(model.target)
+        Parent invalidNode = null
         switch (targetType){
-            case codeOrchestra.colt.as.run.Target.WEB_ADDRESS:
-                return http.validateIsEmpty() ? http : null
+            case Target.WEB_ADDRESS:
+                invalidNode = http.validateIsEmpty() ? http : null
                 break
-            case codeOrchestra.colt.as.run.Target.AIR_IOS:
-                return ios.validateValue() ? ios : null
+            case Target.AIR_IOS:
+                invalidNode = iosDescriptorForm.validated()
+                if (ios.validateValue() && invalidNode == null) {
+                    invalidNode = ios
+                }
                 break
-            case codeOrchestra.colt.as.run.Target.AIR_ANDROID:
-                return android.validateValue() ? android : null
+            case Target.AIR_ANDROID:
+                invalidNode = androidDescriptorForm.validated()
+                if (android.validateValue() && invalidNode == null) {
+                    invalidNode = android
+                }
                 break
-            default:
-                return null
+            case Target.AIR_DESKTOP:
+                invalidNode = desktopDescriptorForm.validated()
+                break
         }
+        return invalidNode
     }
 }
