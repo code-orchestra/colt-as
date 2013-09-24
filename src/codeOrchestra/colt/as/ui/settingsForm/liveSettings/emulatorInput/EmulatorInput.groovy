@@ -35,6 +35,7 @@ class EmulatorInput extends TitledInputBase{
 
         children.addAll(titleHBox)
 
+        choiceBox.setPrefSize(160, 30)
         choiceBox.items.addAll("480", "720", "1080", "iPap", "iPadRetina", "iPhone", "iPhoneRetina", "iPhone5Retina", "NexusOne", "SamsungGalaxyS", "SamsungGalaxyTab")
         choiceBox.valueProperty().bindBidirectional(value())
     }
