@@ -51,7 +51,7 @@ public class FlexSDKManager {
         if (osName.startsWith("Mac OS")) {
             return result;
         } else if (osName.startsWith("Windows")) {
-            return result + ".exe";
+            return result + ".bat";
         }
 
         return result;
