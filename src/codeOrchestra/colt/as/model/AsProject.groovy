@@ -2,6 +2,7 @@ package codeOrchestra.colt.as.model
 
 import codeOrchestra.colt.as.compiler.fcsh.FSCHCompilerKind
 import codeOrchestra.colt.as.flexsdk.FlexSDKManager
+import codeOrchestra.colt.as.model.beans.air.descriptor.DescriptorModel
 import codeOrchestra.colt.core.ColtProjectManager
 import codeOrchestra.colt.core.model.Project
 import codeOrchestra.colt.core.storage.ProjectStorageManager
@@ -50,6 +51,8 @@ class AsProject extends Project {
         projectPaths.buildModel(node.paths)
         buildSettings.buildModel(node.build)
         liveSettings.buildModel(node.live)
+
+        checkDefaultValues()
     }
 
     static AsProject getCurrentProject() {
@@ -120,15 +123,28 @@ class AsProject extends Project {
         liveSettings.launcherType = codeOrchestra.colt.as.run.LauncherType.DEFAULT;
         liveSettings.liveMethods = codeOrchestra.colt.as.run.LiveMethods.ANNOTATED;
 
-        buildSettings.runTargetModel.iosAirModel.descriptorModel.outputPath = new File(path).parent + File.separator + "template"
-        buildSettings.runTargetModel.iosAirModel.descriptorModel.outputFileName = name + "-app.xml"
-        buildSettings.runTargetModel.iosAirModel.descriptorModel.name = name
-        buildSettings.runTargetModel.iosAirModel.descriptorModel.id = "com." + name
+        initDescriptorModel(buildSettings.runTargetModel.iosAirModel.descriptorModel)
+        initDescriptorModel(buildSettings.runTargetModel.androidAirModel.descriptorModel)
+        initDescriptorModel(buildSettings.runTargetModel.desktopAirModel.descriptorModel)
+    }
 
-        buildSettings.runTargetModel.androidAirModel.descriptorModel.outputPath = new File(path).parent + File.separator + "template"
-        buildSettings.runTargetModel.androidAirModel.descriptorModel.outputFileName = name + "-app.xml"
-        buildSettings.runTargetModel.androidAirModel.descriptorModel.name = name
-        buildSettings.runTargetModel.androidAirModel.descriptorModel.id = "com." + name
+    private void initDescriptorModel(DescriptorModel model) {
+        model.outputPath = new File(path).parent + File.separator + "template"
+        model.outputFileName = name + "-app.xml"
+        model.name = name
+        model.id = "com." + name
+        model.version = "1.0.0"
+    }
 
+    private void checkDefaultValues() {
+        if (StringUtils.isEmpty(buildSettings.runTargetModel.iosAirModel.descriptorModel.name)) {
+            initDescriptorModel(buildSettings.runTargetModel.iosAirModel.descriptorModel)
+        }
+        if (StringUtils.isEmpty(buildSettings.runTargetModel.androidAirModel.descriptorModel.name)) {
+            initDescriptorModel(buildSettings.runTargetModel.androidAirModel.descriptorModel)
+        }
+        if (StringUtils.isEmpty(buildSettings.runTargetModel.desktopAirModel.descriptorModel.name)) {
+            initDescriptorModel(buildSettings.runTargetModel.desktopAirModel.descriptorModel)
+        }
     }
 }
