@@ -57,6 +57,8 @@ public class ASLiveLauncher implements LiveLauncher<AsProject> {
                 return new ProcessHandlerWrapper(new ProcessHandlerBuilder().append(protect(scriptPath)).build(project.getOutputDir()), true);
             } else if (launcherType == AirLauncherType.EMULATOR) {
                 String adlExecutablePath = FlexSDKManager.getInstance().getAdlExecutablePath(compilerSettings.getFlexSDKPath());
+                FileUtils.makeExecutable(adlExecutablePath);
+
                 return new ProcessHandlerWrapper(new ProcessHandlerBuilder()
                         .append(protect(adlExecutablePath))
                         .append("-profile")
@@ -87,6 +89,8 @@ public class ASLiveLauncher implements LiveLauncher<AsProject> {
                 return new ProcessHandlerWrapper(new ProcessHandlerBuilder().append(protect(scriptPath)).build(project.getOutputDir()), true);
             } else if (launcherType == AirLauncherType.EMULATOR) {
                 String adlExecutablePath = FlexSDKManager.getInstance().getAdlExecutablePath(compilerSettings.getFlexSDKPath());
+                FileUtils.makeExecutable(adlExecutablePath);
+
                 return new ProcessHandlerWrapper(new ProcessHandlerBuilder()
                         .append(protect(adlExecutablePath))
                         .append("-profile")
@@ -109,6 +113,8 @@ public class ASLiveLauncher implements LiveLauncher<AsProject> {
             }
 
             String adlExecutablePath = FlexSDKManager.getInstance().getAdlExecutablePath(compilerSettings.getFlexSDKPath());
+            FileUtils.makeExecutable(adlExecutablePath);
+
             ProcessHandlerBuilder builder = new ProcessHandlerBuilder()
                     .append(protect(adlExecutablePath))
                     .append(protect(descriptionFile.getPath()));
