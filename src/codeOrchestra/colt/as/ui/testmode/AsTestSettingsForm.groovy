@@ -11,10 +11,6 @@ import codeOrchestra.util.ProjectHelper
 class AsTestSettingsForm extends TestSettingsForm {
     private AsProject project
 
-    AsTestSettingsForm() {
-
-    }
-
     @Override
     protected void initProject(Project value) {
         super.initProject(value)
