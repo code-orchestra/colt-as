@@ -7,6 +7,7 @@ import codeOrchestra.colt.as.controller.ColtAsController
 import codeOrchestra.colt.as.model.ModelStorage
 import codeOrchestra.colt.as.ui.productionBuildForm.AsProductionBuildForm
 import codeOrchestra.colt.as.ui.settingsForm.AsSettingsForm
+import codeOrchestra.colt.as.ui.testmode.AsTestSettingsForm
 import codeOrchestra.colt.core.annotation.Service
 import codeOrchestra.colt.core.controller.ColtControllerCallback
 import codeOrchestra.colt.core.loading.LiveCodingHandlerManager
@@ -25,7 +26,6 @@ import javafx.beans.value.ChangeListener
 import javafx.beans.value.ObservableValue
 import javafx.event.EventHandler
 import javafx.scene.control.ToggleButton
-import org.testng.internal.thread.ThreadUtil
 
 /**
  * @author Dima Kruk
@@ -56,6 +56,7 @@ class ASApplicationGUI extends ApplicationGUI {
     ModelStorage model = codeOrchestra.colt.as.model.ModelStorage.instance
 
     ASApplicationGUI() {
+        testSettingsForm = new AsTestSettingsForm()
         init()
     }
 
