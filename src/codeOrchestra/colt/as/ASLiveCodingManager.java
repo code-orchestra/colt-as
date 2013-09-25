@@ -188,6 +188,8 @@ public class ASLiveCodingManager extends AbstractLiveCodingManager<AsProject, So
                         }
                         deliveryMessages.clear();
 
+                        fireCodeUpdate();
+
                         incrementPackageNumber();
                     }
 
@@ -305,6 +307,8 @@ public class ASLiveCodingManager extends AbstractLiveCodingManager<AsProject, So
 
                     // 6 - increment package number
                     incrementPackageNumber();
+
+                    fireCodeUpdate();
                 }
             }
         } catch (MakeException e) {
