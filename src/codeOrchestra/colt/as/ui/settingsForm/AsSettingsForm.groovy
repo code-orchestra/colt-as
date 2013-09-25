@@ -81,10 +81,10 @@ class AsSettingsForm extends SettingsScrollPane{
         validatedForms.add(launcher)
         advancedVBox.children.add(launcher)
 
-        AirLauncherForm airLauncherForm = new AirLauncherForm()
+        AirLauncherForm airLauncherForm = new AirLauncherForm(visible: false, managed: false)
         advancedVBox.children.add(airLauncherForm)
 
-        AirDesktopLauncherForm airDesktopLauncherForm = new AirDesktopLauncherForm()
+        AirDesktopLauncherForm airDesktopLauncherForm = new AirDesktopLauncherForm(visible: false, managed: false)
         advancedVBox.children.add(airDesktopLauncherForm)
 
         project.projectBuildSettings.runTargetModel.target().addListener({ ObservableValue<? extends String> observableValue, String t, String newValue ->
