@@ -21,7 +21,7 @@ class ProductionBuildForm extends FormGroup implements IFormValidated {
     private ProductionBuildModel model = ModelStorage.instance.project.projectBuildSettings.productionBuildModel
 
     ProductionBuildForm() {
-        outPath = new LabeledActionInput(title: "Output path:", browseType: BrowseType.DIRECTORY, shortPathForProject: ModelStorage.instance.project)
+        outPath = new LabeledActionInput(title: "Output path:", browseType: BrowseType.DIRECTORY, shortPathForProject: ModelStorage.instance.project, directoryCanBeEmpty:false)
         compression = new CheckBoxInput(title: "SWF compression")
         optimization = new CheckBoxInput(title: "Compiling optimization")
 
