@@ -32,7 +32,7 @@ class SDKSettingsForm extends FormGroup implements IFormValidated{
     private RunTargetModel targetModel = ModelStorage.instance.project.projectBuildSettings.runTargetModel
 
     SDKSettingsForm() {
-        sdkPath = new LabeledActionInput(title: "Flex/Air SDK Path:", browseType: BrowseType.DIRECTORY)
+        sdkPath = new LabeledActionInput(title: "Flex/AIR SDK Path:", browseType: BrowseType.DIRECTORY)
         defConf = new CheckBoxInput(title: "Use default SDK compiler configuration file")
         customConf = new CheckBoxActionInput(title: "Use custom compiler configuration file", shortPathForProject: ModelStorage.instance.project)
 
