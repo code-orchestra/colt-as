@@ -23,8 +23,8 @@ class AsTestSettingsForm extends TestSettingsForm {
     @Override
     protected void init() {
         super.init()
-        List<String> paths = project.projectPaths.getSourcePaths()
-        addDirectories(paths)
+        addDirectories(project.projectPaths.getSourcePaths())
+        addDirectories(project.projectPaths.getAssetPaths())
         gitHelper.makeCommit("Initial commit")
     }
 
