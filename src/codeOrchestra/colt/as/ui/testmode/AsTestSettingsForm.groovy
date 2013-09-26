@@ -25,6 +25,7 @@ class AsTestSettingsForm extends TestSettingsForm {
         super.init()
         List<String> paths = project.projectPaths.getSourcePaths()
         addDirectories(paths)
+        gitHelper.makeCommit("Initial commit")
     }
 
     @Override
