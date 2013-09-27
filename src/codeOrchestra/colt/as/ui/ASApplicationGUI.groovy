@@ -56,8 +56,15 @@ class ASApplicationGUI extends ApplicationGUI {
     ModelStorage model = codeOrchestra.colt.as.model.ModelStorage.instance
 
     ASApplicationGUI() {
-        testSettingsForm = new AsTestSettingsForm()
         init()
+    }
+
+    @Override
+    protected void showTestSettingsForm() {
+        if (testSettingsForm == null) {
+            testSettingsForm = new AsTestSettingsForm()
+        }
+        super.showTestSettingsForm()
     }
 
     private void init() {
