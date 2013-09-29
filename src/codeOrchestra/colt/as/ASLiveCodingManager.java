@@ -452,7 +452,7 @@ public class ASLiveCodingManager extends AbstractLiveCodingManager<AsProject, So
     }
 
     public String getWebOutputAddress() {
-        return "http://" + LocalhostUtil.getLocalhostIp() + ":" + CodeOrchestraResourcesHttpServer.PORT + "/output";
+        return "http://" + LocalhostUtil.getLocalhostIp() + ":" + CodeOrchestraResourcesHttpServer.PORT + "/colt";
     }
 
     private void restoreSessionState(LiveCodingSession session) {
