@@ -113,7 +113,7 @@ public class ASLiveCodingManager extends AbstractLiveCodingManager<AsProject, So
             } catch (MakeException e) {
                 ErrorHandler.handle(e, "Error while running " + (production ? "production" : "base live") + " compilation");
             } catch (MaximumCompilationsCountReachedException e) {
-                ErrorHandler.handle("Maximum compilations count allowed in Demo mode is exceeded", "COLT Demo mode");
+                ErrorHandler.demoModeHandle("Maximum compilations count allowed in Demo mode is exceeded", "COLT Demo mode");
             }
         } finally {
             compilationInProgress = false;
@@ -198,7 +198,7 @@ public class ASLiveCodingManager extends AbstractLiveCodingManager<AsProject, So
             } catch (MakeException e) {
                 ErrorHandler.handle(e, "Error while compiling");
             } catch (MaximumCompilationsCountReachedException e) {
-                ErrorHandler.handle("Maximum compilations count allowed in Demo mode is exceeded", "COLT Demo mode");
+                ErrorHandler.demoModeHandle("Maximum compilations count allowed in Demo mode is exceeded", "COLT Demo mode");
             }
         } finally {
             compilationInProgress = false;
@@ -314,7 +314,7 @@ public class ASLiveCodingManager extends AbstractLiveCodingManager<AsProject, So
         } catch (MakeException e) {
             ErrorHandler.handle(e, "Error while compiling");
         } catch (MaximumCompilationsCountReachedException e) {
-            ErrorHandler.handle("Maximum compilations count allowed in Demo mode is exceeded", "COLT Demo mode");
+            ErrorHandler.demoModeHandle("Maximum compilations count allowed in Demo mode is exceeded", "COLT Demo mode");
         }
     }
 

@@ -196,7 +196,7 @@ public class ColtAsController extends AbstractColtController<AsProject> {
                     callback.onError(e, null);
                     return null;
                 } catch (MaximumCompilationsCountReachedException e) {
-                    ErrorHandler.handle("Maximum compilations count allowed in Demo mode is exceeded", "COLT Demo mode");
+                    ErrorHandler.demoModeHandle("Maximum compilations count allowed in Demo mode is exceeded", "COLT Demo mode");
                     callback.onError(e, null);
                     return null;
                 } catch (Throwable t) {
