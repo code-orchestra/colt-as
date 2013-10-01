@@ -1,13 +1,13 @@
 package codeOrchestra.colt.as.ui.settingsForm.liveSettings.emulatorInput
 
 import codeOrchestra.colt.core.ui.components.inputForms.base.TitledInputBase
+import codeOrchestra.colt.core.ui.components.inputForms.utils.TextUtil
 import codeOrchestra.groovyfx.FXBindable
+import javafx.beans.value.ChangeListener
+import javafx.beans.value.ObservableValue
 import javafx.geometry.Insets
-import javafx.geometry.Pos
 import javafx.scene.control.ChoiceBox
-import javafx.scene.control.Label
 import javafx.scene.control.RadioButton
-import javafx.scene.control.TextField
 import javafx.scene.control.ToggleGroup
 import javafx.scene.layout.HBox
 
@@ -38,6 +38,12 @@ class EmulatorInput extends TitledInputBase{
         choiceBox.setPrefSize(160, 30)
         choiceBox.items.addAll("480", "720", "1080", "iPap", "iPadRetina", "iPhone", "iPhoneRetina", "iPhone5Retina", "NexusOne", "SamsungGalaxyS", "SamsungGalaxyTab")
         choiceBox.valueProperty().bindBidirectional(value())
+
+        choiceBox.selectionModel.selectedItemProperty().addListener({ ObservableValue observableValue, String t, String newValue ->
+            if(newValue) {
+                choiceBox.prefWidth = TextUtil.getTextWidth(newValue) + 35
+            }
+        } as ChangeListener)
     }
 
     void setToggleGroup(ToggleGroup value) {
