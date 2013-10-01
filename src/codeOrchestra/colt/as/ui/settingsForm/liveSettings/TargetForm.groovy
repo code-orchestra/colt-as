@@ -175,6 +175,10 @@ class TargetForm extends FormGroup implements IFormValidated {
     Parent validated() {
         Target targetType = Target.valueOf(model.target)
         Parent invalidNode = null
+
+        boolean isEmulator = ModelStorage.instance.project.projectLiveSettings.airLauncherType == codeOrchestra.colt.as.run.AirLauncherType.EMULATOR
+        ios.canBeEmpty = android.canBeEmpty = isEmulator
+
         switch (targetType){
             case Target.WEB_ADDRESS:
                 invalidNode = http.validateIsEmpty() ? http : null
