@@ -20,7 +20,6 @@ import javafx.animation.Timeline
 import javafx.beans.value.ChangeListener
 import javafx.beans.value.ObservableValue
 import javafx.event.EventHandler
-import javafx.geometry.Bounds
 import javafx.geometry.Insets
 import javafx.scene.Parent
 import javafx.scene.control.Button
@@ -140,12 +139,8 @@ class AsSettingsForm extends SettingsScrollPane{
         return invalidNode == null
     }
 
-    private scrollTo(Parent node) {
-        Bounds separatorBounds = content.sceneToLocal(separator.localToScene(separator.layoutBounds))
-        Bounds nodeBounds = content.sceneToLocal(node.localToScene(node.layoutBounds))
-        if (nodeBounds.minY < separatorBounds.minY) {
-            scrollToNode(node)
-        } else if (separator.close) {
+    private void scrollTo(Parent node) {
+        if (nodeInAdvanced(node) && separator.close) {
             separator.close = false
             Timeline timeline = new Timeline(new KeyFrame(new Duration(50), {
                 scrollToNode(node)
@@ -154,5 +149,15 @@ class AsSettingsForm extends SettingsScrollPane{
         } else {
             scrollToNode(node)
         }
+    }
+
+    private boolean nodeInAdvanced(Parent node) {
+        boolean result = false
+        Parent nodeParent = node.parent
+        while(nodeParent != this && !result) {
+            result = nodeParent == separator.content
+            nodeParent = nodeParent.parent
+        }
+        return result
     }
 }
