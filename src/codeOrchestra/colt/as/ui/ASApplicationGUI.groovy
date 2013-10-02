@@ -33,7 +33,6 @@ import javafx.scene.control.ToggleButton
 class ASApplicationGUI extends ApplicationGUI {
 
     @Service ColtAsController coltController
-    private @Service ASLiveCodingManager liveCodingManager
 
     @Lazy AsSettingsForm settingsForm = new AsSettingsForm(saveRunAction:{
         if (runSession()) {
@@ -55,53 +54,6 @@ class ASApplicationGUI extends ApplicationGUI {
 
     ASApplicationGUI() {
         init()
-    }
-
-    boolean runSession() {
-        boolean result = true
-        ActionPlayer playerControls = actionPlayerPopup.actionPlayer
-        if(settingsForm.validateForms()) {
-            runButton.onAction.handle(null)
-            playerControls.disable = true
-            compile()
-        } else {
-            onRunError()
-            actionPlayerPopup.hide()
-            settingsButton.onAction.handle(null)
-            result = false
-        }
-        return result
-    }
-
-    protected void compile() {
-        coltController.startBaseCompilation([
-                onComplete: { CompilationResult successResult ->
-                    onRunComplete()
-                },
-                onError: { Throwable t, CompilationResult errorResult ->
-                    onRunError()
-                }
-        ] as ColtControllerCallback, true, true)
-    }
-
-    protected void onRunComplete() {
-        ({
-            ThreadUtils.sleep(3000)
-            if (liveCodingManager.currentConnections.isEmpty()) {
-                onRunError()
-            }
-        } as Thread).start()
-    }
-
-    protected void onRunError() {
-        ThreadUtils.executeInFXThread({
-            actionPlayerPopup.actionPlayer.stop.selected = true
-            actionPlayerPopup.actionPlayer.disable = false
-        } as Runnable)
-    }
-
-    void build() {
-
     }
 
     @Override
@@ -135,16 +87,6 @@ class ASApplicationGUI extends ApplicationGUI {
             buildButton.selected = true
         } as EventHandler
 
-        statusButton.onAction = {
-            if (statusButton.selected) {
-                if (runSession()) {
-                    statusButton.disable = true
-                }
-            } else {
-                liveCodingManager.stopAllSession()
-            }
-        } as EventHandler
-
         // data binding
 
         bindTitle(model.project.name())
@@ -167,18 +109,30 @@ class ASApplicationGUI extends ApplicationGUI {
     protected initActionPlayerPopup() {
         super.initActionPlayerPopup()
 
-        ActionPlayer playerControls = actionPlayerPopup.actionPlayer
-        playerControls.play.onAction = {
-            runSession()
-        } as EventHandler
-
-        playerControls.stop.onAction = {
-            liveCodingManager.stopAllSession()
-        } as EventHandler
-
-        playerControls.add.onAction = {
+        actionPlayerPopup.actionPlayer.add.onAction = {
             coltController.launch()
         } as EventHandler
+    }
+
+    @Override
+    boolean validateSettingsForm() {
+        return settingsForm.validateForms()
+    }
+
+    @Override
+    protected void compile() {
+        coltController.startBaseCompilation([
+                onComplete: { CompilationResult successResult ->
+                    onRunComplete()
+                },
+                onError: { Throwable t, CompilationResult errorResult ->
+                    onRunError()
+                }
+        ] as ColtControllerCallback, true, true)
+    }
+
+    void build() {
+
     }
 
     @Override
