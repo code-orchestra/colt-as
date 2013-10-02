@@ -36,11 +36,9 @@ class ASApplicationGUI extends ApplicationGUI {
     private @Service ASLiveCodingManager liveCodingManager
 
     @Lazy AsSettingsForm settingsForm = new AsSettingsForm(saveRunAction:{
-        ProjectDialogs.saveProjectDialog()
-        runButton.onAction.handle(null)
-        ToggleButton playAction = actionPlayerPopup.actionPlayer.play
-        playAction.selected = true
-        playAction.onAction.handle(null)
+        if (runSession()) {
+            ProjectDialogs.saveProjectDialog()
+        }
     } as EventHandler)
 
     @Lazy AsProductionBuildForm productionBuildForm = new AsProductionBuildForm(saveBuildAction: {
@@ -59,6 +57,53 @@ class ASApplicationGUI extends ApplicationGUI {
         init()
     }
 
+    boolean runSession() {
+        boolean result = true
+        ActionPlayer playerControls = actionPlayerPopup.actionPlayer
+        if(settingsForm.validateForms()) {
+            runButton.onAction.handle(null)
+            playerControls.disable = true
+            compile()
+        } else {
+            onRunError()
+            actionPlayerPopup.hide()
+            settingsButton.onAction.handle(null)
+            result = false
+        }
+        return result
+    }
+
+    protected void compile() {
+        coltController.startBaseCompilation([
+                onComplete: { CompilationResult successResult ->
+                    onRunComplete()
+                },
+                onError: { Throwable t, CompilationResult errorResult ->
+                    onRunError()
+                }
+        ] as ColtControllerCallback, true, true)
+    }
+
+    protected void onRunComplete() {
+        ({
+            ThreadUtils.sleep(3000)
+            if (liveCodingManager.currentConnections.isEmpty()) {
+                onRunError()
+            }
+        } as Thread).start()
+    }
+
+    protected void onRunError() {
+        ThreadUtils.executeInFXThread({
+            actionPlayerPopup.actionPlayer.stop.selected = true
+            actionPlayerPopup.actionPlayer.disable = false
+        } as Runnable)
+    }
+
+    void build() {
+
+    }
+
     @Override
     protected void showTestSettingsForm() {
         if (testSettingsForm == null) {
@@ -68,9 +113,6 @@ class ASApplicationGUI extends ApplicationGUI {
     }
 
     private void init() {
-
-        projectType.text = "ActionScript"
-
         // build ui
 
         runButton.onAction = {
@@ -91,6 +133,16 @@ class ASApplicationGUI extends ApplicationGUI {
         buildButton.onAction = {
             root.center = productionBuildForm
             buildButton.selected = true
+        } as EventHandler
+
+        statusButton.onAction = {
+            if (statusButton.selected) {
+                if (runSession()) {
+                    statusButton.disable = true
+                }
+            } else {
+                liveCodingManager.stopAllSession()
+            }
         } as EventHandler
 
         // data binding
@@ -117,43 +169,11 @@ class ASApplicationGUI extends ApplicationGUI {
 
         ActionPlayer playerControls = actionPlayerPopup.actionPlayer
         playerControls.play.onAction = {
-            if(settingsForm.validateForms()) {
-                playerControls.disable = true
-                coltController.startBaseCompilation([
-                        onComplete: { CompilationResult successResult ->
-                            new Thread() {
-                                @Override
-                                void run() {
-                                    ThreadUtils.sleep(3000)
-                                    if (liveCodingManager.currentConnections.isEmpty()) {
-                                        Platform.runLater({
-                                            playerControls.stop.selected = true
-                                            playerControls.disable = false
-                                        })
-                                    }
-                                }
-                            }.start()
-                        },
-                        onError: { Throwable t, CompilationResult errorResult ->
-                            Platform.runLater({
-                                playerControls.stop.selected = true
-                                playerControls.disable = false
-                            })
-                        }
-                ] as ColtControllerCallback, true, true)
-            } else {
-                playerControls.stop.selected = true
-                playerControls.disable = false
-                actionPlayerPopup.hide()
-                settingsButton.onAction.handle(null)
-            }
+            runSession()
         } as EventHandler
 
         playerControls.stop.onAction = {
-            List<LiveCodingSession<SocketWriter>> connections = liveCodingManager.currentConnections
-            connections.each {
-                liveCodingManager.stopSession(it)
-            }
+            liveCodingManager.stopAllSession()
         } as EventHandler
 
         playerControls.add.onAction = {
