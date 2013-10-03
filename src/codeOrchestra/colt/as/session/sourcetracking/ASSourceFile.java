@@ -3,6 +3,7 @@ package codeOrchestra.colt.as.session.sourcetracking;
 import codeOrchestra.colt.as.ASLiveCodingManager;
 import codeOrchestra.colt.core.LiveCodingManager;
 import codeOrchestra.colt.core.ServiceProvider;
+import codeOrchestra.colt.core.session.AbstractSourceFile;
 import codeOrchestra.colt.core.session.sourcetracking.SourceFile;
 import codeOrchestra.util.FileUtils;
 import codeOrchestra.util.NameUtil;
@@ -15,7 +16,7 @@ import java.util.List;
 /**
  * @author Alexander Eliseyev
  */
-public class ASSourceFile implements SourceFile {
+public class ASSourceFile extends AbstractSourceFile implements SourceFile {
 
     private static final List<String> assetExtensions = new ArrayList<String>() {{
         String[] extensions = new String[] { "css",
@@ -50,12 +51,11 @@ public class ASSourceFile implements SourceFile {
     public static final String DOT_MXML = ".mxml";
     public static final String DOT_AS = ".as";
 
-    private File file;
     private String fqName;
     private String relativePath;
 
     public ASSourceFile(File file, String sourceDir) {
-        this.file = file;
+        super(file);
 
         relativePath = FileUtils.getRelativePath(file.getPath(), sourceDir, File.separator);
 
@@ -87,10 +87,6 @@ public class ASSourceFile implements SourceFile {
 
     public boolean isCompilable() {
         return fqName != null;
-    }
-
-    public File getFile() {
-        return file;
     }
 
     public String getRelativePath() {
