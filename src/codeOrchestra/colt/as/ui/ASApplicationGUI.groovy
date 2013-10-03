@@ -1,7 +1,6 @@
 package codeOrchestra.colt.as.ui
 
 import codeOrchestra.colt.as.ASLiveCodingLanguageHandler
-import codeOrchestra.colt.as.ASLiveCodingManager
 import codeOrchestra.colt.as.compiler.fcsh.make.CompilationResult
 import codeOrchestra.colt.as.controller.ColtAsController
 import codeOrchestra.colt.as.model.ModelStorage
@@ -14,21 +13,16 @@ import codeOrchestra.colt.core.annotation.Service
 import codeOrchestra.colt.core.controller.ColtControllerCallback
 import codeOrchestra.colt.core.loading.LiveCodingHandlerManager
 import codeOrchestra.colt.core.session.LiveCodingSession
-import codeOrchestra.colt.core.session.SocketWriter
 import codeOrchestra.colt.core.session.listener.LiveCodingAdapter
 import codeOrchestra.colt.core.tracker.GAController
 import codeOrchestra.colt.core.tracker.GATracker
 import codeOrchestra.colt.core.ui.ApplicationGUI
 import codeOrchestra.colt.core.ui.components.log.Log
-import codeOrchestra.colt.core.ui.components.player.ActionPlayer
 import codeOrchestra.colt.core.ui.dialog.ProjectDialogs
-import codeOrchestra.util.ThreadUtils
-import javafx.application.Platform
 import javafx.beans.property.BooleanProperty
 import javafx.beans.value.ChangeListener
 import javafx.beans.value.ObservableValue
 import javafx.event.EventHandler
-import javafx.scene.control.ToggleButton
 
 /**
  * @author Dima Kruk
@@ -44,14 +38,7 @@ class ASApplicationGUI extends ApplicationGUI {
     } as EventHandler)
 
     @Lazy AsProductionBuildForm productionBuildForm = new AsProductionBuildForm(saveBuildAction: {
-        if(settingsForm.validateForms()) {
-            coltController.startProductionCompilation()
-            root.center = logView
-            runButton.selected = true
-            onProductionBuild()
-        } else {
-            settingsButton.onAction.handle(null)
-        }
+        runBuild()
     } as EventHandler)
 
     ModelStorage model = codeOrchestra.colt.as.model.ModelStorage.instance
@@ -135,8 +122,17 @@ class ASApplicationGUI extends ApplicationGUI {
         ] as ColtControllerCallback, true, true)
     }
 
-    void build() {
-
+    void runBuild() {
+        if (!settingsForm.validateForms()) {
+            settingsButton.onAction.handle(null)
+        } else if(!productionBuildForm.validateForms()) {
+            buildButton.onAction.handle(null)
+        } else {
+            coltController.startProductionCompilation()
+            root.center = logView
+            runButton.selected = true
+            onProductionBuild()
+        }
     }
 
     @Override

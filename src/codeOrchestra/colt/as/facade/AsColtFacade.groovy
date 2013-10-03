@@ -63,7 +63,11 @@ class AsColtFacade extends AbstractColtFacade {
 
     @Override
     void runProductionBuild() {
-        controller.startProductionCompilation()
+        if (applicationGUI) {
+            super.runProductionBuild()
+        } else {
+            controller.startProductionCompilation()
+        }
     }
 
     @Override
