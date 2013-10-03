@@ -3,12 +3,13 @@ package codeOrchestra.colt.as.facade
 import codeOrchestra.colt.as.ASLiveCodingManager
 import codeOrchestra.colt.as.controller.ColtAsController
 import codeOrchestra.colt.core.annotation.Service
-import codeOrchestra.colt.core.facade.ColtFacade
+import codeOrchestra.colt.core.facade.AbstractColtFacade
+import codeOrchestra.colt.core.ui.ApplicationGUI
 
 /**
  * @author Alexander Eliseyev
  */
-class AsColtFacade implements ColtFacade {
+class AsColtFacade extends AbstractColtFacade {
 
     @Service
     ColtAsController controller
@@ -16,14 +17,22 @@ class AsColtFacade implements ColtFacade {
     @Service
     ASLiveCodingManager liveCodingManager
 
+    AsColtFacade(ApplicationGUI value) {
+        super(value)
+    }
+
     @Override
     void runSession() {
-        controller.startBaseCompilation()
+        if (applicationGUI) {
+            super.runSession()
+        } else {
+            controller.startBaseCompilation()
+        }
     }
 
     @Override
     void stopSession() {
-        liveCodingManager.getCurrentConnections().each { liveCodingManager.stopSession(it) }
+        liveCodingManager.stopAllSession()
     }
 
     @Override

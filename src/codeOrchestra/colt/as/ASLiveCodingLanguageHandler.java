@@ -42,6 +42,8 @@ public class ASLiveCodingLanguageHandler extends AbstractLiveCodingLanguageHandl
 
     private LoggerService loggerService;
 
+    private ASApplicationGUI applicationGUI;
+
     @Override
     public String getId() {
         return "AS";
@@ -130,7 +132,10 @@ public class ASLiveCodingLanguageHandler extends AbstractLiveCodingLanguageHandl
 
     @Override
     public Node getPane() throws Exception {
-        return new ASApplicationGUI();
+        if (applicationGUI == null) {
+            applicationGUI = new ASApplicationGUI();
+        }
+        return applicationGUI;
     }
 
     @Override
@@ -165,7 +170,7 @@ public class ASLiveCodingLanguageHandler extends AbstractLiveCodingLanguageHandl
 
     @Override
     public ColtFacade createColtFacade() {
-        return new AsColtFacade();
+        return new AsColtFacade(applicationGUI);
     }
 
     @Override
