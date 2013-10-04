@@ -49,7 +49,7 @@ class AsProjectPaths extends ProjectPaths<AsProject> {
     }
 
     public List<String> getLibraryPaths() {
-        return FilesetInput.getFilesFromString(libraries).collect{it.path}
+        return FilesetInput.getFilesFromString(libraries).collect{it.path}.findAll {it.matches(/(?i).*\.(swc|ane)$/)}
     }
 
     public List<String> getAssetPaths() {
