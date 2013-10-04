@@ -135,8 +135,12 @@ public class ASLiveLauncher implements LiveLauncher<AsProject> {
 
         String target = launchTarget == Target.WEB_ADDRESS ? compilerSettings.getWebAddress() : swfPath;
 
-        ProcessHandlerWrapper processHandlerWrapper;
+        // CAS-544
+        if (launchTarget == Target.WEB_ADDRESS) {
+            launcherType = LauncherType.DEFAULT;
+        }
 
+        ProcessHandlerWrapper processHandlerWrapper;
         switch (launcherType) {
             case DEFAULT:
                 processHandlerWrapper = new ProcessHandlerWrapper(new ProcessHandlerBuilder().append(getCommand(BrowserUtil.launchBrowser(target, multiple))).build(), false);
