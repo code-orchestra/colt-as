@@ -13,13 +13,18 @@ import codeOrchestra.colt.as.session.sourcetracking.ASSourceFileFactory;
 import codeOrchestra.colt.as.ui.ASApplicationGUI;
 import codeOrchestra.colt.as.util.ASPathUtils;
 import codeOrchestra.colt.core.AbstractLiveCodingLanguageHandler;
+import codeOrchestra.colt.core.ColtProjectManager;
 import codeOrchestra.colt.core.LiveCodingManager;
 import codeOrchestra.colt.core.ServiceProvider;
 import codeOrchestra.colt.core.controller.ColtController;
 import codeOrchestra.colt.core.facade.ColtFacade;
 import codeOrchestra.colt.core.gradle.GradleTaskManager;
+import codeOrchestra.colt.core.http.CodeOrchestraResourcesHttpServer;
 import codeOrchestra.colt.core.launch.LiveLauncher;
 import codeOrchestra.colt.core.logging.LoggerService;
+import codeOrchestra.colt.core.model.Project;
+import codeOrchestra.colt.core.model.listener.ProjectAdapter;
+import codeOrchestra.colt.core.model.listener.ProjectListener;
 import codeOrchestra.colt.core.rpc.ColtRemoteService;
 import codeOrchestra.colt.core.session.SocketWriter;
 import codeOrchestra.colt.core.session.sourcetracking.SourceFileFactory;
@@ -27,6 +32,7 @@ import codeOrchestra.colt.core.ui.components.FxThreadProgressIndicatorWrapper;
 import codeOrchestra.colt.core.ui.components.IProgressIndicator;
 import codeOrchestra.colt.core.ui.components.ProgressIndicatorController;
 import codeOrchestra.colt.core.ui.components.sessionIndicator.SessionIndicatorController;
+import codeOrchestra.util.PathUtils;
 import codeOrchestra.util.StringUtils;
 import groovy.util.slurpersupport.GPathResult;
 import javafx.scene.Node;
@@ -38,6 +44,12 @@ import java.io.File;
  */
 public class ASLiveCodingLanguageHandler extends AbstractLiveCodingLanguageHandler<AsProject> {
 
+    private final ProjectAdapter projectListener = new ProjectAdapter() {
+        @Override
+        public void onProjectLoaded(Project project) {
+            CodeOrchestraResourcesHttpServer.getInstance().addAlias(project.getOutputDir(), "/colt");
+        }
+    };
     private LoggerServerSocketThread loggerServerSocketThread = new LoggerServerSocketThread();
 
     private LoggerService loggerService;
@@ -105,7 +117,9 @@ public class ASLiveCodingLanguageHandler extends AbstractLiveCodingLanguageHandl
     public void initHandler() {
         loggerServerSocketThread.openSocket();
 
+        CodeOrchestraResourcesHttpServer.getInstance().addAlias(PathUtils.getApplicationBaseDir(), "/");
         ServiceProvider.get(LiveCodingManager.class).addListener(SessionIndicatorController.getInstance());
+        ColtProjectManager.getInstance().addProjectListener(projectListener);
     }
 
     @Override
@@ -114,6 +128,7 @@ public class ASLiveCodingLanguageHandler extends AbstractLiveCodingLanguageHandl
         FCSHManager.instance().destroyProcess();
 
         ServiceProvider.get(LiveCodingManager.class).removeListener(SessionIndicatorController.getInstance());
+        ColtProjectManager.getInstance().removeProjectListener(projectListener);
     }
 
     @Override

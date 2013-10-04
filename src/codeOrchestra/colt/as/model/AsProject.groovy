@@ -4,8 +4,10 @@ import codeOrchestra.colt.as.compiler.fcsh.FSCHCompilerKind
 import codeOrchestra.colt.as.flexsdk.FlexSDKManager
 import codeOrchestra.colt.as.model.beans.air.descriptor.DescriptorModel
 import codeOrchestra.colt.core.ColtProjectManager
+import codeOrchestra.colt.core.http.CodeOrchestraResourcesHttpServer
 import codeOrchestra.colt.core.model.Project
 import codeOrchestra.colt.core.storage.ProjectStorageManager
+import codeOrchestra.util.LocalhostUtil
 import codeOrchestra.util.StringUtils
 
 /**
@@ -146,5 +148,10 @@ class AsProject extends Project {
         if (StringUtils.isEmpty(buildSettings.runTargetModel.desktopAirModel.descriptorModel.name)) {
             initDescriptorModel(buildSettings.runTargetModel.desktopAirModel.descriptorModel)
         }
+    }
+
+    @Override
+    String getWebOutputPath() {
+        return "http://" + LocalhostUtil.getLocalhostIp() + ":" + CodeOrchestraResourcesHttpServer.PORT + "/colt"
     }
 }
