@@ -5,10 +5,7 @@ import codeOrchestra.colt.as.controller.ColtAsController;
 import codeOrchestra.colt.as.model.AsProject;
 import codeOrchestra.colt.as.rpc.ColtAsRemoteService;
 import codeOrchestra.colt.as.rpc.model.ColtCompilationResult;
-import codeOrchestra.colt.as.rpc.model.ColtConnection;
 import codeOrchestra.colt.as.rpc.model.ColtRemoteProject;
-import codeOrchestra.colt.as.rpc.model.ColtState;
-import codeOrchestra.colt.core.LiveCodingManager;
 import codeOrchestra.colt.core.ServiceProvider;
 import codeOrchestra.colt.core.controller.ColtController;
 import codeOrchestra.colt.core.controller.ColtControllerCallbackEx;
@@ -17,12 +14,9 @@ import codeOrchestra.colt.core.rpc.ColtRemoteException;
 import codeOrchestra.colt.core.rpc.ColtRemoteTransferableException;
 import codeOrchestra.colt.core.rpc.command.RemoteAsyncCommand;
 import codeOrchestra.colt.core.rpc.command.RemoteCommand;
-import codeOrchestra.colt.core.session.LiveCodingSession;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author Alexander Eliseyev
@@ -89,32 +83,6 @@ public class ColtAsRemoteServiceImpl extends AbstractColtRemoteService<AsProject
     @Override
     public ColtCompilationResult runBaseCompilation(String securityToken) throws ColtRemoteTransferableException {
         return runBaseCompilation(securityToken, true);
-    }
-
-    @Override
-    public ColtState getState(String securityToken) throws ColtRemoteTransferableException {
-        return executeSecurily(securityToken, new RemoteCommand<ColtState>() {
-            @Override
-            public String getName() {
-                return "Get COLT state";
-            }
-
-            @Override
-            public ColtState execute() throws ColtRemoteException {
-                ColtState state = new ColtState();
-
-                List<ColtConnection> coltConnections = new ArrayList<>();
-                List<LiveCodingSession> currentConnections = ServiceProvider.get(LiveCodingManager.class).getCurrentConnections();
-                for (LiveCodingSession session : currentConnections) {
-                    if (!session.isDisposed()) {
-                        coltConnections.add(new ColtConnection(session));
-                    }
-                }
-                state.setActiveConnections(coltConnections.toArray(new ColtConnection[coltConnections.size()]));
-
-                return state;
-            }
-        });
     }
 
     @Override
