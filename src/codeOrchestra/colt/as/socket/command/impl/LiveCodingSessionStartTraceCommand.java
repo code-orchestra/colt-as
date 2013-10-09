@@ -5,6 +5,7 @@ import codeOrchestra.colt.as.socket.command.TraceCommand;
 import codeOrchestra.colt.core.LiveCodingManager;
 import codeOrchestra.colt.core.ServiceProvider;
 import codeOrchestra.colt.core.logging.model.LoggerMessage;
+import codeOrchestra.colt.core.session.SocketWriterAdapter;
 import codeOrchestra.colt.core.socket.ClientSocketHandler;
 
 import java.io.UnsupportedEncodingException;
@@ -52,7 +53,7 @@ public class LiveCodingSessionStartTraceCommand implements TraceCommand {
         clientInfoDictionary.put(keyValueSplit[0], keyValueSplit[1]);
       }
       
-      liveCodingManager.startSession(broadcastId, clientId, clientInfoDictionary, clientSocketHandler);
+      liveCodingManager.startSession(broadcastId, clientId, clientInfoDictionary, new SocketWriterAdapter(clientSocketHandler));
     }
   }
    

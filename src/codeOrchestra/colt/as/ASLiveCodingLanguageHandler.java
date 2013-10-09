@@ -24,9 +24,8 @@ import codeOrchestra.colt.core.launch.LiveLauncher;
 import codeOrchestra.colt.core.logging.LoggerService;
 import codeOrchestra.colt.core.model.Project;
 import codeOrchestra.colt.core.model.listener.ProjectAdapter;
-import codeOrchestra.colt.core.model.listener.ProjectListener;
 import codeOrchestra.colt.core.rpc.ColtRemoteService;
-import codeOrchestra.colt.core.session.SocketWriter;
+import codeOrchestra.colt.core.session.SocketWriterAdapter;
 import codeOrchestra.colt.core.session.sourcetracking.SourceFileFactory;
 import codeOrchestra.colt.core.ui.components.FxThreadProgressIndicatorWrapper;
 import codeOrchestra.colt.core.ui.components.IProgressIndicator;
@@ -174,7 +173,7 @@ public class ASLiveCodingLanguageHandler extends AbstractLiveCodingLanguageHandl
     }
 
     @Override
-    public LiveCodingManager<AsProject, SocketWriter> createLiveCodingManager() {
+    public LiveCodingManager<AsProject, SocketWriterAdapter> createLiveCodingManager() {
         return new ASLiveCodingManager();
     }
 

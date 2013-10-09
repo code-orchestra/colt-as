@@ -4,24 +4,24 @@ import codeOrchestra.colt.as.ASLiveCodingManager;
 import codeOrchestra.colt.core.LiveCodingManager;
 import codeOrchestra.colt.core.ServiceProvider;
 import codeOrchestra.colt.core.session.LiveCodingSession;
-import codeOrchestra.colt.core.session.SocketWriter;
+import codeOrchestra.colt.core.session.SocketWriterAdapter;
 
 import java.util.Map;
 
 /**
  * @author Alexander Eliseyev
  */
-public class ASLiveCodingSession implements LiveCodingSession<SocketWriter> {
+public class ASLiveCodingSession implements LiveCodingSession<SocketWriterAdapter> {
 
     private boolean disposed;
     private long startTimestamp;
-    private SocketWriter socketWriter;
+    private SocketWriterAdapter socketWriter;
     private String broadcastId;
     private String clientId;
     private Map<String, String> clientInfo;
     private int sessionNumber;
 
-    public ASLiveCodingSession(String broadcastId, String clientId, Map<String, String> clientInfo, long startTimestamp, SocketWriter socketWriter, int sessionNumber) {
+    public ASLiveCodingSession(String broadcastId, String clientId, Map<String, String> clientInfo, long startTimestamp, SocketWriterAdapter socketWriter, int sessionNumber) {
         this.clientId = clientId;
         this.broadcastId = broadcastId;
         this.clientInfo = clientInfo;
@@ -36,7 +36,7 @@ public class ASLiveCodingSession implements LiveCodingSession<SocketWriter> {
     }
 
     @Override
-    public SocketWriter getSocketWrapper() {
+    public SocketWriterAdapter getSocketWrapper() {
         return socketWriter;
     }
 
@@ -72,7 +72,7 @@ public class ASLiveCodingSession implements LiveCodingSession<SocketWriter> {
     @Override
     public synchronized void sendLiveCodingMessage(String message, String packageId, boolean addToHistory) {
         String wrappedMessage = "livecoding::" + message + "::" + broadcastId + "::" + packageId;
-        socketWriter.writeToSocket(wrappedMessage);
+        socketWriter.sendMessage(wrappedMessage);
 
         ASLiveCodingManager liveCodingManager = (ASLiveCodingManager) ServiceProvider.get(LiveCodingManager.class);
         if (addToHistory) {
@@ -82,13 +82,13 @@ public class ASLiveCodingSession implements LiveCodingSession<SocketWriter> {
 
     @Override
     public synchronized void sendMessageAsIs(String message) {
-        socketWriter.writeToSocket(message);
+        socketWriter.sendMessage(message);
     }
 
     @Override
     public void dispose() {
         disposed = true;
-        socketWriter.closeSocket();
+        socketWriter.close();
     }
 
     @Override

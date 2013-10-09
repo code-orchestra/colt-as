@@ -20,6 +20,7 @@ import codeOrchestra.colt.core.http.CodeOrchestraResourcesHttpServer;
 import codeOrchestra.colt.core.logging.Logger;
 import codeOrchestra.colt.core.session.LiveCodingSession;
 import codeOrchestra.colt.core.session.SocketWriter;
+import codeOrchestra.colt.core.session.SocketWriterAdapter;
 import codeOrchestra.colt.core.session.listener.LiveCodingAdapter;
 import codeOrchestra.colt.core.session.sourcetracking.SourcesTrackerCallback;
 import codeOrchestra.colt.core.session.sourcetracking.SourcesTrackerThread;
@@ -33,7 +34,7 @@ import java.util.*;
 /**
  * @author Alexander Eliseyev
  */
-public class ASLiveCodingManager extends AbstractLiveCodingManager<AsProject, SocketWriter> {
+public class ASLiveCodingManager extends AbstractLiveCodingManager<AsProject, SocketWriterAdapter> {
 
     private static final Logger LOG = Logger.getLogger(LiveCodingManager.class);
 
@@ -404,7 +405,7 @@ public class ASLiveCodingManager extends AbstractLiveCodingManager<AsProject, So
     }
 
     @Override
-    public void startSession(String broadcastId, String clientId, Map<String, String> clientInfo, SocketWriter socketWriter) {
+    public void startSession(String broadcastId, String clientId, Map<String, String> clientInfo, SocketWriterAdapter socketWriter) {
         boolean noSessionsWereActive = currentSessions.isEmpty();
 
         int sessionNumber = currentSessions.size() + 1;
@@ -562,7 +563,7 @@ public class ASLiveCodingManager extends AbstractLiveCodingManager<AsProject, So
 
         private void ping() {
             lastPing = System.currentTimeMillis();
-            getLiveCodingSession().getSocketWrapper().writeToSocket(PING_COMMAND);
+            getLiveCodingSession().getSocketWrapper().sendMessage(PING_COMMAND);
         }
 
         @Override
