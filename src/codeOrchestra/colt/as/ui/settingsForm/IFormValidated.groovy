@@ -7,4 +7,5 @@ import javafx.scene.Parent
  */
 public interface IFormValidated {
     Parent validated();
+    boolean isVisible();
 }

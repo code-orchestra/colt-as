@@ -128,9 +128,11 @@ class AsSettingsForm extends SettingsScrollPane{
     public boolean validateForms(IFormValidated skipForm = null) {
         Parent invalidNode = null
         validatedForms.each {
-            Parent node = it.validated()
-            if (it != skipForm && node && invalidNode == null) {
-                invalidNode = node
+            if (it.visible) {
+                Parent node = it.validated()
+                if (it != skipForm && node && invalidNode == null) {
+                    invalidNode = node
+                }
             }
         }
         if (invalidNode != null) {
