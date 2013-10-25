@@ -33,7 +33,6 @@ import codeOrchestra.colt.as.run.Target
  */
 class AsSettingsForm extends SettingsScrollPane{
 
-    private Button saveAndRunButton
     EventHandler saveRunAction
 
     AdvancedSeparator separator
@@ -55,9 +54,6 @@ class AsSettingsForm extends SettingsScrollPane{
 
         separator = new AdvancedSeparator()
         mainContainer.children.add(separator)
-
-        saveAndRunButton = separator.saveButton
-        saveAndRunButton.onAction = saveRunAction
 
         VBox advancedVBox = new VBox()
         VBox.setMargin(advancedVBox, new Insets(0, 0, 72, 0))
@@ -118,7 +114,7 @@ class AsSettingsForm extends SettingsScrollPane{
 
     void setSaveRunAction(EventHandler saveRunAction) {
         this.saveRunAction = saveRunAction
-        saveAndRunButton.onAction = {
+        separator.onAction = {
             if(validateForms()) {
                 this.saveRunAction.handle(it)
             }
