@@ -59,7 +59,7 @@ class ASApplicationGUI extends ApplicationGUI {
         // build ui
 
         runButton.onAction = {
-            if (!runButton.selected || isFirstTime) {
+            if (!runButton.selected && it != null) {
                 isFirstTime = false
                 actionPlayerPopup.showing ? actionPlayerPopup.hide() : actionPlayerPopup.show(runButton)
             }
