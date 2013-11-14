@@ -15,6 +15,11 @@ public class ASSourceFileFactory implements SourceFileFactory<ASSourceFile> {
     }
 
     @Override
+    public ASSourceFile getCached(File file) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public void dispose() {
     }
 }
