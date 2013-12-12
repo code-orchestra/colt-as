@@ -17,6 +17,7 @@ import codeOrchestra.colt.core.session.listener.LiveCodingAdapter
 import codeOrchestra.colt.core.tracker.GAController
 import codeOrchestra.colt.core.tracker.GATracker
 import codeOrchestra.colt.core.ui.ApplicationGUI
+import codeOrchestra.colt.core.ui.ColtApplication
 import codeOrchestra.colt.core.ui.components.log.Log
 import codeOrchestra.colt.core.ui.dialog.ProjectDialogs
 import javafx.beans.property.BooleanProperty
@@ -45,6 +46,7 @@ class ASApplicationGUI extends ApplicationGUI {
 
     ASApplicationGUI() {
         init()
+        println "runTime = ${System.currentTimeMillis() - ColtApplication.timeStarted}"
     }
 
     @Override
@@ -93,8 +95,13 @@ class ASApplicationGUI extends ApplicationGUI {
             }
         } as ChangeListener)
 
-        settingsButton.selected = true
-        root.center = settingsForm
+        if (ColtApplication.IS_PLUGIN_MODE) {
+            root.center = logView
+            runButton.selected = true
+        } else {
+            settingsButton.selected = true
+            root.center = settingsForm
+        }
     }
 
     protected initActionPlayerPopup() {
