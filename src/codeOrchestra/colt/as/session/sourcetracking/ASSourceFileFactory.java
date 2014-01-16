@@ -10,7 +10,7 @@ import java.io.File;
 public class ASSourceFileFactory implements SourceFileFactory<ASSourceFile> {
 
     @Override
-    public ASSourceFile createSourceFile(File file, File baseDir, boolean skipPatternCheck) {
+    public ASSourceFile createSourceFile(File file, File baseDir) {
         return new ASSourceFile(file, baseDir.getPath());
     }
 
