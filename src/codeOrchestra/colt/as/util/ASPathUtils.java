@@ -10,6 +10,12 @@ import java.io.File;
  */
 public class ASPathUtils {
 
+    public static boolean checkFlexSDK() {
+        File flex_sdk_folder = new File(PathUtils.getApplicationBaseDir(), "flex_sdk");
+        File libc = new File(flex_sdk_folder, "libc");
+        return libc.exists();
+    }
+
     public static String getFlexSDKPath() {
         File productDir = PathUtils.getApplicationBaseDir();
         return new File(productDir, "flex_sdk").getPath();

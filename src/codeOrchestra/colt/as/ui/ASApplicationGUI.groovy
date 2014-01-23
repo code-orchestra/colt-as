@@ -20,10 +20,13 @@ import codeOrchestra.colt.core.ui.ApplicationGUI
 import codeOrchestra.colt.core.ui.ColtApplication
 import codeOrchestra.colt.core.ui.components.log.Log
 import codeOrchestra.colt.core.ui.dialog.ProjectDialogs
+import codeOrchestra.colt.core.ui.dialog.UpdateDialog
+import javafx.application.Platform
 import javafx.beans.property.BooleanProperty
 import javafx.beans.value.ChangeListener
 import javafx.beans.value.ObservableValue
 import javafx.event.EventHandler
+import codeOrchestra.colt.as.util.ASPathUtils
 
 /**
  * @author Dima Kruk
@@ -102,6 +105,15 @@ class ASApplicationGUI extends ApplicationGUI {
             settingsButton.selected = true
             root.center = settingsForm
         }
+        Platform.runLater({
+            if (!ASPathUtils.checkFlexSDK()) {
+                UpdateDialog dialog = new UpdateDialog(ColtApplication.get().primaryStage)
+                dialog.show()
+                if (!dialog.isSuccess){
+                    println "need message"
+                }
+            }
+        } as Runnable)
     }
 
     protected initActionPlayerPopup() {
@@ -114,6 +126,14 @@ class ASApplicationGUI extends ApplicationGUI {
 
     @Override
     boolean validateSettingsForm() {
+        if (!ASPathUtils.checkFlexSDK()) {
+            UpdateDialog dialog = new UpdateDialog(ColtApplication.get().primaryStage)
+            dialog.show()
+            if (!dialog.isSuccess){
+                println "need message"
+                return false
+            }
+        }
         return settingsForm.validateForms()
     }
 
@@ -130,6 +150,14 @@ class ASApplicationGUI extends ApplicationGUI {
     }
 
     void runBuild() {
+        if (!ASPathUtils.checkFlexSDK()) {
+            UpdateDialog dialog = new UpdateDialog(ColtApplication.get().primaryStage)
+            dialog.show()
+            if (!dialog.isSuccess){
+                println "need message"
+                return
+            }
+        }
         if (!settingsForm.validateForms()) {
             settingsButton.onAction.handle(null)
         } else if(!productionBuildForm.validateForms()) {
