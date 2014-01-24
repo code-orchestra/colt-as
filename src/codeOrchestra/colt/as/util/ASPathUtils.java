@@ -12,7 +12,7 @@ public class ASPathUtils {
 
     public static boolean checkFlexSDK() {
         File flex_sdk_folder = new File(PathUtils.getApplicationBaseDir(), "flex_sdk");
-        File libc = new File(flex_sdk_folder, "libc");
+        File libc = new File(flex_sdk_folder, "liblc");
         return libc.exists();
     }
 
