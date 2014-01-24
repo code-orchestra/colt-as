@@ -19,6 +19,7 @@ import codeOrchestra.colt.core.tracker.GATracker
 import codeOrchestra.colt.core.ui.ApplicationGUI
 import codeOrchestra.colt.core.ui.ColtApplication
 import codeOrchestra.colt.core.ui.components.log.Log
+import codeOrchestra.colt.core.ui.dialog.InstallFlexSDKDialog
 import codeOrchestra.colt.core.ui.dialog.ProjectDialogs
 import codeOrchestra.colt.core.ui.dialog.UpdateDialog
 import javafx.application.Platform
@@ -107,7 +108,7 @@ class ASApplicationGUI extends ApplicationGUI {
         }
         Platform.runLater({
             if (!ASPathUtils.checkFlexSDK()) {
-                UpdateDialog dialog = new UpdateDialog(ColtApplication.get().primaryStage)
+                UpdateDialog dialog = new InstallFlexSDKDialog(ColtApplication.get().primaryStage)
                 dialog.show()
                 if (!dialog.isSuccess){
                     println "need message"
@@ -127,7 +128,7 @@ class ASApplicationGUI extends ApplicationGUI {
     @Override
     boolean validateSettingsForm() {
         if (!ASPathUtils.checkFlexSDK()) {
-            UpdateDialog dialog = new UpdateDialog(ColtApplication.get().primaryStage)
+            UpdateDialog dialog = new InstallFlexSDKDialog(ColtApplication.get().primaryStage)
             dialog.show()
             if (!dialog.isSuccess){
                 println "need message"
@@ -151,7 +152,7 @@ class ASApplicationGUI extends ApplicationGUI {
 
     void runBuild() {
         if (!ASPathUtils.checkFlexSDK()) {
-            UpdateDialog dialog = new UpdateDialog(ColtApplication.get().primaryStage)
+            UpdateDialog dialog = new InstallFlexSDKDialog(ColtApplication.get().primaryStage)
             dialog.show()
             if (!dialog.isSuccess){
                 println "need message"
