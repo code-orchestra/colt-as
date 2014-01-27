@@ -50,6 +50,7 @@ class InstallFlexSDKDialog extends UpdateDialog {
         }
         inited = true
         super.updateComplete()
+        okButton.text = "Done"
     }
 
     @Override
