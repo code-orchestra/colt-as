@@ -19,7 +19,7 @@ import codeOrchestra.colt.core.tracker.GATracker
 import codeOrchestra.colt.core.ui.ApplicationGUI
 import codeOrchestra.colt.core.ui.ColtApplication
 import codeOrchestra.colt.core.ui.components.log.Log
-import codeOrchestra.colt.core.ui.dialog.InstallFlexSDKDialog
+import codeOrchestra.colt.as.ui.dialog.InstallFlexSDKDialog
 import codeOrchestra.colt.core.ui.dialog.ProjectDialogs
 import codeOrchestra.colt.core.ui.dialog.UpdateDialog
 import javafx.application.Platform
