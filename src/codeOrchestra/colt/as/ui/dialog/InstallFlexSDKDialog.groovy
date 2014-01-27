@@ -1,5 +1,6 @@
 package codeOrchestra.colt.as.ui.dialog
 
+import codeOrchestra.colt.as.model.beans.SDKModel
 import codeOrchestra.colt.core.ui.dialog.UpdateDialog
 import codeOrchestra.colt.core.update.tasks.UpdateTask
 import codeOrchestra.util.FileUtils
@@ -48,19 +49,19 @@ class InstallFlexSDKDialog extends UpdateDialog {
             String str = 'Root="' + PathUtils.getApplicationBaseDir().path + File.separator + "bin" + '"'
             FileUtils.write(file, str)
         }
-        inited = true
         super.updateComplete()
         okButton.text = "Done"
     }
 
     @Override
-    protected void startUpdate() {
-        if (!inited) {
-            super.startUpdate()
-        } else {
-            codeOrchestra.colt.as.model.ModelStorage.instance.project.projectBuildSettings.sdkModel.isValidFlexSDK = true
-            isSuccess = true
-            stage.hide()
+    protected void hide() {
+        SDKModel model = codeOrchestra.colt.as.model.ModelStorage.instance.project.projectBuildSettings.sdkModel
+        String baseFlexSDKPath = codeOrchestra.colt.as.util.ASPathUtils.flexSDKPath
+        isSuccess = true
+        if (model.flexSDKPath == baseFlexSDKPath) {
+            model.flexSDKPath = ""
+            model.flexSDKPath = baseFlexSDKPath
         }
+        super.hide()
     }
 }
