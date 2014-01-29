@@ -13,8 +13,6 @@ import javafx.stage.Window
  */
 class InstallFlexSDKDialog extends UpdateDialog {
 
-    boolean inited = false
-
     InstallFlexSDKDialog(Window owner) {
         super(owner)
 
