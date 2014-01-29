@@ -46,6 +46,11 @@ class InstallFlexSDKDialog extends UpdateDialog {
             File file = new File(PathUtils.getApplicationBaseDir().path + File.separator + "flex_sdk" + File.separator + "bin" + File.separator + "placement.txt")
             String str = 'Root="' + PathUtils.getApplicationBaseDir().path + File.separator + "bin" + '"'
             FileUtils.write(file, str)
+            file.parent
+            ProcessBuilder builder = new ProcessBuilder(file.parent + File.separator + "xbind.exe")
+            builder.command("xbind.script", "placement.txt")
+
+            builder.start()
         }
         super.updateComplete()
         okButton.text = "Done"
