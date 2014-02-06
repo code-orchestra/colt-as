@@ -2,7 +2,6 @@ package codeOrchestra.colt.as;
 
 import codeOrchestra.colt.as.compiler.fcsh.FCSHException;
 import codeOrchestra.colt.as.compiler.fcsh.FCSHManager;
-import codeOrchestra.colt.as.compiler.fcsh.MaximumCompilationsCountReachedException;
 import codeOrchestra.colt.as.compiler.fcsh.make.AsMaker;
 import codeOrchestra.colt.as.compiler.fcsh.make.CompilationResult;
 import codeOrchestra.colt.as.compiler.fcsh.make.MakeException;
@@ -16,10 +15,9 @@ import codeOrchestra.colt.as.util.ASPathUtils;
 import codeOrchestra.colt.core.AbstractLiveCodingManager;
 import codeOrchestra.colt.core.LiveCodingManager;
 import codeOrchestra.colt.core.errorhandling.ErrorHandler;
-import codeOrchestra.colt.core.http.CodeOrchestraResourcesHttpServer;
+import codeOrchestra.colt.core.license.DemoHelper;
 import codeOrchestra.colt.core.logging.Logger;
 import codeOrchestra.colt.core.session.LiveCodingSession;
-import codeOrchestra.colt.core.session.SocketWriter;
 import codeOrchestra.colt.core.session.SocketWriterAdapter;
 import codeOrchestra.colt.core.session.listener.LiveCodingAdapter;
 import codeOrchestra.colt.core.session.sourcetracking.SourcesTrackerCallback;
@@ -61,6 +59,11 @@ public class ASLiveCodingManager extends AbstractLiveCodingManager<AsProject, So
 
     private SourcesTrackerCallback sourcesTrackerCallback = sourceFile -> {
         if (sourceFile instanceof ASSourceFile) {
+            if (DemoHelper.get().maxCompilationsCountReached()) {
+                ErrorHandler.newDemoModeHandler();
+                pause();
+            }
+
             if (isPaused()) {
                 synchronized (changesBufferMonitor) {
                     changesBuffer.add((ASSourceFile) sourceFile);
@@ -113,8 +116,6 @@ public class ASLiveCodingManager extends AbstractLiveCodingManager<AsProject, So
                 return lcsMaker.make();
             } catch (MakeException e) {
                 ErrorHandler.handle(e, "Error while running " + (production ? "production" : "base live") + " compilation");
-            } catch (MaximumCompilationsCountReachedException e) {
-                ErrorHandler.demoModeHandle("Maximum compilations count allowed in Demo mode is exceeded", "COLT Demo mode");
             }
         } finally {
             compilationInProgress = false;
@@ -198,8 +199,6 @@ public class ASLiveCodingManager extends AbstractLiveCodingManager<AsProject, So
                 }
             } catch (MakeException e) {
                 ErrorHandler.handle(e, "Error while compiling");
-            } catch (MaximumCompilationsCountReachedException e) {
-                ErrorHandler.demoModeHandle("Maximum compilations count allowed in Demo mode is exceeded", "COLT Demo mode");
             }
         } finally {
             compilationInProgress = false;
@@ -314,8 +313,6 @@ public class ASLiveCodingManager extends AbstractLiveCodingManager<AsProject, So
             }
         } catch (MakeException e) {
             ErrorHandler.handle(e, "Error while compiling");
-        } catch (MaximumCompilationsCountReachedException e) {
-            ErrorHandler.demoModeHandle("Maximum compilations count allowed in Demo mode is exceeded", "COLT Demo mode");
         }
     }
 

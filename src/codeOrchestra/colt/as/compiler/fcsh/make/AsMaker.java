@@ -56,7 +56,7 @@ public class AsMaker {
         this.skipSecondPhase = skipSecondPhase;
     }
 
-    public CompilationResult make() throws MakeException, MaximumCompilationsCountReachedException {
+    public CompilationResult make() throws MakeException {
         FSCHCompilerKind compilerKind = productionMode ? FSCHCompilerKind.MXMLC : (
                 assetMode ? FSCHCompilerKind.COMPC : (
                         isIncremental ? FSCHCompilerKind.INCREMENTAL_COMPC : FSCHCompilerKind.BASE_MXMLC
@@ -164,7 +164,7 @@ public class AsMaker {
         return compilationResult;
     }
 
-    private CompilationResult doCompile(FCSHFlexSDKRunner flexSDKRunner, boolean reportSuccess) throws MakeException, MaximumCompilationsCountReachedException {
+    private CompilationResult doCompile(FCSHFlexSDKRunner flexSDKRunner, boolean reportSuccess) throws MakeException {
         CompilationResult compilationResult = flexSDKRunner.run();
 
         if (compilationResult == null) {

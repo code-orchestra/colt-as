@@ -3,7 +3,6 @@ package codeOrchestra.colt.as.controller;
 import codeOrchestra.colt.as.ASLiveCodingManager;
 import codeOrchestra.colt.as.compiler.fcsh.FCSHException;
 import codeOrchestra.colt.as.compiler.fcsh.FCSHManager;
-import codeOrchestra.colt.as.compiler.fcsh.MaximumCompilationsCountReachedException;
 import codeOrchestra.colt.as.compiler.fcsh.make.CompilationResult;
 import codeOrchestra.colt.as.digest.DigestException;
 import codeOrchestra.colt.as.digest.ProjectDigestHelper;
@@ -193,10 +192,6 @@ public class ColtAsController extends AbstractColtController<AsProject> {
                     FCSHManager.instance().restart();
                 } catch (FCSHException e) {
                     ErrorHandler.handle(e, "Error while starting fcsh");
-                    callback.onError(e, null);
-                    return null;
-                } catch (MaximumCompilationsCountReachedException e) {
-                    ErrorHandler.demoModeHandle("Maximum compilations count allowed in Demo mode is exceeded", "COLT Demo mode");
                     callback.onError(e, null);
                     return null;
                 } catch (Throwable t) {

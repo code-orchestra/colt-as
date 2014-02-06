@@ -1,6 +1,5 @@
 package codeOrchestra.colt.as.compiler.fcsh.make.process;
 
-import codeOrchestra.colt.as.compiler.fcsh.MaximumCompilationsCountReachedException;
 import codeOrchestra.colt.as.compiler.fcsh.make.CompilationResult;
 import codeOrchestra.colt.as.compiler.fcsh.make.MakeException;
 import codeOrchestra.colt.as.flex.FlexSDKSettings;
@@ -30,7 +29,7 @@ public abstract class AbstractFlexSDKRunner {
     this.compilerSettings = ProjectHelper.<AsProject>getCurrentProject().getProjectBuildSettings();
   }
 
-  public abstract CompilationResult run() throws MakeException, MaximumCompilationsCountReachedException;
+  public abstract CompilationResult run() throws MakeException;
 
   public abstract String getErrorLogFilePath();
 

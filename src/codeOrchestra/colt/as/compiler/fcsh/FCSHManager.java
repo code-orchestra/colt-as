@@ -38,13 +38,8 @@ public class FCSHManager {
 
   private final Map<List<String>, CompilerTarget> compilerTargets = Collections.synchronizedMap(new HashMap<>());
 
-  public void restart() throws FCSHException, MaximumCompilationsCountReachedException {
-    if (DemoHelper.get().maxCompilationsCountReached()) {
-      ColtRunningKey.setRunning(false);
-      throw new MaximumCompilationsCountReachedException(); 
-    } else {
-      ColtRunningKey.setRunning(true);
-    }
+  public void restart() throws FCSHException {
+    ColtRunningKey.setRunning(true);
     
     destroyProcess();
     assureFCSHIsActive();
@@ -72,7 +67,7 @@ public class FCSHManager {
     }
   }
 
-  public CompilationResult compile(CompilerTarget target) throws FCSHException, MaximumCompilationsCountReachedException {
+  public CompilationResult compile(CompilerTarget target) throws FCSHException {
     incrementCompilationCount();
     
     assureFCSHIsActive();
@@ -149,7 +144,7 @@ public class FCSHManager {
     submitCommand(new ClearCommand());
   }
 
-  public CompilationResult baseMXMLC(List<String> arguments) throws FCSHException, MaximumCompilationsCountReachedException {
+  public CompilationResult baseMXMLC(List<String> arguments) throws FCSHException {
     incrementCompilationCount();
     
     assureFCSHIsActive();
@@ -173,7 +168,7 @@ public class FCSHManager {
     return compcCommand.getCompileResult();
   }
 
-  public CompilationResult incrementalCOMPC(List<String> arguments) throws FCSHException, MaximumCompilationsCountReachedException {
+  public CompilationResult incrementalCOMPC(List<String> arguments) throws FCSHException {
     incrementCompilationCount();
     
     assureFCSHIsActive();
@@ -186,7 +181,7 @@ public class FCSHManager {
     return compcCommand.getCompileResult();
   }
 
-  public CompilationResult compc(List<String> commandArguments) throws FCSHException, MaximumCompilationsCountReachedException {
+  public CompilationResult compc(List<String> commandArguments) throws FCSHException {
     incrementCompilationCount();
     
     assureFCSHIsActive();
@@ -206,7 +201,7 @@ public class FCSHManager {
     return compcCommand.getCompileResult();
   }
 
-  public CompilationResult mxmlc(List<String> commandArguments) throws FCSHException, MaximumCompilationsCountReachedException {
+  public CompilationResult mxmlc(List<String> commandArguments) throws FCSHException {
     incrementCompilationCount();
     
     assureFCSHIsActive();
@@ -226,15 +221,10 @@ public class FCSHManager {
     return mxmlcCommand.getCompileResult();
   }
   
-  private void incrementCompilationCount() throws MaximumCompilationsCountReachedException {
-    if (DemoHelper.get().maxCompilationsCountReached()) {
-      ColtRunningKey.setRunning(false);
-      throw new MaximumCompilationsCountReachedException(); 
-    } else {
+  private void incrementCompilationCount() {
       ColtRunningKey.setRunning(true);
-    }
     
-    DemoHelper.get().incrementCompilationsCount();
+      DemoHelper.get().incrementCompilationsCount();
   }  
 
   public void deleteLivecodingCaches() throws FCSHException {
