@@ -131,8 +131,8 @@ public class SWCDigest {
     }
 
     private void cacheTrait(AbcTrait trait) {
-        String traitName = trait.name().name().name;
-        String traitPackage = trait.name().namespace().name().name;
+        String traitName = trait.name().name().name();
+        String traitPackage = trait.name().namespace().name().name();
         Document document = getOrCreateDocument(traitPackage);
         Element rootElement = (Element) document.getFirstChild();
 
@@ -165,7 +165,7 @@ public class SWCDigest {
                     Element namespaceElement = document.createElement("namespace");
                     namespaceElement.setAttribute("name", traitName);
                     namespaceElement.setAttribute("fqName", fqName);
-                    namespaceElement.setAttribute("uri", abcNamespace.name().name);
+                    namespaceElement.setAttribute("uri", abcNamespace.name().name());
 
                     rootElement.appendChild(namespaceElement);
                 }
@@ -235,15 +235,15 @@ public class SWCDigest {
             if (traitKind == AbcTraitKind.Method()) {
                 AbcTraitMethod traitMethod = (AbcTraitMethod) trait;
                 methodInfo = traitMethod.method();
-                methodName = traitMethod.name().name().name;
+                methodName = traitMethod.name().name().name();
             } else if (traitKind == AbcTraitKind.Getter()) {
                 AbcTraitGetter traitGetter = (AbcTraitGetter) trait;
                 methodInfo = traitGetter.method();
-                methodName = traitGetter.name().name().name;
+                methodName = traitGetter.name().name().name();
             } else if (traitKind == AbcTraitKind.Setter()) {
                 AbcTraitSetter traitSetter = (AbcTraitSetter) trait;
                 methodInfo = traitSetter.method();
-                methodName = traitSetter.name().name().name;
+                methodName = traitSetter.name().name().name();
             } else {
                 return;
             }
@@ -256,7 +256,7 @@ public class SWCDigest {
                 if (!(nameOption.isEmpty())) {
                     Symbol nameSymbol = nameOption.get();
                     if (nameSymbol != null) {
-                        parameterName = nameSymbol.name;
+                        parameterName = nameSymbol.name();
                     }
                 }
                 if (parameterName == null) {
@@ -274,11 +274,11 @@ public class SWCDigest {
             if (traitKind == AbcTraitKind.Const()) {
                 AbcTraitConst traitConst = (AbcTraitConst) trait;
                 typeName = getType(traitConst.typeName());
-                fieldName = traitConst.name().name().name;
+                fieldName = traitConst.name().name().name();
             } else if (traitKind == AbcTraitKind.Slot()) {
                 AbcTraitSlot traitSlot = (AbcTraitSlot) trait;
                 typeName = getType(traitSlot.typeName());
-                fieldName = traitSlot.name().name().name;
+                fieldName = traitSlot.name().name().name();
             } else {
                 return;
             }
