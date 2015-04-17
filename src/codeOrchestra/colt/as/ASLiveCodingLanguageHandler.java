@@ -132,7 +132,7 @@ public class ASLiveCodingLanguageHandler extends AbstractLiveCodingLanguageHandl
 
     @Override
     public int getDemoModeMaxUpdatesCount() {
-        return 25;
+        return 50;
     }
 
     @Override
