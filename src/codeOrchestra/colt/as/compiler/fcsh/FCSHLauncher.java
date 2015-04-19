@@ -1,17 +1,13 @@
 package codeOrchestra.colt.as.compiler.fcsh;
-
 import codeOrchestra.colt.as.flex.FlexSDKSettings;
 import codeOrchestra.colt.as.logging.transport.LoggerServerSocketThread;
 import codeOrchestra.colt.as.model.AsProject;
 import codeOrchestra.colt.as.model.AsProjectBuildSettings;
 import codeOrchestra.colt.as.model.AsProjectLiveSettings;
-import codeOrchestra.colt.as.run.Target;
 import codeOrchestra.util.LocalhostUtil;
 import codeOrchestra.util.ProjectHelper;
 import codeOrchestra.util.process.JavaLauncher;
-
 import java.io.File;
-import java.util.EnumSet;
 
 /**
  * @author Alexander Eliseyev
@@ -20,7 +16,7 @@ public class FCSHLauncher extends JavaLauncher implements IFCSHLauncher {
 
     public static final boolean PROFILING_ON = System.getProperty("colt.profiling.on") != null;
 
-    public static final boolean NATIVE_FCSH = true;
+    public static final boolean NATIVE_FCSH = false;
 
     public FCSHLauncher() {
         super(null);

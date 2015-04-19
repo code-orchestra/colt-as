@@ -11,9 +11,9 @@ public class MultiNameUtil {
 
   public static String getName(AbcName name) {
     if (name instanceof AbcQName) {
-      return ((AbcQName) name).name().name;
+      return ((AbcQName) name).name().name();
     } else if (name instanceof AbcMultiname) {
-      return ((AbcMultiname) name).name().name;
+      return ((AbcMultiname) name).name().name();
     } else {
       return null;
     }
@@ -21,16 +21,13 @@ public class MultiNameUtil {
 
   public static String getNamespace(AbcName name) {
     if (name instanceof AbcQName) {
-      return ((AbcQName) name).namespace().name().name;
+      return ((AbcQName) name).namespace().name().name();
     } else if (name instanceof AbcMultiname) {
       boolean emptyNamespace = false;
 
       List<AbcNamespace> nameList = new ArrayList<>();
       AbcNamespace[] namespaces = ((AbcMultiname) name).nsset().set();
-      for (AbcNamespace namespace : namespaces) {
-        nameList.add(namespace);
-      }
-
+      Collections.addAll(nameList, namespaces);
       Collections.reverse(nameList);
       for (AbcNamespace ns : nameList) {
         int nsKind = ns.kind();
@@ -38,8 +35,8 @@ public class MultiNameUtil {
         if (nsKind == AbcNamespaceKind.Private() || nsKind == AbcNamespaceKind.PackageInternal() || nsKind == AbcNamespaceKind.Protected() || nsKind == AbcNamespaceKind.Namespace()) {
           continue;
         }
-        if (StringUtils.isNotEmpty(ns.name().name)) {
-          return ns.name().name;
+        if (StringUtils.isNotEmpty(ns.name().name())) {
+          return ns.name().name();
         } else {
           emptyNamespace = true;
         }
@@ -49,13 +46,12 @@ public class MultiNameUtil {
       for (AbcNamespace ns : nameList) {
         int nsKind = ns.kind();
         if (nsKind == AbcNamespaceKind.PackageInternal()) {
-          if (StringUtils.isNotEmpty(ns.name().name)) {
-            return ns.name().name;
+          if (StringUtils.isNotEmpty(ns.name().name())) {
+            return ns.name().name();
           } else {
             emptyNamespace = true;
           }
         }
-        continue;
       }
 
       if (!(emptyNamespace)) {

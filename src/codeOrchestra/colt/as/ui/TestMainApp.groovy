@@ -1,12 +1,9 @@
 package codeOrchestra.colt.as.ui
-
 import javafx.application.Application
-import javafx.fxml.FXMLLoader
 import javafx.scene.Parent
 import javafx.scene.Scene
 import javafx.stage.Stage
 import org.scenicview.ScenicView
-
 /**
  * @author Dima Kruk
  */
