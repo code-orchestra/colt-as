@@ -15,7 +15,6 @@ import codeOrchestra.colt.as.util.ASPathUtils;
 import codeOrchestra.colt.core.AbstractLiveCodingManager;
 import codeOrchestra.colt.core.LiveCodingManager;
 import codeOrchestra.colt.core.errorhandling.ErrorHandler;
-import codeOrchestra.colt.core.license.DemoHelper;
 import codeOrchestra.colt.core.logging.Logger;
 import codeOrchestra.colt.core.session.LiveCodingSession;
 import codeOrchestra.colt.core.session.SocketWriterAdapter;
@@ -59,11 +58,6 @@ public class ASLiveCodingManager extends AbstractLiveCodingManager<AsProject, So
 
     private SourcesTrackerCallback sourcesTrackerCallback = sourceFile -> {
         if (sourceFile instanceof ASSourceFile) {
-            if (DemoHelper.get().maxCompilationsCountReached()) {
-                ErrorHandler.newDemoModeHandler();
-                pause();
-            }
-
             if (isPaused()) {
                 synchronized (changesBufferMonitor) {
                     changesBuffer.add((ASSourceFile) sourceFile);

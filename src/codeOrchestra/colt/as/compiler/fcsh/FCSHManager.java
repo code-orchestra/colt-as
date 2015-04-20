@@ -6,7 +6,6 @@ import codeOrchestra.colt.as.compiler.fcsh.console.command.FCSHCommandRunnable;
 import codeOrchestra.colt.as.compiler.fcsh.console.command.impl.*;
 import codeOrchestra.colt.as.compiler.fcsh.make.CompilationResult;
 import codeOrchestra.colt.as.compiler.fcsh.target.CompilerTarget;
-import codeOrchestra.colt.core.license.DemoHelper;
 import codeOrchestra.colt.core.logging.Logger;
 import codeOrchestra.lcs.license.ColtRunningKey;
 import codeOrchestra.util.StringUtils;
@@ -68,8 +67,8 @@ public class FCSHManager {
   }
 
   public CompilationResult compile(CompilerTarget target) throws FCSHException {
-    incrementCompilationCount();
-    
+    ColtRunningKey.setRunning(true);
+
     assureFCSHIsActive();
 
     CompileTargetCommand compileCommand = new CompileTargetCommand(this, target);
@@ -145,8 +144,8 @@ public class FCSHManager {
   }
 
   public CompilationResult baseMXMLC(List<String> arguments) throws FCSHException {
-    incrementCompilationCount();
-    
+    ColtRunningKey.setRunning(true);
+
     assureFCSHIsActive();
 
     LivecodingBaseMXMLCCommand mxmlcCommand = new LivecodingBaseMXMLCCommand(arguments);
@@ -169,8 +168,8 @@ public class FCSHManager {
   }
 
   public CompilationResult incrementalCOMPC(List<String> arguments) throws FCSHException {
-    incrementCompilationCount();
-    
+    ColtRunningKey.setRunning(true);
+
     assureFCSHIsActive();
 
     LivecodingIncrementalCOMPCCommand compcCommand = new LivecodingIncrementalCOMPCCommand(arguments);
@@ -182,8 +181,8 @@ public class FCSHManager {
   }
 
   public CompilationResult compc(List<String> commandArguments) throws FCSHException {
-    incrementCompilationCount();
-    
+    ColtRunningKey.setRunning(true);
+
     assureFCSHIsActive();
 
     synchronized (compilerTargets) {
@@ -202,8 +201,8 @@ public class FCSHManager {
   }
 
   public CompilationResult mxmlc(List<String> commandArguments) throws FCSHException {
-    incrementCompilationCount();
-    
+    ColtRunningKey.setRunning(true);
+
     assureFCSHIsActive();
 
     synchronized (compilerTargets) {
@@ -220,12 +219,6 @@ public class FCSHManager {
 
     return mxmlcCommand.getCompileResult();
   }
-  
-  private void incrementCompilationCount() {
-      ColtRunningKey.setRunning(true);
-    
-      DemoHelper.get().incrementCompilationsCount();
-  }  
 
   public void deleteLivecodingCaches() throws FCSHException {
     assureFCSHIsActive();
