@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="JAVA_MODULE" version="4">
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$/../..">
+      <sourceFolder url="file://$MODULE_DIR$/java" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/groovy" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/resources" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/../test/groovy" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../test/java" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../test/resources" type="java-test-resource" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="colt-as-external" level="project" />
+    <orderEntry type="library" name="groovy" level="application" />
+    <orderEntry type="module" module-name="colt-core" />
+    <orderEntry type="library" name="colt-core-external" level="project" />
+  </component>
+</module>
