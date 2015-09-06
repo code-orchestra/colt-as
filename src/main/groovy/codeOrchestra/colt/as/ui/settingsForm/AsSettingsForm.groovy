@@ -1,20 +1,16 @@
 package codeOrchestra.colt.as.ui.settingsForm
-
 import codeOrchestra.colt.as.model.AsProject
+import codeOrchestra.colt.as.model.ModelStorage
+import codeOrchestra.colt.as.run.Target
 import codeOrchestra.colt.as.ui.settingsForm.compilerSettings.BuildSettingsForm
 import codeOrchestra.colt.as.ui.settingsForm.compilerSettings.CompilerSettingsForm
 import codeOrchestra.colt.as.ui.settingsForm.compilerSettings.SDKSettingsForm
-import codeOrchestra.colt.as.ui.settingsForm.liveSettings.AirDesktopLauncherForm
-import codeOrchestra.colt.as.ui.settingsForm.liveSettings.LauncherForm
-import codeOrchestra.colt.as.ui.settingsForm.liveSettings.AirLauncherForm
-import codeOrchestra.colt.as.ui.settingsForm.liveSettings.LiveSettingsForm
-import codeOrchestra.colt.as.ui.settingsForm.liveSettings.SettingsForm
-import codeOrchestra.colt.as.ui.settingsForm.liveSettings.TargetForm
+import codeOrchestra.colt.as.ui.settingsForm.liveSettings.*
 import codeOrchestra.colt.as.ui.settingsForm.projectPaths.ProjectPathsForm
 import codeOrchestra.colt.as.ui.settingsForm.projectPaths.TemplateForm
 import codeOrchestra.colt.core.tracker.GAController
-import codeOrchestra.colt.core.ui.components.scrollpane.SettingsScrollPane
 import codeOrchestra.colt.core.ui.components.advancedSeparator.AdvancedSeparator
+import codeOrchestra.colt.core.ui.components.scrollpane.SettingsScrollPane
 import javafx.animation.KeyFrame
 import javafx.animation.Timeline
 import javafx.beans.value.ChangeListener
@@ -22,12 +18,8 @@ import javafx.beans.value.ObservableValue
 import javafx.event.EventHandler
 import javafx.geometry.Insets
 import javafx.scene.Parent
-import javafx.scene.control.Button
 import javafx.scene.layout.VBox
 import javafx.util.Duration
-import codeOrchestra.colt.as.model.ModelStorage
-import codeOrchestra.colt.as.run.Target
-
 /**
  * @author Dima Kruk
  */

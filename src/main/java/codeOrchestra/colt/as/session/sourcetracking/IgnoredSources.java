@@ -13,10 +13,10 @@ public class IgnoredSources {
         "codeOrchestra.actionScript.util.Inline", "codeOrchestra.actionScript.util.EnterFrameListener", "codeOrchestra.actionScript.util.AlwaysUsed",
         "codeOrchestra.actionScript.util.RemoveFromStageListener", "codeOrchestra.actionScript.liveCoding.util.LiveCodeDisable", "codeOrchestra.actionScript.util.AddedToStageListener",
         "codeOrchestra.actionScript.util.MixinReplacement", "codeOrchestra.actionScript.util.LiveConsole", "codeOrchestra.actionScript.extensionMethods.methods.InheritExtensionMethod" };
-    
-    for (int i = 0; i < ignoredClasses.length; i++) {
-      add(ignoredClasses[i]);
-    }
+
+      for (String ignoredClass : ignoredClasses) {
+          add(ignoredClass);
+      }
   }};
   
   public static boolean isIgnoredTrait(String fqName) {

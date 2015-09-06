@@ -9,7 +9,6 @@ import codeOrchestra.colt.as.compiler.fcsh.make.messages.CompilerMessage;
 import codeOrchestra.colt.as.compiler.fcsh.make.messages.CompilerMessagesWrapper;
 import codeOrchestra.colt.core.LiveCodingManager;
 import codeOrchestra.colt.core.ServiceProvider;
-import codeOrchestra.colt.core.loading.LiveCodingHandlerManager;
 import codeOrchestra.colt.core.logging.Logger;
 import codeOrchestra.util.FileUtils;
 import codeOrchestra.util.ProjectHelper;

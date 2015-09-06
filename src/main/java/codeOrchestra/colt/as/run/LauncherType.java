@@ -5,5 +5,5 @@ package codeOrchestra.colt.as.run;
  */
 public enum LauncherType {
   DEFAULT,
-  FLASH_PLAYER;
+  FLASH_PLAYER
 }
