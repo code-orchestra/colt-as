@@ -1,13 +1,7 @@
 package codeOrchestra.colt.as.air.ui
-
 import codeOrchestra.colt.core.ui.components.inputForms.base.InputWithErrorBase
-import codeOrchestra.colt.core.ui.components.inputForms.base.TitledInputBase
-import codeOrchestra.groovyfx.FXBindable
-import javafx.beans.InvalidationListener
-import javafx.beans.value.ChangeListener
 import javafx.scene.control.Label
 import javafx.scene.control.PasswordField
-
 /**
  * @author Dima Kruk
  */

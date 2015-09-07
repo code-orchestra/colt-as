@@ -1,11 +1,9 @@
 package codeOrchestra.colt.as.ui.testmode
-
 import codeOrchestra.colt.as.controller.ColtAsController
 import codeOrchestra.colt.as.model.AsProject
 import codeOrchestra.colt.core.annotation.Service
 import codeOrchestra.colt.core.model.Project
 import codeOrchestra.colt.core.ui.testmode.TestSettingsForm
-import codeOrchestra.util.ProjectHelper
 
 /**
  * @author Dima Kruk

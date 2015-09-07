@@ -1,16 +1,14 @@
 package codeOrchestra.colt.as.air.util
-
-import codeOrchestra.colt.as.model.beans.air.AndroidAirModel
+import codeOrchestra.colt.as.air.ui.descriptor.Devices
 import codeOrchestra.colt.as.model.beans.air.descriptor.AndroidDescriptorModel
 import codeOrchestra.colt.as.model.beans.air.descriptor.DescriptorModel
 import codeOrchestra.colt.as.model.beans.air.descriptor.IOSDescriptorModel
+import codeOrchestra.colt.as.util.ASPathUtils
 import codeOrchestra.util.FileUtils
 import groovy.xml.DOMBuilder
 import groovy.xml.XmlUtil
 import groovy.xml.dom.DOMCategory
 import org.w3c.dom.Document
-import codeOrchestra.colt.as.air.ui.descriptor.Devices
-import codeOrchestra.colt.as.util.ASPathUtils
 
 /**
  * @author Dima Kruk

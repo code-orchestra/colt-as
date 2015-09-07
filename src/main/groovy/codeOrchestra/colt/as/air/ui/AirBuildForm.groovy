@@ -1,6 +1,5 @@
 package codeOrchestra.colt.as.air.ui
 
-import codeOrchestra.colt.as.air.ui.descriptor.ApplicationDescriptorForm
 import codeOrchestra.colt.as.model.AsProject
 import codeOrchestra.colt.as.model.beans.RunTargetModel
 import codeOrchestra.colt.core.errorhandling.ErrorHandler

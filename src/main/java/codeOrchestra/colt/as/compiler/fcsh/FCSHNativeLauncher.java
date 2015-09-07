@@ -5,12 +5,10 @@ import codeOrchestra.colt.as.logging.transport.LoggerServerSocketThread;
 import codeOrchestra.colt.as.model.AsProject;
 import codeOrchestra.colt.as.model.AsProjectBuildSettings;
 import codeOrchestra.colt.as.model.AsProjectLiveSettings;
-import codeOrchestra.colt.as.run.Target;
 import codeOrchestra.colt.as.util.ASPathUtils;
 import codeOrchestra.util.LocalhostUtil;
 
 import java.io.File;
-import java.util.EnumSet;
 
 /**
  * @author Alexander Eliseyev

@@ -1,10 +1,8 @@
 package codeOrchestra.colt.as.air.ui.ios
 
-import codeOrchestra.colt.as.air.AirBuildScriptGenerator
 import codeOrchestra.colt.as.air.AirIosIpaBuildScriptGenerator
 import codeOrchestra.colt.as.air.ui.AirBuildForm
 import codeOrchestra.colt.as.air.ui.PasswordInput
-import codeOrchestra.colt.as.air.ui.descriptor.IOSDescriptorGenerationForm
 import codeOrchestra.colt.as.model.AsProject
 import codeOrchestra.colt.as.model.beans.air.IOSAirModel
 import codeOrchestra.colt.core.ui.components.inputForms.LabeledActionInput
