@@ -52,7 +52,7 @@ public class ASLiveCodingManager extends AbstractLiveCodingManager<AsProject, So
     private Set<String> usedEmbedExtensions = new HashSet<>();
 
     private List<ASSourceFile> changesBuffer = new ArrayList<>();
-    private Object changesBufferMonitor = new Object();
+    private final Object changesBufferMonitor = new Object();
 
     private int packageId = 1;
 
@@ -295,7 +295,7 @@ public class ASLiveCodingManager extends AbstractLiveCodingManager<AsProject, So
 
                         try {
                             Thread.sleep(60);
-                        } catch (InterruptedException e) {
+                        } catch (InterruptedException ignored) {
                         }
                     }
 
@@ -479,7 +479,6 @@ public class ASLiveCodingManager extends AbstractLiveCodingManager<AsProject, So
     }
 
     private class SessionHandleListener extends LiveCodingAdapter {
-
         // clientId -> session finisher thread
         private Map<String, SessionFinisher> sessionFinisherThreads = new HashMap<>();
 
@@ -520,9 +519,7 @@ public class ASLiveCodingManager extends AbstractLiveCodingManager<AsProject, So
         }
 
         public void dispose() {
-            for (SessionFinisher sessionFinisher : sessionFinisherThreads.values()) {
-                sessionFinisher.stopRightThere();
-            }
+            sessionFinisherThreads.values().forEach(SessionFinisher::stopRightThere);
         }
 
     }
