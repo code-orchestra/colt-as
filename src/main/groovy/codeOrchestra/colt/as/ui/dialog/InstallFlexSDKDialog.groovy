@@ -1,9 +1,7 @@
 package codeOrchestra.colt.as.ui.dialog
-
 import codeOrchestra.colt.as.model.beans.SDKModel
 import codeOrchestra.colt.core.ui.dialog.UpdateDialog
 import codeOrchestra.colt.core.update.tasks.UpdateTask
-import codeOrchestra.util.FileUtils
 import codeOrchestra.util.PathUtils
 import codeOrchestra.util.SystemInfo
 import javafx.stage.Window
@@ -15,16 +13,17 @@ class InstallFlexSDKDialog extends UpdateDialog {
 
     InstallFlexSDKDialog(Window owner) {
         super(owner)
-
+        String url;
         if (SystemInfo.isMac) {
-            task = new UpdateTask("http://codeorchestra.s3.amazonaws.com/colt_packages/flex_sdk_mac.zip",
-                    new File(PathUtils.getApplicationBaseDir(), "flex_sdk").getPath())
+            throw new IllegalStateException("Unsupported OS: " + System.getProperty("os.name"));
+            //TODO slavara: check flexsdk url
+            //url = "https://github.com/code-orchestra/flex-sdk-livecoding/releases/download/4.14.1/flex_sdk_mac.zip";
         } else if (SystemInfo.isWindows) {
-            task = new UpdateTask("http://codeorchestra.s3.amazonaws.com/colt_packages/flex_sdk_win.zip",
-                    new File(PathUtils.getApplicationBaseDir(), "flex_sdk").getPath())
+            url = "https://github.com/code-orchestra/flex-sdk-livecoding/releases/download/4.14.1/flex_sdk_win.zip";
         } else {
             throw new IllegalStateException("Unsupported OS: " + System.getProperty("os.name"));
         }
+        task = new UpdateTask(url, new File(PathUtils.getApplicationBaseDir(), "flex_sdk").getPath())
     }
 
     @Override
@@ -42,14 +41,6 @@ class InstallFlexSDKDialog extends UpdateDialog {
 
     @Override
     protected void updateComplete() {
-        if (SystemInfo.isWindows) {
-            File file = new File(PathUtils.getApplicationBaseDir().path + File.separator + "flex_sdk" + File.separator + "bin" + File.separator + "placement.txt")
-            String str = 'Root="' + PathUtils.getApplicationBaseDir().path + File.separator + "flex_sdk" + File.separator + "bin" + '"'
-            FileUtils.write(file, str)
-
-            ProcessBuilder builder = new ProcessBuilder(file.parent + File.separator + "xbind.exe", "xbind.script", "placement.txt")
-            builder.start()
-        }
         super.updateComplete()
         okButton.text = "Done"
     }
