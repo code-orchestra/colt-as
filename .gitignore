@@ -16,3 +16,4 @@ flex_sdk_tmp
 
 /colt-as.iml
 .idea
+build/
