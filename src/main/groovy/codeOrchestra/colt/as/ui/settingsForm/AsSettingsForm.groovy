@@ -8,7 +8,6 @@ import codeOrchestra.colt.as.ui.settingsForm.compilerSettings.SDKSettingsForm
 import codeOrchestra.colt.as.ui.settingsForm.liveSettings.*
 import codeOrchestra.colt.as.ui.settingsForm.projectPaths.ProjectPathsForm
 import codeOrchestra.colt.as.ui.settingsForm.projectPaths.TemplateForm
-import codeOrchestra.colt.core.tracker.GAController
 import codeOrchestra.colt.core.ui.components.advancedSeparator.AdvancedSeparator
 import codeOrchestra.colt.core.ui.components.scrollpane.SettingsScrollPane
 import javafx.animation.KeyFrame
@@ -99,9 +98,6 @@ class AsSettingsForm extends SettingsScrollPane{
 
         CompilerSettingsForm compilerSettings = new CompilerSettingsForm()
         advancedVBox.children.add(compilerSettings)
-        //compilerSettings
-
-        GAController.instance.registerPage(this, "/as/asSettings.html", "asSettings")
     }
 
     void setSaveRunAction(EventHandler saveRunAction) {

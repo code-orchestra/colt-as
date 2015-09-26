@@ -1,25 +1,19 @@
 package codeOrchestra.colt.as.ui
-
 import codeOrchestra.colt.as.ASLiveCodingLanguageHandler
 import codeOrchestra.colt.as.compiler.fcsh.make.CompilationResult
 import codeOrchestra.colt.as.controller.ColtAsController
 import codeOrchestra.colt.as.model.ModelStorage
-import codeOrchestra.colt.as.model.beans.SDKModel
-import codeOrchestra.colt.as.run.Target
+import codeOrchestra.colt.as.ui.dialog.InstallFlexSDKDialog
 import codeOrchestra.colt.as.ui.productionBuildForm.AsProductionBuildForm
 import codeOrchestra.colt.as.ui.settingsForm.AsSettingsForm
 import codeOrchestra.colt.as.ui.testmode.AsTestSettingsForm
+import codeOrchestra.colt.as.util.ASPathUtils
 import codeOrchestra.colt.core.annotation.Service
 import codeOrchestra.colt.core.controller.ColtControllerCallback
 import codeOrchestra.colt.core.loading.LiveCodingHandlerManager
-import codeOrchestra.colt.core.session.LiveCodingSession
-import codeOrchestra.colt.core.session.listener.LiveCodingAdapter
-import codeOrchestra.colt.core.tracker.GAController
-import codeOrchestra.colt.core.tracker.GATracker
 import codeOrchestra.colt.core.ui.ApplicationGUI
 import codeOrchestra.colt.core.ui.ColtApplication
 import codeOrchestra.colt.core.ui.components.log.Log
-import codeOrchestra.colt.as.ui.dialog.InstallFlexSDKDialog
 import codeOrchestra.colt.core.ui.dialog.ProjectDialogs
 import codeOrchestra.colt.core.ui.dialog.UpdateDialog
 import javafx.application.Platform
@@ -27,8 +21,6 @@ import javafx.beans.property.BooleanProperty
 import javafx.beans.value.ChangeListener
 import javafx.beans.value.ObservableValue
 import javafx.event.EventHandler
-import codeOrchestra.colt.as.util.ASPathUtils
-
 /**
  * @author Dima Kruk
  */
@@ -178,55 +170,6 @@ class ASApplicationGUI extends ApplicationGUI {
         }
     }
 
-    protected void initGoogleAnalytics() {
-        GATracker.instance.trackPageView("/as/asProject.html", "asProject")
-        GAController.instance.pageContainer = root.centerProperty()
-        GAController.instance.registerEvent(runButton, "asActionMenu", "Run pressed")
-        GAController.instance.registerEvent(buildButton, "asActionMenu", "Build pressed")
-        GAController.instance.registerEvent(settingsButton, "asActionMenu", "Settings pressed")
-
-        liveCodingManager.addListener(new LiveCodingAdapter(){
-            @Override
-            void onSessionStart(LiveCodingSession session) {
-                String page = "/as/run"
-                Target targetType = model.project.projectBuildSettings.runTargetModel.runTarget
-                page += "/" + targetType.toString()
-                switch (targetType){
-                    case codeOrchestra.colt.as.run.Target.SWF:
-                        page += "_" + model.project.projectLiveSettings.launcherModel.launcherType.toString()
-                        break
-                    case codeOrchestra.colt.as.run.Target.WEB_ADDRESS:
-                        break
-                    case codeOrchestra.colt.as.run.Target.AIR_IOS:
-                    case codeOrchestra.colt.as.run.Target.AIR_ANDROID:
-                        page += "_" + model.project.projectLiveSettings.airLauncherType.toString()
-                        break
-                    case codeOrchestra.colt.as.run.Target.AIR_DESKTOP:
-                        break
-                }
-                page += ".html"
-                GATracker.instance.trackPageView(page, "runJsProject")
-
-                GATracker.instance.trackEventWithPage("asLiveMethods", model.project.projectLiveSettings.liveMethods.getPreferenceValue())
-
-                String action = "use"
-                SDKModel sdkModel = model.project.projectBuildSettings.sdkModel
-                if (sdkModel.useFlexConfig) {
-                    action += "_FlexConfig"
-                }
-                if (sdkModel.useCustomConfig) {
-                    action += "_CustomConfig"
-                }
-                GATracker.instance.trackEventWithPage("asSDKConfig", action)
-            }
-        })
-    }
-
     protected void onProductionBuild() {
-        String page = "/as/runProductionBuild"
-
-        page += ".html"
-        GATracker.instance.trackPageView(page, "runProductionBuildAsProject")
     }
-
 }

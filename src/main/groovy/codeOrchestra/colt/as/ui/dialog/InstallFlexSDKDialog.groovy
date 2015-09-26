@@ -15,13 +15,13 @@ class InstallFlexSDKDialog extends UpdateDialog {
         super(owner)
         String url;
         if (SystemInfo.isMac) {
-            throw new IllegalStateException("Unsupported OS: " + System.getProperty("os.name"));
+            throw new IllegalStateException("Unsupported OS: ${System.getProperty("os.name")}");
             //TODO slavara: check flexsdk url
             //url = "https://github.com/code-orchestra/flex-sdk-livecoding/releases/download/4.14.1/flex_sdk_mac.zip";
         } else if (SystemInfo.isWindows) {
             url = "https://github.com/code-orchestra/flex-sdk-livecoding/releases/download/4.14.1/flex_sdk_win.zip";
         } else {
-            throw new IllegalStateException("Unsupported OS: " + System.getProperty("os.name"));
+            throw new IllegalStateException("Unsupported OS: ${System.getProperty("os.name")}");
         }
         task = new UpdateTask(url, new File(PathUtils.getApplicationBaseDir(), "flex_sdk").getPath())
     }

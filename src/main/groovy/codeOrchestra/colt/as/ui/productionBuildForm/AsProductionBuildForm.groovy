@@ -1,7 +1,6 @@
 package codeOrchestra.colt.as.ui.productionBuildForm
 
 import codeOrchestra.colt.as.ui.settingsForm.compilerSettings.ProductionBuildForm
-import codeOrchestra.colt.core.tracker.GAController
 import codeOrchestra.colt.core.ui.components.scrollpane.SettingsScrollPane
 import javafx.event.EventHandler
 import javafx.scene.control.Button
@@ -26,8 +25,6 @@ class AsProductionBuildForm extends SettingsScrollPane{
         AnchorPane.setRightAnchor(saveAndBuildButton, 10)
         pane.children.add(saveAndBuildButton)
         mainContainer.children.add(pane)
-
-        GAController.instance.registerPage(this, "/as/asProductionBuild.html", "asProductionBuild")
     }
 
     void setSaveBuildAction(EventHandler saveBuildAction) {
