@@ -110,7 +110,7 @@ class FCSHFlexSDKRunner extends AbstractFlexSDKRunner {
 
         try {
             FileUtils.copyFileChecked(configFile, configFileTarget, true);
-        } catch (IOException e) {
+        } catch (IOException ignored) {
             throw new RuntimeException("Can't copy config to " + configFileTarget);
         }
 
@@ -123,7 +123,7 @@ class FCSHFlexSDKRunner extends AbstractFlexSDKRunner {
             use(DOMCategory) {
                 Closure<Void> cl = {
                     it.value = new File(configDir, it.text()).path
-                }
+                } as Closure<Void>
 
                 (flexConfig.'**'.'path-element').each(cl)
                 (flexConfig.'**'.'filename').each(cl)

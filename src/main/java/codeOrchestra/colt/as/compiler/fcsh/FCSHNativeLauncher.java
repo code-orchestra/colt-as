@@ -40,16 +40,16 @@ public class FCSHNativeLauncher implements IFCSHLauncher {
 
 
         // Tracing parameters
-        programParameters.append(" -DcodeOrchestra.trace.host=" + LocalhostUtil.getLocalhostIp());
-        programParameters.append(" -DcodeOrchestra.trace.port=" + LoggerServerSocketThread.LOGGING_PORT);
+        programParameters.append(" -DcodeOrchestra.trace.host=").append(LocalhostUtil.getLocalhostIp());
+        programParameters.append(" -DcodeOrchestra.trace.port=").append(LoggerServerSocketThread.LOGGING_PORT);
 
         // Livecoding parameters
         if (currentProject != null) {
             AsProjectLiveSettings liveCodingSettings = currentProject.getProjectLiveSettings();
-            programParameters.append(" -DcodeOrchestra.live.liveMethods=" + liveCodingSettings.getLiveMethods().getPreferenceValue());
-            programParameters.append(" -DcodeOrchestra.live.gettersSetters=" + liveCodingSettings.makeGettersSettersLive());
-            programParameters.append(" -DcodeOrchestra.live.maxLoops=" + liveCodingSettings.getMaxIterationsCount());
-            programParameters.append(" -DcodeOrchestra.digestsDir=" + protect(currentProject.getDigestsDir().getPath()));
+            programParameters.append(" -DcodeOrchestra.live.liveMethods=").append(liveCodingSettings.getLiveMethods().getPreferenceValue());
+            programParameters.append(" -DcodeOrchestra.live.gettersSetters=").append(liveCodingSettings.makeGettersSettersLive());
+            programParameters.append(" -DcodeOrchestra.live.maxLoops=").append(liveCodingSettings.getMaxIterationsCount());
+            programParameters.append(" -DcodeOrchestra.digestsDir=").append(protect(currentProject.getDigestsDir().getPath()));
         }
 
         processBuilder.environment().put("JETVMPROP", programParameters.toString());

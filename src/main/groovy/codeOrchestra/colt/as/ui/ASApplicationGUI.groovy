@@ -6,7 +6,6 @@ import codeOrchestra.colt.as.model.ModelStorage
 import codeOrchestra.colt.as.ui.dialog.InstallFlexSDKDialog
 import codeOrchestra.colt.as.ui.productionBuildForm.AsProductionBuildForm
 import codeOrchestra.colt.as.ui.settingsForm.AsSettingsForm
-import codeOrchestra.colt.as.ui.testmode.AsTestSettingsForm
 import codeOrchestra.colt.as.util.ASPathUtils
 import codeOrchestra.colt.core.annotation.Service
 import codeOrchestra.colt.core.controller.ColtControllerCallback
@@ -43,14 +42,6 @@ class ASApplicationGUI extends ApplicationGUI {
     ASApplicationGUI() {
         init()
         println "runTime = ${System.currentTimeMillis() - ColtApplication.timeStarted}"
-    }
-
-    @Override
-    protected void showTestSettingsForm() {
-        if (testSettingsForm == null) {
-            testSettingsForm = new AsTestSettingsForm()
-        }
-        super.showTestSettingsForm()
     }
 
     private void init() {
