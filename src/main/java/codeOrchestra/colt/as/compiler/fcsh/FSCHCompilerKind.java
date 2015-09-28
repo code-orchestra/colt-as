@@ -13,7 +13,7 @@ public enum FSCHCompilerKind {
   
   private String commandName;
 
-  private FSCHCompilerKind(String commandName) {
+  FSCHCompilerKind(String commandName) {
     this.commandName = commandName;
   }
 

@@ -25,7 +25,7 @@ class AsProjectLiveSettings extends ProjectLiveSettings<AsProject>{
     public LauncherType getLauncherType() {
         try {
             return LauncherType.valueOf(launcherModel.launcherType);
-        } catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException ignored) {
             return LauncherType.DEFAULT;
         }
     }
@@ -33,7 +33,7 @@ class AsProjectLiveSettings extends ProjectLiveSettings<AsProject>{
     public AirLauncherType getAirLauncherType() {
         try {
             return AirLauncherType.valueOf(airLauncherModel.launcherType);
-        } catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException ignored) {
             return AirLauncherType.DEVICE;
         }
     }

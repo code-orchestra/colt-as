@@ -61,7 +61,7 @@ class AsProject extends Project {
         return (AsProject) ColtProjectManager.instance.currentProject
     }
 
-    File getOrCreateIncrementalSourcesDir() {
+    static File getOrCreateIncrementalSourcesDir() {
         File incrementalSourcesDir = new File(ProjectStorageManager.getOrCreateProjectStorageDir(), "incremental")
         if (!incrementalSourcesDir.exists()) {
             incrementalSourcesDir.mkdir()
@@ -81,15 +81,15 @@ class AsProject extends Project {
         return new File(outputPath);
     }
 
-    File getDefaultOutputDir() {
+    static File getDefaultOutputDir() {
         return new File(ProjectStorageManager.getOrCreateProjectStorageDir(), "colt_output")
     }
 
-    File getDigestsDir() {
+    static File getDigestsDir() {
         return new File(ProjectStorageManager.getOrCreateProjectStorageDir(), "digests")
     }
 
-    File getIncrementalOutputDir() {
+    static File getIncrementalOutputDir() {
         new File(ProjectStorageManager.getOrCreateProjectStorageDir(), "livecoding")
     }
 

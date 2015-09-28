@@ -38,7 +38,7 @@ class AsProjectBuildSettings extends ProjectBuildSettings<AsProject> {
         return buildModel.excludeDeadCode
     }
 
-    public List<String> getExcludedClasses() {
+    public static List<String> getExcludedClasses() {
         // TODO: implement
         return Collections.emptyList();
     }
