@@ -14,10 +14,7 @@ public class ColtCompilationResult {
   private boolean successful;
   private ColtCompilerMessage[] errorMessages;
   private ColtCompilerMessage[] warningMessages;
-  
-  public ColtCompilationResult() {
-  }
-  
+
   public ColtCompilationResult(CompilationResult compilationResult) {
     this.successful = compilationResult.isOk();
     
