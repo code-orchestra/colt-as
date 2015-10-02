@@ -22,7 +22,7 @@ public final class MessageScopeRegistry {
   private Map<String, MessageScope> scopeMap = new HashMap<>();
 
   private MessageScopeRegistry() {
-    scopeMap.put(MAIN_SCOPE_ID, new MessageScope(MAIN_SCOPE_ID, MAIN_SCOPE_NAME));
+    scopeMap.put(MAIN_SCOPE_ID, new MessageScope(MAIN_SCOPE_NAME));
   }
 
   public void addOrUpdateScope(String scopeId, String scopeName) {
@@ -36,7 +36,7 @@ public final class MessageScopeRegistry {
       
       MessageScope scope = scopeMap.get(scopeId);
       if (scope == null) {
-        scope = new MessageScope(scopeId, scopeName);
+        scope = new MessageScope(scopeName);
         scopeMap.put(scopeId, scope);
 
           // TODO: implement - add a messages manager
@@ -44,12 +44,6 @@ public final class MessageScopeRegistry {
       } else {
         scope.setName(scopeName);
       }
-    }
-  }
-
-  public MessageScope getScope(String scopeId) {
-    synchronized (scopeMap) {
-     return scopeMap.get(scopeId);
     }
   }
 

@@ -1,7 +1,6 @@
 package codeOrchestra.colt.as.compiler.fcsh;
 
 import codeOrchestra.colt.as.compiler.fcsh.console.command.AbstractCommandCallback;
-import codeOrchestra.colt.as.compiler.fcsh.console.command.output.ProcessOutputTypes;
 import codeOrchestra.colt.as.view.FCSHConsoleView;
 import codeOrchestra.colt.core.execution.OSProcessHandler;
 import codeOrchestra.colt.core.execution.ProcessEvent;
@@ -33,12 +32,12 @@ public class FCSHProcessHandler extends OSProcessHandler {
         if (!initialized && text != null && text.contains(AbstractCommandCallback.FCSH_COMMAND_PROMPT)) {
           initialized = true;
         }
-        append(text, k);
+        append(text);
       }
     });
   }
 
-  private synchronized void append(String s, String key) {
+  private synchronized void append(String s) {
     if (StringUtils.isNotEmpty(s)) {
       FCSHConsoleView.get().write(s);
     }
@@ -61,7 +60,7 @@ public class FCSHProcessHandler extends OSProcessHandler {
       getProcessInputWriter().append(s);
       getProcessInputWriter().flush();
 
-      append("> " + s, ProcessOutputTypes.STDOUT);
+      append("> " + s);
       return true;
     } catch (IOException ex) {
       if (ExceptionUtils.isBrokenPipe(ex)) {

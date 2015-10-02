@@ -1,10 +1,8 @@
 package codeOrchestra.colt.as.flexsdk;
 
 import codeOrchestra.util.FileUtils;
-import codeOrchestra.util.StringUtils;
 
 import java.io.File;
-import java.io.FilenameFilter;
 import java.util.*;
 
 /**
@@ -183,12 +181,9 @@ public class FlexSDKManager {
     }
 
     private static File getPlayerglobalSWCFile(File playerDir) {
-        File[] swcs = playerDir.listFiles(new FilenameFilter() {
-            @Override
-            public boolean accept(File file, String s) {
-                String fileNameLowerCase = s.toLowerCase();
-                return fileNameLowerCase.startsWith("playerglobal") && fileNameLowerCase.endsWith(".swc");
-            }
+        File[] swcs = playerDir.listFiles((file, s) -> {
+            String fileNameLowerCase = s.toLowerCase();
+            return fileNameLowerCase.startsWith("playerglobal") && fileNameLowerCase.endsWith(".swc");
         });
         if (swcs.length > 0) {
             return swcs[0];
@@ -206,39 +201,9 @@ public class FlexSDKManager {
             playersList.add(playerDir);
         }
 
-        Collections.sort(playersList, new Comparator<File>() {
-            @Override
-            public int compare(File playerPath1, File playerPath2) {
-                return getPlayerVersion(playerPath2) - getPlayerVersion(playerPath1);
-            }
-
-        });
+        Collections.sort(playersList, (playerPath1, playerPath2) -> getPlayerVersion(playerPath2) - getPlayerVersion(playerPath1));
 
         return playersList.get(0);
-    }
-
-    public String getPlayerVersion() {
-        try {
-            if (playerDirName != null) {
-                String[] version = new String[]{"10", "0", "0"};
-
-                String[] dirNameSplitted = playerDirName.split("\\.");
-                if (dirNameSplitted != null && dirNameSplitted.length > 0) {
-                    for (int i = 0; i < dirNameSplitted.length; i++) {
-                        if (i < version.length) {
-                            version[i] = dirNameSplitted[i];
-                        } else {
-                            break;
-                        }
-                    }
-                }
-
-                return StringUtils.join(version, ".");
-            }
-        } catch (Throwable t) {
-            // do nothing
-        }
-        return DEFAULT_PLAYER_VERSION;
     }
 
     private static int getPlayerVersion(File playerPath) {

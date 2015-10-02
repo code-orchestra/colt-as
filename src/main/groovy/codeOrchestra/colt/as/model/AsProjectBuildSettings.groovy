@@ -22,10 +22,6 @@ class AsProjectBuildSettings extends ProjectBuildSettings<AsProject> {
         return runTargetModel.httpIndex
     }
 
-    void setWebAddress(String webAddress) {
-        runTargetModel.httpIndex = webAddress
-    }
-
     public boolean allowCompression() {
         return productionBuildModel.compression
     }

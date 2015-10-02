@@ -5,7 +5,6 @@ import codeOrchestra.util.FileUtils;
 import codeOrchestra.util.ProjectHelper;
 
 import java.io.File;
-import java.io.FilenameFilter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -28,7 +27,7 @@ public enum FlexSDKLib {
   
   private String libPath;
 
-  private FlexSDKLib(String libPath) {
+  FlexSDKLib(String libPath) {
     this.libPath = libPath;
   }
 
@@ -132,12 +131,9 @@ public enum FlexSDKLib {
   }
   
   private static File getPlayerglobalSWCFile(File playerDir) {
-    File[] swcs = playerDir.listFiles(new FilenameFilter() {
-      @Override
-      public boolean accept(File file, String s) {
-        String fileNameLowerCase = s.toLowerCase();
-        return fileNameLowerCase.startsWith("playerglobal") && fileNameLowerCase.endsWith(".swc");
-      }
+    File[] swcs = playerDir.listFiles((file, s) -> {
+      String fileNameLowerCase = s.toLowerCase();
+      return fileNameLowerCase.startsWith("playerglobal") && fileNameLowerCase.endsWith(".swc");
     });
     if (swcs.length > 0) {
       return swcs[0];

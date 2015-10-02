@@ -14,7 +14,6 @@ import codeOrchestra.util.NameUtil;
 import codeOrchestra.util.StringUtils;
 
 import java.io.File;
-import java.io.FileFilter;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.util.List;
@@ -102,15 +101,12 @@ public class FlexConfigBuilder {
       for (String sourcePath : project.getProjectPaths().getSourcePaths()) {
         File sourceDir = new File(sourcePath);
         if (sourceDir.exists()) {
-          List<File> nonSources = FileUtils.listFileRecursively(sourceDir, new FileFilter() {            
-            @Override
-            public boolean accept(File file) {
-              if (file.isDirectory()) {
-                return false;
-              }
-              String fileNameLowerCase = file.getName().toLowerCase();
-              return !fileNameLowerCase.endsWith(".as") && !fileNameLowerCase.endsWith(".mxml");
+          List<File> nonSources = FileUtils.listFileRecursively(sourceDir, file -> {
+            if (file.isDirectory()) {
+              return false;
             }
+            String fileNameLowerCase = file.getName().toLowerCase();
+            return !fileNameLowerCase.endsWith(".as") && !fileNameLowerCase.endsWith(".mxml");
           });
           for (File nonSource : nonSources) {
             String relativePath = FileUtils.getRelativePath(nonSource.getPath(), sourceDir.getPath(), File.separator);
@@ -188,12 +184,9 @@ public class FlexConfigBuilder {
         continue;
       }
 
-      List<File> sourceFiles = FileUtils.listFileRecursively(sourceDir, new FileFilter() {
-        @Override
-        public boolean accept(File file) {
-          String filenameLowerCase = file.getName().toLowerCase();
-          return filenameLowerCase.endsWith(ASSourceFile.DOT_AS) || filenameLowerCase.endsWith(ASSourceFile.DOT_MXML);
-        }
+      List<File> sourceFiles = FileUtils.listFileRecursively(sourceDir, file -> {
+        String filenameLowerCase = file.getName().toLowerCase();
+        return filenameLowerCase.endsWith(ASSourceFile.DOT_AS) || filenameLowerCase.endsWith(ASSourceFile.DOT_MXML);
       });
 
       for (File sourceFile : sourceFiles) {
@@ -207,7 +200,7 @@ public class FlexConfigBuilder {
         
         if (!StringUtils.isEmpty(relativePath)) {
           String fqName = NameUtil.namespaceFromPath(relativePath);
-            List<String> usedClassesFqNames = null;
+            List<String> usedClassesFqNames;
             try {
                 usedClassesFqNames = new LinkReportReader(currentProject.getLinkReportFile()).fetchUsedClassesFqNames();
             } catch (LinkReportException e) {
@@ -224,5 +217,4 @@ public class FlexConfigBuilder {
       }
     }
   }
-
 }

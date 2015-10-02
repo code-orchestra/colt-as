@@ -20,7 +20,7 @@ public class LinkReportReader {
   public List<String> fetchUsedClassesFqNames() throws LinkReportException {
     List<String> result = new ArrayList<>();
 
-      Document document = null;
+      Document document;
       try {
           document = XMLUtils.fileToDOM(reportFile);
       } catch (Throwable t) {

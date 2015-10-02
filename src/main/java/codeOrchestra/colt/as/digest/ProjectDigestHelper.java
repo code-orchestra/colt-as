@@ -34,7 +34,7 @@ public class ProjectDigestHelper {
       return result;
     }
 
-      Document document = null;
+      Document document;
       try {
           document = XMLUtils.fileToDOM(embedDigestsFile);
       } catch (Throwable t) {
