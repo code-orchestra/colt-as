@@ -70,8 +70,8 @@ public class AsMaker {
 
         // Generate & save Flex config
         FlexConfigBuilder flexConfigBuilder = new FlexConfigBuilder(currentProject, isIncremental, changedFiles, assetMode);
-        FlexConfig flexConfig = null;
-        File flexConfigFile = null;
+        FlexConfig flexConfig;
+        File flexConfigFile;
         try {
             flexConfig = flexConfigBuilder.build();
         } catch (BuildException e) {
@@ -168,7 +168,7 @@ public class AsMaker {
         CompilationResult compilationResult = flexSDKRunner.run();
 
         if (compilationResult == null) {
-            String errorMessage = String.format("Compilation timed out");
+            String errorMessage = "Compilation timed out";
             LOG.error(errorMessage);
             return CompilationResult.ABORTED;
         }

@@ -79,10 +79,10 @@ public class ColtAsController extends AbstractColtController<AsProject> {
             @Override
             public void onError(Throwable t, CompilationResult errorResult) {
             }
-        }, true, true);
+        }, true);
     }
 
-    public void startProductionCompilation(final ColtControllerCallback<CompilationResult, CompilationResult> callback, final boolean run, boolean sync) {
+    public void startProductionCompilation(final ColtControllerCallback<CompilationResult, CompilationResult> callback, final boolean run) {
         final AsProject currentProject = ProjectHelper.getCurrentProject();
         LOG.info("Starting production build (" + getProjectTarget(currentProject).getDescription() + ")");
 
@@ -150,10 +150,10 @@ public class ColtAsController extends AbstractColtController<AsProject> {
             @Override
             public void onError(Throwable t, CompilationResult errorResult) {
             }
-        }, true, true);
+        }, true);
     }
 
-    public void startBaseCompilation(final ColtControllerCallback<CompilationResult, CompilationResult> callback, final boolean run, boolean sync) {
+    public void startBaseCompilation(final ColtControllerCallback<CompilationResult, CompilationResult> callback, final boolean run) {
         try {
             ColtProjectManager.getInstance().save();
         } catch (ColtException e) {
@@ -202,7 +202,7 @@ public class ColtAsController extends AbstractColtController<AsProject> {
                 }
                 try {
                     Thread.sleep(1000);
-                } catch (InterruptedException e1) {
+                } catch (InterruptedException ignored) {
                 }
                 progressIndicator.setProgress(40);
 

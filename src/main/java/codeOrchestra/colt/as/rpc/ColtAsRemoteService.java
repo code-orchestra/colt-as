@@ -9,13 +9,8 @@ import codeOrchestra.colt.core.rpc.ColtRemoteTransferableException;
  * @author Alexander Eliseyev
  */
 public interface ColtAsRemoteService extends ColtRemoteService<AsProject> {
-
     // Secured methods
-
     ColtCompilationResult runBaseCompilation(String securityToken) throws ColtRemoteTransferableException;
-
     ColtCompilationResult runBaseCompilation(String securityToken, boolean run) throws ColtRemoteTransferableException;
-
     ColtCompilationResult runProductionCompilation(String securityToken, boolean run) throws ColtRemoteTransferableException;
-
 }

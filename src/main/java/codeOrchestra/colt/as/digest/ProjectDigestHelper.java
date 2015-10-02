@@ -11,6 +11,7 @@ import org.w3c.dom.NodeList;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author Alexander Eliseyev
@@ -64,10 +65,8 @@ public class ProjectDigestHelper {
         swcPaths.add(swcPath);
       }
     }
-    
-    for (String projectLibPath : project.getProjectPaths().getLibraryPaths()) {
-      swcPaths.add(projectLibPath);
-    }
+
+    swcPaths.addAll(project.getProjectPaths().getLibraryPaths().stream().collect(Collectors.toList()));
     
     SWCDigest swcDigest = new SWCDigest(swcPaths, project.getDigestsDir().getPath());
     swcDigest.generate();

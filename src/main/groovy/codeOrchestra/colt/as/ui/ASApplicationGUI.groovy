@@ -130,7 +130,7 @@ class ASApplicationGUI extends ApplicationGUI {
                 onError: { Throwable t, CompilationResult errorResult ->
                     onRunError()
                 }
-        ] as ColtControllerCallback, true, true)
+        ] as ColtControllerCallback, true)
     }
 
     void runBuild() {
