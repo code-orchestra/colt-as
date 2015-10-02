@@ -14,9 +14,6 @@ public class ColtCompilerMessage {
   private String content;
   private String fullMessage;
 
-  public ColtCompilerMessage() {
-  }
-  
   public ColtCompilerMessage(CompilerMessage compilerMessage) {
     this.sourcePath = compilerMessage.getSourcePath();
     this.lineNumber = compilerMessage.getLineNumber();
