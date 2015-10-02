@@ -18,10 +18,6 @@ abstract class AirBuildScriptGenerator {
         return new File(project.getOutputDir(), getScriptFileName())
     }
 
-    File getDescScriptPath(AsProject project) {
-        return new File(project.getOutputDir(), appName + "-app.xml")
-    }
-
     protected abstract String getScriptFileName()
 
     abstract String generate(Object airModel, List<File> packagedFiles) throws IOException

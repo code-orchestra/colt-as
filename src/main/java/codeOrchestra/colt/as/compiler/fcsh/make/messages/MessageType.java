@@ -10,7 +10,7 @@ public enum MessageType {
 
   private String presentation;
 
-  private MessageType(String presentation) {
+  MessageType(String presentation) {
     this.presentation = presentation;
   }
 

@@ -54,8 +54,6 @@ class LiveSettingsForm extends FormGroup {
         methods = new ToggleGroup()
         methods.toggles.addAll(all.radioButton, annotated.radioButton)
 
-        maxLoop.numeric = true
-
         bindModel()
 
         if (!model.liveType) {

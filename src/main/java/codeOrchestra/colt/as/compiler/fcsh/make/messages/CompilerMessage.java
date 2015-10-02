@@ -14,8 +14,6 @@ public class CompilerMessage implements Serializable {
 
   private final static String MESSAGE_PATTERN = "^\\s*((?:\\w:)?[^:]+)\\((\\d+)\\):\\s+col:\\s+(\\d+):?\\s+(Error|Warning):\\s+(.+)\\s*$";
 
-  public static final String TRACE_INFO = ".trace.info";
-
   // Match group numbers:
 
   // 1 - source path
@@ -29,11 +27,6 @@ public class CompilerMessage implements Serializable {
   private int columnNumber;
   private MessageType type;
   private String content;
-
-  public CompilerMessage(MessageType type, String content) {
-    this.type = type;
-    this.content = content;
-  }
 
   private CompilerMessage(Matcher messageMatcher) {
     String sourcePathRaw = messageMatcher.group(1);

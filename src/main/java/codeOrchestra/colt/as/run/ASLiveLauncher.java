@@ -20,7 +20,6 @@ import codeOrchestra.util.SystemInfo;
 import codeOrchestra.util.process.ProcessHandlerBuilder;
 
 import java.io.File;
-import java.io.FilenameFilter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -179,11 +178,8 @@ public class ASLiveLauncher implements LiveLauncher<AsProject> {
                     throw new ExecutionException("Can't locate Flash Player under " + playerPath);
                 }
 
-                File[] files = executableDir.listFiles(new FilenameFilter() {
-                    public boolean accept(File file, String fileName) {
-                        return fileName.toLowerCase().contains("player");
-                    }
-
+                File[] files = executableDir.listFiles((file, fileName) -> {
+                    return fileName.toLowerCase().contains("player");
                 });
                 if (files == null || files.length == 0) {
                     throw new ExecutionException("Can't locate Flash Player under " + playerPath);

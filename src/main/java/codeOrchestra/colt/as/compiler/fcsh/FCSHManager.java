@@ -220,13 +220,6 @@ public class FCSHManager {
     return mxmlcCommand.getCompileResult();
   }
 
-  public void deleteLivecodingCaches() throws FCSHException {
-    assureFCSHIsActive();
-
-    LivecodingCachesDeleteCommand deleteCachesCommand = new LivecodingCachesDeleteCommand();
-    submitCommand(deleteCachesCommand);
-  }
-
   public void startCPUProfiling() throws FCSHException {
     if (!FCSHLauncher.PROFILING_ON) {
       return;

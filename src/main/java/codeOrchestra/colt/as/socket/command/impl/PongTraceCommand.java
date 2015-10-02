@@ -49,7 +49,7 @@ public final class PongTraceCommand implements TraceCommand {
     pongListeners.remove(listener);
   }
 
-  public static interface PongListener {
+  public interface PongListener {
     void pong();
   }
 

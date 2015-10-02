@@ -32,18 +32,6 @@ class AsProjectPaths extends ProjectPaths<AsProject> {
         return htmlTemplatePath
     }
 
-    public addSources(String[] value) {
-        sources = FilesetInput.createFilesetString(value.collect{new File(it)})
-    }
-
-    public addLibraries(String[] value) {
-        libraries = FilesetInput.createFilesetString(value.collect{new File(it)})
-    }
-
-    public addAssets(String[] value) {
-        assets = FilesetInput.createFilesetString(value.collect{new File(it)})
-    }
-
     public List<String> getSourcePaths() {
         return FilesetInput.getDirectoriesFromString(sources).collect{it.path}
     }

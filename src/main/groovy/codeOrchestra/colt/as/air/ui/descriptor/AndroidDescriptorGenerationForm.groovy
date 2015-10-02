@@ -18,7 +18,7 @@ class AndroidDescriptorGenerationForm extends DescriptorGenerationForm {
 
     @Override
     protected String generateTemplate(File outFile) {
-        DescriptorConverter.makeTemplateForAndroid(descriptorModel, airModel, outFile)
+        DescriptorConverter.makeTemplateForAndroid(descriptorModel, outFile)
         return outFile.path
     }
 }

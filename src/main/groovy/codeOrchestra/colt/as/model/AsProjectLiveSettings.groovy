@@ -46,10 +46,6 @@ class AsProjectLiveSettings extends ProjectLiveSettings<AsProject>{
         return launcherModel.flashPlayerPath;
     }
 
-    public void setFlashPlayerPath(String flashPlayerPath) {
-        launcherModel.flashPlayerPath = flashPlayerPath;
-    }
-
     public LiveMethods getLiveMethods() {
         return LiveMethods.parseValue(liveSettingsModel.liveType);
     }
@@ -58,16 +54,8 @@ class AsProjectLiveSettings extends ProjectLiveSettings<AsProject>{
         liveSettingsModel.liveType = liveMethods.preferenceValue;
     }
 
-    public boolean clearMessagesOnSessionStart() {
-        return settingsModel.clearLog;
-    }
-
     public boolean disconnectOnTimeout() {
         return settingsModel.disconnectOnTimeout;
-    }
-
-    public boolean startSessionPaused() {
-        return liveSettingsModel.startSessionPaused;
     }
 
     public boolean makeGettersSettersLive() {

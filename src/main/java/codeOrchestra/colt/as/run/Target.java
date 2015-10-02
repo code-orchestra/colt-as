@@ -13,7 +13,7 @@ public enum Target {
 
     private String description;
 
-    private Target(String description) {
+    Target(String description) {
         this.description = description;
     }
 

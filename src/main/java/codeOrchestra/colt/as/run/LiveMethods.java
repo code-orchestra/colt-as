@@ -10,7 +10,7 @@ public enum LiveMethods {
   
   private String preferenceValue;
 
-  private LiveMethods(String preferenceValue) {
+  LiveMethods(String preferenceValue) {
     this.preferenceValue = preferenceValue;
   }
   

@@ -1,15 +1,10 @@
 package codeOrchestra.colt.as.ui.settingsForm.compilerSettings
-
 import codeOrchestra.colt.as.flexsdk.FlexSDKManager
 import codeOrchestra.colt.as.model.ModelStorage
 import codeOrchestra.colt.as.model.beans.BuildModel
 import codeOrchestra.colt.as.model.beans.SDKModel
 import codeOrchestra.colt.as.ui.settingsForm.IFormValidated
 import codeOrchestra.colt.core.ui.components.inputForms.*
-import codeOrchestra.colt.core.ui.components.inputForms.CheckBoxInput
-import codeOrchestra.colt.core.ui.components.inputForms.CheckBoxWithTextInput
-import codeOrchestra.colt.core.ui.components.inputForms.LabeledActionInput
-import codeOrchestra.colt.core.ui.components.inputForms.LabeledTitledInput
 import codeOrchestra.colt.core.ui.components.inputForms.base.BrowseType
 import codeOrchestra.colt.core.ui.components.inputForms.group.FormGroup
 import javafx.beans.InvalidationListener
@@ -18,7 +13,6 @@ import javafx.beans.value.ObservableValue
 import javafx.scene.Parent
 import javafx.util.StringConverter
 import javafx.util.converter.IntegerStringConverter
-
 /**
  * @author Dima Kruk
  */
@@ -54,8 +48,6 @@ class BuildSettingsForm extends FormGroup implements IFormValidated {
     }
 
     void init() {
-
-        interrupt.numeric = true
 
         if (sdkModel.isValidFlexSDK) {
             initChoiceBox()

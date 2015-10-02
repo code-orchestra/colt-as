@@ -17,18 +17,6 @@ class DescriptorConverter {
     static File getBaseTemplate() {
         return new File(ASPathUtils.flexSDKPath, "templates/air/descriptor-template.xml")
     }
-    static void makeTemplate(DescriptorModel model, File outFile ) {
-        File file = getBaseTemplate()
-        String fileContent = FileUtils.read(file)
-
-        String out = replaceBase(fileContent, model)
-
-        StringWriter writer = new StringWriter()
-        writer.write(out)
-        FileWriter fileWriter = new FileWriter(outFile)
-        fileWriter.write(writer.toString())
-        fileWriter.close()
-    }
 
     static void makeTemplateForIOS(DescriptorModel model, IOSDescriptorModel iosModel, File outFile) {
         File file = getBaseTemplate()
@@ -44,12 +32,12 @@ class DescriptorConverter {
         fileWriter.close()
     }
 
-    static void makeTemplateForAndroid(DescriptorModel model, AndroidDescriptorModel androidModel, File outFile) {
+    static void makeTemplateForAndroid(DescriptorModel model, File outFile) {
         File file = getBaseTemplate()
         String fileContent = FileUtils.read(file)
 
         String out = replaceBase(fileContent, model)
-        out = replaceForAndroid(out, androidModel)
+        out = replaceForAndroid(out)
 
         StringWriter writer = new StringWriter()
         writer.write(out)
@@ -144,7 +132,7 @@ class DescriptorConverter {
         return result
     }
 
-    static String replaceForAndroid(String source, AndroidDescriptorModel model) {
+    static String replaceForAndroid(String source) {
         String result = source.replaceAll("<!--<android> -->", "<android>")
         result = result.replaceAll("<!--\t<manifestAdditions>", "\t<manifestAdditions>")
         result = result.replaceAll("<manifest android:installLocation=\"auto\">\n" +
@@ -237,7 +225,7 @@ class DescriptorConverter {
         String fileContent = FileUtils.read(file)
 
         String out = replaceBase(fileContent, model)
-        out = replaceForAndroid(out, andriondModel)
+        out = replaceForAndroid(out)
         out = replaceAfterCompile(out, swf)
 
         StringWriter writer = new StringWriter()
