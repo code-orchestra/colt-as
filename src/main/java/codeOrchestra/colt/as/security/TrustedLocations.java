@@ -57,7 +57,7 @@ public class TrustedLocations {
 
     String trustConfigurationContent = FileUtils.read(getOrCreateTrustConfigurationFile());
     String[] trustLocationsSplit = trustConfigurationContent.split("\\n");
-    if (trustLocationsSplit != null && trustLocationsSplit.length > 0) {
+    if (trustLocationsSplit.length > 0) {
       for (String token : trustLocationsSplit) {
         if (token != null && StringUtils.isNotEmpty(token.trim())) {
           trustedLocations.add(token.trim());          

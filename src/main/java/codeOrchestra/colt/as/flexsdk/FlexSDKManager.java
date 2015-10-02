@@ -22,11 +22,7 @@ public class FlexSDKManager {
     private static final String REGULAR_LIBS_RELATIVE_PATH = "frameworks" + File.separator + "libs";
     private static final String PLAYERLIBS_RELATIVE_PATH = REGULAR_LIBS_RELATIVE_PATH + File.separator + "player";
 
-    private static final String DEFAULT_PLAYER_VERSION = "10.2.0";
-
     private Map<FlexSDKLibWrapper, String> libPathCache = new HashMap<>();
-
-    private String playerDirName;
 
     public void checkIsValidFlexSDKPath(String flexSDKPath) throws FlexSDKNotPresentException {
         for (FlexSDKLib flexSDKLib : FlexSDKLib.values()) {
@@ -95,14 +91,13 @@ public class FlexSDKManager {
             String playerglobalSWCPath = getMostRecentPlayerglobalSWCPath(flexSDKDir);
             cacheLibPath(flexLibKey, playerglobalSWCPath);
             return playerglobalSWCPath;
-        } else {
-            String libPath = flexSDKDir.getPath() + File.separator + REGULAR_LIBS_RELATIVE_PATH + File.separator + flexSDKLib.getLibRelativePath();
-            if (FileUtils.doesExist(libPath)) {
-                cacheLibPath(flexLibKey, libPath);
-                return libPath;
-            }
-            throw new FlexSDKNotPresentException("Can't locate the " + flexSDKLib.getLibRelativePath() + " in the Flex SDK path configured");
         }
+        String libPath = flexSDKDir.getPath() + File.separator + REGULAR_LIBS_RELATIVE_PATH + File.separator + flexSDKLib.getLibRelativePath();
+        if (FileUtils.doesExist(libPath)) {
+            cacheLibPath(flexLibKey, libPath);
+            return libPath;
+        }
+        throw new FlexSDKNotPresentException("Can't locate the " + flexSDKLib.getLibRelativePath() + " in the Flex SDK path configured");
     }
 
     public List<String> getAvailablePlayerVersions(File flexSDKDir) throws FlexSDKNotPresentException {
@@ -175,7 +170,6 @@ public class FlexSDKManager {
         }
 
         playerglobalFile = getPlayerglobalSWCFile(playerDir);
-        playerDirName = playerDir.getName();
 
         return playerglobalFile.getPath();
     }
@@ -197,10 +191,7 @@ public class FlexSDKManager {
         }
 
         List<File> playersList = new ArrayList<>();
-        for (File playerDir : playerDirs) {
-            playersList.add(playerDir);
-        }
-
+        Collections.addAll(playersList, playerDirs);
         Collections.sort(playersList, (playerPath1, playerPath2) -> getPlayerVersion(playerPath2) - getPlayerVersion(playerPath1));
 
         return playersList.get(0);
@@ -214,8 +205,8 @@ public class FlexSDKManager {
                 String[] dirNameSplitted = dirName.split("\\.");
                 int versionInt = 0;
 
-                for (int i = 0; i < dirNameSplitted.length; i++) {
-                    versionInt += (Integer.valueOf(dirNameSplitted[i]) * (Math.pow(10, power)));
+                for (String aDirNameSplitted : dirNameSplitted) {
+                    versionInt += (Integer.valueOf(aDirNameSplitted) * (Math.pow(10, power)));
                     power--;
                 }
 
@@ -247,10 +238,8 @@ public class FlexSDKManager {
 
             if (flexSDKPath != null ? !flexSDKPath.equals(that.flexSDKPath) : that.flexSDKPath != null)
                 return false;
-            if (namespace != null ? !namespace.equals(that.namespace) : that.namespace != null)
-                return false;
+            return !(namespace != null ? !namespace.equals(that.namespace) : that.namespace != null);
 
-            return true;
         }
 
         @Override

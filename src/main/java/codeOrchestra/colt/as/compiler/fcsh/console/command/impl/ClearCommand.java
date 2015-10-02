@@ -15,7 +15,6 @@ public class ClearCommand extends AbstractCommandCallback {
 
   @Override
   public void done(CommandOutput response) {
-    // nothing here
   }
 
   @Override

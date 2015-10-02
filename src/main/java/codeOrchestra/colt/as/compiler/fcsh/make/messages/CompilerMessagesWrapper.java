@@ -41,11 +41,7 @@ public class CompilerMessagesWrapper {
         }
       }
     } else {
-      for (CompilerMessage compilerMessage : messages) {
-        if (smartMessages.size() < MAX_SMART_MESSAGES_COUNT) {
-          smartMessages.add(compilerMessage);
-        }
-      }
+      messages.stream().filter(compilerMessage -> smartMessages.size() < MAX_SMART_MESSAGES_COUNT).forEach(smartMessages::add);
     }
     
     return smartMessages;

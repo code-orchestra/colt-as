@@ -187,10 +187,6 @@ public class ASLiveLauncher implements LiveLauncher<AsProject> {
 
                 result = files[0].getPath();
             }
-        } else if (SystemInfo.isWindows) {
-            // Do nothing
-        } else {
-            // Do nothing
         }
 
         return protect(result);

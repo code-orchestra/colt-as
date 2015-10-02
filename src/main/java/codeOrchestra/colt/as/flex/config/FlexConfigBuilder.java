@@ -14,7 +14,6 @@ import codeOrchestra.util.NameUtil;
 import codeOrchestra.util.StringUtils;
 
 import java.io.File;
-import java.io.FilenameFilter;
 import java.io.IOException;
 import java.util.List;
 
@@ -42,9 +41,7 @@ public class FlexConfigBuilder {
     // Sources
     if (!incrementalCompilation) {
       // Defined source paths
-      for (String sourcePath : project.getProjectPaths().getSourcePaths()) {
-        flexConfig.addSourcePath(sourcePath);
-      }
+      project.getProjectPaths().getSourcePaths().forEach(flexConfig::addSourcePath);
       
       // Provided libraries (language extensions) sources
       flexConfig.addLibraryPath(ASPathUtils.getColtSWCPath());
@@ -63,15 +60,11 @@ public class FlexConfigBuilder {
       
       // Add previous incremental SWCs as libraries
       File incrementalOutputDir = new File(ASPathUtils.getIncrementalOutputDir(project));
-      File[] incrementalSWCs = incrementalOutputDir.listFiles(new FilenameFilter() {
-        @Override
-        public boolean accept(File dir, String name) {
-          return name.toLowerCase().endsWith(".swc");
-        }
+      File[] incrementalSWCs = incrementalOutputDir.listFiles((dir, name) -> {
+        return name.toLowerCase().endsWith(".swc");
       });
       if (incrementalSWCs != null && incrementalSWCs.length > 0) {
-        for (int i = 0; i < incrementalSWCs.length; i++) {
-          File incrementalSWC = incrementalSWCs[i];
+        for (File incrementalSWC : incrementalSWCs) {
           flexConfig.addLibraryPath(incrementalSWC.getPath());
         }
       }
@@ -86,7 +79,7 @@ public class FlexConfigBuilder {
       flexConfig.setIncremental(true);
       
       // Changed source files must be copied to a separate folder and added to the config
-      File incrementalSourcesDir = project.getOrCreateIncrementalSourcesDir();
+      File incrementalSourcesDir = AsProject.getOrCreateIncrementalSourcesDir();
       if (!assetsUpdateMode) {
         FileUtils.clear(incrementalSourcesDir);
         for (ASSourceFile sourceFile : changedFiles) {
@@ -138,9 +131,7 @@ public class FlexConfigBuilder {
     }
 
     // Libraries
-    for (String libraryPath : project.getProjectPaths().getLibraryPaths()) {
-      flexConfig.addLibraryPath(libraryPath);
-    }
+    project.getProjectPaths().getLibraryPaths().forEach(flexConfig::addLibraryPath);
 
     // Main class
     if (!incrementalCompilation) {
@@ -176,7 +167,7 @@ public class FlexConfigBuilder {
   public static void addLibraryClasses(FlexConfig flexConfig, List<String> sourcePaths) throws BuildException {
     AsProject currentProject = AsProject.getCurrentProject();
     AsProjectBuildSettings compilerSettings = currentProject.getProjectBuildSettings();
-    List<String> excludedClasses = compilerSettings.getExcludedClasses();
+    List<String> excludedClasses = AsProjectBuildSettings.getExcludedClasses();
     
     for (String sourcePath : sourcePaths) {
       File sourceDir = new File(sourcePath);

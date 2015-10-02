@@ -47,9 +47,8 @@ public class LiveCodingSessionStartTraceCommand implements TraceCommand {
       
       Map<String, String> clientInfoDictionary = new HashMap<>();
       String[] decodedSplit = decoded.split("&");
-      for (int i = 0; i < decodedSplit.length; i++) {
-        String keyValue = decodedSplit[i];
-        String[] keyValueSplit = keyValue.split("=");      
+      for (String keyValue : decodedSplit) {
+        String[] keyValueSplit = keyValue.split("=");
         clientInfoDictionary.put(keyValueSplit[0], keyValueSplit[1]);
       }
       

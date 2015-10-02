@@ -152,7 +152,7 @@ public class ASLiveCodingLanguageHandler extends AbstractLiveCodingLanguageHandl
     }
 
     @Override
-    public ColtController<AsProject> createColtController() {
+    public ColtController createColtController() {
         return new ColtAsController();
     }
 
@@ -167,7 +167,7 @@ public class ASLiveCodingLanguageHandler extends AbstractLiveCodingLanguageHandl
     }
 
     @Override
-    public LiveCodingManager<AsProject, SocketWriterAdapter> createLiveCodingManager() {
+    public LiveCodingManager<SocketWriterAdapter> createLiveCodingManager() {
         return new ASLiveCodingManager();
     }
 

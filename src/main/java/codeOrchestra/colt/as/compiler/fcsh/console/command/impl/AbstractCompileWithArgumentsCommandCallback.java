@@ -22,11 +22,7 @@ public abstract class AbstractCompileWithArgumentsCommandCallback extends Abstra
 
   @Override
   public String getCommand() {
-    return getExecutableName() + " " + (isBenchmarkEnabled() ? "-benchmark=true " : "") + getArgumentsSeparated();
-  }
-
-  private boolean isBenchmarkEnabled() {
-    return false;
+    return getExecutableName() + " " + getArgumentsSeparated();
   }
 
   private String getArgumentsSeparated() {

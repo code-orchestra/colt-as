@@ -35,9 +35,7 @@ public final class PongTraceCommand implements TraceCommand {
   @Override
   public void execute(LoggerMessage message, ClientSocketHandler clientSocketHandler) {
     synchronized (this) {
-      for (PongListener pongListener : pongListeners) {
-        pongListener.pong();
-      }
+      pongListeners.forEach(PongListener::pong);
     }
   }
 

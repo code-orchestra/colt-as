@@ -51,18 +51,6 @@ public class CompilerMessage implements Serializable {
     return new CompilerMessagesWrapper(compilerMessages);
   }
 
-  public String getSourcePath() {
-    return sourcePath;
-  }
-
-  public int getLineNumber() {
-    return lineNumber;
-  }
-
-  public int getColumnNumber() {
-    return columnNumber;
-  }
-
   public MessageType getType() {
     return type;
   }
@@ -82,9 +70,7 @@ public class CompilerMessage implements Serializable {
     if (lineNumber != that.lineNumber) return false;
     if (content != null ? !content.equals(that.content) : that.content != null) return false;
     if (sourcePath != null ? !sourcePath.equals(that.sourcePath) : that.sourcePath != null) return false;
-    if (type != that.type) return false;
-
-    return true;
+    return type == that.type;
   }
 
   @Override

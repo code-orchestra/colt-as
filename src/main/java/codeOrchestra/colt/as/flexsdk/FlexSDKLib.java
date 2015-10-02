@@ -56,11 +56,10 @@ public enum FlexSDKLib {
     String flexSDKDir = ProjectHelper.<AsProject>getCurrentProject().getProjectBuildSettings().getFlexSDKPath();
     if (isPlayerGlobal()) {
       return getMostRecentPlayerglobalSWCPath(new File(flexSDKDir));
-    } else {
-      String libPath = flexSDKDir + File.separator + REGULAR_LIBS_RELATIVE_PATH + File.separator + getLibRelativePath();
-      if (FileUtils.doesExist(libPath)) {
-        return libPath;
-      }
+    }
+    String libPath = flexSDKDir + File.separator + REGULAR_LIBS_RELATIVE_PATH + File.separator + getLibRelativePath();
+    if (FileUtils.doesExist(libPath)) {
+      return libPath;
     }
     return null;
   }
@@ -95,10 +94,7 @@ public enum FlexSDKLib {
     }
 
     List<File> playersList = new ArrayList<>();
-    for (File playerDir : playerDirs) {
-      playersList.add(playerDir);
-    }
-
+    Collections.addAll(playersList, playerDirs);
     Collections.sort(playersList, new Comparator<File>() {
       @Override
       public int compare(File playerPath1, File playerPath2) {
@@ -113,8 +109,8 @@ public enum FlexSDKLib {
             String[] dirNameSplitted = dirName.split("\\.");
             int versionInt = 0;
 
-            for (int i = 0; i < dirNameSplitted.length; i++) {
-              versionInt += (Integer.valueOf(dirNameSplitted[i]) * (Math.pow(10, power)));
+            for (String aDirNameSplitted : dirNameSplitted) {
+              versionInt += (Integer.valueOf(aDirNameSplitted) * (Math.pow(10, power)));
               power--;
             }
 

@@ -11,6 +11,7 @@ import org.apache.tools.ant.types.Commandline;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -61,9 +62,7 @@ public abstract class AbstractFlexSDKRunner {
     // Additional compiler options
     if (!StringUtils.isEmpty(compilerSettings.getCompilerOptions())) {
       String[] additionalArgs = new Commandline("commandtoken " + compilerSettings.getCompilerOptions()).getArguments();
-      for (String additionalArgument : additionalArgs) {
-        commandArguments.add(additionalArgument);
-      }
+      Collections.addAll(commandArguments, additionalArgs);
     }
 
     return commandArguments;

@@ -19,7 +19,7 @@ public final class MessageScopeRegistry {
     return INSTANCE;
   }
 
-  private Map<String, MessageScope> scopeMap = new HashMap<>();
+  private final Map<String, MessageScope> scopeMap = new HashMap<>();
 
   private MessageScopeRegistry() {
     scopeMap.put(MAIN_SCOPE_ID, new MessageScope(MAIN_SCOPE_NAME));

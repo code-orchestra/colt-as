@@ -43,7 +43,7 @@ public class ColtAsRemoteServiceImpl extends AbstractColtRemoteService<AsProject
                     public void onError(Throwable t, CompilationResult errorResult) {
                         callback.onError(t, errorResult != null ? new ColtCompilationResult(errorResult) : null);
                     }
-                }, run, false);
+                }, run);
             }
         });
     }
@@ -69,7 +69,7 @@ public class ColtAsRemoteServiceImpl extends AbstractColtRemoteService<AsProject
                     public void onError(Throwable t, CompilationResult errorResult) {
                         callback.onError(t, errorResult != null ? new ColtCompilationResult(errorResult) : null);
                     }
-                }, run, false);
+                }, run);
             }
         });
     }

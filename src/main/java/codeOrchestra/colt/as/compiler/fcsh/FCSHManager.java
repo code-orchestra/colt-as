@@ -9,7 +9,6 @@ import codeOrchestra.colt.as.compiler.fcsh.target.CompilerTarget;
 import codeOrchestra.colt.core.logging.Logger;
 import codeOrchestra.lcs.license.ColtRunningKey;
 import codeOrchestra.util.StringUtils;
-import codeOrchestra.util.SystemInfo;
 
 import java.io.IOException;
 import java.util.Collections;
@@ -89,11 +88,7 @@ public class FCSHManager {
     
     IFCSHLauncher fcshLauncher;
     ProcessBuilder processBuilder;
-    if (FCSHLauncher.NATIVE_FCSH && SystemInfo.isWindows) {
-      fcshLauncher = new FCSHNativeLauncher();
-    } else {
-      fcshLauncher = new FCSHLauncher();
-    }
+    fcshLauncher = new FCSHLauncher();
     processBuilder = fcshLauncher.createProcessBuilder();
 
     Process fcshProcess;

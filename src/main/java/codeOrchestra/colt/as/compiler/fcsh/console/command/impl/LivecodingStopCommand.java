@@ -14,7 +14,6 @@ public class LivecodingStopCommand extends AbstractCommandCallback {
 
   @Override
   public void done(CommandOutput response) {
-    // do nothing
   }
 
   @Override
