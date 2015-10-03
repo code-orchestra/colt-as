@@ -12,7 +12,6 @@ class AndroidDescriptorGenerationForm extends DescriptorGenerationForm {
     AndroidDescriptorModel airModel
     AndroidDescriptorGenerationForm(AirModel model) {
         super(model)
-
         airModel = (model as AndroidAirModel).additionalDescriptorModel
     }
 

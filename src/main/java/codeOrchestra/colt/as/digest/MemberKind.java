@@ -12,17 +12,19 @@ public enum MemberKind {
   public static MemberKind byTraitKind(int traitKind) {
     if (traitKind == AbcTraitKind.Method()) {
       return METHOD;
-    } else if (traitKind == AbcTraitKind.Getter()) {
-      return GETTER;
-    } else if (traitKind == AbcTraitKind.Setter()) {
-      return SETTER;
-    } else if (traitKind == AbcTraitKind.Const()) {
-      return FIELD;
-    } else if (traitKind == AbcTraitKind.Slot()) {
-      return FIELD;
-    } else {
-      throw new IllegalArgumentException("Unknown trait kind: " + traitKind);
     }
+    if (traitKind == AbcTraitKind.Getter()) {
+      return GETTER;
+    }
+    if (traitKind == AbcTraitKind.Setter()) {
+      return SETTER;
+    }
+    if (traitKind == AbcTraitKind.Const()) {
+      return FIELD;
+    }
+    if (traitKind == AbcTraitKind.Slot()) {
+      return FIELD;
+    }
+    throw new IllegalArgumentException("Unknown trait kind: " + traitKind);
   }
-  
 }

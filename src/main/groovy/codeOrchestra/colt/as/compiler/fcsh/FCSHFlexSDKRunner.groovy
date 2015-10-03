@@ -34,7 +34,6 @@ class FCSHFlexSDKRunner extends AbstractFlexSDKRunner {
     @Override
     CompilationResult run() throws MakeException {
         FCSHManager fcshManager = FCSHManager.instance();
-
         try {
             switch (compilerKind) {
                 case FSCHCompilerKind.MXMLC:
@@ -140,10 +139,4 @@ class FCSHFlexSDKRunner extends AbstractFlexSDKRunner {
     String getErrorLogFilePath() {
         return new File(ProjectHelper.<AsProject>getCurrentProject().getBaseDir(), COMPILE_ERRORS_LOG_FILE_NAME).getPath();
     }
-
-    @Override
-    protected String getCommandName() {
-        return "fcsh";
-    }
-
 }

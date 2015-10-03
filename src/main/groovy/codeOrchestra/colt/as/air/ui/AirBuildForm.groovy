@@ -35,7 +35,6 @@ abstract class AirBuildForm extends VBox{
     boolean isGenerated = false
 
     AirBuildForm() {
-
         options = new FormGroup(title: "Options:")
         options.first = true
 
@@ -133,7 +132,6 @@ abstract class AirBuildForm extends VBox{
 
         // 3 - update address
         updateScriptPathValue(scriptPath)
-
         return true
     }
 

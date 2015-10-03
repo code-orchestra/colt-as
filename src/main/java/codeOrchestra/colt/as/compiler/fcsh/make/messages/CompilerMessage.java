@@ -31,7 +31,6 @@ public class CompilerMessage implements Serializable {
   private CompilerMessage(Matcher messageMatcher) {
     String sourcePathRaw = messageMatcher.group(1);
     this.sourcePath = sourcePathRaw.contains("^") ? sourcePathRaw.substring(sourcePathRaw.indexOf("^") + 1, sourcePathRaw.length()).trim() : sourcePathRaw;
-
     this.lineNumber = Integer.parseInt(messageMatcher.group(2));
     this.columnNumber = Integer.parseInt(messageMatcher.group(3));
     this.type = MessageType.parse(messageMatcher.group(4));

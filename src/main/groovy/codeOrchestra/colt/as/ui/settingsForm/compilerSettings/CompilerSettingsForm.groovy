@@ -15,9 +15,7 @@ class CompilerSettingsForm extends FormGroup{
 
     CompilerSettingsForm() {
         options = new LabeledTitledInput(title: "Additional compiler options:")
-
         children.add(options)
-
         init()
     }
 

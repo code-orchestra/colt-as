@@ -18,9 +18,7 @@ class SettingsForm extends FormGroup {
     SettingsForm() {
         clearLog = new CheckBoxInput(title: "Clear Messages Log on Session Start")
         pingTimeout = new CheckBoxInput(title: "Disconnect on ping timeout")
-
         children.addAll(clearLog, pingTimeout)
-
         init()
     }
 

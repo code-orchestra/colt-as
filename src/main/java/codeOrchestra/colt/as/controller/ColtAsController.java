@@ -33,7 +33,7 @@ import codeOrchestra.util.ProjectHelper;
 /**
  * @author Alexander Eliseyev
  */
-public class ColtAsController extends AbstractColtController<AsProject> {
+public class ColtAsController extends AbstractColtController {
 
     private static final Logger LOG = Logger.getLogger(ColtAsController.class);
 
