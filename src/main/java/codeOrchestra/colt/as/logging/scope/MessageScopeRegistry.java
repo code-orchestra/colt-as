@@ -1,7 +1,5 @@
 package codeOrchestra.colt.as.logging.scope;
 
-import codeOrchestra.colt.core.logging.model.MessageScope;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,10 +17,10 @@ public final class MessageScopeRegistry {
     return INSTANCE;
   }
 
-  private final Map<String, MessageScope> scopeMap = new HashMap<>();
+  private final Map<String, String> scopeMap = new HashMap<>();
 
   private MessageScopeRegistry() {
-    scopeMap.put(MAIN_SCOPE_ID, new MessageScope(MAIN_SCOPE_NAME));
+    scopeMap.put(MAIN_SCOPE_ID, MAIN_SCOPE_NAME);
   }
 
   public void addOrUpdateScope(String scopeId, String scopeName) {
@@ -31,20 +29,11 @@ public final class MessageScopeRegistry {
         return;
       }
       if ("Main".equals(scopeName)) {
-        scopeName = "Log";
+        scopeName = MAIN_SCOPE_NAME;
       }
-      
-      MessageScope scope = scopeMap.get(scopeId);
-      if (scope == null) {
-        scope = new MessageScope(scopeName);
-        scopeMap.put(scopeId, scope);
-
-          // TODO: implement - add a messages manager
-//          MessagesManager.getInstance().addTab(scopeName);
-      } else {
-        scope.setName(scopeName);
-      }
+      scopeMap.put(scopeId, scopeName);
+      // TODO: implement - add a messages manager
+      // MessagesManager.getInstance().addTab(scopeName);
     }
   }
-
 }

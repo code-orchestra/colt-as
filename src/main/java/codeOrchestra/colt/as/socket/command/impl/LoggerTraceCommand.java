@@ -37,7 +37,6 @@ public class LoggerTraceCommand implements TraceCommand {
       scopeIds = new ArrayList<>();
       for (LoggerScopeWrapper scopeWrapper : loggerMessage.getScopes()) {
         MessageScopeRegistry.getInstance().addOrUpdateScope(scopeWrapper.getId(), scopeWrapper.getName());
-
         scopeIds.add(scopeWrapper.getId());
       }
     }
