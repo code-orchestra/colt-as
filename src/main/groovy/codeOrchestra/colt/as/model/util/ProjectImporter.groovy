@@ -74,7 +74,6 @@ class ProjectImporter {
                 customConfigPath: { String s ->
                     project.projectBuildSettings.sdkModel.customConfigPath = PathUtils.makeAbsolute(s)
                 },
-
                 target: { String s ->
                     project.projectBuildSettings.runTargetModel.target = s
                 },
@@ -100,12 +99,10 @@ class ProjectImporter {
                     project.projectBuildSettings.runTargetModel.iosAirModel.storePass = s
                 },
                 __SAVED_PACKAGED_FILES: { String s ->
-
                 },
                 'provisioning-profile': { String s ->
                     project.projectBuildSettings.runTargetModel.iosAirModel.provisionPath = PathUtils.makeAbsolute(s)
                 },
-
                 sourcePaths: { String s ->
                     List<File> paths = splitPaths(s)
                     project.projectPaths.sources = FilesetInput.createFilesetString(paths)
@@ -121,21 +118,18 @@ class ProjectImporter {
                 htmlTemplatePath: { String s ->
                     project.projectPaths.htmlTemplatePath = PathUtils.makeAbsolute(s)
                 },
-
                 compression: { String s ->
                     project.projectBuildSettings.productionBuildModel.compression = s
                 },
                 optimization: { String s ->
                     project.projectBuildSettings.productionBuildModel.optimization = s
                 },
-
                 clearMessages: { String s ->
                     project.projectLiveSettings.settingsModel.clearLog = s
                 },
                 disconnectOnTimeout: { String s ->
                     project.projectLiveSettings.settingsModel.disconnectOnTimeout = s
                 },
-
                 flashPlayerPath: { String s ->
                     project.projectLiveSettings.launcherModel.flashPlayerPath = PathUtils.makeAbsolute(s)
                 },
@@ -163,7 +157,6 @@ class ProjectImporter {
         if (s.contains(";")) {
             return s.split(";").collect { new File(PathUtils.makeAbsolute(it)) }
         }
-
         List<File> result = new ArrayList<>()
         result.add(new File(PathUtils.makeAbsolute(s)))
         return result

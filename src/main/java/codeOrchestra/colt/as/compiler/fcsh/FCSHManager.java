@@ -38,7 +38,6 @@ public class FCSHManager {
 
   public void restart() throws FCSHException {
     ColtRunningKey.setRunning(true);
-    
     destroyProcess();
     assureFCSHIsActive();
   }

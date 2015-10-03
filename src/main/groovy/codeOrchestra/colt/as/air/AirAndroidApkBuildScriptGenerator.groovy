@@ -58,7 +58,6 @@ class AirAndroidApkBuildScriptGenerator extends AirBuildScriptGenerator {
 
         Map<String, String> descReplacements = new HashMap<>()
         descReplacements.put("{APPNAME}", appName)
-
         descReplacements.put("{OUTPUT_FILE}", project.getProjectBuildSettings().outputFilename)
 
         return targetScriptFile.getPath()

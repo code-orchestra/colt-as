@@ -12,7 +12,6 @@ class AirDesktopLauncherForm extends FormGroup {
 
     AirDesktopLauncherForm() {
         title = "Launcher"
-
         children.add(new LabeledTitledInput(title: "ADL options:", bindProperty: model.adlOptions()))
     }
 }

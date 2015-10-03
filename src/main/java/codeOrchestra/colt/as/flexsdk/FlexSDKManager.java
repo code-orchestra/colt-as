@@ -86,7 +86,6 @@ public class FlexSDKManager {
         }
 
         FlexSDKLib flexSDKLib = FlexSDKLib.get(namespace);
-
         if (flexSDKLib.isPlayerGlobal()) {
             String playerglobalSWCPath = getMostRecentPlayerglobalSWCPath(flexSDKDir);
             cacheLibPath(flexLibKey, playerglobalSWCPath);
@@ -236,9 +235,8 @@ public class FlexSDKManager {
 
             FlexSDKLibWrapper that = (FlexSDKLibWrapper) o;
 
-            if (flexSDKPath != null ? !flexSDKPath.equals(that.flexSDKPath) : that.flexSDKPath != null)
-                return false;
-            return !(namespace != null ? !namespace.equals(that.namespace) : that.namespace != null);
+            return !(flexSDKPath != null ? !flexSDKPath.equals(that.flexSDKPath) : that.flexSDKPath != null)
+                    && !(namespace != null ? !namespace.equals(that.namespace) : that.namespace != null);
 
         }
 

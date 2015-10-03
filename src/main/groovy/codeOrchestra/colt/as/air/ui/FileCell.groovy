@@ -30,7 +30,6 @@ class FileCell extends ListCell<FileCellBean> {
     @Override
     protected void updateItem(FileCellBean t, boolean b) {
         super.updateItem(t, b)
-
         if (empty) {
             setGraphic(null)
             model = null
@@ -43,6 +42,5 @@ class FileCell extends ListCell<FileCellBean> {
             }
             setGraphic(root)
         }
-
     }
 }

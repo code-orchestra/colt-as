@@ -16,8 +16,6 @@ public class FCSHLauncher extends JavaLauncher implements IFCSHLauncher {
 
     public static final boolean PROFILING_ON = System.getProperty("colt.profiling.on") != null;
 
-    public static final boolean NATIVE_FCSH = false;
-
     public FCSHLauncher() {
         super(null);
 

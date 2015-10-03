@@ -29,17 +29,16 @@ public abstract class FlashClientSocketHandler extends ClientSocketHandler {
   }
 
   private String buildPolicy()  {
-    StringBuilder policyBuffer = new StringBuilder();
-
-    policyBuffer.append("<?xml version=\"1.0\"?>");
-    policyBuffer.append("<cross-domain-policy>");
-    policyBuffer.append("<allow-access-from domain=\"").append(policyHost)
-      .append("\" to-ports=\"").append(policyPorts).append("\" secure=\"false\" />");
-    policyBuffer.append("</cross-domain-policy>");
-
-    return policyBuffer.toString();
+      return new StringBuilder()
+              .append("<?xml version=\"1.0\"?>")
+              .append("<cross-domain-policy>")
+              .append("<allow-access-from domain=\"")
+              .append(policyHost)
+              .append("\" to-ports=\"")
+              .append(policyPorts)
+              .append("\" secure=\"false\" />")
+              .append("</cross-domain-policy>").toString();
   }
 
   protected abstract void handleMessage(String str);
-
 }

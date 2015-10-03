@@ -29,7 +29,7 @@ public class ProjectDigestHelper {
   public List<EmbedDigest> getEmbedDigests() {
     List<EmbedDigest> result = new ArrayList<>();
     
-    File embedDigestsFile = new File(project.getDigestsDir(), "embedDigests.xml");
+    File embedDigestsFile = new File(AsProject.getDigestsDir(), "embedDigests.xml");
     if (!embedDigestsFile.exists()) {
       LOG.error("Embed digests report file expected at " + embedDigestsFile.getPath() + " doesn't exist");
       return result;
@@ -58,7 +58,6 @@ public class ProjectDigestHelper {
     long timeStarted = System.currentTimeMillis();
     
     List<String> swcPaths = new ArrayList<>();
-
     for (FlexSDKLib flexLib : FlexSDKLib.values()) {
       String swcPath = flexLib.getPath();
       if (swcPath != null) {
@@ -68,7 +67,7 @@ public class ProjectDigestHelper {
 
     swcPaths.addAll(project.getProjectPaths().getLibraryPaths().stream().collect(Collectors.toList()));
     
-    SWCDigest swcDigest = new SWCDigest(swcPaths, project.getDigestsDir().getPath());
+    SWCDigest swcDigest = new SWCDigest(swcPaths, AsProject.getDigestsDir().getPath());
     swcDigest.generate();
     
     LOG.info("Digests building took " + (System.currentTimeMillis() - timeStarted) + "ms");

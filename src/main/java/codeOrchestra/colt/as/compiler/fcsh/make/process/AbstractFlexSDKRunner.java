@@ -34,8 +34,6 @@ public abstract class AbstractFlexSDKRunner {
 
   public abstract String getErrorLogFilePath();
 
-  protected abstract String getCommandName();
-
   protected List<String> getCommandArguments() {
     List<String> commandArguments = new ArrayList<>();
 

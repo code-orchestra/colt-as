@@ -182,7 +182,6 @@ public class FlexConfigBuilder {
 
       for (File sourceFile : sourceFiles) {
         String relativePath = FileUtils.getRelativePath(sourceFile.getPath(), sourceDir.getPath(), File.separator);
-
         if (relativePath.toLowerCase().endsWith(ASSourceFile.DOT_AS)) {
           relativePath = relativePath.substring(0, relativePath.length() - ASSourceFile.DOT_AS.length());
         } else if (relativePath.toLowerCase().endsWith(ASSourceFile.DOT_MXML)) {
