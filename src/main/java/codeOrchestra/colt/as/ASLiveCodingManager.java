@@ -31,7 +31,7 @@ import java.util.*;
 /**
  * @author Alexander Eliseyev
  */
-public class ASLiveCodingManager extends AbstractLiveCodingManager<AsProject, SocketWriterAdapter> {
+public class ASLiveCodingManager extends AbstractLiveCodingManager<SocketWriterAdapter> {
 
     private static final Logger LOG = Logger.getLogger(LiveCodingManager.class);
 

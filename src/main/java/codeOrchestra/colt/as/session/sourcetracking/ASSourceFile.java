@@ -127,6 +127,4 @@ public class ASSourceFile extends AbstractSourceFile implements SourceFile {
             return false;
         return true;
     }
-
-
 }

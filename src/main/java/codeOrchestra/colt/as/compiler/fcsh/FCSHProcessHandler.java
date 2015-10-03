@@ -1,7 +1,6 @@
 package codeOrchestra.colt.as.compiler.fcsh;
 
 import codeOrchestra.colt.as.compiler.fcsh.console.command.AbstractCommandCallback;
-import codeOrchestra.colt.as.view.FCSHConsoleView;
 import codeOrchestra.colt.core.execution.OSProcessHandler;
 import codeOrchestra.colt.core.execution.ProcessEvent;
 import codeOrchestra.colt.core.logging.Logger;
@@ -18,6 +17,7 @@ import java.io.OutputStreamWriter;
 public class FCSHProcessHandler extends OSProcessHandler {
   
   private static final Logger LOG = Logger.getLogger("FCSHProcessHandler");
+  private static Logger FCSHLogger = Logger.getLogger("fcsh");
 
   public OutputStreamWriter myOutputStreamWriter;
 
@@ -25,7 +25,6 @@ public class FCSHProcessHandler extends OSProcessHandler {
 
   public FCSHProcessHandler(Process process, String params) {
     super(process, params);
-
     this.addProcessListener(new ProcessAdapter() {
       public void onTextAvailable(ProcessEvent event, String k) {
         String text = event.getText();
@@ -39,7 +38,7 @@ public class FCSHProcessHandler extends OSProcessHandler {
 
   private synchronized void append(String s) {
     if (StringUtils.isNotEmpty(s)) {
-      FCSHConsoleView.get().write(s);
+      FCSHLogger.compile(s);
     }
   }
 
@@ -65,10 +64,9 @@ public class FCSHProcessHandler extends OSProcessHandler {
     } catch (IOException ex) {
       if (ExceptionUtils.isBrokenPipe(ex)) {
         return false;
-      } else {
-        LOG.error(ex);
-        return true;
       }
+      LOG.error(ex);
+      return true;
     }
   }
 
