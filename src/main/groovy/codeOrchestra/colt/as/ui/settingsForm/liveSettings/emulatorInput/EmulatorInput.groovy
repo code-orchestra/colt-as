@@ -1,7 +1,6 @@
 package codeOrchestra.colt.as.ui.settingsForm.liveSettings.emulatorInput
 
 import codeOrchestra.colt.core.ui.components.inputForms.base.TitledInputBase
-import codeOrchestra.colt.core.ui.components.inputForms.utils.TextUtil
 import codeOrchestra.groovyfx.FXBindable
 import javafx.beans.value.ChangeListener
 import javafx.beans.value.ObservableValue
@@ -10,6 +9,7 @@ import javafx.scene.control.ChoiceBox
 import javafx.scene.control.RadioButton
 import javafx.scene.control.ToggleGroup
 import javafx.scene.layout.HBox
+import javafx.scene.text.Text
 
 /**
  * @author Dima Kruk
@@ -41,7 +41,9 @@ class EmulatorInput extends TitledInputBase{
 
         choiceBox.selectionModel.selectedItemProperty().addListener({ ObservableValue observableValue, String t, String newValue ->
             if(newValue) {
-                choiceBox.prefWidth = TextUtil.getTextWidth(newValue) + 35
+                final Text text = new Text(newValue)
+                text.snapshot(null, null)
+                choiceBox.prefWidth = text.getLayoutBounds().getWidth() + 35
             }
         } as ChangeListener)
     }
