@@ -7,7 +7,6 @@ import codeOrchestra.colt.as.compiler.fcsh.console.command.impl.*;
 import codeOrchestra.colt.as.compiler.fcsh.make.CompilationResult;
 import codeOrchestra.colt.as.compiler.fcsh.target.CompilerTarget;
 import codeOrchestra.colt.core.logging.Logger;
-import codeOrchestra.lcs.license.ColtRunningKey;
 import codeOrchestra.util.StringUtils;
 
 import java.io.IOException;
@@ -37,7 +36,6 @@ public class FCSHManager {
   private final Map<List<String>, CompilerTarget> compilerTargets = Collections.synchronizedMap(new HashMap<>());
 
   public void restart() throws FCSHException {
-    ColtRunningKey.setRunning(true);
     destroyProcess();
     assureFCSHIsActive();
   }
@@ -65,15 +63,10 @@ public class FCSHManager {
   }
 
   public CompilationResult compile(CompilerTarget target) throws FCSHException {
-    ColtRunningKey.setRunning(true);
-
     assureFCSHIsActive();
-
     CompileTargetCommand compileCommand = new CompileTargetCommand(this, target);
     LOG.compile("Compiling the target #" + target.getId());
-
     submitCommand(compileCommand);
-
     return compileCommand.getCompileResult();
   }
 
@@ -138,15 +131,10 @@ public class FCSHManager {
   }
 
   public CompilationResult baseMXMLC(List<String> arguments) throws FCSHException {
-    ColtRunningKey.setRunning(true);
-
     assureFCSHIsActive();
-
     LivecodingBaseMXMLCCommand mxmlcCommand = new LivecodingBaseMXMLCCommand(arguments);
     LOG.compile("Compiling: " + mxmlcCommand.getCommand());
-
     submitCommand(mxmlcCommand);
-
     return mxmlcCommand.getCompileResult();
   }
 
@@ -162,55 +150,38 @@ public class FCSHManager {
   }
 
   public CompilationResult incrementalCOMPC(List<String> arguments) throws FCSHException {
-    ColtRunningKey.setRunning(true);
-
     assureFCSHIsActive();
-
     LivecodingIncrementalCOMPCCommand compcCommand = new LivecodingIncrementalCOMPCCommand(arguments);
     LOG.compile("Compiling: " + compcCommand.getCommand());
-
     submitCommand(compcCommand);
-
     return compcCommand.getCompileResult();
   }
 
   public CompilationResult compc(List<String> commandArguments) throws FCSHException {
-    ColtRunningKey.setRunning(true);
-
     assureFCSHIsActive();
-
     synchronized (compilerTargets) {
       CompilerTarget compilerTarget = compilerTargets.get(commandArguments);
       if (compilerTarget != null) {
         return compile(compilerTarget);
       }
     }
-    
     COMPCCommand compcCommand = new COMPCCommand(commandArguments);
     LOG.compile("Compiling: " + compcCommand.getCommand());
-
     submitCommand(compcCommand);
-
     return compcCommand.getCompileResult();
   }
 
   public CompilationResult mxmlc(List<String> commandArguments) throws FCSHException {
-    ColtRunningKey.setRunning(true);
-
     assureFCSHIsActive();
-
     synchronized (compilerTargets) {
       CompilerTarget compilerTarget = compilerTargets.get(commandArguments);
       if (compilerTarget != null) {
         return compile(compilerTarget);
       }
     }
-    
     MXMLCCommand mxmlcCommand = new MXMLCCommand(commandArguments);
     LOG.compile("Compiling: " + mxmlcCommand.getCommand());
-
     submitCommand(mxmlcCommand);
-
     return mxmlcCommand.getCompileResult();
   }
 
